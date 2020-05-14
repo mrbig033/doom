@@ -8,7 +8,9 @@
          ("M-p" . evil-backward-paragraph)
          ("M-n" . evil-forward-paragraph)
          :map evil-emacs-state-map
-         ("<escape>" . evil-force-normal-state))
+         ("<escape>" . evil-force-normal-state)
+         ("C-u" . my-backward-kill-line)
+         ("C-c u" . universal-argument))
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)

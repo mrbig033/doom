@@ -7,6 +7,7 @@
        ns-option-modifier 'meta
        ns-right-option-modifier 'meta
        initial-major-mode 'scratch-mode
+       kill-whole-line t
        doom-scratch-initial-major-mode 'scratch-mode)
 
 (setq excluded-modes "Buffer-menu-mode\\| Info-mode\\|Man-mode\\| calc-mode\\|calendar-mode\\| compilation-mode\\|completion-list-mode\\| dired-mode\\|fundamental-mode\\| gnus-mode\\|help-mode\\| helpful-mode\\|ibuffer-mode\\| lisp-interaction-mode\\|magit-auto-revert-mode\\| magit-blame-mode\\|magit-blame-read-only-mode\\| magit-blob-mode\\|magit-cherry-mode\\| magit-diff-mode\\|magit-diff-mode\\| magit-file-mode\\|magit-log-mode\\| magit-log-select-mode\\|magit-merge-preview-mode\\| magit-mode\\|magit-process-mode\\| magit-reflog-mode\\|magit-refs-mode\\| magit-repolist-mode\\|magit-revision-mode\\| magit-stash-mode\\|magit-stashes-mode\\| magit-status-mode\\|magit-submodule-list-mode\\| magit-wip-after-apply-mode\\|magit-wip-after-save-local-mode\\| magit-wip-after-save-mode\\|magit-wip-before-change-mode\\| magit-wip-initial-backup-mode\\|magit-wip-mode\\| minibuffer-inactive-mode\\|occur-mode\\| org-agenda-mode\\|org-src-mode\\| ranger-mode\\|special-mode\\| special-mode\\|term-mode\\| treemacs-mode\\|messages-buffer-mode")
@@ -63,6 +64,11 @@
   (let ((current-prefix-arg 4))
     (byte-force-recompile "~/.doom.d/my-lisp/")))
 
+(defun my-backward-kill-line (arg)
+  "Kill ARG lines backward."
+  (interactive "p")
+  (kill-line (- 1 arg)))
+
 (define-derived-mode scratch-mode
   lisp-interaction-mode "scratch")
 
@@ -75,7 +81,6 @@
     (when filename
       (kill-new filename))
     (message filename)))
-
 
 (map! :map scratch-mode-map
       :n "<escape>"'evil-ex-nohighlight)
