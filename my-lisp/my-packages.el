@@ -2,17 +2,17 @@
   :init
   (add-hook 'evil-insert-state-entry-hook 'evil-emacs-state)
   :bind (("C-h"      . hydra-help/body)
-              :map text-mode-map
-              ("M-p"      . evil-backward-paragraph)
-              ("M-n"      . evil-forward-paragraph)
-              :map prog-mode-map
-              ("M-p"      . evil-backward-paragraph)
-              ("M-n"      . evil-forward-paragraph)
-              :map evil-emacs-state-map
-              ("<escape>" . evil-force-normal-state)
-              ("C-u"      . my-backward-kill-line)
-              ("C-c u"    . universal-argument)
-              ("C-h"      . backward-delete-char-untabify))
+         :map text-mode-map
+         ("M-p"      . evil-backward-paragraph)
+         ("M-n"      . evil-forward-paragraph)
+         :map prog-mode-map
+         ("M-p"      . evil-backward-paragraph)
+         ("M-n"      . evil-forward-paragraph)
+         :map evil-emacs-state-map
+         ("<escape>" . evil-force-normal-state)
+         ("C-u"      . my-backward-kill-line)
+         ("C-c u"    . universal-argument)
+         ("C-h"      . backward-delete-char))
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
@@ -29,7 +29,7 @@
   :custom
   (avy-case-fold-search 't)
   (avy-style 'at-full)
-  (avy-timeout-seconds 0.3)
+  (avy-timeout-seconds 0.5)
   (avy-highlight-first t)
   (avy-single-candidate-jump t)
   :custom-face
@@ -160,17 +160,17 @@
   :custom
   (company-minimum-prefix-length 1)
   :bind (:map company-active-map
-              ("C-y" . my-company-yasnippet)
-              ("M-0" . company-complete-number)
-              ("M-1" . company-complete-number)
-              ("M-2" . company-complete-number)
-              ("M-3" . company-complete-number)
-              ("M-4" . company-complete-number)
-              ("M-5" . company-complete-number)
-              ("M-6" . company-complete-number)
-              ("M-7" . company-complete-number)
-              ("M-8" . company-complete-number)
-              ("M-9" . company-complete-number))
+         ("C-y" . my-company-yasnippet)
+         ("M-0" . company-complete-number)
+         ("M-1" . company-complete-number)
+         ("M-2" . company-complete-number)
+         ("M-3" . company-complete-number)
+         ("M-4" . company-complete-number)
+         ("M-5" . company-complete-number)
+         ("M-6" . company-complete-number)
+         ("M-7" . company-complete-number)
+         ("M-8" . company-complete-number)
+         ("M-9" . company-complete-number))
   :config
   (defun my-company-yasnippet ()
     (interactive)
@@ -222,18 +222,18 @@
   :init
   (add-hook 'ranger-mode-hook 'olivetti-mode)
   :bind (:map ranger-mode-map
-              ("i"          . my-ranger-go)
-              ("M-9"        . delete-other-windows)
-              ("tp"         . delete-file)
-              ("<escape>"   . ranger-close)
-              ("gg"         . ranger-goto-top)
-              ("zp"         . ranger-preview-toggle)
-              ("çcm"        . dired-create-directory)
-              ("C-c l"      . counsel-find-file)
-              ("d"          . dired-do-flagged-delete)
-              ("x"          . diredp-delete-this-file)
-              ("d"          . dired-flag-file-deletion)
-              ("<c-return>" . dired-do-find-marked-files))
+         ("i"          . my-ranger-go)
+         ("M-9"        . delete-other-windows)
+         ("tp"         . delete-file)
+         ("<escape>"   . ranger-close)
+         ("gg"         . ranger-goto-top)
+         ("zp"         . ranger-preview-toggle)
+         ("çcm"        . dired-create-directory)
+         ("C-c l"      . counsel-find-file)
+         ("d"          . dired-do-flagged-delete)
+         ("x"          . diredp-delete-this-file)
+         ("d"          . dired-flag-file-deletion)
+         ("<c-return>" . dired-do-find-marked-files))
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -307,8 +307,8 @@
 
 (use-package! eyebrowse
   :bind (:map eyebrowse-mode-map
-              ("M-q" . eyebrowse-prev-window-config)
-              ("M-w" . eyebrowse-next-window-config))
+         ("M-q" . eyebrowse-prev-window-config)
+         ("M-w" . eyebrowse-next-window-config))
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -339,18 +339,10 @@
   (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
 
 (use-package! xah-text
-  :hook (prog-mode text-mode)
   :load-path  "~/.doom.d/my-lisp/text/xah-text")
 
 (use-package! cool-moves
-  :hook (prog-mode text-mode)
   :load-path "~/.doom.d/my-lisp/text/cool-moves")
-
-(use-package! elpy
-  :custom
-  (elpy-rpc-virtualenv-path 'current)
-  :config
-  (elpy-enable))
 
 (use-package doom-modeline
   :custom
@@ -371,7 +363,13 @@
   (doom-modeline-buffer-modification-icon nil)
   (doom-modeline-buffer-file-name-style 'buffer-name))
 
-(use-package python
+(use-package! elpy
+  :custom
+  (elpy-rpc-virtualenv-path 'current)
+  :config
+  (elpy-enable))
+
+(use-package! python
   :init
   (add-hook! 'python-mode-hook
              #'rainbow-delimiters-mode
@@ -379,4 +377,14 @@
              #'electric-operator-mode
              #'elpy-mode)
   :custom
-  (python-indent-guess-indent-offset-verbose nil))
+  (python-indent-guess-indent-offset-verbose nil)
+  :config
+  (map! :map python-mode-map
+        :nvi "<C-return>" 'quickrun
+        :e "C-h"'python-indent-dedent-line-backspace))
+
+(use-package! parinfer
+  :hook emacs-lisp-mode
+  :custom
+  (parinfer-auto-switch-indent-mode t)
+  (parinfer-auto-switch-indent-mode-when-closing t))
