@@ -62,6 +62,5 @@
 (package! eyebrowse)
 (package! elpy)
 (package! shut-up)
-(package! company-jedi)
 (package! electric-operator)
 (package! evil-snipe :disable t)

@@ -5,6 +5,7 @@
        auto-revert-verbose nil
        use-package-always-defer t
        ns-option-modifier 'meta
+       warning-minimum-level :emergency
        ns-right-option-modifier 'meta
        initial-major-mode 'scratch-mode
        kill-whole-line t
