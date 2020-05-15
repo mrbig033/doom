@@ -1,4 +1,4 @@
-;;; cool-moves.el --- This package moves stuff               -*- lexical-binding: t; -*-
+;;; xah-text.el --- This package moves stuff               -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2017
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
