@@ -1,6 +1,4 @@
 (use-package! evil
-  ;; :init
-  ;; (remove-hook 'evil-insert-state-entry-hook 'evil-emacs-state)
   :bind (:map evil-insert-state-map
          ("C-p"      . evil-previous-line)
          ("C-n"      . evil-next-line)
@@ -12,6 +10,7 @@
          :map evil-normal-state-map
          ("C-h" . hydra-help/body)
          ("<f1>" . hydra-help/body)
+         ("zi" . '+fold/open-all)
          :map text-mode-map
          ("M-p"      . evil-backward-paragraph)
          ("M-n"      . evil-forward-paragraph)
@@ -29,11 +28,14 @@
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
   :config
+  (evil-set-initial-state 'pdf-view-mode 'emacs)
+
   (map! :nv "$" 'evil-last-non-blank)
   (map! :nv "g_" 'evil-end-of-line)
   (map! :n "go" 'cool-moves-open-line-below)
   (map! :n "gi" 'cool-moves-open-line-above)
-  (map! :n "gr" 'my-evil-sel-to-end)
+  (map! :nv "gr" 'my-evil-sel-to-end)
+  (map! :nv "gt" '+eval/line-or-region)
   (map! :n "ge" 'evil-end-of-visual-line)
   (map! :leader "su" 'my-evil-substitute)
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
@@ -54,7 +56,7 @@
     "SPC tc" "Clean Lines"
     "SPC td" "Dup Lines"
     "SPC td" "Dup Par")
-  (setq! which-key-idle-delay 0.4)
+  (setq! which-key-idle-delay 0.3)
   (which-key-mode +1))
 
 (use-package! avy
@@ -110,20 +112,19 @@
   (map! :nv ";" 'counsel-M-x))
 
 (use-package! prog-mode
-  :hook (prog-mode . hl-line-mode) 
+  :hook (prog-mode . hl-line-mode)
   :custom
   (word-wrap nil)
   (truncate-lines t)
   :config
   (map! :map (prog-mode-map)
-        :nv "TAB" '+fold/toggle
-        :n "<escape>" 'my-quiet-save-buffer))
+        :nv "TAB"     '+fold/toggle
+        :n "<escape>" 'my-quiet-save-buffer
+        "M-m"         'flycheck-first-error))
 
 (use-package! hydra
-  :functions show-major-mode
   :config
-  (map! :leader "j" 'hydra-org-clock/body)
-  (load! "my-hydras.el" my-load!))
+  (map! :leader "j" 'hydra-org-clock/body))
 
 (use-package! windmove
   :bind
@@ -144,6 +145,8 @@
 (use-package! org
   :init
   (remove-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change)
+  :custom
+  (org-ellipsis ".")
   :config
   (defun my-org-started-with-clock ()
     (interactive)
@@ -177,10 +180,7 @@
   (defun my-org-todo ()
     (interactive)
     (org-todo "TODO")
-    (org-clock-out))
-
-
-  )
+    (org-clock-out)))
 
 (use-package! org-pomodoro
   :after org
@@ -203,8 +203,20 @@
   :init
   :custom
   (company-minimum-prefix-length 1)
+  (company-show-numbers t)
+  (company-tooltip-limit 10)
+  (company-dabbrev-other-buffers t)
+  (company-selection-wrap-around t)
+  (company-dabbrev-ignore-case 'keep-prefix)
+
   :bind (:map company-active-map
          ("C-y" . my-company-yasnippet)
+         ("C-u" . company-yasnippet)
+         ("M-q" .  company-complete-selection)
+         ("M-w" .  my-company-comp-with-paren)
+         ("M-." .  my-company-comp-with-dot)
+         ("M-j" .  my-company-comp-space)
+         ("C-h" .  delete-backward-char)
          ("M-0" . company-complete-number)
          ("M-1" . company-complete-number)
          ("M-2" . company-complete-number)
@@ -214,13 +226,7 @@
          ("M-6" . company-complete-number)
          ("M-7" . company-complete-number)
          ("M-8" . company-complete-number)
-         ("M-9" . company-complete-number)
-         ("M-q" .  company-complete)
-         ("M-w" .  my-company-comp-with-paren)
-         ("M-." .  my-company-comp-with-dot)
-         ("M-j" .  my-company-comp-space)
-         ("C-h" .  delete-backward-char))
-
+         ("M-9" . company-complete-number))
   :config
   (setq company-backends '(company-bbdb
                            company-eclim
@@ -237,13 +243,27 @@
 
   (defun my-company-yasnippet ()
     (interactive)
-    (company-abort)))
+    (company-abort)
+    (yas-expand))
 
-(use-package! shut-up
-  :demand t)
+  (defun my-company-comp-with-paren ()
+    (interactive)
+    (company-complete-selection)
+    (insert "()")
+    (backward-char))
+
+  (defun my-company-comp-with-dot ()
+    (interactive)
+    (company-complete-selection)
+    (insert ".")
+    (company-complete))
+
+  (defun my-company-comp-space ()
+    (interactive)
+    (company-complete-selection)
+    (insert " ")))
 
 (use-package! super-save
-  :after shut-up
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
@@ -252,7 +272,7 @@
    '(quickrun
      quit-window
      eval-buffer
-     last-buffer
+     my-last-buffer
      windmove-up
      windmove-down
      windmove-left
@@ -266,7 +286,7 @@
 
   (defun super-save-command ()
     "Save the current buffer if needed."
-    (shut-up
+    (let ((inhibit-message t))
       (when (and buffer-file-name
                  (buffer-modified-p (current-buffer))
                  (file-writable-p buffer-file-name)
@@ -370,7 +390,6 @@
         (call-interactively alt-option)))))
 
 (use-package! eyebrowse
-  :demand t
   :init
   (map! :leader "v" 'eyebrowse-create-window-config)
   (map! :leader "x" 'eyebrowse-close-window-config)
@@ -440,9 +459,7 @@
          ("M-a"        . 'python-nav-backward-statement)
          ("M-e"        . 'python-nav-forward-statement)
          ("C-x m"      . 'elpy-multiedit-python-symbol-at-point)
-         ("C-x M"      . 'elpy-multiedit-stop)
-         ("M-m"        . 'flycheck-first-error)
-         )
+         ("C-x M"      . 'elpy-multiedit-stop))
 
   :custom
   (python-indent-guess-indent-offset-verbose nil)
@@ -457,14 +474,44 @@
     (insert "#!/usr/bin/env python3\n\n")
     (evil-insert-state)))
 
+(use-package! olivetti
+  :custom
+  (olivetti-body-width 95))
+
+(load! "cool-moves.el" my-load!)
+
+(load! "xah-text.el" my-load!)
+
+(use-package! pdf-tools
+  :bind (:map pdf-view-mode-map
+         ("q"   . my-last-buffer)
+         ("C-l" . my-show-pdf-view-commands))
+  :custom
+  (pdf-view-continuous nil)
+  (pdf-view-resize-factor 1.15)
+  (pdf-misc-size-indication-minor-mode t)
+  :config
+  (map! :map pdf-view-mode-map ("<escape>" 'my-last-buffer))
+  (defun my-show-pdf-view-commands ()
+    (interactive)
+    (counsel-M-x "^pdf-view- ")))
+
+(use-package! flycheck
+  :custom
+  (flycheck-idle-change-delay 0.3)
+  (flycheck-check-syntax-automatically '(save
+                                         idle-change
+                                         idle-buffer-switch
+                                         new-line
+                                         mode-enabled))
+
+  (flycheck-sh-shellcheck-executable "/usr/local/bin/shellcheck"))
+
+(use-package! message
+  :config
+  (read-only-mode -1))
+
 (straight-use-package '(apheleia :host github :repo "raxod502/apheleia")
                       :config
                       (after! apheleia
                         (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
-
-(load! "cool-moves.el" my-load!)
-
-
-
-
-(load! "xah-text.el" my-load!)

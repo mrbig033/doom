@@ -63,5 +63,6 @@
 (package! elpy)
 (package! shut-up)
 (package! electric-operator)
+(package! shut-up :disable t)
 (package! evil-snipe :disable t)
 (package! parinfer :disable t)

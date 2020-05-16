@@ -4,4 +4,6 @@
 
 (load! "~/.doom.d/my-lisp/my-settings.el")
 
+(load! "~/.doom.d/my-lisp/load!/my-hydras.el")
+
 (load! "~/.doom.d/my-lisp/my-packages.el")

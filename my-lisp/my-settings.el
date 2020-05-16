@@ -26,6 +26,7 @@
       :n "<escape>" 'my-quiet-save-buffer)
 
 (map! :leader
+      "," 'olivetti-mode
       "r" 'deer
       "z" 'hydra-window/body
       "a" 'counsel-M-x
