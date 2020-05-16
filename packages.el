@@ -64,3 +64,4 @@
 (package! shut-up)
 (package! electric-operator)
 (package! evil-snipe :disable t)
+(package! parinfer :disable t)

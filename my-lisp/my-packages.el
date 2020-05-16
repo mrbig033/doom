@@ -1,7 +1,17 @@
 (use-package! evil
-  :init
-  (add-hook 'evil-insert-state-entry-hook 'evil-emacs-state)
-  :bind (("C-h"      . hydra-help/body)
+  ;; :init
+  ;; (remove-hook 'evil-insert-state-entry-hook 'evil-emacs-state)
+  :bind (:map evil-insert-state-map
+         ("C-p"      . evil-previous-line)
+         ("C-n"      . evil-next-line)
+         ("C-u"      . my-backward-kill-line)
+         ("C-h"      . evil-delete-backward-char-and-join)
+         ("C-k"      . kill-line)
+         ("C-c u"    . universal-argument)
+         ("<f1>" . hydra-help/body)
+         :map evil-normal-state-map
+         ("C-h" . hydra-help/body)
+         ("<f1>" . hydra-help/body)
          :map text-mode-map
          ("M-p"      . evil-backward-paragraph)
          ("M-n"      . evil-forward-paragraph)
@@ -9,35 +19,57 @@
          ("M-p"      . evil-backward-paragraph)
          ("M-n"      . evil-forward-paragraph)
          :map evil-emacs-state-map
+         ("C-w"      . backward-kill-word)
          ("<escape>" . evil-force-normal-state)
          ("C-u"      . my-backward-kill-line)
          ("C-c u"    . universal-argument)
          ("C-h"      . backward-delete-char))
+
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
   :config
+  (map! :nv "$" 'evil-last-non-blank)
+  (map! :nv "g_" 'evil-end-of-line)
+  (map! :n "go" 'cool-moves-open-line-below)
+  (map! :n "gi" 'cool-moves-open-line-above)
+  (map! :n "gr" 'my-evil-sel-to-end)
+  (map! :n "ge" 'evil-end-of-visual-line)
+  (map! :leader "su" 'my-evil-substitute)
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
   (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
+  (defun my-evil-substitute ()
+    (interactive)
+    (evil-ex "%s/"))
+  (defun my-evil-sel-to-end ()
+    (interactive)
+    (evil-visual-char)
+    (evil-last-non-blank))
+
   (evil-visualstar-mode t))
 
-(after! which-key
-  (setq! which-key-idle-delay 0.5)
+(use-package! which-key
+  :config
+  (which-key-add-key-based-replacements
+    "SPC tc" "Clean Lines"
+    "SPC td" "Dup Lines"
+    "SPC td" "Dup Par")
+  (setq! which-key-idle-delay 0.4)
   (which-key-mode +1))
 
 (use-package! avy
   :custom
   (avy-case-fold-search 't)
   (avy-style 'at-full)
-  (avy-timeout-seconds 0.5)
+  (avy-timeout-seconds 0.3)
   (avy-highlight-first t)
   (avy-single-candidate-jump t)
   :custom-face
   (avy-background-face((t (:foreground "LightSkyBlue4"))))
   :init
   (map! :map global
-        :nv "f" 'evil-avy-goto-char-timer
-        :nv "F" 'evil-avy-goto-char-2-above)
+        :nv "F" 'evil-avy-goto-char-2-above
+        :nv "f" 'evil-avy-goto-char-2-below)
   :config
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))
@@ -56,7 +88,9 @@
 (use-package! ivy
   :bind
   (("C-s" . 'counsel-grep-or-swiper)
-   ("C-/" . 'counsel-ag)
+   ("C-/" . 'counsel-projectile-ag)
+   ("M-r" . 'ivy-switch-buffer)
+   ("M-;" . 'counsel-projectile-switch-to-buffer)
    :map ivy-minibuffer-map
    ("C-h" . 'backward-delete-char-untabify))
   :custom
@@ -76,6 +110,7 @@
   (map! :nv ";" 'counsel-M-x))
 
 (use-package! prog-mode
+  :hook (prog-mode . hl-line-mode) 
   :custom
   (word-wrap nil)
   (truncate-lines t)
@@ -87,50 +122,8 @@
 (use-package! hydra
   :functions show-major-mode
   :config
-
-  (defhydra hydra-help (:color blue :hint nil :exit t :foreign-keys nil)
-    "
-
-    ^^Help
-    ----------------------------------------
-    _f_: callable  _k_: key       _i_: info
-    _v_: variable  _l_: key long
-    _e_: package   _w_: where is
-    _p_: at point  _a_: apropos
-    _m_: major     _d_: docs
-    _o_: modes     _c_: command
-   "
-
-    ("<escape>" nil)
-    ("C-h" helpful-variable)
-    ("C-f" helpful-callable)
-
-    ("f" helpful-callable)
-    ("F" helpful-function)
-    ("e" describe-package)
-    ("v" helpful-variable)
-    ("p" helpful-at-point)
-    ("m" show-major-mode)
-    ("o" describe-mode)
-
-    ("k" describe-key-briefly)
-    ("l" helpful-key)
-    ("w" where-is)
-
-    ("a" counsel-apropos)
-    ("c" helpful-command)
-    ("d" apropos-documentation)
-    ("i" info))
-
-  (defhydra hydra-window (:color pink :hint nil :exit nil :foreign-keys nil)
-    ("<escape>" nil)
-    ("L" evil-window-increase-width "+w")
-    ("H" evil-window-decrease-width "+-w")
-    ("J" evil-window-decrease-height "+h")
-    ("K" evil-window-increase-height "-h")
-    ("j" +evil-window-split-a "sp" :exit t)
-    ("l" +evil-window-vsplit-a "vs" :exit t)
-    ("b" balance-windows "bal" :exit t)))
+  (map! :leader "j" 'hydra-org-clock/body)
+  (load! "my-hydras.el" my-load!))
 
 (use-package! windmove
   :bind
@@ -150,13 +143,64 @@
 
 (use-package! org
   :init
-  (remove-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change))
+  (remove-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change)
+  :config
+  (defun my-org-started-with-clock ()
+    (interactive)
+    (org-todo "STRT")
+    (org-clock-in))
+
+  (defun my-org-started-with-pomodoro ()
+    (interactive)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-goto-clock-and-start-pomodoro ()
+    (interactive)
+    (org-clock-goto)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-started-no-clock ()
+    (interactive)
+    (org-todo "STRT"))
+
+  (defun my-org-todo-done ()
+    (interactive)
+    (org-todo "DONE"))
+
+  (defun my-org-todo-done-pomodoro ()
+    (interactive)
+    (org-todo "DONE")
+    (org-pomodoro))
+
+  (defun my-org-todo ()
+    (interactive)
+    (org-todo "TODO")
+    (org-clock-out))
+
+
+  )
+
+(use-package! org-pomodoro
+  :after org
+  :custom
+  (org-pomodoro-offset 1)
+  (org-pomodoro-start-sound-args t)
+  (org-pomodoro-length (* 25 org-pomodoro-offset))
+  (org-pomodoro-short-break-length (/ org-pomodoro-length 5))
+  (org-pomodoro-long-break-length (* org-pomodoro-length 0.8))
+  (org-pomodoro-long-break-frequency 4)
+  (org-pomodoro-ask-upon-killing nil)
+  (org-pomodoro-manual-break t)
+  (org-pomodoro-keep-killed-pomodoro-time t)
+  (org-pomodoro-time-format "%.2m")
+  (org-pomodoro-short-break-format "SHORT: %s")
+  (org-pomodoro-long-break-format "LONG: %s")
+  (org-pomodoro-format "P: %s"))
 
 (use-package! company
   :init
-
-  ;; (set-company-backend! 'python-mode
-  ;;   'company-jedi 'company-yasnippet)
   :custom
   (company-minimum-prefix-length 1)
   :bind (:map company-active-map
@@ -170,8 +214,27 @@
          ("M-6" . company-complete-number)
          ("M-7" . company-complete-number)
          ("M-8" . company-complete-number)
-         ("M-9" . company-complete-number))
+         ("M-9" . company-complete-number)
+         ("M-q" .  company-complete)
+         ("M-w" .  my-company-comp-with-paren)
+         ("M-." .  my-company-comp-with-dot)
+         ("M-j" .  my-company-comp-space)
+         ("C-h" .  delete-backward-char))
+
   :config
+  (setq company-backends '(company-bbdb
+                           company-eclim
+                           company-semantic
+                           company-clang
+                           company-xcode
+                           company-cmake
+                           company-capf
+                           company-files (company-dabbrev-code company-gtags
+                                                               company-etags
+                                                               company-keywords)
+                           company-oddmuse
+                           company-dabbrev))
+
   (defun my-company-yasnippet ()
     (interactive)
     (company-abort)))
@@ -180,7 +243,6 @@
   :demand t)
 
 (use-package! super-save
-  :demand t
   :after shut-up
   :custom
   (auto-save-default nil)
@@ -189,6 +251,7 @@
   (super-save-triggers
    '(quickrun
      quit-window
+     eval-buffer
      last-buffer
      windmove-up
      windmove-down
@@ -268,13 +331,14 @@
     e : emacs     o : org        f: config    q: quit
     h : home      p: python      c: documents
   > "
-       '(?d ?e ?h ?n ?o ?p ?s ?f ?c ?m ?q))))
+       '(?d ?e ?E ?h ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
     (let* ((c (char-to-string path))
            (new-path
             (cl-case (intern c)
               ('d "~/dotfiles")
               ('e "~/.emacs.d")
+              ('E "~/emacs/.emacs.d")
               ('m "~/.doom.d")
               ('h "~")
               ('n "~/Downloads")
@@ -306,9 +370,12 @@
         (call-interactively alt-option)))))
 
 (use-package! eyebrowse
-  :bind (:map eyebrowse-mode-map
-         ("M-q" . eyebrowse-prev-window-config)
-         ("M-w" . eyebrowse-next-window-config))
+  :demand t
+  :init
+  (map! :leader "v" 'eyebrowse-create-window-config)
+  (map! :leader "x" 'eyebrowse-close-window-config)
+  (map! :leader "M-q" 'eyebrowse-close-window-config)
+  (map! :leader "M-w" 'eyebrowse-next-window-config)
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -318,8 +385,6 @@
   (eyebrowse-mode-line-right-delimiter " ]  ")
   (eyebrowse-mode-line-separator " | ")
   :config
-  (map! :leader "v" 'eyebrowse-create-window-config)
-  (map! :leader "x" 'eyebrowse-close-window-config)
   (eyebrowse-mode +1))
 
 (use-package! nswbuff
@@ -338,13 +403,7 @@
   (nswbuff-exclude-mode-regexp excluded-modes)
   (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
 
-(use-package! xah-text
-  :load-path  "~/.doom.d/my-lisp/text/xah-text")
-
-(use-package! cool-moves
-  :load-path "~/.doom.d/my-lisp/text/cool-moves")
-
-(use-package doom-modeline
+(use-package! doom-modeline
   :custom
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
@@ -375,16 +434,37 @@
              #'rainbow-delimiters-mode
              #'smartparens-strict-mode
              #'electric-operator-mode
-             #'elpy-mode)
+             #'elpy-mode
+             #'apheleia-mode)
+  :bind (:map python-mode-map
+         ("M-a"        . 'python-nav-backward-statement)
+         ("M-e"        . 'python-nav-forward-statement)
+         ("C-x m"      . 'elpy-multiedit-python-symbol-at-point)
+         ("C-x M"      . 'elpy-multiedit-stop)
+         ("M-m"        . 'flycheck-first-error)
+         )
+
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
   (map! :map python-mode-map
         :nvi "<C-return>" 'quickrun
-        :e "C-h"'python-indent-dedent-line-backspace))
+        :e "C-h"'python-indent-dedent-line-backspace)
 
-(use-package! parinfer
-  :hook emacs-lisp-mode
-  :custom
-  (parinfer-auto-switch-indent-mode t)
-  (parinfer-auto-switch-indent-mode-when-closing t))
+  (defun my-python-shebang ()
+    (interactive)
+    (kill-region (point-min) (point-max))
+    (insert "#!/usr/bin/env python3\n\n")
+    (evil-insert-state)))
+
+(straight-use-package '(apheleia :host github :repo "raxod502/apheleia")
+                      :config
+                      (after! apheleia
+                        (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
+
+(load! "cool-moves.el" my-load!)
+
+
+
+
+(load! "xah-text.el" my-load!)
