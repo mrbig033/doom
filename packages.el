@@ -63,6 +63,8 @@
 (package! elpy)
 (package! shut-up)
 (package! electric-operator)
+(package! aphelia
+  :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
 (package! evil-snipe :disable t)
 (package! parinfer :disable t)

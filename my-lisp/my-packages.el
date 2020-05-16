@@ -1,48 +1,48 @@
 (use-package! evil
-  :bind (:map evil-insert-state-map
-         ("C-p"      . evil-previous-line)
-         ("C-n"      . evil-next-line)
-         ("C-u"      . my-backward-kill-line)
-         ("C-h"      . evil-delete-backward-char-and-join)
-         ("C-k"      . kill-line)
-         ("C-c u"    . universal-argument)
-         ("<f1>" . hydra-help/body)
-         :map evil-normal-state-map
-         ("C-h" . hydra-help/body)
-         ("<f1>" . hydra-help/body)
-         ("zi" . '+fold/open-all)
-         :map text-mode-map
-         ("M-p"      . evil-backward-paragraph)
-         ("M-n"      . evil-forward-paragraph)
-         :map prog-mode-map
-         ("M-p"      . evil-backward-paragraph)
-         ("M-n"      . evil-forward-paragraph)
-         :map evil-emacs-state-map
-         ("C-w"      . backward-kill-word)
-         ("<escape>" . evil-force-normal-state)
-         ("C-u"      . my-backward-kill-line)
-         ("C-c u"    . universal-argument)
-         ("C-h"      . backward-delete-char))
-
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
+  (evil-visualstar/persistent t)
   :config
+
   (evil-set-initial-state 'pdf-view-mode 'emacs)
 
-  (map! :nv "$" 'evil-last-non-blank)
-  (map! :nv "g_" 'evil-end-of-line)
-  (map! :n "go" 'cool-moves-open-line-below)
-  (map! :n "gi" 'cool-moves-open-line-above)
-  (map! :nv "gr" 'my-evil-sel-to-end)
-  (map! :nv "gt" '+eval/line-or-region)
-  (map! :n "ge" 'evil-end-of-visual-line)
-  (map! :leader "su" 'my-evil-substitute)
+  (map! :g "M-n"      'evil-forward-paragraph
+        :g "M-p"      'evil-backward-paragraph
+        :i "<f1>"     'hydra-help/body
+        :i "C-c u"    'universal-argument
+        :i "C-h"      'evil-delete-backward-char-and-join
+        :i "C-k"      'kill-line
+        :i "C-n"      'evil-next-line
+        :i "C-p"      'evil-previous-line
+        :i "C-u"      'my-backward-kill-line
+        :n "<f1>"     'hydra-help/body
+        :n "<f8>"     'counsel-M-x
+        :n "C-h"      'hydra-help/body
+        :n "ge"       'evil-end-of-visual-line
+        :n "gi"       'cool-moves-open-line-above
+        :n "go"       'cool-moves-open-line-below
+        :n "zi"       '+fold/open-all
+        :n "C-k"      'my-kill-visual-line-and-insert
+        :nv "$"       'evil-last-non-blank
+        :nv "g_"      'evil-end-of-line
+        :nv "g_"      'evil-end-of-line
+        :nv "gr"      'my-evil-sel-to-end
+        :nv "gt"      '+eval/line-or-region
+        :e "C-w"      'backward-kill-word
+        :e "<escape>" 'evil-force-normal-state
+        :e "C-u"      'my-backward-kill-line
+        :e "C-c u"    'universal-argument
+        :e "C-h"      'backward-delete-char
+        :leader "su"  'my-evil-substitute)
+
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
   (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
+
   (defun my-evil-substitute ()
     (interactive)
     (evil-ex "%s/"))
+
   (defun my-evil-sel-to-end ()
     (interactive)
     (evil-visual-char)
@@ -69,17 +69,16 @@
   :custom-face
   (avy-background-face((t (:foreground "LightSkyBlue4"))))
   :init
-  (map! :map global
-        :nv "F" 'evil-avy-goto-char-2-above
+  (map! :nv "F" 'evil-avy-goto-char-2-above
         :nv "f" 'evil-avy-goto-char-2-below)
   :config
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))
 
 (use-package! helpful
-  :bind
-  ("C-;" . helpful-at-point)
-  ("C-c h" . my-helpful-options)
+  :init
+  (map! "C-;" 'helpful-at-point
+        "C-c h" 'my-helpful-options)
   :custom
   (help-window-select t)
   :config
@@ -88,13 +87,6 @@
     (counsel-M-x "^helpful-")))
 
 (use-package! ivy
-  :bind
-  (("C-s" . 'counsel-grep-or-swiper)
-   ("C-/" . 'counsel-projectile-ag)
-   ("M-r" . 'ivy-switch-buffer)
-   ("M-;" . 'counsel-projectile-switch-to-buffer)
-   :map ivy-minibuffer-map
-   ("C-h" . 'backward-delete-char-untabify))
   :custom
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
@@ -102,6 +94,7 @@
   (counsel-bookmark-avoid-dired t)
   (ivy-count-format "")
   (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' %s")
+
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
                         "^init.org$"
@@ -109,7 +102,15 @@
                         "magit"
                         "*org-src-fontification.\\*"))
   :config
-  (map! :nv ";" 'counsel-M-x))
+
+  (map! :g "C-s" 'counsel-grep-or-swiper
+        :g "C-/" 'counsel-projectile-ag
+        :g "M-r" 'ivy-switch-buffer
+        :g "M-;" 'counsel-projectile-switch-to-buffer
+        :nv ";" 'counsel-M-x
+        :map ivy-minibuffer-map
+        :g "C-h" 'backward-delete-char-untabify
+        :g "C-k" 'kill-line))
 
 (use-package! prog-mode
   :hook (prog-mode . hl-line-mode)
@@ -127,19 +128,22 @@
   (map! :leader "j" 'hydra-org-clock/body))
 
 (use-package! windmove
-  :bind
-  ("M-h" . windmove-left)
-  ("M-l" . windmove-right)
-  ("M-j" . windmove-down)
-  ("M-k" . windmove-up)
+  :init
+  (map! :map (global evil-org-mode-map)
+        :nvig "M-h" 'windmove-left
+        :nvig "M-l" 'windmove-right
+        :nvig "M-j" 'windmove-down
+        :nvig "M-k" 'windmove-up)
   :custom
   (windmove-wrap-around t))
 
 (use-package! winner
-  :bind
-  ("M--" . winner-undo)
-  ("M-=" . winner-redo)
   :config
+
+  (map! :g "M--" 'winner-undo
+        :g "M-=" 'winner-redo)
+
+
   (winner-mode +1))
 
 (use-package! org
@@ -202,6 +206,7 @@
 (use-package! company
   :init
   :custom
+
   (company-minimum-prefix-length 1)
   (company-show-numbers t)
   (company-tooltip-limit 10)
@@ -209,37 +214,39 @@
   (company-selection-wrap-around t)
   (company-dabbrev-ignore-case 'keep-prefix)
 
-  :bind (:map company-active-map
-         ("C-y" . my-company-yasnippet)
-         ("C-u" . company-yasnippet)
-         ("M-q" .  company-complete-selection)
-         ("M-w" .  my-company-comp-with-paren)
-         ("M-." .  my-company-comp-with-dot)
-         ("M-j" .  my-company-comp-space)
-         ("C-h" .  delete-backward-char)
-         ("M-0" . company-complete-number)
-         ("M-1" . company-complete-number)
-         ("M-2" . company-complete-number)
-         ("M-3" . company-complete-number)
-         ("M-4" . company-complete-number)
-         ("M-5" . company-complete-number)
-         ("M-6" . company-complete-number)
-         ("M-7" . company-complete-number)
-         ("M-8" . company-complete-number)
-         ("M-9" . company-complete-number))
+  (company-backends '(company-bbdb
+                      company-eclim
+                      company-semantic
+                      company-clang
+                      company-xcode
+                      company-cmake
+                      company-capf
+                      company-files (company-dabbrev-code company-gtags
+                                                          company-etags
+                                                          company-keywords)
+                      company-oddmuse
+                      company-dabbrev))
+
   :config
-  (setq company-backends '(company-bbdb
-                           company-eclim
-                           company-semantic
-                           company-clang
-                           company-xcode
-                           company-cmake
-                           company-capf
-                           company-files (company-dabbrev-code company-gtags
-                                                               company-etags
-                                                               company-keywords)
-                           company-oddmuse
-                           company-dabbrev))
+
+  (map! :map company-active-map
+        "C-y" 'my-company-yasnippet
+        "C-u" 'company-yasnippet
+        "M-q" 'company-complete-selection
+        "M-w" 'my-company-comp-with-paren
+        "M-." 'my-company-comp-with-dot
+        "M-j" 'my-company-comp-space
+        "C-h" 'delete-backward-char
+        "M-0" 'company-complete-number
+        "M-1" 'company-complete-number
+        "M-2" 'company-complete-number
+        "M-3" 'company-complete-number
+        "M-4" 'company-complete-number
+        "M-5" 'company-complete-number
+        "M-6" 'company-complete-number
+        "M-7" 'company-complete-number
+        "M-8" 'company-complete-number
+        "M-9" 'company-complete-number)
 
   (defun my-company-yasnippet ()
     (interactive)
@@ -303,20 +310,9 @@
 
 (use-package! ranger
   :init
+
   (add-hook 'ranger-mode-hook 'olivetti-mode)
-  :bind (:map ranger-mode-map
-         ("i"          . my-ranger-go)
-         ("M-9"        . delete-other-windows)
-         ("tp"         . delete-file)
-         ("<escape>"   . ranger-close)
-         ("gg"         . ranger-goto-top)
-         ("zp"         . ranger-preview-toggle)
-         ("çcm"        . dired-create-directory)
-         ("C-c l"      . counsel-find-file)
-         ("d"          . dired-do-flagged-delete)
-         ("x"          . diredp-delete-this-file)
-         ("d"          . dired-flag-file-deletion)
-         ("<c-return>" . dired-do-find-marked-files))
+
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -341,6 +337,21 @@
                                 "pdf" "doc"
                                 "docx"))
   :config
+
+  (map! :map ranger-mode-map
+        "i"          'my-ranger-go
+        "M-9"        'delete-other-windows
+        "tp"         'delete-file
+        "<escape>"   'ranger-close
+        "gg"         'ranger-goto-top
+        "zp"         'ranger-preview-toggle
+        "çcm"        'dired-create-directory
+        "C-c l"      'counsel-find-file
+        "d"          'dired-do-flagged-delete
+        "x"          'diredp-delete-this-file
+        "d"          'dired-flag-file-deletion
+        "<c-return>" 'dired-do-find-marked-files)
+
   (defun my-ranger-go (path)
     "Go subroutine"
     (interactive
@@ -391,10 +402,10 @@
 
 (use-package! eyebrowse
   :init
-  (map! :leader "v" 'eyebrowse-create-window-config)
-  (map! :leader "x" 'eyebrowse-close-window-config)
-  (map! :leader "M-q" 'eyebrowse-close-window-config)
-  (map! :leader "M-w" 'eyebrowse-next-window-config)
+  (map! :leader "v" 'eyebrowse-create-window-config
+        :leader "x" 'eyebrowse-close-window-config
+        :leader "M-q" 'eyebrowse-close-window-config
+        :leader "M-w" 'eyebrowse-next-window-config)
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -407,9 +418,6 @@
   (eyebrowse-mode +1))
 
 (use-package! nswbuff
-  :bind
-  ("M-," . nswbuff-switch-to-previous-buffer)
-  ("M-." . nswbuff-switch-to-next-buffer)
   :custom
   (nswbuff-left "  ")
   (nswbuff-clear-delay 2)
@@ -420,7 +428,10 @@
   (nswbuff-display-intermediate-buffers t)
   (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
   (nswbuff-exclude-mode-regexp excluded-modes)
-  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
+  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
+  :config
+  (map! "M-," 'nswbuff-switch-to-previous-buffer
+        "M-." 'nswbuff-switch-to-next-buffer))
 
 (use-package! doom-modeline
   :custom
@@ -449,24 +460,26 @@
 
 (use-package! python
   :init
+
   (add-hook! 'python-mode-hook
              #'rainbow-delimiters-mode
              #'smartparens-strict-mode
              #'electric-operator-mode
              #'elpy-mode
              #'apheleia-mode)
-  :bind (:map python-mode-map
-         ("M-a"        . 'python-nav-backward-statement)
-         ("M-e"        . 'python-nav-forward-statement)
-         ("C-x m"      . 'elpy-multiedit-python-symbol-at-point)
-         ("C-x M"      . 'elpy-multiedit-stop))
 
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
+
   (map! :map python-mode-map
-        :nvi "<C-return>" 'quickrun
-        :e "C-h"'python-indent-dedent-line-backspace)
+        "M-a"   'python-nav-backward-statement
+        "M-e"   'python-nav-forward-statement
+        "C-x m" 'elpy-multiedit-python-symbol-at-point
+        "C-x M" 'elpy-multiedit-stop
+        :e "C-h"'python-indent-dedent-line-backspace
+        :n "<return>" 'hydra-python-mode/body
+        :nvi "<C-return>" 'quickrun)
 
   (defun my-python-shebang ()
     (interactive)
@@ -483,15 +496,19 @@
 (load! "xah-text.el" my-load!)
 
 (use-package! pdf-tools
-  :bind (:map pdf-view-mode-map
-         ("q"   . my-last-buffer)
-         ("C-l" . my-show-pdf-view-commands))
   :custom
+
   (pdf-view-continuous nil)
   (pdf-view-resize-factor 1.15)
   (pdf-misc-size-indication-minor-mode t)
+
   :config
-  (map! :map pdf-view-mode-map ("<escape>" 'my-last-buffer))
+
+  (map! :map pdf-view-mode-map
+        "<escape>" 'my-last-buffer
+        "q"        'my-last-buffer
+        "C-l"      'my-show-pdf-view-commands)
+
   (defun my-show-pdf-view-commands ()
     (interactive)
     (counsel-M-x "^pdf-view- ")))
@@ -511,7 +528,7 @@
   :config
   (read-only-mode -1))
 
-(straight-use-package '(apheleia :host github :repo "raxod502/apheleia")
-                      :config
-                      (after! apheleia
-                        (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
+(use-package! apheleia-mode
+  :config
+  (after! apheleia
+    (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))

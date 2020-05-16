@@ -1,17 +1,8 @@
-(map! :map scratch-mode-map
-      :n "<escape>"'evil-ex-nohighlight)
-
-(map! :leader "tc" 'xah-clean-empty-lines
-      :leader "d" 'my-dup-line)
-
-(map! :map help-mode-map
-      :n "<escape>"'quit-window)
-
 (map! "M-s"   'my-last-buffer
       "M-RET" 'my-indent-buffer
       "M-9"   'delete-other-windows
       "M-0"   'quit-window
-      "M-/"   'hippie-expand
+      "M-/"   'hippie-expand     
       "C-c R" 'doom/restart
       "C-c e" 'eval-buffer
       "C-c r" 'my-recompile-doom
@@ -21,6 +12,15 @@
       :n "gsp" 'cool-moves-paragraph-forward
       :v "C-c a" 'align-regexp
       :nvi "M-." nil)
+
+(map! :map scratch-mode-map
+      :n "<escape>"'evil-ex-nohighlight)
+
+(map! :leader "tc" 'xah-clean-empty-lines
+      :leader "d" 'my-dup-line)
+
+(map! :map help-mode-map
+      :n "<escape>"'quit-window)
 
 (map! :map (text-mode-map)
       :n "<escape>" 'my-quiet-save-buffer)
@@ -37,7 +37,7 @@
 (setq my-load! "~/emacs/.doom.d/my-lisp/load!")
 
 (setq! load-prefer-newer t
-       eldoc-idle-delay 1
+       eldoc-idle-delay 2
        personal-keybindings nil
        auto-save-no-message t
        auto-revert-verbose nil
@@ -89,6 +89,11 @@
 (defun my-show-major-mode ()
   (interactive)
   (helpful-variable 'major-mode))
+
+  (defun my-kill-visual-line-and-insert ()
+    (interactive)
+    (kill-visual-line)
+    (evil-insert-state))
 
 ;; https://stackoverflow.com/a/998472
 (defun my-dup-line (arg)

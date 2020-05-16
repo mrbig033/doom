@@ -49,8 +49,8 @@
   "
     ^
     ^Python^
-    ^^^^^-------------------------------------------
-    _r_: run term    _g_: goto dumb  _RET_: flycheck
+    ^^^^^------------------------------------------------
+    _r_: run term    _g_: goto dumb  _<return>_: flycheck
     _s_: quickshell  _d_: goto def
     _P_: prev error  _a_: goto assig
     _n_: next error  _b_: go back
@@ -68,7 +68,7 @@
   ("d" elpy-goto-definition)
   ("b" pop-tag-mark)
   ("<C-return>" dumb-jump-back)
-  ("RET" hydra-flycheck-mode/body))
+  ("<return>" hydra-flycheck-mode/body))
 
 (defhydra hydra-flycheck-mode (:color blue :hint nil :foreign-keys run)
   "
