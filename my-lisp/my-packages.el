@@ -144,7 +144,21 @@
         :g "C-,"      'ivy-next-line
         :g "M-w"      'ivy-done
         :g "C-."      'ivy-done
-        :g "<insert>" 'yank))
+        :g "<insert>" 'yank)
+
+  (defun ivy-with-thing-at-point (cmd)
+    (let ((ivy-initial-inputs-alist
+           (list
+            (cons cmd (thing-at-point 'symbol)))))
+      (funcall cmd)))
+
+  (defun counsel-ag-thing-at-point ()
+    (interactive)
+    (ivy-with-thing-at-point 'counsel-ag))
+
+  (defun counsel-projectile-ag-thing-at-point ()
+    (interactive)
+    (ivy-with-thing-at-point 'counsel-projectile-ag)))
 
 (use-package unkillable-scratch
   :config
@@ -671,10 +685,10 @@
 
 (use-package evil-god-state
   :init
-  (map! :nv ","          'evil-execute-in-god-state
+  (map! :n ","          'evil-execute-in-god-state
         :map god-local-mode-map
-        :nvig "<escape>" 'evil-god-state-bail
-        :nvig ","        'evil-god-state-bail)
+        :nig "<escape>" 'evil-god-state-bail
+        :nig ","        'evil-god-state-bail)
   :custom
   (selection-coding-system 'utf-8-unix))
 
