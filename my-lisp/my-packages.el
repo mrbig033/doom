@@ -29,13 +29,16 @@
         :n "gi"       'cool-moves-open-line-above
         :n "go"       'cool-moves-open-line-below
         :n "zi"       '+fold/open-all
+        :n "'"        'evil-goto-mark
+        :n "`"        'evil-goto-mark-line
+        :nv ";"       'evil-repeat
         :nv "$"       'evil-last-non-blank
-        :nv "M-i"      'better-jumper-jump-forward
         :nv "g_"      'evil-end-of-line
         :nv "g_"      'evil-end-of-line
         :nv "gr"      'my-evil-sel-to-end
         :nv "gt"      '+eval/line-or-region
-        :nvi "M-o"      'better-jumper-jump-backward
+        :nv "M-i"     'better-jumper-jump-forward
+        :nvi "M-o"    'better-jumper-jump-backward
         :leader "su"  'my-evil-substitute)
 
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
@@ -50,6 +53,14 @@
     (evil-visual-char)
     (evil-last-non-blank))
 
+  (defun my-evil-set-mark-A ()
+    (interactive)
+    (evil-set-marker 65))
+
+  (defun my-evil-goto-mark-A ()
+    (interactive)
+    (evil-goto-mark 65))
+
   (evil-visualstar-mode t))
 
 (use-package! which-key
@@ -57,6 +68,7 @@
   (which-key-add-key-based-replacements
     "SPC tc" "Clean Lines"
     "SPC td" "Dup Lines"
+    "SPC bl" "Kill Matching"
     "SPC td" "Dup Par")
   (setq! which-key-idle-delay 0.3)
   (which-key-mode +1))
@@ -105,14 +117,15 @@
                         "*org-src-fontification.\\*"))
   :config
 
-  (map! :g "C-s" 'counsel-grep-or-swiper
-        :g "C-/" 'counsel-projectile-ag
-        :g "M-r" 'ivy-switch-buffer
-        :g "M-;" 'counsel-projectile-switch-to-buffer
-        :nv ";" 'counsel-M-x
+  (map! :g "C-s"      'counsel-grep-or-swiper
+        :g "C-/"      'counsel-projectile-ag
+        :g "M-r"      'ivy-switch-buffer
+        :g "M-;"      'counsel-projectile-switch-to-buffer
+        :nv "."       'counsel-M-x
         :map ivy-minibuffer-map
-        :g "C-h" 'backward-delete-char-untabify
-        :g "C-k" 'kill-line))
+        :g "C-h"      'backward-delete-char-untabify
+        :g "C-k"      'kill-line
+        :g "<insert>" 'yank))
 
 (use-package! prog-mode
   :hook (prog-mode . hl-line-mode)
@@ -130,6 +143,7 @@
   (map! :leader "j" 'hydra-org-clock/body))
 
 (use-package ivy-hydra
+  :disabled
   :after hydra)
 
 (use-package! windmove
@@ -157,6 +171,10 @@
   :custom
   (org-ellipsis ".")
   :config
+
+  (map! :map org-mode-map
+        :v "<insert>" 'org-insert-link)
+
   (defun my-org-started-with-clock ()
     (interactive)
     (org-todo "STRT")
@@ -356,7 +374,8 @@
         "d"          'dired-do-flagged-delete
         "x"          'diredp-delete-this-file
         "d"          'dired-flag-file-deletion
-        "<c-return>" 'dired-do-find-marked-files)
+        "<c-return>" 'dired-do-find-marked-files
+        :leader "R" 'my-deer-goto-my-lisp)
 
   (defun my-ranger-go (path)
     "Go subroutine"
@@ -364,9 +383,9 @@
      (list
       (read-char-choice
        "
-    d : dotfiles  n : downloads  s : scripts  m: doom
-    e : emacs     o : org        f: config    q: quit
-    h : home      p: python      c: documents
+    d: dotfiles  n : downloads  s : scripts  m: doom
+    e/E: emacs   o : org        f: config    q: quit
+    h: home      p: python      c: documents
   > "
        '(?d ?e ?E ?h ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
@@ -375,7 +394,7 @@
             (cl-case (intern c)
               ('d "~/dotfiles")
               ('e "~/.emacs.d")
-              ('E "~/emacs/.emacs.d")
+              ('E "~/emacs/.emacs.d.back")
               ('m "~/.doom.d")
               ('h "~")
               ('n "~/Downloads")
@@ -404,7 +423,11 @@
         (when (string-equal c "D")
           (ranger-show-drives)))
       (when alt-option
-        (call-interactively alt-option)))))
+        (call-interactively alt-option))))
+
+  (defun my-deer-goto-my-lisp ()
+    (interactive)
+    (deer my-lisp)))
 
 (use-package! eyebrowse
   :init
@@ -424,6 +447,9 @@
   (eyebrowse-mode +1))
 
 (use-package! nswbuff
+  :init
+  (map! :nvig "M-," 'nswbuff-switch-to-previous-buffer
+        :nvig "M-." 'nswbuff-switch-to-next-buffer)
   :custom
   (nswbuff-left "  ")
   (nswbuff-clear-delay 2)
@@ -434,10 +460,7 @@
   (nswbuff-display-intermediate-buffers t)
   (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
   (nswbuff-exclude-mode-regexp excluded-modes)
-  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
-  :config
-  (map! "M-," 'nswbuff-switch-to-previous-buffer
-        "M-." 'nswbuff-switch-to-next-buffer))
+  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
 
 (use-package! doom-modeline
   :custom
@@ -537,11 +560,39 @@
 (use-package treemacs
   :config
 
-(defun my-show-treemacs-commands ()
+  (defun my-show-treemacs-commands ()
     (interactive)
     (counsel-M-x "^treemacs- ")))
+
+(use-package clipmon
+  :custom
+  (selection-coding-system 'utf-8-unix)
+  :config
+  (clipmon-mode +1))
+
+(use-package evil-god-state
+  :init
+  (map! :nv ","          'evil-execute-in-god-state
+        :map god-local-mode-map
+        :nvig "<escape>" 'evil-god-state-bail
+        :nvig ","        'evil-god-state-bail)
+  :custom
+  (selection-coding-system 'utf-8-unix))
 
 (use-package! apheleia-mode
   :config
   (after! apheleia
     (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
+
+(use-package paren
+  :ensure nil
+  :custom
+  (blink-matching-paren-dont-ignore-comments t)
+  (show-paren-ring-bell-on-mismatch nil)
+  :custom-face
+  (show-paren-match ((t(:background "#292929"
+                        :foreground "dark orange"
+                        :inverse-video nil
+                        :underline nil
+                        :slant normal
+                        :weight ultrabold)))))

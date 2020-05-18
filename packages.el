@@ -63,6 +63,10 @@
 (package! elpy)
 (package! shut-up)
 (package! electric-operator)
+(package! ivy-hydra)
+(package! elmacro)
+(package! clipmon)
+(package! evil-god-state)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
