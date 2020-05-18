@@ -28,7 +28,6 @@
         :n "ge"       'evil-end-of-visual-line
         :n "gi"       'cool-moves-open-line-above
         :n "go"       'cool-moves-open-line-below
-        :n "zi"       '+fold/open-all
         :n "'"        'evil-goto-mark
         :n "`"        'evil-goto-mark-line
         :nv ";"       'evil-repeat
@@ -39,6 +38,8 @@
         :nv "gt"      '+eval/line-or-region
         :nv "M-i"     'better-jumper-jump-forward
         :nvi "M-o"    'better-jumper-jump-backward
+        :map (global evil-org-mode-map)
+        :n "zi"       '+fold/open-all
         :leader "su"  'my-evil-substitute)
 
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
@@ -69,7 +70,8 @@
     "SPC tc" "Clean Lines"
     "SPC td" "Dup Lines"
     "SPC bl" "Kill Matching"
-    "SPC td" "Dup Par")
+    "SPC td" "Dup Par"
+    "SPC fk" "Search Pkgs")
   (setq! which-key-idle-delay 0.3)
   (which-key-mode +1))
 
@@ -116,11 +118,11 @@
                         "*org-src-fontification.\\*"))
   :config
 
-  (map! :g "C-s"      'counsel-grep-or-swiper
-        :g "C-/"      'counsel-projectile-ag
-        :g "M-r"      'counsel-projectile-switch-to-buffer
-        :g "C-,"      'ivy-switch-buffer
-        :nv "."       'counsel-M-x
+  (map! :nvig "C-s"      'counsel-grep-or-swiper
+        :nvig "C-/"      'counsel-projectile-ag
+        :nvig "M-r"      'counsel-projectile-switch-to-buffer
+        :nvig "C-,"      'ivy-switch-buffer
+        :nvig "."        'counsel-M-x
         :map ivy-minibuffer-map
         :g "M-r"      'ivy-next-line
         :g "C-,"      'ivy-next-line
@@ -190,7 +192,64 @@
   (remove-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change)
   :custom
   (org-ellipsis ".")
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
+  (calendar-date-style 'european)
+  (org-agenda-hide-tags-regexp ".")
+  (org-agenda-show-all-dates nil)
+  (org-agenda-show-future-repeats 'next)
+  (org-agenda-show-outline-path nil)
+  (org-agenda-skip-additional-timestamps-same-entry 't)
+  (org-agenda-skip-archived-trees nil)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-timestamp-if-deadline-is-shown t)
+  (org-agenda-skip-timestamp-if-done t)
+  (org-agenda-skip-unavailable-files 't)
+  (org-allow-promoting-top-level-subtree nil)
+  (org-archive-location ".%s::datetree/")
+  (org-babel-no-eval-on-ctrl-c-ctrl-c t)
+  (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
+  (org-clock-auto-clock-resolution nil)
+  (org-clock-clocked-in-display nil)
+  (org-clock-in-resume t)
+  (org-clock-into-drawer t)
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-clock-persist t)
+  (org-clock-persist-query-resume t)
+  (org-clock-report-include-clocking-task t)
+  (org-clock-sound "~/Sounds/cuckoo.au")
+  (org-confirm-babel-evaluate nil)
+  (org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+  (org-edit-src-auto-save-idle-delay 1)
+  (org-edit-src-persistent-message nil)
+  (org-enforce-todo-checkbox-dependencies t)
+  (org-export-html-postamble nil)
+  (org-export-preserve-breaks t)
+  (org-export-time-stamp-file nil)
+  (org-export-with-archived-trees nil)
+  (org-export-with-broken-links t)
+  (org-export-with-tags nil)
+  (org-export-with-toc nil)
+  (org-export-with-todo-keywords nil)
+  (org-footnote-auto-adjust 't)
+  (org-html-htmlize-output-type 'css)
+  (org-link-file-path-type 'relative)
+  (org-log-into-drawer t)
+  (org-outline-path-complete-in-steps nil)
+  (org-refile-allow-creating-parent-nodes nil)
+  (org-refile-targets '((projectile-project-buffers :maxlevel . 3)))
+  (org-refile-use-outline-path 'file)
+  (org-return-follows-link t)
+  (org-show-notification-handler nil)
+  (org-src-ask-before-returning-to-edit-buffer nil)
+  (org-src-preserve-indentation t)
+  (org-src-window-setup 'current-window)
+  (org-src-window-setup 'current-window)
+  (org-timer-format "%s ")
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
+
   :config
+  (setq org-agenda-files '("~/org/Agenda"))
 
   (map! :map org-mode-map
         :v "<insert>" 'org-insert-link)
@@ -227,7 +286,10 @@
   (defun my-org-todo ()
     (interactive)
     (org-todo "TODO")
-    (org-clock-out)))
+    (org-clock-out))
+
+
+  (org-indent-mode t))
 
 (use-package! org-pomodoro
   :after org
@@ -459,6 +521,11 @@
   (eyebrowse-mode-line-right-delimiter " ]  ")
   (eyebrowse-mode-line-separator " | ")
   :config
+  (map! "M-q"       'eyebrowse-prev-window-config
+        "M-w"       'eyebrowse-next-window-config
+        :leader "v" 'eyebrowse-create-window-config
+        :leader "x" 'eyebrowse-close-window-config)
+
   (eyebrowse-mode +1))
 
 (use-package! nswbuff
