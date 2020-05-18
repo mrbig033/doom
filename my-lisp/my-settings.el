@@ -47,7 +47,7 @@
       doom-big-font (font-spec :family "monospace" :size 20))
 
 (setq! load-prefer-newer t
-       eldoc-idle-delay 2
+       eldoc-idle-delay 1
        confirm-kill-emacs nil
        personal-keybindings nil
        auto-save-no-message t

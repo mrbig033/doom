@@ -648,9 +648,10 @@
   :config
 
   (map! :map pdf-view-mode-map
-        "<escape>" 'my-last-buffer
-        "q"        'my-last-buffer
-        "C-l"      'my-show-pdf-view-commands)
+        :e "<escape>" 'my-last-buffer
+        :e "q"        'my-last-buffer
+        :e "w"        'pdf-view-fit-width-to-window
+        :e "C-l"      'my-show-pdf-view-commands)
 
   (defun my-show-pdf-view-commands ()
     (interactive)
@@ -658,11 +659,8 @@
 
 (use-package! flycheck
   :custom
-  (flycheck-idle-change-delay 0.3)
+  (flycheck-display-errors-delay 0.1)
   (flycheck-check-syntax-automatically '(save
-                                         idle-change
-                                         idle-buffer-switch
-                                         new-line
                                          mode-enabled))
 
   (flycheck-sh-shellcheck-executable "/usr/local/bin/shellcheck"))
