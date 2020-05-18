@@ -49,49 +49,24 @@
   "
     ^
     ^Python^
-    ^^^^^------------------------------------------------
-    _r_: run term    _g_: goto dumb  _<return>_: flycheck
-    _s_: quickshell  _d_: goto def
-    _P_: prev error  _a_: goto assig
-    _n_: next error  _b_: go back
+    ^^^^^-----------------------------
+    _d_: goto def   _s_: quickshell
+    _a_: goto ass   _c_: clear errors
+    _g_: goto dumb
+    _b_: go back
+
+                    
 
 "
   ("<escape>" nil)
   ("q" nil)
 
-  ("r" my-run-on-terminal)
-  ("s" quickrun-shell)
-  ("P" flymake-goto-prev-error)
-  ("n" flymake-goto-next-error)
+  ("d" elpy-goto-definition)
   ("a" elpy-goto-assignment)
   ("g" dumb-jump-go)
-  ("d" elpy-goto-definition)
   ("b" pop-tag-mark)
-  ("<C-return>" dumb-jump-back)
-  ("<return>" hydra-flycheck-mode/body))
-
-(defhydra hydra-flycheck-mode (:color blue :hint nil :foreign-keys run)
-  "
-^
-    ^Flycheck^
-    ^^^--------------------------------------
-    _a_: check buffer    _e_: error at point
-    _b_: first error     _f_: clear errors
-    _c_: previous error  _h_: flycheck mode
-
-"
-  ("q" nil)
-  ("<escape>" nil)
-  ("M-m" nil)
-  ("RET" flycheck-list-errors)
-
-  ("a" flycheck-buffer)
-  ("b" flycheck-first-error)
-  ("c" flycheck-previous-error)
-  ("d" flycheck-next-error)
-  ("e" flycheck-display-error-at-point)
-  ("f" flycheck-clear)
-  ("h" flycheck-mode))
+  ("s" quickrun-shell)
+  ("c" flycheck-clear))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "

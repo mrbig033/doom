@@ -599,6 +599,7 @@
   (doom-modeline-buffer-file-name-style 'buffer-name))
 
 (use-package! elpy
+  :demand t
   :custom
   (elpy-rpc-virtualenv-path 'current)
   :config
@@ -716,3 +717,4 @@
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+

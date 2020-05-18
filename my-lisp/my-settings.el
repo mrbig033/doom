@@ -64,6 +64,8 @@
 (setq-default menu-bar-mode nil)
 (menu-bar-mode nil)
 
+(global-subword-mode +1)
+
 (defun my-quiet-save-buffer ()
   (interactive)
   (let ((inhibit-message t))
