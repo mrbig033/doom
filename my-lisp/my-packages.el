@@ -491,11 +491,11 @@
      (list
       (read-char-choice
        "
-    d: dotfiles  n : downloads  s : scripts  m: doom
-    e/E: emacs   o : org        f: config    q: quit
-    h: home      p: python      c: documents
+    d: dotfiles  n : downloads  s : scripts   m: doom
+    e/E: emacs   o : org        f: config     q: quit
+    h: home      p/a: py/alien  c: documents
   > "
-       '(?d ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
+       '(?a ?d ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
     (let* ((c (char-to-string path))
            (new-path
@@ -508,6 +508,7 @@
               ('n "~/Downloads")
               ('o "~/org")
               ('p "~/Documents/Python")
+              ('a "~/Documents/Python/proj/alien")
               ('s "~/scripts")
               ('f "~/.config")
               ('c "~/Documents")
@@ -670,25 +671,30 @@
   (read-only-mode -1))
 
 (use-package treemacs
-  :config
-
-  (defun my-show-treemacs-commands ()
-    (interactive)
-    (counsel-M-x "^treemacs- ")))
-
-(use-package treemacs
+  :demand t
   :custom
-  (treemacs-width 25)
-  (treemacs-indentation 2)
+  (treemacs-width 23)
+  (treemacs-indentation '(10 px))
   (treemacs-follow-mode t)
-  (treemacs-is-never-other-window nil)
+  (treemacs-is-never-other-window t)
   (doom-themes-treemacs-enable-variable-pitch nil)
+  :custom-face
+  (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.1))))
   :config
   (map! :g "C-0" '+treemacs/toggle
         :map treemacs-mode-map
+        "a" 'treemacs-add-project-to-workspace
+        "d" 'treemacs-remove-project-from-workspace
+        "D" 'treemacs-delete
+        "p" 'treemacs-projectile
         "<C-return>" 'my-treemacs-visit-node-and-hide
         "C-0" 'treemacs-quit
+        "C-c t" 'my-show-treemacs-commands
         "<escape>" 'treemacs-quit)
+
+  (defun my-treemacs-commands ()
+    (interactive)
+    (counsel-M-x "^treemacs- "))
 
   (defun my-treemacs-visit-node-and-hide ()
     (interactive)
@@ -736,4 +742,3 @@
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
