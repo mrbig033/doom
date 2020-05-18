@@ -111,7 +111,6 @@
 
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
-                        "^init.org$"
                         "^agenda.org$"
                         "magit"
                         "*org-src-fontification.\\*"))
@@ -119,13 +118,34 @@
 
   (map! :g "C-s"      'counsel-grep-or-swiper
         :g "C-/"      'counsel-projectile-ag
-        :g "M-r"      'ivy-switch-buffer
-        :g "M-;"      'counsel-projectile-switch-to-buffer
+        :g "M-r"      'counsel-projectile-switch-to-buffer
+        :g "C-,"      'ivy-switch-buffer
         :nv "."       'counsel-M-x
         :map ivy-minibuffer-map
+        :g "M-r"      'ivy-next-line
+        :g "C-,"      'ivy-next-line
+        :g "M-w"      'ivy-done
+        :g "C-."      'ivy-done
         :g "C-h"      'backward-delete-char-untabify
         :g "C-k"      'kill-line
         :g "<insert>" 'yank))
+
+(use-package unkillable-scratch
+  :config
+  (setq unkillable-scratch-behavior 'bury
+        unkillable-buffers '("^agenda.org$"
+                             "^pytasks.org$"
+                             "config.el"
+                             "defaults.el"
+                             "defaults.el"
+                             "init.el"
+                             "my-hydras.el"
+                             "my-packages.el"
+                             "my-packages.el"
+                             "my-settings.el"
+                             "my-settings.el"
+                             "packages.el"))
+  (unkillable-scratch +1))
 
 (use-package! prog-mode
   :hook (prog-mode . hl-line-mode)
@@ -430,11 +450,6 @@
     (deer my-lisp)))
 
 (use-package! eyebrowse
-  :init
-  (map! :leader "v" 'eyebrowse-create-window-config
-        :leader "x" 'eyebrowse-close-window-config
-        :leader "M-q" 'eyebrowse-close-window-config
-        :leader "M-w" 'eyebrowse-next-window-config)
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)

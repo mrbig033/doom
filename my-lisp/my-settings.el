@@ -9,6 +9,8 @@
       "C-c e"    'eval-buffer
       "C-9"      'evilnc-comment-or-uncomment-lines
       "C-c r"    'my-recompile-doom
+      "M-q"      'eyebrowse-close-window-config
+      "M-w"      'eyebrowse-next-window-config
       "C-S-j"    'cool-moves-line-forward
       "C-S-k"    'cool-moves-line-backward
       :n "gsP"   'cool-moves-paragraph-backward
@@ -29,6 +31,8 @@
       :leader "q" 'my-kill-this-buffer
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window
+      :leader "v" 'eyebrowse-create-window-config
+      :leader "x" 'eyebrowse-close-window-config
       :map scratch-mode-map
       :n "<escape>"'evil-ex-nohighlight
       :map help-mode-map
@@ -40,7 +44,7 @@
       my-lisp "~/emacs/.doom.d/my-lisp/"
       excluded-modes "Buffer-menu-mode\\| Info-mode\\|Man-mode\\| calc-mode\\|calendar-mode\\| compilation-mode\\|completion-list-mode\\| dired-mode\\|fundamental-mode\\| gnus-mode\\|help-mode\\| helpful-mode\\|ibuffer-mode\\| lisp-interaction-mode\\|magit-auto-revert-mode\\| magit-blame-mode\\|magit-blame-read-only-mode\\| magit-blob-mode\\|magit-cherry-mode\\| magit-diff-mode\\|magit-diff-mode\\| magit-file-mode\\|magit-log-mode\\| magit-log-select-mode\\|magit-merge-preview-mode\\| magit-mode\\|magit-process-mode\\| magit-reflog-mode\\|magit-refs-mode\\| magit-repolist-mode\\|magit-revision-mode\\| magit-stash-mode\\|magit-stashes-mode\\| magit-status-mode\\|magit-submodule-list-mode\\| magit-wip-after-apply-mode\\|magit-wip-after-save-local-mode\\| magit-wip-after-save-mode\\|magit-wip-before-change-mode\\| magit-wip-initial-backup-mode\\|magit-wip-mode\\| minibuffer-inactive-mode\\|occur-mode\\| org-agenda-mode\\|org-src-mode\\| ranger-mode\\|special-mode\\| special-mode\\|term-mode\\| treemacs-mode\\|messages-buffer-mode")
 
-(setq doom-font (font-spec :family "monospace" :size 20 :weight 'semi-light)
+(setq doom-font (font-spec :family "monospace" :size 20)
       doom-variable-pitch-font (font-spec :family "monospace") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "monospace" :size 20)
       doom-big-font (font-spec :family "monospace" :size 20))
@@ -59,6 +63,9 @@
        initial-major-mode 'scratch-mode
        kill-whole-line t
        doom-scratch-initial-major-mode 'scratch-mode)
+
+(setq-default menu-bar-mode nil)
+(menu-bar-mode nil)
 
 (defun my-quiet-save-buffer ()
   (interactive)
