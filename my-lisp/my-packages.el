@@ -23,7 +23,7 @@
         :i "C-u"      'my-backward-kill-line
         :n "<f1>"     'hydra-help/body
         :n "<f8>"     'counsel-M-x
-        :n "C-h"      'hydra-help/body
+        :ng "C-h"      'hydra-help/body
         :n "C-k"      'my-kill-visual-line-and-insert
         :n "ge"       'evil-end-of-visual-line
         :n "gi"       'cool-moves-open-line-above
@@ -449,6 +449,7 @@
         "M-9"        'delete-other-windows
         "tp"         'delete-file
         "<escape>"   'ranger-close
+        "m"          'my-ranger-toggle-mark-and-advance
         "gg"         'ranger-goto-top
         "zp"         'ranger-preview-toggle
         "çcm"        'dired-create-directory
@@ -469,7 +470,7 @@
     e/E: emacs   o : org        f: config    q: quit
     h: home      p: python      c: documents
   > "
-       '(?d ?e ?E ?h ?n ?o ?p ?s ?f ?c ?m ?q))))
+       '(?d ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
     (let* ((c (char-to-string path))
            (new-path
@@ -485,7 +486,8 @@
               ('s "~/scripts")
               ('f "~/.config")
               ('c "~/Documents")
-              ('q "quit")))
+              ('q "quit")
+              ('i "quit")))
            (alt-option
             (cl-case (intern c)
               ;; Subdir Handlng
@@ -509,7 +511,15 @@
 
   (defun my-deer-goto-my-lisp ()
     (interactive)
-    (deer my-lisp)))
+    (deer my-lisp))
+
+  (defun my-ranger-toggle-mark-and-advance ()
+    (interactive)
+    (ranger-toggle-mark)
+    (ranger-next-file 1))
+
+
+  )
 
 (use-package! eyebrowse
   :custom
