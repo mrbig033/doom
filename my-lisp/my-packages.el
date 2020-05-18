@@ -71,6 +71,7 @@
     "SPC td" "Dup Lines"
     "SPC bl" "Kill Matching"
     "SPC td" "Dup Par"
+    "SPC bY" "Yank Dir"
     "SPC fk" "Search Pkgs")
   (setq! which-key-idle-delay 0.3)
   (which-key-mode +1))
@@ -122,7 +123,7 @@
         :nvig "C-/"      'counsel-projectile-ag
         :nvig "M-r"      'counsel-projectile-switch-to-buffer
         :nvig "C-,"      'ivy-switch-buffer
-        :nvig "."        'counsel-M-x
+        :nv "."          'counsel-M-x
         :map ivy-minibuffer-map
         :g "M-r"      'ivy-next-line
         :g "C-,"      'ivy-next-line
@@ -180,17 +181,16 @@
 
 (use-package! winner
   :config
-
   (map! :g "M--" 'winner-undo
         :g "M-=" 'winner-redo)
-
-
   (winner-mode +1))
 
 (use-package! org
   :init
-  (remove-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change)
+  ;; (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (add-hook 'org-cycle-hook 'org-cycle-hide-property-drawers)
   :custom
+
   (org-ellipsis ".")
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (calendar-date-style 'european)
@@ -244,15 +244,18 @@
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-src-preserve-indentation t)
   (org-src-window-setup 'current-window)
-  (org-src-window-setup 'current-window)
   (org-timer-format "%s ")
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
   :config
+
+  (org-indent-mode t)
   (setq org-agenda-files '("~/org/Agenda"))
 
-  (map! :map org-mode-map
-        :v "<insert>" 'org-insert-link)
+  (map! :map (org-mode-map evil-org-mode-map)
+        :nv "gr"      'my-evil-sel-to-end
+        :v "<insert>" 'org-insert-link
+        :i "C-l"      'completion-at-point)
 
   (defun my-org-started-with-clock ()
     (interactive)
@@ -286,10 +289,7 @@
   (defun my-org-todo ()
     (interactive)
     (org-todo "TODO")
-    (org-clock-out))
-
-
-  (org-indent-mode t))
+    (org-clock-out)))
 
 (use-package! org-pomodoro
   :after org
@@ -309,16 +309,14 @@
   (org-pomodoro-format "P: %s"))
 
 (use-package! company
-  :init
   :custom
-
   (company-minimum-prefix-length 1)
   (company-show-numbers t)
   (company-tooltip-limit 10)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-dabbrev-ignore-case 'keep-prefix)
-
+  (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode text-mode org-mode))
   (company-backends '(company-bbdb
                       company-eclim
                       company-semantic
@@ -331,9 +329,7 @@
                                                           company-keywords)
                       company-oddmuse
                       company-dabbrev))
-
   :config
-
   (map! :map company-active-map
         "C-y" 'my-company-yasnippet
         "C-u" 'company-yasnippet
@@ -522,6 +518,7 @@
   )
 
 (use-package! eyebrowse
+  :demand t
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -612,10 +609,6 @@
   :custom
   (olivetti-body-width 95))
 
-(load! "cool-moves.el" my-load!)
-
-(load! "xah-text.el" my-load!)
-
 (use-package! pdf-tools
   :custom
 
@@ -688,3 +681,10 @@
                         :underline nil
                         :slant normal
                         :weight ultrabold)))))
+
+(load! "cool-moves.el" my-load!)
+
+(load! "xah-text.el" my-load!)
+
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
