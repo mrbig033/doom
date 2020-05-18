@@ -1,6 +1,5 @@
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 
-
 (map! "M-s"      'my-last-buffer
       "M-RET"    'my-indent-buffer
       "M-9"      'delete-other-windows
@@ -47,7 +46,7 @@
       doom-big-font (font-spec :family "monospace" :size 20))
 
 (setq! load-prefer-newer t
-       eldoc-idle-delay 1
+       eldoc-idle-delay 0.3
        confirm-kill-emacs nil
        personal-keybindings nil
        auto-save-no-message t
@@ -152,8 +151,18 @@
 (defun my-search-packages ()
   (interactive)
   (progn
-  (find-file "~/.doom.d/my-lisp/my-packages.el")
-  (swiper "(use-package ")))
+    (find-file "~/.doom.d/my-lisp/my-packages.el")
+    (swiper "(use-package ")))
+
+(defun my-par-backward-to-indentation ()
+  (interactive)
+  (backward-paragraph)
+  (backward-to-indentation))
+
+(defun my-par-forward-to-indentation ()
+  (interactive)
+  (forward-paragraph)
+  (forward-to-indentation))
 
 (fset 'my-dup-inner-paragraph
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item '("vipy'>gop" 0 "%d") arg)))

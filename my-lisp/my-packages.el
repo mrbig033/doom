@@ -4,7 +4,7 @@
   (evil-respect-visual-line-mode t)
   (evil-visualstar/persistent t)
   :config
-  (evil-set-initial-state 'pdf-view-mode 'emacs)
+  ;; (evil-set-initial-state 'pdf-view-mode 'emacs)
 
   (map! :g "M-n"      'evil-forward-paragraph
         :g "M-p"      'evil-backward-paragraph
@@ -184,6 +184,8 @@
   (truncate-lines t)
   :config
   (map! :map (prog-mode-map)
+        "M-p"         'my-par-backward-to-indentation
+        "M-n"         'my-par-forward-to-indentation
         :nv "TAB"     '+fold/toggle
         :n "<escape>" 'my-quiet-save-buffer
         "M-m"         'flycheck-first-error))
@@ -217,7 +219,6 @@
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   :custom
-
 
   (org-ellipsis ".")
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
@@ -542,7 +543,6 @@
     (ranger-toggle-mark)
     (ranger-next-file 1))
 
-
   )
 
 (use-package! eyebrowse
@@ -641,17 +641,17 @@
 (use-package! pdf-tools
   :custom
 
-  (pdf-view-continuous nil)
+  (pdf-view-continuous t)
   (pdf-view-resize-factor 1.15)
   (pdf-misc-size-indication-minor-mode t)
 
   :config
 
   (map! :map pdf-view-mode-map
-        :e "<escape>" 'my-last-buffer
-        :e "q"        'my-last-buffer
-        :e "w"        'pdf-view-fit-width-to-window
-        :e "C-l"      'my-show-pdf-view-commands)
+        :nvieg "<escape>" 'quit-window
+        :nvieg "q"        'quit-window
+        :nvieg "w"        'pdf-view-fit-width-to-window
+        :nvieg "C-l"      'my-show-pdf-view-commands)
 
   (defun my-show-pdf-view-commands ()
     (interactive)
@@ -675,6 +675,27 @@
   (defun my-show-treemacs-commands ()
     (interactive)
     (counsel-M-x "^treemacs- ")))
+
+(use-package treemacs
+  :custom
+  (treemacs-width 25)
+  (treemacs-indentation 2)
+  (treemacs-follow-mode t)
+  (treemacs-is-never-other-window nil)
+  (doom-themes-treemacs-enable-variable-pitch nil)
+  :config
+  (map! :g "C-0" '+treemacs/toggle
+        :map treemacs-mode-map
+        "<C-return>" 'my-treemacs-visit-node-and-hide
+        "C-0" 'treemacs-quit
+        "<escape>" 'treemacs-quit)
+
+  (defun my-treemacs-visit-node-and-hide ()
+    (interactive)
+    (treemacs-visit-node-default)
+    (+treemacs/toggle))
+
+  (treemacs-resize-icons 15))
 
 (use-package clipmon
   :custom
