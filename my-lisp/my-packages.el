@@ -23,7 +23,7 @@
         :i "C-u"      'my-backward-kill-line
         :n "<f1>"     'hydra-help/body
         :n "<f8>"     'counsel-M-x
-        :ng "C-h"      'hydra-help/body
+        :ng "C-h"     'hydra-help/body
         :n "C-k"      'my-kill-visual-line-and-insert
         :n "ge"       'evil-end-of-visual-line
         :n "gi"       'cool-moves-open-line-above
@@ -38,6 +38,21 @@
         :nv "gt"      '+eval/line-or-region
         :nv "M-i"     'better-jumper-jump-forward
         :nvi "M-o"    'better-jumper-jump-backward
+        :map (minibuffer-local-map
+              minibuffer-local-ns-map
+              minibuffer-local-completion-map
+              minibuffer-local-must-match-map
+              minibuffer-local-isearch-map
+              read-expression-map
+              ivy-minibuffer-map
+              ivy-switch-buffer-map
+              evil-ex-completion-map
+              evil-ex-search-keymap)
+        :nvig "<insert>" 'yank
+        :nvig "C-k"      'kill-line
+        :nvig "C-d"      'delete-char
+        :nvig "C-h"      'delete-backward-char
+        :n "zi"       '+fold/open-all
         :map (global evil-org-mode-map)
         :n "zi"       '+fold/open-all
         :leader "su"  'my-evil-substitute)
@@ -129,8 +144,6 @@
         :g "C-,"      'ivy-next-line
         :g "M-w"      'ivy-done
         :g "C-."      'ivy-done
-        :g "C-h"      'backward-delete-char-untabify
-        :g "C-k"      'kill-line
         :g "<insert>" 'yank))
 
 (use-package unkillable-scratch
@@ -187,9 +200,14 @@
 
 (use-package! org
   :init
-  ;; (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (add-hook 'org-cycle-hook 'org-cycle-hide-property-drawers)
+  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (add-hook 'org-cycle-hook 'my-hide-drawer)
+
+  (defun my-hide-drawer ()
+    (interactive)
+    (org-hide-drawer-toggle t))
   :custom
+
 
   (org-ellipsis ".")
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
