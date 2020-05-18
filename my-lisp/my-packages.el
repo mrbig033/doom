@@ -681,7 +681,7 @@
   (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.1))))
   :config
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
-  (map! :g "C-0" '+treemacs/toggle
+  (map! :g "C-0" 'treemacs
         :map treemacs-mode-map
         "a" 'treemacs-add-project-to-workspace
         "d" 'treemacs-remove-project-from-workspace
@@ -699,7 +699,7 @@
   (defun my-treemacs-visit-node-and-hide ()
     (interactive)
     (treemacs-visit-node-default)
-    (+treemacs/toggle))
+    (treemacs))
 
   (treemacs-resize-icons 15))
 
