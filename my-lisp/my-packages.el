@@ -201,11 +201,7 @@
 (use-package! org
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (add-hook 'org-cycle-hook 'my-hide-drawer)
-
-  (defun my-hide-drawer ()
-    (interactive)
-    (org-hide-drawer-toggle t))
+  (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   :custom
 
 
