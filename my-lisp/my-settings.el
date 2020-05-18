@@ -1,15 +1,16 @@
-(map! "M-s"   'my-last-buffer
-      "M-RET" 'my-indent-buffer
-      "M-9"   'delete-other-windows
-      "M-0"   'quit-window
-      "M-/"   'hippie-expand     
-      "C-c R" 'doom/restart
-      "C-c e" 'eval-buffer
-      "C-c r" 'my-recompile-doom
-      "C-S-j" 'cool-moves-line-forward
-      "C-S-k" 'cool-moves-line-backward
-      :n "gsP" 'cool-moves-paragraph-backward
-      :n "gsp" 'cool-moves-paragraph-forward
+(map! "M-s"      'my-last-buffer
+      "M-RET"    'my-indent-buffer
+      "M-9"      'delete-other-windows
+      "M-0"      'quit-window
+      "M-/"      'hippie-expand
+      "C-c R"    'doom/restart
+      "C-c e"    'eval-buffer
+      "C-c r"    'my-recompile-doom
+      "C-S-j"    'cool-moves-line-forward
+      "C-S-k"    'cool-moves-line-backward
+      :n "gsP"   'cool-moves-paragraph-backward
+      :nv "Q"    'delete-frame
+      :n "gsp"   'cool-moves-paragraph-forward
       :v "C-c a" 'align-regexp
       :nvi "M-." nil)
 
@@ -38,9 +39,11 @@
 
 (setq! load-prefer-newer t
        eldoc-idle-delay 2
+       confirm-kill-emacs nil
        personal-keybindings nil
        auto-save-no-message t
        auto-revert-verbose nil
+       custom-safe-themes t
        use-package-always-defer t
        ns-option-modifier 'meta
        warning-minimum-level :emergency
@@ -90,10 +93,17 @@
   (interactive)
   (helpful-variable 'major-mode))
 
-  (defun my-kill-visual-line-and-insert ()
-    (interactive)
-    (kill-visual-line)
-    (evil-insert-state))
+(defun my-kill-visual-line-and-insert ()
+  (interactive)
+  (kill-visual-line)
+  (evil-insert-state))
+
+(defun my-recenter-window ()
+  (interactive)
+  (recenter-top-bottom
+   `(4)))
+
+(add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
 
 ;; https://stackoverflow.com/a/998472
 (defun my-dup-line (arg)
@@ -116,3 +126,5 @@
 
 (fset 'duplicate-inner-paragraph
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item '("vipy'>gop" 0 "%d") arg)))
+
+;; (use-package treemacs)

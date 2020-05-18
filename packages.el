@@ -67,4 +67,3 @@
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
 (package! evil-snipe :disable t)
-(package! parinfer :disable t)

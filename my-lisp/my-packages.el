@@ -4,13 +4,18 @@
   (evil-respect-visual-line-mode t)
   (evil-visualstar/persistent t)
   :config
-
   (evil-set-initial-state 'pdf-view-mode 'emacs)
 
   (map! :g "M-n"      'evil-forward-paragraph
         :g "M-p"      'evil-backward-paragraph
+        :e "<escape>" 'evil-force-normal-state
+        :e "C-c u"    'universal-argument
+        :e "C-h"      'backward-delete-char
+        :e "C-u"      'my-backward-kill-line
+        :e "C-w"      'backward-kill-word
         :i "<f1>"     'hydra-help/body
         :i "C-c u"    'universal-argument
+        :i "C-d"      'delete-forward-char
         :i "C-h"      'evil-delete-backward-char-and-join
         :i "C-k"      'kill-line
         :i "C-n"      'evil-next-line
@@ -19,21 +24,18 @@
         :n "<f1>"     'hydra-help/body
         :n "<f8>"     'counsel-M-x
         :n "C-h"      'hydra-help/body
+        :n "C-k"      'my-kill-visual-line-and-insert
         :n "ge"       'evil-end-of-visual-line
         :n "gi"       'cool-moves-open-line-above
         :n "go"       'cool-moves-open-line-below
         :n "zi"       '+fold/open-all
-        :n "C-k"      'my-kill-visual-line-and-insert
         :nv "$"       'evil-last-non-blank
+        :nv "M-i"      'better-jumper-jump-forward
         :nv "g_"      'evil-end-of-line
         :nv "g_"      'evil-end-of-line
         :nv "gr"      'my-evil-sel-to-end
         :nv "gt"      '+eval/line-or-region
-        :e "C-w"      'backward-kill-word
-        :e "<escape>" 'evil-force-normal-state
-        :e "C-u"      'my-backward-kill-line
-        :e "C-c u"    'universal-argument
-        :e "C-h"      'backward-delete-char
+        :nvi "M-o"      'better-jumper-jump-backward
         :leader "su"  'my-evil-substitute)
 
   (advice-add '+evil-window-split-a :after #'evil-window-prev)
@@ -126,6 +128,9 @@
 (use-package! hydra
   :config
   (map! :leader "j" 'hydra-org-clock/body))
+
+(use-package ivy-hydra
+  :after hydra)
 
 (use-package! windmove
   :init
@@ -271,6 +276,7 @@
     (insert " ")))
 
 (use-package! super-save
+  :demand t
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
@@ -527,6 +533,13 @@
 (use-package! message
   :config
   (read-only-mode -1))
+
+(use-package treemacs
+  :config
+
+(defun my-show-treemacs-commands ()
+    (interactive)
+    (counsel-M-x "^treemacs- ")))
 
 (use-package! apheleia-mode
   :config
