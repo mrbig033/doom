@@ -70,6 +70,8 @@
 (package! unkillable-scratch)
 (package! git-commit)
 (package! ag)
+(package! treemacs)
+(package! treemacs-projectile)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)

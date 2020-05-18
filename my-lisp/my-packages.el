@@ -668,12 +668,15 @@
   :config
   (read-only-mode -1))
 
-(use-package treemacs
-  :after-call +treemacs/toggle
+(use-package! treemacs
+  :demand t
+  :init
+  (with-eval-after-load 'treemacs
+    (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
   :custom
   (treemacs-width 23)
   (treemacs-indentation '(10 px))
-  (treemacs-follow-mode t)
+  (treemacs-follow-mode nil)
   (treemacs-is-never-other-window t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
@@ -700,6 +703,9 @@
     (+treemacs/toggle))
 
   (treemacs-resize-icons 15))
+
+(use-package treemacs-projectile
+  :after treemacs projectile)
 
 (use-package clipmon
   :custom
@@ -740,3 +746,4 @@
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+

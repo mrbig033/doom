@@ -65,6 +65,8 @@
 (setq-default menu-bar-mode nil)
 (menu-bar-mode nil)
 
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 (global-subword-mode +1)
 
 (defun my-quiet-save-buffer ()
@@ -165,6 +167,16 @@
   (interactive)
   (forward-paragraph)
   (forward-to-indentation))
+
+(defun my-bash-shebang ()
+  (interactive)
+  (erase-buffer)
+  (insert "#!/usr/bin/env bash\n\n")
+  (sh-mode)
+  (sh-set-shell "bash")
+  (xah-clean-empty-lines)
+  (forward-to-indentation)
+  (evil-insert-state))
 
 (fset 'my-dup-inner-paragraph
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item '("vipy'>gop" 0 "%d") arg)))
