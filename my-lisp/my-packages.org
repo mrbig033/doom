@@ -432,7 +432,7 @@
   :custom
   (treemacs-width 20)
   (treemacs-indentation '(5 px))
-  (treemacs-follow-mode nil)
+  (treemacs-follow-mode t)
   (treemacs-is-never-other-window t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
@@ -449,10 +449,21 @@
         "p" 'treemacs-projectile
         "C-p" 'treemacs-previous-project
         "C-n" 'treemacs-next-project
-        "C-j" 'treemacs-RET-action
+        "C-j" 'treemacs-quit
+        "M-q" 'treemacs-RET-action
         "C-c t" 'my-show-treemacs-commands
         "<C-return>" 'my-treemacs-visit-node-and-hide
         "<escape>" 'treemacs-quit)
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-below
+    [remap evil-find-char])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-above
+    [remap evil-find-char-backward])
 
   (defun my-treemacs-commands ()
     (interactive)
@@ -593,6 +604,7 @@
   :init
   (map! :nv "F" 'evil-avy-goto-char-2-above
         :nv "f" 'evil-avy-goto-char-2-below)
+       
   :config
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))

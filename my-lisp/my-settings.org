@@ -7,7 +7,6 @@
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
 
 (general-define-key
- :states '(normal visual insert)
  :keymaps  'override
  "M-h"      'windmove-left
  "M-l"      'windmove-right
