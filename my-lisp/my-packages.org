@@ -1,3 +1,8 @@
+#+PROPERTY: header-args :tangle yes :results none
+#+STARTUP: overview
+
+* Evil
+#+begin_src emacs-lisp
 (use-package! evil
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
@@ -96,7 +101,9 @@
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
+#+end_src
+* Org
+#+begin_src emacs-lisp
 (use-package! org
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -222,7 +229,9 @@
   (org-pomodoro-short-break-format "SHORT: %s")
   (org-pomodoro-long-break-format "LONG: %s")
   (org-pomodoro-format "P: %s"))
-
+#+end_src
+* Company
+#+begin_src emacs-lisp
 (use-package! company
   :custom
   (company-minimum-prefix-length 1)
@@ -285,7 +294,9 @@
     (interactive)
     (company-complete-selection)
     (insert " ")))
-
+#+end_src
+* Ranger
+#+begin_src emacs-lisp
 (use-package! ranger
   :init
 
@@ -394,7 +405,9 @@
     (interactive)
     (ranger-toggle-mark)
     (ranger-next-file 1)))
-
+#+end_src
+* Treemacs
+#+begin_src emacs-lisp
 (use-package! treemacs
   :demand t
   :init
@@ -435,7 +448,9 @@
 
 (use-package treemacs-projectile
   :after treemacs projectile)
-
+#+end_src
+* Ivy
+#+begin_src emacs-lisp
 (use-package! ivy
   :custom
   (ivy-extra-directories nil)
@@ -489,7 +504,9 @@
   :hook ivy
   :config
   (ivy-prescient-mode +1))
-
+#+end_src
+* Python
+#+begin_src emacs-lisp
 (use-package! python
   :init
 
@@ -525,7 +542,9 @@
   (elpy-rpc-virtualenv-path 'current)
   :config
   (elpy-enable))
-
+#+end_src
+* Moves
+#+begin_src emacs-lisp
 (use-package! avy
   :custom
   (avy-case-fold-search 't)
@@ -557,7 +576,9 @@
   (map! :g "M--" 'winner-undo
         :g "M-=" 'winner-redo)
   (winner-mode +1))
-
+#+end_src
+* Misc
+#+begin_src emacs-lisp
 (use-package! text-mode
   :init
   (remove-hook 'text-mode-hook 'hl-line-mode))
@@ -766,3 +787,4 @@
 (load! "cool-moves.el" my-load!)
 
 (load! "xah-text.el" my-load!)
+#+end_src

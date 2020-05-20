@@ -1,3 +1,8 @@
+#+PROPERTY: header-args :tangle yes :results none
+#+STARTUP: overview
+
+* Keybindings
+#+begin_src emacs-lisp
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
 
@@ -42,7 +47,9 @@
       :leader "q" 'my-kill-this-buffer
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window)
-
+#+end_src
+* Settings
+#+begin_src emacs-lisp
 
 (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -75,7 +82,9 @@
 
 
 (global-subword-mode +1)
-
+#+end_src
+* Functions
+#+begin_src emacs-lisp
 (add-hook 'after-init-hook 'toggle-frame-maximized)
 
 (defun my-quiet-save-buffer ()
@@ -199,3 +208,4 @@
 
 (fset 'my-dup-inner-paragraph
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item '("vipy'>gop" 0 "%d") arg)))
+#+end_src
