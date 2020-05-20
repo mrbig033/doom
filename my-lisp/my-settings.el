@@ -1,6 +1,6 @@
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
-(define-key key-translation-map (kbd "<f13>") (kbd "C-c '"))
+
 
 (map! "M-s"      'my-last-buffer
       "M-RET"    'my-indent-buffer

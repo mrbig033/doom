@@ -116,7 +116,7 @@
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
-
+  (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   :custom
 
   (org-ellipsis ".")
@@ -176,8 +176,6 @@
   (org-src-tab-acts-natively nil)
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-edit-src-auto-save-idle-delay 0)
-
-
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
   :config
@@ -185,6 +183,14 @@
   (org-indent-mode t)
 
   (setq org-agenda-files '("~/org/Agenda"))
+
+  (defun my-org-key-translation ()
+    "Custom `org-mode' behaviours."
+    ;; Buffer-local key translation from "`" to "~".
+    (let ((keymap (make-sparse-keymap)))
+      (set-keymap-parent keymap key-translation-map)
+      (setq-local key-translation-map keymap)
+      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
 
   (defun my-org-started-with-clock ()
     (interactive)
