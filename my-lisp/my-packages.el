@@ -109,7 +109,7 @@
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
-
+  (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   :custom
 
   (org-ellipsis ".")
@@ -161,17 +161,14 @@
   (org-return-follows-link t)
   (org-show-notification-handler nil)
   (org-timer-format "%s ")
-
-
-  ;; (org-src-fontify-natively t)
-  ;; (org-src-tab-acts-natively t)
-  ;; (org-edit-src-content-indentation 1)
-  ;; (org-edit-src-auto-save-idle-delay 1)
-  ;; (org-edit-src-persistent-message nil)
-  ;; (org-src-ask-before-returning-to-edit-buffer nil)
-  ;; (org-src-preserve-indentation t)
+  (org-src-preserve-indentation t)
   (org-src-window-setup 'current-window)
-
+  (org-edit-src-content-indentation 1)
+  (org-edit-src-persistent-message nil)
+  (org-src-fontify-natively nil)
+  (org-src-tab-acts-natively nil)
+  (org-src-ask-before-returning-to-edit-buffer nil)
+  (org-edit-src-auto-save-idle-delay 0)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
   :config
@@ -179,6 +176,14 @@
   (org-indent-mode t)
 
   (setq org-agenda-files '("~/org/Agenda"))
+
+  (defun my-org-key-translation ()
+    "Custom `org-mode' behaviours."
+    ;; Buffer-local key translation from "`" to "~".
+    (let ((keymap (make-sparse-keymap)))
+      (set-keymap-parent keymap key-translation-map)
+      (setq-local key-translation-map keymap)
+      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
 
   (defun my-org-started-with-clock ()
     (interactive)
@@ -233,26 +238,18 @@
 
 (use-package! company
   :custom
+  (company-ispell-dictionary "brazilian")
   (company-minimum-prefix-length 1)
   (company-show-numbers t)
   (company-tooltip-limit 10)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
+  (company-auto-complete t)
+  (company-auto-complete-chars '(32 41 46))
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode text-mode org-mode))
-  (company-backends '(company-bbdb
-                      company-eclim
-                      company-semantic
-                      company-clang
-                      company-xcode
-                      company-cmake
-                      company-capf
-                      company-files (company-dabbrev-code company-gtags
-                                                          company-etags
-                                                          company-keywords)
-                      company-oddmuse
-                      company-dabbrev))
   :config
+
   (map! :map company-active-map
         "C-y" 'my-company-yasnippet
         "C-u" 'company-yasnippet
@@ -406,12 +403,12 @@
 (use-package! treemacs
   :demand t
   :init
-  (setq +treemacs-git-mode 'extended)
-  (setq treemacs-git-mode 'extended)
+  (setq +treemacs-git-mode 'deferred)
+  (setq treemacs-git-mode 'deferred)
   :custom
-  (treemacs-width 23)
-  (treemacs-indentation '(10 px))
-  (treemacs-follow-mode t)
+  (treemacs-width 20)
+  (treemacs-indentation '(5 px))
+  (treemacs-follow-mode nil)
   (treemacs-is-never-other-window t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
@@ -419,15 +416,18 @@
   :config
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
-  (map! :g "C-0" 'treemacs
+  (map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
+        :nvig "C-j" 'treemacs-select-window
         :map treemacs-mode-map
         "a" 'treemacs-add-project-to-workspace
         "d" 'treemacs-remove-project-from-workspace
         "D" 'treemacs-delete
         "p" 'treemacs-projectile
-        "<C-return>" 'my-treemacs-visit-node-and-hide
-        "C-0" 'treemacs-quit
+        "C-p" 'treemacs-previous-project
+        "C-n" 'treemacs-next-project
+        "C-j" 'treemacs-RET-action
         "C-c t" 'my-show-treemacs-commands
+        "<C-return>" 'my-treemacs-visit-node-and-hide
         "<escape>" 'treemacs-quit)
 
   (defun my-treemacs-commands ()
@@ -467,6 +467,7 @@
         :nvig "C-,"      'ivy-switch-buffer
         :nv "."          'counsel-M-x
         :leader "sg" 'counsel-grep
+        :leader "sa" 'counsel-ag-thing-at-point
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
         :g "M-r"      'ivy-next-line
@@ -507,25 +508,32 @@
              #'electric-operator-mode
              #'elpy-mode
              #'apheleia-mode)
-
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
-
+  (set-company-backend! 'python-mode 'elpy-company-backend)
   (map! :map python-mode-map
         "M-a"   'python-nav-backward-statement
         "M-e"   'python-nav-forward-statement
         "C-x m" 'elpy-multiedit-python-symbol-at-point
         "C-x M" 'elpy-multiedit-stop
+        :i "C-=" 'my-python-colon-newline
         :e "C-h"'python-indent-dedent-line-backspace
-        :n "<return>" 'hydra-python-mode/body
-        :nvi "<C-return>" 'quickrun)
+        "<return>" 'hydra-python-mode/body
+        :nvi "<C-return>" 'quickrun
+        :leader "k" 'my-python-backends)
 
   (defun my-python-shebang ()
     (interactive)
     (kill-region (point-min) (point-max))
     (insert "#!/usr/bin/env python3\n\n")
-    (evil-insert-state)))
+    (evil-insert-state))
+
+  (defun my-python-colon-newline ()
+    (interactive)
+    (end-of-line)
+    (insert ":")
+    (newline-and-indent)))
 
 (use-package! elpy
   :demand t
@@ -551,12 +559,6 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! windmove
-  :init
-  (map! :map (global evil-org-mode-map)
-        :nvig "M-h" 'windmove-left
-        :nvig "M-l" 'windmove-right
-        :nvig "M-j" 'windmove-down
-        :nvig "M-k" 'windmove-up)
   :custom
   (windmove-wrap-around t))
 
@@ -568,6 +570,7 @@
 
 (use-package! text-mode
   :init
+  (remove-hook 'text-mode-hook '+spell-remove-run-together-switch-for-aspell-h)
   (remove-hook 'text-mode-hook 'hl-line-mode))
 
 (use-package! hydra
@@ -710,6 +713,8 @@
   (olivetti-body-width 95))
 
 (use-package! pdf-tools
+  :init
+  (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
   :custom
 
   (pdf-view-continuous t)
@@ -719,9 +724,16 @@
   :config
 
   (map! :map pdf-view-mode-map
-        :nvieg "<escape>" 'quit-window
+        :nvieg "<escape>" 'ignore
         :nvieg "q"        'quit-window
         :nvieg "w"        'pdf-view-fit-width-to-window
+        :nvieg "h"        'pdf-view-next-page
+        :nvieg "l"        'pdf-view-previous-page
+
+        :nvieg "j"        'pdf-view-next-line-or-next-page
+        :nvieg "k"        'pdf-view-previous-line-or-previous-page
+
+        :nvieg "C-j"      'treemacs-select-window
         :nvieg "C-l"      'my-show-pdf-view-commands)
 
   (defun my-show-pdf-view-commands ()

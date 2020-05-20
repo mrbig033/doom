@@ -1,6 +1,13 @@
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
 
+(general-define-key
+ :states '(normal visual insert)
+ :keymaps  'override
+ "M-h"      'windmove-left
+ "M-l"      'windmove-right
+ "M-k"      'windmove-up
+ "M-j"      'windmove-down)
 
 (map! "M-s"      'my-last-buffer
       "M-RET"    'my-indent-buffer
@@ -18,6 +25,7 @@
       :n "gsP"   'cool-moves-paragraph-backward
       :n "gsp"   'cool-moves-paragraph-forward
       :nv "Q"    'delete-frame
+      :nv "\\"    'toggle-truncate-lines
       :v "C-c a" 'align-regexp
       :nvi "M-." nil
       :map scratch-mode-map
@@ -28,6 +36,7 @@
       :n "<escape>" 'my-quiet-save-buffer
       :map snippet-mode-map
       :n "<escape>" 'ignore
+      :leader "T" 'my-reopen-killed-file
       :leader "ft" 'my-tangle-init
       :leader "fk" 'my-search-packages
       :leader "tc" 'xah-clean-empty-lines
@@ -201,3 +210,29 @@
 
 (fset 'my-dup-inner-paragraph
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item '("vipy'>gop" 0 "%d") arg)))
+
+;;;; REOPEN KILLED FILED ;;;;
+
+(defvar killed-file-list nil
+  "List of recently killed files.")
+
+(defun add-file-to-killed-file-list ()
+  "If buffer is associated with a file name, add that file to the
+`killed-file-list' when killing the buffer."
+  (when buffer-file-name
+    (push buffer-file-name killed-file-list)))
+
+(add-hook 'kill-buffer-hook #'add-file-to-killed-file-list)
+
+(defun my-reopen-killed-file ()
+  "Reopen the most recently killed file, if one exists."
+  (interactive)
+  (when killed-file-list
+    (find-file (pop killed-file-list))))
+
+(defun my-reload-file ()
+  "Reopen the most recently killed file, if one exists."
+  (interactive)
+  (my-kill-this-buffer)
+  (when killed-file-list
+    (find-file (pop killed-file-list))))

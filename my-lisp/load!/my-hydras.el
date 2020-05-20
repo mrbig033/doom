@@ -41,6 +41,7 @@
   ("H" evil-window-decrease-width "+-w")
   ("J" evil-window-decrease-height "+h")
   ("K" evil-window-increase-height "-h")
+  ("h" +evil-window-split-a "sp" :exit t)
   ("j" +evil-window-split-a "sp" :exit t)
   ("l" +evil-window-vsplit-a "vs" :exit t)
   ("b" balance-windows "bal" :exit t))
