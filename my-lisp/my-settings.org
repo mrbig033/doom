@@ -85,6 +85,7 @@
 #+end_src
 * Functions
 #+begin_src emacs-lisp
+
 (add-hook 'after-init-hook 'toggle-frame-maximized)
 
 (defun my-quiet-save-buffer ()

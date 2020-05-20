@@ -81,10 +81,11 @@
     (interactive)
     (evil-goto-mark 65))
 
-  (evil-visualstar-mode t))
+  (global-evil-visualstar-mode t))
 
 
-(use-package evil-god-state
+(use-package! evil-god-state
+  :after evil
   :init
   (map! :n ","          'evil-execute-in-god-state
         :v ","          'evil-exit-visual-state
@@ -97,11 +98,17 @@
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
+
+(use-package! evil-better-visual-line
+  :after evil
+  :config
+  (evil-better-visual-line-on))
+
 (use-package! org
+  :demand t
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
-  (add-hook 'org-src-mode-hook 'my-recenter-window)
 
   :custom
 
@@ -155,13 +162,14 @@
   (org-show-notification-handler nil)
   (org-timer-format "%s ")
 
-  (org-src-fontify-natively t)
-  (org-src-tab-acts-natively t)
-  (org-edit-src-content-indentation 1)
-  (org-edit-src-auto-save-idle-delay 1)
-  (org-edit-src-persistent-message nil)
-  (org-src-ask-before-returning-to-edit-buffer nil)
-  (org-src-preserve-indentation t)
+
+  ;; (org-src-fontify-natively t)
+  ;; (org-src-tab-acts-natively t)
+  ;; (org-edit-src-content-indentation 1)
+  ;; (org-edit-src-auto-save-idle-delay 1)
+  ;; (org-edit-src-persistent-message nil)
+  ;; (org-src-ask-before-returning-to-edit-buffer nil)
+  ;; (org-src-preserve-indentation t)
   (org-src-window-setup 'current-window)
 
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
@@ -433,7 +441,7 @@
 
   (treemacs-resize-icons 15))
 
-(use-package treemacs-projectile
+(use-package! treemacs-projectile
   :after treemacs projectile)
 
 (use-package! ivy
@@ -443,7 +451,7 @@
   (counsel-find-file-at-point t)
   (counsel-bookmark-avoid-dired t)
   (ivy-count-format "")
-  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'my-packages.el' %s")
+  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore '*.el' %s")
 
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
@@ -481,7 +489,7 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-projectile-ag)))
 
-(use-package ivy-hydra
+(use-package! ivy-hydra
   :disabled
   :after hydra)
 
@@ -589,7 +597,7 @@
     (interactive)
     (counsel-M-x "^helpful-")))
 
-(use-package unkillable-scratch
+(use-package! unkillable-scratch
   :demand t
   :config
   (setq unkillable-scratch-behavior 'bury
@@ -599,7 +607,7 @@
 (use-package! prog-mode
   ;; :hook (prog-mode . hl-line-mode)
   :custom
-  (word-wrap nil)
+  ;; (word-wrap nil)
   (truncate-lines t)
   :config
   (map! :map (prog-mode-map)
@@ -732,7 +740,8 @@
   :config
   (read-only-mode -1))
 
-(use-package clipmon
+(use-package! clipmon
+  :demand t
   :custom
   (selection-coding-system 'utf-8-unix)
   :config
@@ -743,7 +752,7 @@
   (after! apheleia
     (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
 
-(use-package paren
+(use-package! paren
   :ensure nil
   :custom
   (blink-matching-paren-dont-ignore-comments t)
