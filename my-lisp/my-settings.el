@@ -3,7 +3,7 @@
 
 (general-define-key
  :states '(normal visual insert)
- :keymaps  'override
+ :keymaps  '(global text-mode-map evil-treemacs-state-map treemacs-mode-map evil-org-mode-map prog-mode-map)
  "M-h"      'windmove-left
  "M-l"      'windmove-right
  "M-k"      'windmove-up
@@ -36,14 +36,16 @@
       :n "<escape>" 'my-quiet-save-buffer
       :map snippet-mode-map
       :n "<escape>" 'ignore
+      :leader "pR" 'projectile-replace
       :leader "T" 'my-reopen-killed-file
+      :leader "k" '+popup/close-all
       :leader "ft" 'my-tangle-init
       :leader "fk" 'my-search-packages
       :leader "tc" 'xah-clean-empty-lines
       :leader "ti" 'my-dup-inner-paragraph
       :leader "d" 'my-dup-line
       :leader "bM" 'bookmark-delete
-      :leader "bY" 'my-yank-dir
+      :leader "fY" 'my-yank-dir
       :leader "bi" 'my-insert-dir
       :leader "," 'olivetti-mode
       :leader "r" 'deer
@@ -54,8 +56,10 @@
       :leader "0"'delete-window)
 
 
-(add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
+(add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
+(add-hook 'quickrun--mode-hook 'hl-line-mode)
 
 (setq my-load! "~/.doom.d/my-lisp/load!"
       excluded-modes "Buffer-menu-mode\\| Info-mode\\|Man-mode\\| calc-mode\\|calendar-mode\\| compilation-mode\\|completion-list-mode\\| dired-mode\\|fundamental-mode\\| gnus-mode\\|help-mode\\| helpful-mode\\|ibuffer-mode\\| lisp-interaction-mode\\|magit-auto-revert-mode\\| magit-blame-mode\\|magit-blame-read-only-mode\\| magit-blob-mode\\|magit-cherry-mode\\| magit-diff-mode\\|magit-diff-mode\\| magit-file-mode\\|magit-log-mode\\| magit-log-select-mode\\|magit-merge-preview-mode\\| magit-mode\\|magit-process-mode\\| magit-reflog-mode\\|magit-refs-mode\\| magit-repolist-mode\\|magit-revision-mode\\| magit-stash-mode\\|magit-stashes-mode\\| magit-status-mode\\|magit-submodule-list-mode\\| magit-wip-after-apply-mode\\|magit-wip-after-save-local-mode\\| magit-wip-after-save-mode\\|magit-wip-before-change-mode\\| magit-wip-initial-backup-mode\\|magit-wip-mode\\| minibuffer-inactive-mode\\|occur-mode\\| org-agenda-mode\\|org-src-mode\\| ranger-mode\\|special-mode\\| special-mode\\|term-mode\\| treemacs-mode\\|messages-buffer-mode")
@@ -65,13 +69,16 @@
       doom-unicode-font (font-spec :family "monospace" :size 20)
       doom-big-font (font-spec :family "monospace" :size 20))
 
+
 (setq! load-prefer-newer t
-       eldoc-idle-delay 0.3
+       eldoc-idle-delay 1
        confirm-kill-emacs nil
        personal-keybindings nil
+       dumb-jump-aggressive t
        auto-save-no-message t
        auto-revert-verbose nil
        custom-safe-themes t
+       yas-indent-line 'fixed
        use-package-always-defer t
        ns-option-modifier 'meta
        warning-minimum-level :error

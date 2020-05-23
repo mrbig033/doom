@@ -41,25 +41,17 @@
   ("H" evil-window-decrease-width "+-w")
   ("J" evil-window-decrease-height "+h")
   ("K" evil-window-increase-height "-h")
-  ("h" +evil-window-split-a "sp" :exit t)
   ("j" +evil-window-split-a "sp" :exit t)
   ("l" +evil-window-vsplit-a "vs" :exit t)
   ("b" balance-windows "bal" :exit t))
 
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
-    ^
-    ^Python^
-    ^^^^^-----------------------------
-    _d_: goto def   _s_: quickshell
-    _a_: goto ass   _c_: clear errors
-    _g_: goto dumb
-    _b_: go back
 
-                    
-
-"
+    _d_: goto def   _g_: goto dumb _s_: quickshell
+    _a_: goto ass   _b_: go back   _c_: clear errors"
   ("<escape>" nil)
+  ("<return>" nil)
   ("q" nil)
 
   ("d" elpy-goto-definition)

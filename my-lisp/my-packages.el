@@ -1,11 +1,14 @@
 (use-package! evil
+  :demand t
+  :init
+  (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
   (evil-visualstar/persistent t)
+  (+evil-want-o/O-to-continue-comments nil)
   :config
   ;; (evil-set-initial-state 'pdf-view-mode 'emacs)
-
   (map! :g "M-n"      'evil-forward-paragraph
         :g "M-p"      'evil-backward-paragraph
         :e "<escape>" 'evil-force-normal-state
@@ -34,14 +37,14 @@
         :nv "$"       'evil-last-non-blank
         :nv "g_"      'evil-end-of-line
         :nv "g_"      'evil-end-of-line
-        :nv "gt"      '+eval/line-or-region
+        :nv "gt"      'eval-region
         :nv "M-i"     'better-jumper-jump-forward
         :nvi "M-o"    'better-jumper-jump-backward
         :nvi "M-y"    'counsel-yank-pop
         :map (global org-mode-map evil-org-mode-map)
         :nv "gr"      'my-evil-sel-to-end
         :v "<insert>" 'org-insert-link
-        :i "C-l"      'completion-at-point
+        ;; :i "C-l"      'completion-at-point
         :map (minibuffer-local-map
               minibuffer-local-ns-map
               minibuffer-local-completion-map
@@ -61,8 +64,8 @@
         :n "zi"       '+fold/open-all
         :leader "su"  'my-evil-substitute)
 
-  (advice-add '+evil-window-split-a :after #'evil-window-prev)
-  (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
+  ;; (advice-add '+evil-window-split-a :after #'evil-window-prev)
+  ;; (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
 
   (defun my-evil-substitute ()
     (interactive)
@@ -100,9 +103,57 @@
 
 
 (use-package! evil-better-visual-line
-  :after evil
+  :demand t
   :config
   (evil-better-visual-line-on))
+
+(use-package! evil-swap-keys
+  :after evil
+  :config
+
+  (defun evil-swap-keys-swap-dash-emdash ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "-" "—"))
+
+  (defun evil-swap-keys-swap-emdash-dash ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "—" "-"))
+
+  (defun evil-swap-keys-swap-eight-asterisk ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "8" "*"))
+
+  (defun evil-swap-keys-dollar-sign-four ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "$" "4"))
+
+  (defun evil-swap-keys-three-curly-braces ()
+    (interactive)
+    (evil-swap-keys-add-pair "3" "{"))
+
+  (defun evil-swap-keys-comma-semicolon ()
+    (interactive)
+    (evil-swap-keys-add-pair "," ";"))
+
+  (defun evil-swap-keys-equal-zero ()
+    (interactive)
+    (evil-swap-keys-add-pair "=" "0"))
+
+  (defun evil-swap-keys-swap-equal-plus ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "=" "+")))
+
+(use-package evil-smartparens
+  :after evil
+  :config
+  (general-unbind 'evil-smartparens-mode-map
+    :with 'exchange-point-and-mark
+    [remap evil-sp-override]))
 
 (use-package! org
   :demand t
@@ -110,6 +161,11 @@
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
+
+  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+
+
   :custom
 
   (org-ellipsis ".")
@@ -172,6 +228,9 @@
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
   :config
+
+  (map! :map (org-mode-map evil-org-mode-map)
+        "C-l" 'recenter-top-bottom)
 
   (org-indent-mode t)
 
@@ -236,6 +295,65 @@
   (org-pomodoro-long-break-format "LONG: %s")
   (org-pomodoro-format "P: %s"))
 
+(use-package! pdf-tools
+  :init
+  (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
+  :custom
+
+  (pdf-view-continuous t)
+  (pdf-view-resize-factor 1.15)
+  (pdf-misc-size-indication-minor-mode t)
+
+  :config
+
+  (map! :map pdf-view-mode-map
+        :nvieg "<escape>" 'ignore
+        :nvieg "TAB" 'pdf-outline
+        :nvieg "q"        'quit-window
+        :nvieg "w"        'pdf-view-fit-width-to-window
+        :nvieg "h"        'pdf-view-scroll-up-or-next-page
+        :nvieg "l"        'pdf-view-scroll-down-or-previous-page
+        :nvieg "j"        'pdf-view-next-page
+        :nvieg "k"        'pdf-view-previous-page
+        :nvieg "K"        'pdf-view-previous-line-or-previous-page
+        :nvieg "J"        'pdf-view-next-line-or-next-page
+        :nvieg "C-j"      'treemacs-select-window
+        :nvieg "C-l"      'my-show-pdf-view-commands)
+
+  (defun my-show-pdf-view-commands ()
+    (interactive)
+    (counsel-M-x "^pdf-view- ")))
+
+(load! "cool-moves.el" my-load!)
+
+(load! "xah-text.el" my-load!)
+
+(use-package! text-mode
+  :init
+  (remove-hook 'text-mode-hook '+spell-remove-run-together-switch-for-aspell-h)
+  (remove-hook 'text-mode-hook 'hl-line-mode))
+
+(use-package! avy
+  :custom
+  (avy-case-fold-search 't)
+  (avy-style 'at-full)
+  (avy-timeout-seconds 0.3)
+  (avy-highlight-first t)
+  (avy-single-candidate-jump t)
+  :custom-face
+  (avy-background-face((t (:foreground "LightSkyBlue4"))))
+  :init
+  (map! :nv "F" 'evil-avy-goto-char-2-above
+        :nv "f" 'evil-avy-goto-char-2-below)
+
+  :config
+  (setq! avy-keys (nconc (number-sequence ?a ?z)
+                         (number-sequence ?0 ?9))))
+
+(use-package! olivetti
+  :custom
+  (olivetti-body-width 95))
+
 (use-package! company
   :custom
   (company-ispell-dictionary "brazilian")
@@ -244,14 +362,24 @@
   (company-tooltip-limit 10)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
-  (company-auto-complete t)
-  (company-auto-complete-chars '(32 41 46))
+  (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode text-mode org-mode))
   :config
+  (setq-default company-call-backends '(company-capf
+                                        company-yasnippet
+                                        company-shell
+                                        company-shell-env
+                                        company-files
+                                        company-semantic
+                                        (company-dabbrev-code
+                                         company-gtags
+                                         company-etags
+                                         company-keywords)
+                                        company-dabbrev))
 
   (map! :map company-active-map
-        "C-y" 'my-company-yasnippet
+        "M-e" 'my-company-yasnippet
         "C-u" 'company-yasnippet
         "M-q" 'company-complete-selection
         "M-w" 'my-company-comp-with-paren
@@ -290,6 +418,110 @@
     (interactive)
     (company-complete-selection)
     (insert " ")))
+
+(use-package json-mode)
+
+(use-package! prog-mode
+  ;; :hook (prog-mode . hl-line-mode)
+  :hook (prog-mode . abbrev-mode)
+  :custom
+  ;; (word-wrap nil)
+  (truncate-lines t)
+  :config
+  (map! :map (prog-mode-map)
+        "M-p"         'my-par-backward-to-indentation
+        "M-n"         'my-par-forward-to-indentation
+        :nv "TAB"     '+fold/toggle
+        :n "<escape>" 'my-quiet-save-buffer
+        "M-m"         'flycheck-first-error))
+
+(use-package! apheleia-mode
+  :config
+  (after! apheleia
+    (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
+
+(use-package! paren
+  :ensure nil
+  :custom
+  (blink-matching-paren-dont-ignore-comments t)
+  (show-paren-ring-bell-on-mismatch nil)
+  :custom-face
+  (show-paren-match ((t(:background "#292929"
+                        :foreground "dark orange"
+                        :inverse-video nil
+                        :underline nil
+                        :slant normal
+                        :weight ultrabold)))))
+
+(use-package! python
+  :demand t
+  :init
+
+  (add-hook! 'python-mode-hook
+             #'rainbow-delimiters-mode
+             #'smartparens-strict-mode
+             #'electric-operator-mode
+             #'elpy-mode
+             #'apheleia-mode
+             #'evil-swap-keys-swap-double-single-quotes
+             #'evil-swap-keys-swap-underscore-dash
+             #'evil-swap-keys-swap-colon-semicolon)
+
+  :custom
+  (python-indent-guess-indent-offset-verbose nil)
+  :config
+
+  (set-company-backend!
+    'python-mode
+    'elpy-company-backend
+    '(company-files :with company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev))
+
+  (map! :map python-mode-map
+        "C-c ç" 'my-python-shebang
+        "M-a"   'python-nav-backward-statement
+        "M-e"   'python-nav-forward-statement
+        "C-x m" 'elpy-multiedit-python-symbol-at-point
+        "C-x M" 'elpy-multiedit-stop
+        :i "C-=" 'my-python-colon-newline
+        :i "C-h"'python-indent-dedent-line-backspace
+        :nv "<return>" 'hydra-python-mode/body
+        :nvi "<C-return>" 'my-quickrun)
+
+  (defun my-quickrun ()
+    (interactive)
+    (quickrun)
+    ;; (sit-for 0.5)
+    (windmove-down)
+    ;; (compilation-next-error 1)
+    )
+
+  (defun my-python-shebang ()
+    (interactive)
+    (kill-region (point-min) (point-max))
+    (insert "#!/usr/bin/env python3\n\n")
+    (evil-insert-state))
+
+  (defun my-python-colon-newline ()
+    (interactive)
+    (end-of-line)
+    (insert ":")
+    (newline-and-indent)))
+
+(use-package! elpy
+  :demand t
+  :custom
+  (elpy-rpc-virtualenv-path 'current)
+  :config
+  (elpy-enable))
+
+(use-package! flycheck
+  :custom
+  (flycheck-display-errors-delay 0.1)
+  (flycheck-check-syntax-automatically '(save
+                                         mode-enabled))
+
+  (flycheck-sh-shellcheck-executable "/usr/local/bin/shellcheck"))
 
 (use-package! ranger
   :init
@@ -335,7 +567,7 @@
         "x"          'diredp-delete-this-file
         "d"          'dired-flag-file-deletion
         "<c-return>" 'dired-do-find-marked-files
-        :leader "R" 'my-deer-goto-my-lisp)
+        :leader "R" 'ranger)
 
   (defun my-ranger-go (path)
     "Go subroutine"
@@ -402,33 +634,58 @@
 
 (use-package! treemacs
   :demand t
-  :init
-  (setq +treemacs-git-mode 'deferred)
-  (setq treemacs-git-mode 'deferred)
   :custom
   (treemacs-width 20)
   (treemacs-indentation '(5 px))
-  (treemacs-follow-mode nil)
   (treemacs-is-never-other-window t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.1))))
   :config
+
+
+  (treemacs-follow-mode nil)
+  (treemacs-git-mode 'deferred)
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
   (map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
         :nvig "C-j" 'treemacs-select-window
         :map treemacs-mode-map
+        "M-h"      'windmove-left
+        "M-l"      'windmove-right
+        "M-k"      'windmove-up
+        "M-j"      'windmove-down
         "a" 'treemacs-add-project-to-workspace
         "d" 'treemacs-remove-project-from-workspace
         "D" 'treemacs-delete
         "p" 'treemacs-projectile
         "C-p" 'treemacs-previous-project
         "C-n" 'treemacs-next-project
-        "C-j" 'treemacs-RET-action
+        "M-q" 'treemacs-RET-action
         "C-c t" 'my-show-treemacs-commands
+        "C-j" 'treemacs-visit-node-in-most-recently-used-window
         "<C-return>" 'my-treemacs-visit-node-and-hide
         "<escape>" 'treemacs-quit)
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-below
+    [remap evil-find-char])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'windmove-down
+    [remap treemacs-next-neighbour])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'windmove-up
+    [remap treemacs-previous-neighbour])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-above
+    [remap evil-find-char-backward])
 
   (defun my-treemacs-commands ()
     (interactive)
@@ -436,127 +693,13 @@
 
   (defun my-treemacs-visit-node-and-hide ()
     (interactive)
-    (treemacs-visit-node-default)
+    (treemacs-visit-node-in-most-recently-used-window)
     (treemacs))
 
   (treemacs-resize-icons 15))
 
 (use-package! treemacs-projectile
   :after treemacs projectile)
-
-(use-package! ivy
-  :custom
-  (ivy-extra-directories nil)
-  (counsel-outline-display-style 'title)
-  (counsel-find-file-at-point t)
-  (counsel-bookmark-avoid-dired t)
-  (ivy-count-format "")
-  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore '*.el' %s")
-
-  (ivy-ignore-buffers '("^#.*#$"
-                        "^\\*.*\\*"
-                        "^agenda.org$"
-                        "magit"
-                        "*org-src-fontification.\\*"))
-  :config
-
-
-  (map! :nvig "C-s"      'counsel-grep-or-swiper
-        :nvig "C-/"      'counsel-projectile-ag
-        :nvig "M-r"      'counsel-projectile-switch-to-buffer
-        :nvig "C-,"      'ivy-switch-buffer
-        :nv "."          'counsel-M-x
-        :leader "sg" 'counsel-grep
-        :leader "sa" 'counsel-ag-thing-at-point
-        :map ivy-minibuffer-map
-        :g "M-y"      'ivy-next-line
-        :g "M-r"      'ivy-next-line
-        :g "C-,"      'ivy-next-line
-        :g "M-w"      'ivy-done
-        :g "C-."      'ivy-done
-        :g "<insert>" 'yank)
-
-  (defun ivy-with-thing-at-point (cmd)
-    (let ((ivy-initial-inputs-alist
-           (list
-            (cons cmd (thing-at-point 'symbol)))))
-      (funcall cmd)))
-
-  (defun counsel-ag-thing-at-point ()
-    (interactive)
-    (ivy-with-thing-at-point 'counsel-ag))
-
-  (defun counsel-projectile-ag-thing-at-point ()
-    (interactive)
-    (ivy-with-thing-at-point 'counsel-projectile-ag)))
-
-(use-package! ivy-hydra
-  :disabled
-  :after hydra)
-
-(use-package! ivy-prescient
-  :hook ivy
-  :config
-  (ivy-prescient-mode +1))
-
-(use-package! python
-  :init
-
-  (add-hook! 'python-mode-hook
-             #'rainbow-delimiters-mode
-             #'smartparens-strict-mode
-             #'electric-operator-mode
-             #'elpy-mode
-             #'apheleia-mode)
-  :custom
-  (python-indent-guess-indent-offset-verbose nil)
-  :config
-  (set-company-backend! 'python-mode 'elpy-company-backend)
-  (map! :map python-mode-map
-        "M-a"   'python-nav-backward-statement
-        "M-e"   'python-nav-forward-statement
-        "C-x m" 'elpy-multiedit-python-symbol-at-point
-        "C-x M" 'elpy-multiedit-stop
-        :i "C-=" 'my-python-colon-newline
-        :e "C-h"'python-indent-dedent-line-backspace
-        "<return>" 'hydra-python-mode/body
-        :nvi "<C-return>" 'quickrun
-        :leader "k" 'my-python-backends)
-
-  (defun my-python-shebang ()
-    (interactive)
-    (kill-region (point-min) (point-max))
-    (insert "#!/usr/bin/env python3\n\n")
-    (evil-insert-state))
-
-  (defun my-python-colon-newline ()
-    (interactive)
-    (end-of-line)
-    (insert ":")
-    (newline-and-indent)))
-
-(use-package! elpy
-  :demand t
-  :custom
-  (elpy-rpc-virtualenv-path 'current)
-  :config
-  (elpy-enable))
-
-(use-package! avy
-  :custom
-  (avy-case-fold-search 't)
-  (avy-style 'at-full)
-  (avy-timeout-seconds 0.3)
-  (avy-highlight-first t)
-  (avy-single-candidate-jump t)
-  :custom-face
-  (avy-background-face((t (:foreground "LightSkyBlue4"))))
-  :init
-  (map! :nv "F" 'evil-avy-goto-char-2-above
-        :nv "f" 'evil-avy-goto-char-2-below)
-  :config
-  (setq! avy-keys (nconc (number-sequence ?a ?z)
-                         (number-sequence ?0 ?9))))
 
 (use-package! windmove
   :custom
@@ -568,58 +711,12 @@
         :g "M-=" 'winner-redo)
   (winner-mode +1))
 
-(use-package! text-mode
-  :init
-  (remove-hook 'text-mode-hook '+spell-remove-run-together-switch-for-aspell-h)
-  (remove-hook 'text-mode-hook 'hl-line-mode))
-
-(use-package! hydra
-  :config
-  (map! :leader "j" 'hydra-org-clock/body))
-
-(use-package! which-key
-  :config
-  (which-key-add-key-based-replacements
-    "SPC tc" "Clean Lines"
-    "SPC td" "Dup Lines"
-    "SPC bl" "Kill Matching"
-    "SPC td" "Dup Par"
-    "SPC bY" "Yank Dir"
-    "SPC fk" "Search Pkgs")
-  (setq! which-key-idle-delay 0.5)
-  (which-key-mode +1))
-
-(use-package! helpful
-  :init
-  (map! :nvig "C-;" 'helpful-at-point
-        "C-c h" 'my-helpful-options)
-  :custom
-  (help-window-select t)
-  :config
-  (defun my-helpful-options ()
-    (interactive)
-    (counsel-M-x "^helpful-")))
-
 (use-package! unkillable-scratch
   :demand t
   :config
   (setq unkillable-scratch-behavior 'bury
         unkillable-buffers '("^pytasks.org$"))
   (unkillable-scratch +1))
-
-(use-package! prog-mode
-  ;; :hook (prog-mode . hl-line-mode)
-  :custom
-  ;; (word-wrap nil)
-  (truncate-lines t)
-  :config
-  (map! :map (prog-mode-map)
-        "M-p"         'my-par-backward-to-indentation
-        "M-n"         'my-par-forward-to-indentation
-        :nv "TAB"     '+fold/toggle
-        :n "<escape>" 'my-quiet-save-buffer
-        "M-m"         'flycheck-first-error
-        :leader "'" 'org-edit-src-exit))
 
 (use-package! super-save
   :demand t
@@ -642,17 +739,6 @@
      eyebrowse-create-window-config
      eyebrowse-prev-window-config))
   :config
-
-  (defun super-save-command ()
-    "Save the current buffer if needed."
-    (let ((inhibit-message t))
-      (when (and buffer-file-name
-                 (buffer-modified-p (current-buffer))
-                 (file-writable-p buffer-file-name)
-                 (if (file-remote-p buffer-file-name) super-save-remote-files t)
-                 (super-save-include-p buffer-file-name))
-        (save-buffer))))
-
   (super-save-mode t))
 
 (use-package! eyebrowse
@@ -689,6 +775,95 @@
   (nswbuff-exclude-mode-regexp excluded-modes)
   (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
 
+(use-package! ivy
+  :custom
+  (ivy-extra-directories nil)
+  (counsel-outline-display-style 'title)
+  (counsel-find-file-at-point t)
+  (counsel-bookmark-avoid-dired t)
+  (ivy-count-format "")
+  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore '*.el' %s")
+
+  (ivy-ignore-buffers '("^#.*#$"
+                        "^\\*.*\\*"
+                        "^agenda.org$"
+                        "magit"
+                        "*org-src-fontification.\\*"))
+  :config
+
+
+  (map! :nvig "C-s"      'counsel-grep-or-swiper
+        :nvig "C-."      'counsel-projectile-ag-thing-at-point
+        :nvig "M-r"      'counsel-projectile-switch-to-buffer
+        :nvig "C-,"      'ivy-switch-buffer
+        :nv "."          'counsel-M-x
+        :leader "sg" 'counsel-grep
+        :leader "sa" 'counsel-ag-thing-at-point
+        :map ivy-minibuffer-map
+        :g "M-y"      'ivy-next-line
+        :g "M-r"      'ivy-next-line
+        :g "C-,"      'ivy-next-line
+        :g "M-w"      'ivy-done
+        :g "C-."      'ivy-done
+        :g "<insert>" 'yank)
+
+  (defun ivy-with-thing-at-point (cmd)
+    (let ((ivy-initial-inputs-alist
+           (list
+            (cons cmd (thing-at-point 'symbol)))))
+      (funcall cmd)))
+
+  (defun counsel-ag-thing-at-point ()
+    (interactive)
+    (ivy-with-thing-at-point 'counsel-ag))
+
+  (defun counsel-projectile-ag-thing-at-point ()
+    (interactive)
+    (ivy-with-thing-at-point 'counsel-projectile-ag)))
+
+(use-package! ivy-hydra
+  :disabled
+  :after hydra)
+
+(use-package! ivy-prescient
+  :hook ivy
+  :config
+  (ivy-prescient-mode +1))
+
+(use-package! hydra
+  :config
+  (map! :leader "j" 'hydra-org-clock/body))
+
+(use-package! helpful
+  :init
+  (map! :nvig "C-;" 'helpful-at-point
+        "C-c h" 'my-helpful-options)
+  :custom
+  (help-window-select t)
+  :config
+  (defun my-helpful-options ()
+    (interactive)
+    (counsel-M-x "^helpful-")))
+
+(use-package! clipmon
+  :demand t
+  :custom
+  (selection-coding-system 'utf-8-unix)
+  :config
+  (clipmon-mode +1))
+
+(use-package! which-key
+  :config
+  (which-key-add-key-based-replacements
+    "SPC tc" "Clean Lines"
+    "SPC td" "Dup Lines"
+    "SPC bl" "Kill Matching"
+    "SPC td" "Dup Par"
+    "SPC bY" "Yank Dir"
+    "SPC fk" "Search Pkgs")
+  (setq! which-key-idle-delay 0.5)
+  (which-key-mode +1))
+
 (use-package! doom-modeline
   :custom
   (doom-modeline-env-version nil)
@@ -708,75 +883,6 @@
   (doom-modeline-buffer-modification-icon nil)
   (doom-modeline-buffer-file-name-style 'buffer-name))
 
-(use-package! olivetti
-  :custom
-  (olivetti-body-width 95))
-
-(use-package! pdf-tools
-  :init
-  (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
-  :custom
-
-  (pdf-view-continuous t)
-  (pdf-view-resize-factor 1.15)
-  (pdf-misc-size-indication-minor-mode t)
-
-  :config
-
-  (map! :map pdf-view-mode-map
-        :nvieg "<escape>" 'ignore
-        :nvieg "q"        'quit-window
-        :nvieg "w"        'pdf-view-fit-width-to-window
-        :nvieg "h"        'pdf-view-next-page
-        :nvieg "l"        'pdf-view-previous-page
-
-        :nvieg "j"        'pdf-view-next-line-or-next-page
-        :nvieg "k"        'pdf-view-previous-line-or-previous-page
-
-        :nvieg "C-j"      'treemacs-select-window
-        :nvieg "C-l"      'my-show-pdf-view-commands)
-
-  (defun my-show-pdf-view-commands ()
-    (interactive)
-    (counsel-M-x "^pdf-view- ")))
-
-(use-package! flycheck
-  :custom
-  (flycheck-display-errors-delay 0.1)
-  (flycheck-check-syntax-automatically '(save
-                                         mode-enabled))
-
-  (flycheck-sh-shellcheck-executable "/usr/local/bin/shellcheck"))
-
-(use-package! message
-  :config
-  (read-only-mode -1))
-
-(use-package! clipmon
-  :demand t
-  :custom
-  (selection-coding-system 'utf-8-unix)
-  :config
-  (clipmon-mode +1))
-
-(use-package! apheleia-mode
-  :config
-  (after! apheleia
-    (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
-
-(use-package! paren
-  :ensure nil
-  :custom
-  (blink-matching-paren-dont-ignore-comments t)
-  (show-paren-ring-bell-on-mismatch nil)
-  :custom-face
-  (show-paren-match ((t(:background "#292929"
-                        :foreground "dark orange"
-                        :inverse-video nil
-                        :underline nil
-                        :slant normal
-                        :weight ultrabold)))))
-
 (use-package! hl-line-mode
   :config
   (setq-default hl-line-mode nil)
@@ -784,6 +890,6 @@
   (hl-line-mode -1)
   (global-hl-line-mode -1))
 
-(load! "cool-moves.el" my-load!)
-
-(load! "xah-text.el" my-load!)
+(use-package! message
+  :config
+  (read-only-mode -1))

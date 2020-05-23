@@ -73,6 +73,8 @@
 (package! treemacs)
 (package! treemacs-projectile)
 (package! evil-better-visual-line)
+(package! evil-smartparens)
+(package! evil-swap-keys)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
