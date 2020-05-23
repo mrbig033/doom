@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: use-package!
+# key: usep
+# --
+#+begin_src emacs-lisp
+(use-package! $0)
+#+end_src

@@ -24,6 +24,7 @@
       "C-9"      'evilnc-comment-or-uncomment-lines
       "C-c g"    'dumb-jump-go
       "M-t"      'pop-tag-mark
+      "C-c t"    'my-reload-file
       "C-S-j"    'cool-moves-line-forward
       "C-S-k"    'cool-moves-line-backward
       :n "gsP"   'cool-moves-paragraph-backward
@@ -50,7 +51,8 @@
       :leader "d" 'my-dup-line
       :leader "bM" 'bookmark-delete
       :leader "fY" 'my-yank-dir
-      :leader "bi" 'my-insert-dir
+      :leader "bI" 'my-insert-dir
+      :leader "bi" 'ibuffer
       :leader "," 'olivetti-mode
       :leader "r" 'deer
       :leader "z" 'hydra-window/body
@@ -61,7 +63,6 @@
 #+end_src
 * Settings
 #+begin_src emacs-lisp
-
 (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)

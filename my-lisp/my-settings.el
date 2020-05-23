@@ -19,7 +19,7 @@
       "C-9"      'evilnc-comment-or-uncomment-lines
       "C-c g"    'dumb-jump-go
       "M-t"      'pop-tag-mark
-      "C-c r"    'my-recompile-doom
+      "C-c t"    'my-reload-file
       "C-S-j"    'cool-moves-line-forward
       "C-S-k"    'cool-moves-line-backward
       :n "gsP"   'cool-moves-paragraph-backward
@@ -55,7 +55,7 @@
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window)
 
-
+(setq +word-wrap-visual-modes nil)
 (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)

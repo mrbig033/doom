@@ -2,6 +2,7 @@
   :demand t
   :init
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
+  (add-hook 'evil-mode-hook 'evil-better-visual-line-on)
   :custom
   (evil-emacs-state-cursor '((bar . 3) +evil-emacs-cursor-fn))
   (evil-respect-visual-line-mode t)
@@ -86,7 +87,6 @@
 
   (global-evil-visualstar-mode t))
 
-
 (use-package! evil-god-state
   :after evil
   :init
@@ -98,14 +98,8 @@
   :custom
   (selection-coding-system 'utf-8-unix))
 
-(after! evil-org
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
-
 (use-package! evil-better-visual-line
-  :demand t
-  :config
-  (evil-better-visual-line-on))
+  :after evil)
 
 (use-package! evil-swap-keys
   :after evil
@@ -147,13 +141,6 @@
     "Swap the underscore and the dash."
     (interactive)
     (evil-swap-keys-add-pair "=" "+")))
-
-(use-package evil-smartparens
-  :after evil
-  :config
-  (general-unbind 'evil-smartparens-mode-map
-    :with 'exchange-point-and-mark
-    [remap evil-sp-override]))
 
 (use-package! org
   :demand t
@@ -230,7 +217,11 @@
   :config
 
   (map! :map (org-mode-map evil-org-mode-map)
-        "C-l" 'recenter-top-bottom)
+        "C-l" 'recenter-top-bottom
+        "s-S" 'org-edit-special)
+
+  (map! :map (org-src-mode-map)
+        "s-S" 'my-eval-buffer-and-leave-org-source)
 
   (org-indent-mode t)
 
@@ -243,6 +234,11 @@
       (set-keymap-parent keymap key-translation-map)
       (setq-local key-translation-map keymap)
       (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
+
+  (defun my-eval-buffer-and-leave-org-source ()
+    (interactive)
+    (eval-buffer)
+    (org-edit-src-exit))
 
   (defun my-org-started-with-clock ()
     (interactive)
@@ -422,7 +418,7 @@
 (use-package json-mode)
 
 (use-package! prog-mode
-  ;; :hook (prog-mode . hl-line-mode)
+  :hook (prog-mode . electric-pair-mode)
   :hook (prog-mode . abbrev-mode)
   :custom
   ;; (word-wrap nil)
@@ -791,21 +787,20 @@
                         "*org-src-fontification.\\*"))
   :config
 
-
   (map! :nvig "C-s"      'counsel-grep-or-swiper
         :nvig "C-."      'counsel-projectile-ag-thing-at-point
         :nvig "M-r"      'counsel-projectile-switch-to-buffer
         :nvig "C-,"      'ivy-switch-buffer
         :nv "."          'counsel-M-x
-        :leader "sg" 'counsel-grep
-        :leader "sa" 'counsel-ag-thing-at-point
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
         :g "M-r"      'ivy-next-line
         :g "C-,"      'ivy-next-line
-        :g "M-w"      'ivy-done
-        :g "C-."      'ivy-done
-        :g "<insert>" 'yank)
+        :g "C-."      'ivy-next-line
+        :g "M-q"      'ivy-done
+        :g "<insert>" 'yank
+        :leader "sg" 'counsel-grep
+        :leader "sa" 'counsel-ag-thing-at-point)
 
   (defun ivy-with-thing-at-point (cmd)
     (let ((ivy-initial-inputs-alist

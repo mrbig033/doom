@@ -2,6 +2,7 @@
 #+STARTUP: overview
 
 * Evil
+** Evil Main
 #+begin_src emacs-lisp
 (use-package! evil
   :demand t
@@ -92,7 +93,7 @@
 
   (global-evil-visualstar-mode t))
 #+end_src
-* Evil God State
+** Evil God State
 #+begin_src emacs-lisp
 (use-package! evil-god-state
   :after evil
@@ -105,12 +106,12 @@
   :custom
   (selection-coding-system 'utf-8-unix))
 #+end_src
-* Evil Better Visual Line
+** Evil Better Visual Line
 #+begin_src emacs-lisp
 (use-package! evil-better-visual-line
   :after evil)
 #+end_src
-* Evil Swap Keys
+** Evil Swap Keys
 #+begin_src emacs-lisp
 (use-package! evil-swap-keys
   :after evil
@@ -153,6 +154,12 @@
     (interactive)
     (evil-swap-keys-add-pair "=" "+")))
 #+end_src
+** Evil Smartparens
+#+begin_src emacs-lisp
+(use-package! evil-smartparens
+  :after evil)
+#+end_src
+
 * Text
 ** Org
 #+begin_src emacs-lisp
@@ -160,12 +167,15 @@
   :demand t
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (remove-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
 
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
 
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-special :after #'my-indent-buffer)
 
   :custom
 
@@ -454,7 +464,7 @@
 ** Prog Mode
 #+begin_src emacs-lisp
 (use-package! prog-mode
-  ;; :hook (prog-mode . hl-line-mode)
+  :hook (prog-mode . electric-pair-mode)
   :hook (prog-mode . abbrev-mode)
   :custom
   ;; (word-wrap nil)
@@ -851,21 +861,20 @@
                         "*org-src-fontification.\\*"))
   :config
 
-
   (map! :nvig "C-s"      'counsel-grep-or-swiper
         :nvig "C-."      'counsel-projectile-ag-thing-at-point
         :nvig "M-r"      'counsel-projectile-switch-to-buffer
         :nvig "C-,"      'ivy-switch-buffer
         :nv "."          'counsel-M-x
-        :leader "sg" 'counsel-grep
-        :leader "sa" 'counsel-ag-thing-at-point
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
         :g "M-r"      'ivy-next-line
         :g "C-,"      'ivy-next-line
-        :g "M-w"      'ivy-done
-        :g "C-."      'ivy-done
-        :g "<insert>" 'yank)
+        :g "C-."      'ivy-next-line
+        :g "M-q"      'ivy-done
+        :g "<insert>" 'yank
+        :leader "sg" 'counsel-grep
+        :leader "sa" 'counsel-ag-thing-at-point)
 
   (defun ivy-with-thing-at-point (cmd)
     (let ((ivy-initial-inputs-alist
@@ -969,4 +978,11 @@
 (use-package! message
   :config
   (read-only-mode -1))
+#+end_src
+** Ibuffer
+#+begin_src emacs-lisp
+(use-package! ibuffer
+  :config
+  (map! :map ibuffer-mode-map
+        :n "<escape>" 'kill-current-buffer))
 #+end_src
