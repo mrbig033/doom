@@ -75,6 +75,9 @@
 (package! evil-better-visual-line)
 (package! evil-smartparens)
 (package! evil-swap-keys)
+(package! json-mode)
+(package! engine-mode)
+(package! lorem-ipsum)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)

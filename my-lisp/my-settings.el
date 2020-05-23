@@ -1,6 +1,12 @@
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
 
+(map! :map evil-multiedit-state-map
+      "n" 'evil-multiedit-match-symbol-and-next
+      "N"   'evil-multiedit-match-symbol-and-prev
+      "m" 'evil-multiedit-match-symbol-and-next
+      "M"   'evil-multiedit-match-symbol-and-prev)
+
 (general-define-key
  :states  '(global normal visual insert)
  :keymaps 'override
@@ -15,6 +21,8 @@
       "M-l"      'windmove-right
       "M-k"      'windmove-up
       "M-j"      'windmove-down
+      "C-x M" 'evil-multiedit-match-symbol-and-prev
+      "C-x m" 'evil-multiedit-match-symbol-and-next
       "C-j" 'treemacs-visit-node-in-most-recently-used-window
       "<C-return>" 'my-treemacs-visit-node-and-hide
       "<escape>" 'treemacs-quit)
@@ -29,11 +37,14 @@
       "C-9"      'evilnc-comment-or-uncomment-lines
       "C-c g"    'dumb-jump-go
       "M-t"      'pop-tag-mark
+      "C-c r"    'redraw-display
+      "C-c p"    'my-goto-python-scratch
       "C-c t"    'my-reload-file
       "C-S-j"    'cool-moves-line-forward
       "C-S-k"    'cool-moves-line-backward
       :n "gsP"   'cool-moves-paragraph-backward
       :n "gsp"   'cool-moves-paragraph-forward
+      :n "zi"       '+fold/open-all
       :nv "Q"    'delete-frame
       :nv "\\"    'toggle-truncate-lines
       :v "C-c a" 'align-regexp
@@ -51,6 +62,7 @@
       :leader "k" '+popup/close-all
       :leader "ft" 'my-tangle-init
       :leader "fk" 'my-search-packages
+      :leader "td" 'my-comm-dup-line
       :leader "tc" 'xah-clean-empty-lines
       :leader "ti" 'my-dup-inner-paragraph
       :leader "d" 'my-dup-line
@@ -66,10 +78,11 @@
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window)
 
-(add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
 (add-hook 'quickrun--mode-hook 'hl-line-mode)
+
+(setq! frame-title-format " %n")
 
 (setq my-load! "~/.doom.d/my-lisp/load!"
       excluded-modes "Buffer-menu-mode\\| Info-mode\\|Man-mode\\| calc-mode\\|calendar-mode\\| compilation-mode\\|completion-list-mode\\| dired-mode\\|fundamental-mode\\| gnus-mode\\|help-mode\\| helpful-mode\\|ibuffer-mode\\| lisp-interaction-mode\\|magit-auto-revert-mode\\| magit-blame-mode\\|magit-blame-read-only-mode\\| magit-blob-mode\\|magit-cherry-mode\\| magit-diff-mode\\|magit-diff-mode\\| magit-file-mode\\|magit-log-mode\\| magit-log-select-mode\\|magit-merge-preview-mode\\| magit-mode\\|magit-process-mode\\| magit-reflog-mode\\|magit-refs-mode\\| magit-repolist-mode\\|magit-revision-mode\\| magit-stash-mode\\|magit-stashes-mode\\| magit-status-mode\\|magit-submodule-list-mode\\| magit-wip-after-apply-mode\\|magit-wip-after-save-local-mode\\| magit-wip-after-save-mode\\|magit-wip-before-change-mode\\| magit-wip-initial-backup-mode\\|magit-wip-mode\\| minibuffer-inactive-mode\\|occur-mode\\| org-agenda-mode\\|org-src-mode\\| ranger-mode\\|special-mode\\| special-mode\\|term-mode\\| treemacs-mode\\|messages-buffer-mode")
@@ -79,10 +92,12 @@
       doom-unicode-font (font-spec :family "monospace" :size 20)
       doom-big-font (font-spec :family "monospace" :size 20))
 
+(global-eldoc-mode -1)
+
 
 (setq! load-prefer-newer t
-       eldoc-idle-delay 1
-       confirm-kill-emacs nil
+       eldoc-idle-delay 10
+       confirm-kill-emacs t
        personal-keybindings nil
        dumb-jump-aggressive t
        auto-save-no-message t
@@ -105,6 +120,10 @@
 
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
+
+(defun my-goto-python-scratch ()
+  (interactive)
+  (find-file "~/.doom.d/temp/sct.py"))
 
 (defun my-quiet-save-buffer ()
   (interactive)
@@ -181,6 +200,28 @@
       (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
   (my-evil-goto-mark-A)
   (evil-next-line 1))
+
+;; https://stackoverflow.com/a/998472
+(defun my-comm-dup-line (arg)
+  (interactive "*p")
+  (setq buffer-undo-list (cons (point) buffer-undo-list))
+  (let ((bol (save-excursion (beginning-of-line) (point)))
+        eol)
+    (save-excursion
+      (end-of-line)
+      (setq eol (point))
+      (let ((line (buffer-substring bol eol))
+            (buffer-undo-list t)
+            (count arg))
+        (while (> count 0)
+          (newline)
+          (insert line)
+          (setq count (1- count))))
+      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
+  (save-excursion
+    (comment-line 1))
+  (backward-char 3)
+  (forward-line 1))
 
 (defun my-yank-dir ()
   "Yank curent dir name"

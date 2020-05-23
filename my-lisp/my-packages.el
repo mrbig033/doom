@@ -42,7 +42,6 @@
         :nv "M-i"     'better-jumper-jump-forward
         :nvi "M-o"    'better-jumper-jump-backward
         :nvi "M-y"    'counsel-yank-pop
-        :map (global org-mode-map evil-org-mode-map)
         :nv "gr"      'my-evil-sel-to-end
         :v "<insert>" 'org-insert-link
         ;; :i "C-l"      'completion-at-point
@@ -60,8 +59,6 @@
         :nvig "C-k"      'kill-line
         :nvig "C-d"      'delete-char
         :nvig "C-h"      'delete-backward-char
-        :n "zi"       '+fold/open-all
-        :map (global evil-org-mode-map)
         :n "zi"       '+fold/open-all
         :leader "su"  'my-evil-substitute)
 
@@ -143,7 +140,10 @@
     (evil-swap-keys-add-pair "=" "+")))
 
 (use-package! evil-smartparens
-  :after evil)
+  :after evil
+  :config
+  (map! :map evil-smartparens-mode-map
+        :v "o" 'exchange-point-and-mark))
 
 (use-package! org
   :demand t
@@ -225,6 +225,8 @@
   (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
 
   (map! :map (org-mode-map evil-org-mode-map)
+        :n "zi"       '+fold/open-all
+        :nv "gr"      'my-evil-sel-to-end
         "C-l" 'recenter-top-bottom
         "s-S" 'org-edit-special)
 
@@ -314,6 +316,7 @@
 
 
   (map! :map pdf-view-mode-map
+        :nvieg "C-s" 'pdf-occur
         :nvieg "M-s" 'my-last-buffer
         :nvieg "<escape>" 'ignore
         :nvieg "TAB" 'pdf-outline
@@ -327,6 +330,9 @@
         :nvieg "J"        'pdf-view-next-line-or-next-page
         :nvieg "C-j"      'treemacs-select-window
         :nvieg "C-l"      'my-show-pdf-view-commands)
+
+  (map! :map pdf-outline-buffer-mode-map
+        "<escape>" 'quit-window)
 
   (defun my-show-pdf-view-commands ()
     (interactive)
@@ -361,6 +367,10 @@
 (use-package! olivetti
   :custom
   (olivetti-body-width 95))
+
+(use-package lorem-ipsum
+  :config
+  (setq lorem-ipsum-paragraph-separator "\n\n"))
 
 (use-package! company
   :custom
@@ -430,7 +440,6 @@
 (use-package json-mode)
 
 (use-package! prog-mode
-  :hook (prog-mode . electric-pair-mode)
   :hook (prog-mode . abbrev-mode)
   :custom
   ;; (word-wrap nil)
@@ -443,10 +452,8 @@
         :n "<escape>" 'my-quiet-save-buffer
         "M-m"         'flycheck-first-error))
 
-(use-package! apheleia-mode
-  :config
-  (after! apheleia
-    (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-"))))
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-")))
 
 (use-package! paren
   :ensure nil
@@ -465,15 +472,18 @@
   :demand t
   :init
 
-  (add-hook! 'python-mode-hook
+  (add-hook! '(python-mode-hook inferior-python-mode-hook)
              #'rainbow-delimiters-mode
-             #'smartparens-strict-mode
              #'electric-operator-mode
-             #'elpy-mode
-             #'apheleia-mode
+             #'evil-smartparens-mode
+             #'smartparens-strict-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon)
+
+  (add-hook! 'python-mode-hook
+             #'elpy-mode
+             #'apheleia-mode)
 
   :custom
   (python-indent-guess-indent-offset-verbose nil)
@@ -485,16 +495,27 @@
     '(company-files :with company-yasnippet)
     '(company-dabbrev-code :with company-keywords company-dabbrev))
 
+  (set-company-backend!
+    'inferior-python-mode
+    'elpy-company-backend
+    '(company-files :with company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev))
+
   (map! :map python-mode-map
+        "C-c y" 'engine/search-python-3
+        "C-c d" 'engine/search-python-3-docs
         "C-c ç" 'my-python-shebang
+        "C-ç" 'elpy-shell-switch-to-shell
         "M-a"   'python-nav-backward-statement
         "M-e"   'python-nav-forward-statement
-        "C-x m" 'elpy-multiedit-python-symbol-at-point
-        "C-x M" 'elpy-multiedit-stop
         :i "C-=" 'my-python-colon-newline
         :i "C-h"'python-indent-dedent-line-backspace
         :nv "<return>" 'hydra-python-mode/body
         :nvi "<C-return>" 'my-quickrun)
+
+  (map! :map inferior-python-mode-map
+        "C-ç" 'my-elpy-switch-to-buffer
+        :i "C-l" 'comint-clear-buffer)
 
   (defun my-quickrun ()
     (interactive)
@@ -521,13 +542,21 @@
   :custom
   (elpy-rpc-virtualenv-path 'current)
   :config
+
+  (defun my-elpy-switch-to-buffer ()
+    (interactive)
+    (elpy-shell-switch-to-buffer)
+    (quit-windows-on "*Python*"))
+
   (elpy-enable))
 
 (use-package! flycheck
   :custom
   (flycheck-display-errors-delay 0.1)
   (flycheck-check-syntax-automatically '(save
-                                         mode-enabled))
+                                         mode-enabled
+                                         idle-change
+                                         new-line))
 
   (flycheck-sh-shellcheck-executable "/usr/local/bin/shellcheck"))
 
@@ -664,9 +693,9 @@
         "C-c D"      'treemacs-delete
         "C-p"        'treemacs-previous-project
         "C-n"        'treemacs-next-project
-        "M-q"        'treemacs-visit-node-in-most-recently-used-window
         "C-c t"      'my-show-treemacs-commands
-        "C-j"        'treemacs-visit-node-in-most-recently-used-window
+        "M-q"        'treemacs-RET-action
+        "C-j"        'treemacs-RET-action
         "<C-return>" 'my-treemacs-visit-node-and-hide
         "<escape>"   'treemacs-quit)
 
@@ -696,7 +725,7 @@
 
   (defun my-treemacs-visit-node-and-hide ()
     (interactive)
-    (treemacs-visit-node-in-most-recently-used-window)
+    (treemacs-RET-action)
     (treemacs))
 
   (treemacs-resize-icons 15))
@@ -718,7 +747,8 @@
   :demand t
   :config
   (setq unkillable-scratch-behavior 'bury
-        unkillable-buffers '("^pytasks.org$"))
+        unkillable-buffers '("^pytasks.org$"
+                             "^sct.py$"))
   (unkillable-scratch +1))
 
 (use-package! super-save
@@ -797,7 +827,7 @@
   (map! :nvig "C-s"      'counsel-grep-or-swiper
         :nvig "C-,"      'ivy-switch-buffer
         :nvig "C-."      'counsel-projectile-switch-to-buffer
-        :nvig "C-/"      'counsel-projectile-ag-thing-at-point
+        :nvig "C-/"      '+shell/toggle
         :nv "."          'counsel-M-x
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
@@ -866,6 +896,22 @@
     "SPC fk" "Search Pkgs")
   (setq! which-key-idle-delay 0.5)
   (which-key-mode +1))
+
+(use-package engine-mode
+  :config
+
+  (defengine python-3
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=python 3 %s")
+
+  (defengine python-3-docs
+    "https://docs.python.org/3/search.html?q= %s")
+
+
+  (defengine devdocs-io
+    "https://devdocs.io/#q=%s")
+  (defengine emacs-wiki
+
+    (engine-mode t)))
 
 (use-package! doom-modeline
   :custom
