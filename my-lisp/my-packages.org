@@ -699,34 +699,29 @@
   (treemacs-width 20)
   (treemacs-indentation '(5 px))
   (treemacs-is-never-other-window t)
+  (treemacs-no-delete-other-windows t)
+  (treemacs-default-visit-action 'treemacs-visit-node-in-most-recently-used-window)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.1))))
   :config
-
-
-  (treemacs-follow-mode nil)
-  (treemacs-git-mode 'deferred)
+  (treemacs-follow-mode t)
+  ;; (treemacs-git-mode 'deferred)
+  (treemacs-git-mode 'extended)
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
-  (map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
-        :nvig "C-j" 'treemacs-select-window
-        :map treemacs-mode-map
-        "M-h"      'windmove-left
-        "M-l"      'windmove-right
-        "M-k"      'windmove-up
-        "M-j"      'windmove-down
-        "a" 'treemacs-add-project-to-workspace
-        "d" 'treemacs-remove-project-from-workspace
-        "D" 'treemacs-delete
-        "p" 'treemacs-projectile
-        "C-p" 'treemacs-previous-project
-        "C-n" 'treemacs-next-project
-        "M-q" 'treemacs-RET-action
-        "C-c t" 'my-show-treemacs-commands
-        "C-j" 'treemacs-visit-node-in-most-recently-used-window
+  (map! :map treemacs-mode-map
+        "C-c pa"     'treemacs-add-project-to-workspace
+        "C-c pa"     'treemacs-projectile
+        "C-c pd"     'treemacs-remove-project-from-workspace
+        "C-c D"      'treemacs-delete
+        "C-p"        'treemacs-previous-project
+        "C-n"        'treemacs-next-project
+        "M-q"        'treemacs-visit-node-in-most-recently-used-window
+        "C-c t"      'my-show-treemacs-commands
+        "C-j"        'treemacs-visit-node-in-most-recently-used-window
         "<C-return>" 'my-treemacs-visit-node-and-hide
-        "<escape>" 'treemacs-quit)
+        "<escape>"   'treemacs-quit)
 
   (general-unbind
     :keymaps 'treemacs-mode-map
@@ -868,15 +863,16 @@
   :config
 
   (map! :nvig "C-s"      'counsel-grep-or-swiper
-        :nvig "C-."      'counsel-projectile-ag-thing-at-point
-        :nvig "M-r"      'counsel-projectile-switch-to-buffer
         :nvig "C-,"      'ivy-switch-buffer
+        :nvig "C-."      'counsel-projectile-switch-to-buffer
+        :nvig "C-/"      'counsel-projectile-ag-thing-at-point
         :nv "."          'counsel-M-x
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
         :g "M-r"      'ivy-next-line
         :g "C-,"      'ivy-next-line
         :g "C-."      'ivy-next-line
+        :g "C-/"      'ivy-next-line
         :g "M-q"      'ivy-done
         :g "<insert>" 'yank
         :leader "sg" 'counsel-grep

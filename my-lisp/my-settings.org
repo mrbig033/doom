@@ -7,12 +7,22 @@
 (define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
 
 (general-define-key
- :states '(normal visual insert)
- :keymaps  '(global text-mode-map evil-treemacs-state-map treemacs-mode-map evil-org-mode-map prog-mode-map)
- "M-h"      'windmove-left
- "M-l"      'windmove-right
- "M-k"      'windmove-up
- "M-j"      'windmove-down)
+ :states  '(global normal visual insert)
+ :keymaps 'override
+ "C-j"    'treemacs-select-window
+ "M-h"    'windmove-left
+ "M-l"    'windmove-right
+ "M-k"    'windmove-up
+ "M-j"    'windmove-down)
+
+(map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
+      "M-h"      'windmove-left
+      "M-l"      'windmove-right
+      "M-k"      'windmove-up
+      "M-j"      'windmove-down
+      "C-j" 'treemacs-visit-node-in-most-recently-used-window
+      "<C-return>" 'my-treemacs-visit-node-and-hide
+      "<escape>" 'treemacs-quit)
 
 (map! "M-s"      'my-last-buffer
       "M-RET"    'my-indent-buffer
