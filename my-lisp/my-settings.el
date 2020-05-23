@@ -46,7 +46,8 @@
       :leader "d" 'my-dup-line
       :leader "bM" 'bookmark-delete
       :leader "fY" 'my-yank-dir
-      :leader "bi" 'my-insert-dir
+      :leader "bI" 'my-insert-dir
+      :leader "bi" 'ibuffer
       :leader "," 'olivetti-mode
       :leader "r" 'deer
       :leader "z" 'hydra-window/body
@@ -55,7 +56,6 @@
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window)
 
-(setq +word-wrap-visual-modes nil)
 (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)

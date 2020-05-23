@@ -142,16 +142,22 @@
     (interactive)
     (evil-swap-keys-add-pair "=" "+")))
 
+(use-package! evil-smartparens
+  :after evil)
+
 (use-package! org
   :demand t
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (remove-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
 
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
 
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-special :after #'my-indent-buffer)
 
   :custom
 
@@ -215,6 +221,8 @@
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
   :config
+
+  (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
 
   (map! :map (org-mode-map evil-org-mode-map)
         "C-l" 'recenter-top-bottom
@@ -294,6 +302,8 @@
 (use-package! pdf-tools
   :init
   (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
+  ;; (general-unbind 'pdf-view-mode-map
+  ;;   "M-s o")
   :custom
 
   (pdf-view-continuous t)
@@ -302,7 +312,9 @@
 
   :config
 
+
   (map! :map pdf-view-mode-map
+        :nvieg "M-s" 'my-last-buffer
         :nvieg "<escape>" 'ignore
         :nvieg "TAB" 'pdf-outline
         :nvieg "q"        'quit-window
@@ -888,3 +900,8 @@
 (use-package! message
   :config
   (read-only-mode -1))
+
+(use-package! ibuffer
+  :config
+  (map! :map ibuffer-mode-map
+        :n "<escape>" 'kill-current-buffer))
