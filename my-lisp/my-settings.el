@@ -108,9 +108,8 @@
 (global-eldoc-mode -1)
 
 
-(setq! load-prefer-newer t
-       eldoc-idle-delay 10
-       confirm-kill-emacs t
+(setq!  eldoc-idle-delay 10
+       confirm-kill-emacs nil
        personal-keybindings nil
        dumb-jump-aggressive t
        auto-save-no-message t

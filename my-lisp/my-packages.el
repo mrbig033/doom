@@ -454,6 +454,7 @@
         "M-p"         'my-par-backward-to-indentation
         "M-n"         'my-par-forward-to-indentation
         :nv "TAB"     '+fold/toggle
+        :i "M-e"      'yas-expand
         :n "<escape>" 'my-quiet-save-buffer
         "M-m"         'flycheck-first-error))
 
@@ -719,7 +720,7 @@
         "C-n"        'treemacs-next-project
         "C-c t"      'my-show-treemacs-commands
         "M-q"        'treemacs-RET-action
-        "C-j"        'treemacs-RET-action
+        "C-j"        'my-treemacs-visit-node-and-hide
         "<C-return>" 'my-treemacs-visit-node-and-hide
         "<escape>"   'treemacs-quit)
 
@@ -879,10 +880,6 @@
   (defun counsel-projectile-ag-thing-at-point ()
     (interactive)
     (ivy-with-thing-at-point 'counsel-projectile-ag)))
-
-(use-package! ivy-hydra
-  :disabled
-  :after hydra)
 
 (use-package! ivy-prescient
   :hook ivy
