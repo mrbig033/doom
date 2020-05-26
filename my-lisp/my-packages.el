@@ -43,6 +43,7 @@
         :nvi "M-o"    'better-jumper-jump-backward
         :nvi "M-y"    'counsel-yank-pop
         :nv "gr"      'my-evil-sel-to-end
+        :n "zi"       '+fold/open-all
         :v "<insert>" 'org-insert-link
         ;; :i "C-l"      'completion-at-point
         :map (minibuffer-local-map
@@ -59,8 +60,9 @@
         :nvig "C-k"      'kill-line
         :nvig "C-d"      'delete-char
         :nvig "C-h"      'delete-backward-char
-        :n "zi"       '+fold/open-all
-        :leader "su"  'my-evil-substitute)
+        :leader "su"  'my-evil-substitute
+        )
+
 
   ;; (advice-add '+evil-window-split-a :after #'evil-window-prev)
   ;; (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
@@ -372,6 +374,9 @@
   :config
   (setq lorem-ipsum-paragraph-separator "\n\n"))
 
+(use-package! sh-mode
+  :hook (sh-mode . evil-swap-keys-swap-double-single-quotes))
+
 (use-package! company
   :custom
   (company-ispell-dictionary "brazilian")
@@ -471,12 +476,12 @@
 (use-package! python
   :demand t
   :init
-
   (add-hook! '(python-mode-hook inferior-python-mode-hook)
              #'rainbow-delimiters-mode
              #'electric-operator-mode
              #'evil-smartparens-mode
              #'smartparens-strict-mode
+             #'yafolding-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon)
@@ -488,6 +493,11 @@
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
+
+  (defun my-quickrun-shell ()
+    (interactive)
+    (quickrun-shell)
+    (other-window))
 
   (set-company-backend!
     'python-mode
@@ -508,9 +518,16 @@
         "C-ç" 'elpy-shell-switch-to-shell
         "M-a"   'python-nav-backward-statement
         "M-e"   'python-nav-forward-statement
+        "<M-backspace>"   'apheleia-format-buffer
         :i "C-=" 'my-python-colon-newline
         :i "C-h"'python-indent-dedent-line-backspace
+        :nv "zi" 'yafolding-show-all
+        :nv "zm" 'yafolding-toggle-all
+        :nv "TAB" 'yafolding-toggle-element
+        :nv "<backtab>" 'yafolding-toggle-all
         :nv "<return>" 'hydra-python-mode/body
+        :nv "<" 'python-indent-shift-left
+        :nv ">" 'python-indent-shift-right
         :nvi "<C-return>" 'my-quickrun)
 
   (map! :map inferior-python-mode-map
@@ -543,6 +560,11 @@
   (elpy-rpc-virtualenv-path 'current)
   :config
 
+  (map! :map elpy-mode-map
+        "C-x m" 'elpy-multiedit-python-symbol-at-point
+        "C-x M" 'elpy-multiedit-stop)
+
+  (advice-add 'elpy-multiedit-python-symbol-at-point :before #'my-save-some-buffers)
   (defun my-elpy-switch-to-buffer ()
     (interactive)
     (elpy-shell-switch-to-buffer)
@@ -591,6 +613,8 @@
   :config
 
   (map! :map ranger-mode-map
+        "çm"         'dired-create-directory
+        "<insert>"   'dired-create-empty-file
         "i"          'my-ranger-go
         "M-9"        'delete-other-windows
         "tp"         'delete-file
@@ -838,7 +862,9 @@
         :g "M-q"      'ivy-done
         :g "<insert>" 'yank
         :leader "sg" 'counsel-grep
-        :leader "sa" 'counsel-ag-thing-at-point)
+        :leader "sa" 'counsel-ag-thing-at-point
+        :leader "pG" 'projectile-configure-project
+        :leader "pg" 'counsel-projectile-ag)
 
   (defun ivy-with-thing-at-point (cmd)
     (let ((ivy-initial-inputs-alist
@@ -894,7 +920,7 @@
     "SPC td" "Dup Par"
     "SPC bY" "Yank Dir"
     "SPC fk" "Search Pkgs")
-  (setq! which-key-idle-delay 0.5)
+  (setq! which-key-idle-delay 0.4)
   (which-key-mode +1))
 
 (use-package engine-mode
@@ -912,6 +938,14 @@
   (defengine emacs-wiki
 
     (engine-mode t)))
+
+(use-package! time
+  :config
+  (setq! display-time-format "| %A | %H:%M |"
+         display-time-interval (* 60 5)
+         display-time-default-load-average nil)
+
+  (display-time-mode +1))
 
 (use-package! doom-modeline
   :custom

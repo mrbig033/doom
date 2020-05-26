@@ -21,6 +21,12 @@
  "M-k"    'windmove-up
  "M-j"    'windmove-down)
 
+(map! :map (org-mode-map evil-org-mode-map)
+      :n "zi"       '+fold/open-all
+      :nv "gr"      'my-evil-sel-to-end
+      "C-l" 'recenter-top-bottom
+      "s-S" 'org-edit-special)
+
 (map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
       "M-h"      'windmove-left
       "M-l"      'windmove-right
@@ -33,6 +39,8 @@
       "<escape>" 'treemacs-quit)
 
 (map! "M-s"      'my-last-buffer
+      "s-t"      '+default/new-buffer
+      "s-w"      'quit-window
       "M-RET"    'my-indent-buffer
       "M-9"      'delete-other-windows
       "M-0"      'quit-window
@@ -43,6 +51,7 @@
       "C-c g"    'dumb-jump-go
       "M-t"      'pop-tag-mark
       "C-c r"    'redraw-display
+      "C-c i"    'git-timemachine
       "C-c p"    'my-goto-python-scratch
       "C-c t"    'my-reload-file
       "C-S-j"    'cool-moves-line-forward
@@ -62,7 +71,11 @@
       :n "<escape>" 'my-quiet-save-buffer
       :map snippet-mode-map
       :n "<escape>" 'ignore
+      :leader "oo" 'hydra-org-mode/body
+      :leader "oO" '+macos/reveal-in-finder
+      :leader "oO" '+macos/reveal-in-finder
       :leader "pR" 'projectile-replace
+      :leader "bu" 'unkillable-scratch
       :leader "T" 'my-reopen-killed-file
       :leader "k" '+popup/close-all
       :leader "ft" 'my-tangle-init
@@ -130,6 +143,17 @@
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
 
+(defun my-delete-file-and-buffer ()
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (if (vc-backend filename)
+          (vc-delete-file filename)
+        (progn
+          (delete-file filename)
+          (message "deleted file %s" filename)
+          (kill-buffer))))))
+
 (defun my-goto-python-scratch ()
   (interactive)
   (find-file "~/.doom.d/temp/sct.py"))
@@ -142,8 +166,12 @@
 
 (defun my-save-some-buffers ()
   (interactive)
-  (let ((current-prefix-arg 4))
-    (call-interactively 'save-some-buffers)))
+  (save-some-buffers t 0))
+
+;; (defun my-save-some-buffers ()
+;;   (interactive)
+;;   (let ((current-prefix-arg 4))
+;;     (call-interactively 'save-some-buffers)))
 
 (defun my-kill-this-buffer ()
   "Kill the current buffer."

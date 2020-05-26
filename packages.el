@@ -78,6 +78,7 @@
 (package! json-mode)
 (package! engine-mode)
 (package! lorem-ipsum)
+(package! yafolding)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
