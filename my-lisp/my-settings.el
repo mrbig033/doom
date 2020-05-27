@@ -56,6 +56,7 @@
       "C-c t"    'my-reload-file
       "C-S-j"    'cool-moves-line-forward
       "C-S-k"    'cool-moves-line-backward
+      :nv "tp"   'move-file-to-trash
       :n "gsP"   'cool-moves-paragraph-backward
       :n "gsp"   'cool-moves-paragraph-forward
       :n "zi"       '+fold/open-all
@@ -112,9 +113,9 @@
 
 (global-eldoc-mode -1)
 
-
 (setq!  eldoc-idle-delay 10
         confirm-kill-emacs nil
+        trash-directory "~/.Trash"
         undo-fu-session-compression nil
         undo-fu-session-linear nil
         undo-fu-session-file-limit nil

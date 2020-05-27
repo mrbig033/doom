@@ -27,6 +27,7 @@
         :i "C-u"      'my-backward-kill-line
         :n "<f1>"     'hydra-help/body
         :n "<f8>"     'counsel-M-x
+        :n "ç"        'my-highlight-word
         :ng "C-h"     'hydra-help/body
         :n "C-k"      'my-kill-visual-line-and-insert
         :n "ge"       'evil-end-of-visual-line
@@ -66,6 +67,11 @@
 
   ;; (advice-add '+evil-window-split-a :after #'evil-window-prev)
   ;; (advice-add '+evil-window-vsplit-a :after #'evil-window-prev)
+
+  (defun my-highlight-word ()
+    (interactive)
+    (save-excursion
+      (evil-ex-search-word-forward)))
 
   (defun my-evil-substitute ()
     (interactive)
@@ -216,7 +222,7 @@
   (org-src-window-setup 'current-window)
   (org-edit-src-content-indentation 1)
   (org-edit-src-persistent-message nil)
-  (org-src-fontify-natively nil)
+  (org-src-fontify-natively t)
   (org-src-tab-acts-natively nil)
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-edit-src-auto-save-idle-delay 0)
@@ -230,10 +236,10 @@
         :n "zi"       '+fold/open-all
         :nv "gr"      'my-evil-sel-to-end
         "C-l" 'recenter-top-bottom
-        "s-S" 'org-edit-special)
+        "s-w" 'org-edit-special)
 
   (map! :map (org-src-mode-map)
-        "s-S" 'my-eval-buffer-and-leave-org-source)
+        "s-w" 'my-eval-buffer-and-leave-org-source)
 
   (org-indent-mode t)
 
@@ -481,6 +487,7 @@
 (use-package! python
   :demand t
   :init
+
   (add-hook! '(python-mode-hook inferior-python-mode-hook)
              #'rainbow-delimiters-mode
              #'electric-operator-mode
@@ -570,6 +577,9 @@
         "C-x M" 'elpy-multiedit-stop)
 
   (advice-add 'elpy-multiedit-python-symbol-at-point :before #'my-save-some-buffers)
+  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
+  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
+
   (defun my-elpy-switch-to-buffer ()
     (interactive)
     (elpy-shell-switch-to-buffer)
@@ -717,12 +727,18 @@
     (treemacs-quit))
 
   (treemacs-follow-mode t)
-  ;; (treemacs-git-mode 'deferred)
-  (treemacs-git-mode 'extended)
+  (treemacs-git-mode 'deferred)
+
+  (advice-add 'treemacs-TAB-action :after #'my-recenter-window)
+  (advice-add 'treemacs-RET-action :after #'my-recenter-window)
+  (advice-add 'my-treemacs-visit-node-and-hide :after #'my-recenter-window)
+
+
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
   (map! :nvig "C--"    'my-quit-treemacs
-        :map treemacs-mode-map
+        :map (treemacs-mode-map evil-treemacs-state-map)
+        "tp"   'move-file-to-trash
         "C-c pa"   'treemacs-add-project-to-workspace
         "C-c pa"   'treemacs-projectile
         "C-c pd"   'treemacs-remove-project-from-workspace
