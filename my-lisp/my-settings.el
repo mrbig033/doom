@@ -72,6 +72,10 @@
       :n "<escape>" 'my-quiet-save-buffer
       :map snippet-mode-map
       :n "<escape>" 'ignore
+      :leader "gs" 'magit-stage-modified
+      :leader "g SPC" 'my-magit-stage-modified-and-commit
+      :leader "gd" 'magit-dispatch
+      :leader "gcd" 'magit-commit
       :leader "oo" 'hydra-org-mode/body
       :leader "oO" '+macos/reveal-in-finder
       :leader "oO" '+macos/reveal-in-finder
@@ -141,6 +145,12 @@
 
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
+
+(defun my-magit-stage-modified-and-commit ()
+  (interactive)
+  (progn
+    (let ((current-prefix-arg '(4))) (magit-stage-modified))
+    (magit-commit-create)))
 
 (defun my-delete-file-and-buffer ()
   (interactive)

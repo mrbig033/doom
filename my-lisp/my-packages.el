@@ -370,7 +370,8 @@
   (avy-background-face((t (:foreground "LightSkyBlue4"))))
   :init
   (map! :nv "F" 'evil-avy-goto-char-2-above
-        :nv "f" 'evil-avy-goto-char-2-below)
+        :nv "f" 'evil-avy-goto-char-2-below
+        :nv "." 'evil-avy-goto-word-or-subword-1)
 
   :config
   (setq! avy-keys (nconc (number-sequence ?a ?z)
@@ -378,7 +379,7 @@
 
 (use-package! olivetti
   :custom
-  (olivetti-body-width 95))
+  (olivetti-body-width 70))
 
 (use-package lorem-ipsum
   :config
@@ -506,6 +507,7 @@
   (python-indent-guess-indent-offset-verbose nil)
   :config
 
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (defun my-quickrun-shell ()
     (interactive)
     (quickrun-shell)
@@ -891,7 +893,6 @@
         :nvig "C-,"      'ivy-switch-buffer
         :nvig "C-."      'counsel-projectile-switch-to-buffer
         :nvig "C-/"      '+shell/toggle
-        :nv "."          'counsel-M-x
         :map ivy-minibuffer-map
         :g "M-y"      'ivy-next-line
         :g "M-r"      'ivy-next-line
@@ -949,6 +950,8 @@
 (use-package! which-key
   :config
   (which-key-add-key-based-replacements
+    "SPC gcd" "Dispatch"
+    "SPC gd" "Magit Dispatch"
     "SPC tc" "Clean Lines"
     "SPC td" "Dup Lines"
     "SPC bl" "Kill Matching"
@@ -1009,7 +1012,26 @@
   (hl-line-mode -1)
   (global-hl-line-mode -1))
 
-(use-package! message
+(use-package! beacon
+  :custom
+  (beacon-dont-blink-commands '(evil-forward-word-begin
+                                evil-backward-word-begin
+                                beginning-of-visual-line
+                                evil-indent
+                                helpful-at-point
+                                quit-window))
+  (beacon-size 30)
+  (beacon-blink-delay 0.1)
+  (beacon-blink-duration 0.06)
+  (beacon-blink-when-focused nil)
+  (beacon-blink-when-window-scrolls t)
+  (beacon-blink-when-window-changes t)
+  (beacon-blink-when-point-moves-vertically nil)
+  (beacon-blink-when-point-moves-horizontally nil)
+  :config
+  (beacon-mode +1))
+
+(use-package! messages-buffer-mode
   :config
   (read-only-mode -1))
 

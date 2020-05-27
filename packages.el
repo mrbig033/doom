@@ -79,6 +79,7 @@
 (package! engine-mode)
 (package! lorem-ipsum)
 (package! yafolding)
+(package! beacon)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
