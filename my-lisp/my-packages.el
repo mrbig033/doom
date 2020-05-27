@@ -239,6 +239,10 @@
 
   (setq org-agenda-files '("~/org/Agenda"))
 
+  ;; MAKES SOURCE BUFFER NAMES NICER
+  (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
+    (concat "[s] "org-buffer-name""))
+
   (defun my-org-key-translation ()
     "Custom `org-mode' behaviours."
     ;; Buffer-local key translation from "`" to "~".
@@ -734,8 +738,14 @@
 
   (general-unbind
     :keymaps 'treemacs-mode-map
-    :with 'avy-goto-char-2-below
-    [remap evil-find-char])
+    :with 'my-treemacs-nswbuff
+    [remap nswbuff-switch-to-next-buffer]
+    [remap nswbuff-switch-to-previous-buffer])
+
+  (defun my-treemacs-nswbuff ()
+    (interactive)
+    (windmove-right)
+    (nswbuff-switch-to-next-buffer))
 
   (general-unbind
     :keymaps 'treemacs-mode-map
@@ -765,7 +775,6 @@
 
 (use-package! treemacs-projectile
   :after treemacs projectile)
-
 
 (use-package! treemacs-magit
   :after treemacs magit)
@@ -843,8 +852,8 @@
   (nswbuff-start-with-current-centered t)
   (nswbuff-display-intermediate-buffers t)
   (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
-  (nswbuff-exclude-mode-regexp excluded-modes)
-  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*")))
+  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
+  (nswbuff-exclude-mode-regexp "info-mode\\|ranger-mode\\|treemacs-mode"))
 
 (use-package! ivy
   :custom
