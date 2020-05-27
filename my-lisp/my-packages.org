@@ -234,8 +234,8 @@
   (org-src-window-setup 'current-window)
   (org-edit-src-content-indentation 1)
   (org-edit-src-persistent-message nil)
-  (org-src-fontify-natively nil)
-  (org-src-tab-acts-natively nil)
+  (org-src-fontify-natively t)
+  (org-src-tab-acts-natively t)
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-edit-src-auto-save-idle-delay 0)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
@@ -248,10 +248,10 @@
         :n "zi"       '+fold/open-all
         :nv "gr"      'my-evil-sel-to-end
         "C-l" 'recenter-top-bottom
-        "s-S" 'org-edit-special)
+        "s-w" 'org-edit-special)
 
   (map! :map (org-src-mode-map)
-        "s-S" 'my-eval-buffer-and-leave-org-source)
+        "s-w" 'my-eval-buffer-and-leave-org-source)
 
   (org-indent-mode t)
 
@@ -259,7 +259,7 @@
 
   ;; MAKES SOURCE BUFFER NAMES NICER
   (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
-    (concat "[s] "org-buffer-name""))
+    (concat "[S] "org-buffer-name""))
 
   (defun my-org-key-translation ()
     "Custom `org-mode' behaviours."
@@ -779,7 +779,8 @@
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
   (map! :nvig "C--"    'my-quit-treemacs
-        :map treemacs-mode-map
+        :map (treemacs-mode-map evil-treemacs-state-map)
+        "tp"   'move-file-to-trash
         "C-c pa"   'treemacs-add-project-to-workspace
         "C-c pa"   'treemacs-projectile
         "C-c pd"   'treemacs-remove-project-from-workspace
@@ -1055,6 +1056,7 @@
 #+begin_src emacs-lisp
 (use-package! doom-modeline
   :custom
+  (setq doom-modeline-percent-position '(-3 "%p"))
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)

@@ -241,7 +241,7 @@
 
   ;; MAKES SOURCE BUFFER NAMES NICER
   (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
-    (concat "[s] "org-buffer-name""))
+    (concat "[S] "org-buffer-name""))
 
   (defun my-org-key-translation ()
     "Custom `org-mode' behaviours."
@@ -968,6 +968,7 @@
 
 (use-package! doom-modeline
   :custom
+  (setq doom-modeline-percent-position '(-3 "%p"))
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)
