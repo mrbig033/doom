@@ -45,12 +45,15 @@
       "M-9"      'delete-other-windows
       "M-0"      'quit-window
       "M-/"      'hippie-expand
-      "C-c R"    'doom/restart
+      "C-c w"    'my-window-to-register-one
+      "C-c W"    'my-jump-to-register-one
+      "C-c r"    'jump-to-register
+      "C-c C-x r" 'doom/restart
       "C-c e"    'eval-buffer
       "C-9"      'evilnc-comment-or-uncomment-lines
       "C-c g"    'dumb-jump-go
       "M-t"      'pop-tag-mark
-      "C-c r"    'redraw-display
+      "C-c R"    'redraw-display
       "C-c i"    'git-timemachine
       "C-c p"    'my-goto-python-scratch
       "C-c t"    'my-reload-file
@@ -95,7 +98,7 @@
       :leader "q" 'my-kill-this-buffer
       :leader "hh" 'hydra-help/body
       :leader "0"'delete-window)
-#+end_src
+      #+end_src
 * Settings
 #+begin_src emacs-lisp
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -116,20 +119,23 @@
 
 
 (setq!  eldoc-idle-delay 10
-       confirm-kill-emacs nil
-       personal-keybindings nil
-       dumb-jump-aggressive t
-       auto-save-no-message t
-       auto-revert-verbose nil
-       custom-safe-themes t
-       yas-indent-line 'fixed
-       use-package-always-defer t
-       ns-option-modifier 'meta
-       warning-minimum-level :error
-       ns-right-option-modifier 'meta
-       initial-major-mode 'scratch-mode
-       kill-whole-line t
-       doom-scratch-initial-major-mode 'scratch-mode)
+        confirm-kill-emacs nil
+        undo-fu-session-compression nil
+        undo-fu-session-linear nil
+        undo-fu-session-file-limit nil
+        personal-keybindings nil
+        dumb-jump-aggressive t
+        auto-save-no-message t
+        auto-revert-verbose nil
+        custom-safe-themes t
+        yas-indent-line 'fixed
+        use-package-always-defer t
+        ns-option-modifier 'meta
+        warning-minimum-level :error
+        ns-right-option-modifier 'meta
+        initial-major-mode 'scratch-mode
+        kill-whole-line t
+        doom-scratch-initial-major-mode 'scratch-mode)
 
 (setq-default menu-bar-mode nil)
 (menu-bar-mode nil)
@@ -201,6 +207,20 @@
 (define-derived-mode scratch-mode
   lisp-interaction-mode "scratch")
 
+(defun my-kill-all-buffers-except-treemacs ()
+  "kill all buffers."
+  (interactive)
+  (progn
+    (my-save-all)
+    (mapc 'kill-buffer (delq (treemacs-get-local-buffer) (buffer-list)))
+    (message " all killed expect treemacs")))
+(current-buffer)
+
+(general-unbind
+  :keymaps 'scratch-mode-map
+  :with 'quit-window
+  [remap my-kill-this-buffer])
+
 (defun my-show-major-mode ()
   (interactive)
   (helpful-variable 'major-mode))
@@ -215,6 +235,17 @@
   (recenter-top-bottom
    `(4)))
 
+(defun my-window-to-register-one ()
+  (interactive)
+  (window-configuration-to-register 49 nil))
+
+(defun my-jump-to-register-one ()
+  (interactive)
+  (jump-to-register 49 nil))
+
+(defun my-show-buffer-name ()
+  (interactive)
+  (message (buffer-name)))
 
 ;; https://stackoverflow.com/a/998472
 (defun my-dup-line (arg)

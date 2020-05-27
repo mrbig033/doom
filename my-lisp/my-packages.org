@@ -754,32 +754,40 @@
 (use-package! treemacs
   :demand t
   :custom
-  (treemacs-width 20)
+  (treemacs-width 25)
   (treemacs-indentation '(5 px))
   (treemacs-is-never-other-window t)
   (treemacs-no-delete-other-windows t)
   (treemacs-default-visit-action 'treemacs-visit-node-in-most-recently-used-window)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
-  (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.1))))
+  (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))
   :config
+
+  (defun my-quit-treemacs ()
+    (interactive)
+    (treemacs-select-window)
+    (treemacs-quit))
+
   (treemacs-follow-mode t)
   ;; (treemacs-git-mode 'deferred)
   (treemacs-git-mode 'extended)
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?)
 
-  (map! :map treemacs-mode-map
-        "C-c pa"     'treemacs-add-project-to-workspace
-        "C-c pa"     'treemacs-projectile
-        "C-c pd"     'treemacs-remove-project-from-workspace
-        "C-c D"      'treemacs-delete
-        "C-p"        'treemacs-previous-project
-        "C-n"        'treemacs-next-project
-        "C-c t"      'my-show-treemacs-commands
-        "M-q"        'treemacs-RET-action
-        "C-j"        'my-treemacs-visit-node-and-hide
-        "<C-return>" 'my-treemacs-visit-node-and-hide
-        "<escape>"   'treemacs-quit)
+  (map! :nvig "C--"    'my-quit-treemacs
+        :map treemacs-mode-map
+        "C-c pa"   'treemacs-add-project-to-workspace
+        "C-c pa"   'treemacs-projectile
+        "C-c pd"   'treemacs-remove-project-from-workspace
+        "C-c D"    'treemacs-delete
+        "C-p"      'treemacs-previous-project
+        "C-n"      'treemacs-next-project
+        "C-c t"    'my-show-treemacs-commands
+        "çm"       'treemacs-create-dir
+        "<insert>" 'treemacs-create-file
+        "m"        'treemacs-RET-action
+        "C-j"      'my-treemacs-visit-node-and-hide
+        "<escape>" 'treemacs-quit)
 
   (general-unbind
     :keymaps 'treemacs-mode-map
@@ -814,6 +822,10 @@
 
 (use-package! treemacs-projectile
   :after treemacs projectile)
+
+
+(use-package! treemacs-magit
+  :after treemacs magit)
 #+end_src
 ** Windmove
 #+begin_src emacs-lisp
@@ -836,7 +848,8 @@
   :config
   (setq unkillable-scratch-behavior 'bury
         unkillable-buffers '("^pytasks.org$"
-                             "^sct.py$"))
+                             "^sct.py$"
+                             "*Treemacs"))
   (unkillable-scratch +1))
 #+end_src
 ** Super Save
