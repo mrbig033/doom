@@ -95,16 +95,18 @@
 (use-package! evil-god-state
   :after evil
   :init
-  (map! :n ","          'evil-execute-in-god-state
-        :v ","          'evil-exit-visual-state
+  (map! :n "."          'evil-execute-in-god-state
+        :v "."          'evil-exit-visual-state
         :map god-local-mode-map
         :nig "<escape>" 'evil-god-state-bail
-        :nig ","        'evil-god-state-bail)
+        :nig "."        'evil-god-state-bail)
   :custom
   (selection-coding-system 'utf-8-unix))
 
 (use-package! evil-better-visual-line
-  :after evil)
+  :after evil
+  :config
+  (evil-better-visual-line-on))
 
 (use-package! evil-swap-keys
   :after evil
@@ -369,17 +371,27 @@
   :custom-face
   (avy-background-face((t (:foreground "LightSkyBlue4"))))
   :init
-  (map! :nv "F" 'evil-avy-goto-char-2-above
-        :nv "f" 'evil-avy-goto-char-2-below
-        :nv "." 'evil-avy-goto-word-or-subword-1)
+  (map! :nv "F"  'evil-avy-goto-char-2-above
+        :nv "f"  'evil-avy-goto-char-2-below
+        :nv ","  'evil-avy-goto-word-or-subword-1
+        :nv "g9" 'my-avy-goto-parens)
 
   :config
+
+  (add-to-list 'avy-orders-alist '(my-avy-goto-parens . avy-order-closest))
+
+  (defun my-avy-goto-parens ()
+    (interactive)
+    (let ((avy-command this-command))   ; for look up in avy-orders-alist
+      (avy-jump "(+")))
+
+
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))
 
 (use-package! olivetti
-  :custom
-  (olivetti-body-width 70))
+  :config
+  (setq-default olivetti-body-width 80))
 
 (use-package lorem-ipsum
   :config
@@ -495,6 +507,7 @@
              #'evil-smartparens-mode
              #'smartparens-strict-mode
              #'yafolding-mode
+             #'olivetti-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon)
@@ -535,6 +548,7 @@
         "<M-backspace>"   'apheleia-format-buffer
         :i "C-=" 'my-python-colon-newline
         :i "C-h"'python-indent-dedent-line-backspace
+        :n "ç" 'hydra-python-mode/body
         :nv "zi" 'yafolding-show-all
         :nv "zm" 'yafolding-toggle-all
         :nv "TAB" 'yafolding-toggle-element
@@ -1016,6 +1030,18 @@
   :custom
   (beacon-dont-blink-commands '(evil-forward-word-begin
                                 evil-backward-word-begin
+                                evil-scroll-line-up
+                                evil-scroll-line-down
+                                evil-better-visual-line-next-line
+                                evil-better-visual-line-previous-line
+                                my-par-forward-to-indentation
+                                my-par-backward-to-indentation
+                                evil-forward-paragraph
+                                evil-backward-paragraph
+                                evil-next-visual-line
+                                evil-previous-visual-line
+                                evil-next-line
+                                evil-previous-line
                                 beginning-of-visual-line
                                 evil-indent
                                 helpful-at-point

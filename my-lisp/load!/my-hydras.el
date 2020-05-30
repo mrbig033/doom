@@ -50,14 +50,19 @@
 
     _d_: goto def   _g_: goto dumb _s_: quickshell
     _a_: goto ass   _b_: go back   _c_: clear errors"
+
   ("<escape>" nil)
-  ("<return>" nil)
   ("q" nil)
 
   ("d" elpy-goto-definition)
+  ("ç" elpy-goto-definition)
+  ("<return>" elpy-goto-definition)
   ("a" elpy-goto-assignment)
+
   ("g" dumb-jump-go)
-  ("b" pop-tag-mark)
+  ("b" better-jumper-jump-backward)
+  ("C-ç" better-jumper-jump-backward)
+  ("<C-return>" better-jumper-jump-backward)
   ("s" quickrun-shell)
   ("c" flycheck-clear))
 

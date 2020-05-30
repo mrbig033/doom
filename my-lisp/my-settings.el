@@ -74,6 +74,7 @@
       :n "<escape>" 'ignore
       :leader "gs" 'magit-stage-modified
       :leader "g SPC" 'my-magit-stage-modified-and-commit
+      :leader "gp" 'magit-push
       :leader "gd" 'magit-dispatch
       :leader "gcd" 'magit-commit
       :leader "oo" 'hydra-org-mode/body
@@ -84,6 +85,7 @@
       :leader "T" 'my-reopen-killed-file
       :leader "k" '+popup/close-all
       :leader "ft" 'my-tangle-init
+      :leader "fs" 'my-search-settings
       :leader "fk" 'my-search-packages
       :leader "td" 'my-comm-dup-line
       :leader "tc" 'xah-clean-empty-lines
@@ -104,7 +106,7 @@
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
 (add-hook 'quickrun--mode-hook 'hl-line-mode)
-
+(mouse-avoidance-mode 'banish)
 (setq! frame-title-format " %n")
 
 (setq my-load! "~/.doom.d/my-lisp/load!"
@@ -145,6 +147,10 @@
 
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
+
+(defun my-search-settings ()
+  (interactive)
+  (counsel-ag nil "~/.doom.d/my-lisp/"))
 
 (defun my-magit-stage-modified-and-commit ()
   (interactive)
