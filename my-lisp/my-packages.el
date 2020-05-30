@@ -507,7 +507,7 @@
   (python-indent-guess-indent-offset-verbose nil)
   :config
 
-  (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+  ;; (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (defun my-quickrun-shell ()
     (interactive)
     (quickrun-shell)
@@ -987,7 +987,7 @@
 
 (use-package! doom-modeline
   :custom
-  (setq doom-modeline-percent-position '(-3 "%p"))
+  (doom-modeline-percent-position '(-3 "%p"))
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)
