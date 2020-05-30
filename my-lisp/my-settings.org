@@ -113,6 +113,14 @@
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
 (add-hook 'quickrun--mode-hook 'hl-line-mode)
+(advice-add 'dumb-jump-go :after #'my-recenter-window)
+
+(after! dumb-jump
+  (setq! dumb-jump-aggressive t))
+
+(after! projectile
+  (setq! projectile-track-known-projects-automatically nil))
+
 (mouse-avoidance-mode 'banish)
 (setq! frame-title-format " %n")
 
@@ -133,7 +141,6 @@
         undo-fu-session-linear nil
         undo-fu-session-file-limit nil
         personal-keybindings nil
-        dumb-jump-aggressive t
         auto-save-no-message t
         auto-revert-verbose nil
         custom-safe-themes t

@@ -248,6 +248,38 @@
   (org-edit-src-auto-save-idle-delay 0)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
+  (org-capture-templates
+   '(("t" "Personal todo" entry
+      (file+headline +org-capture-todo-file "Inbox") "* [ ] %? %i\nFrom: %f" :prepend t)
+
+     ("n" "Personal notes" entry
+      (file+headline +org-capture-notes-file "Inbox") "* %u %? %i \nFrom: %f" :prepend t)
+
+     ("j" "Journal" entry
+      (file+olp+datetree +org-capture-journal-file) "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("p" "Project Templates")
+
+     ("pt" "Project - local todo" entry
+      (file+headline +org-capture-project-todo-file "Inbox") "* TODO %? %i \nFrom: %f" :prepend t)
+
+     ("pn" "Project - local notes" entry
+      (file+headline +org-capture-project-notes-file "Inbox") "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("pc" "Project - local changelog" entry
+      (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("o" "Central Project Templates")
+
+     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
+      "* TODO %? %i \nFrom: %f" :heading "Tasks" :prepend nil)
+
+     ("on" "Project notes" entry #'+org-capture-central-project-notes-file
+      "* %U %? %i \nFrom: %f" :heading "Notes" :prepend t)
+
+     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
+      "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)))
+
   :config
 
   (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
@@ -386,6 +418,7 @@
 #+begin_src emacs-lisp :tangle yes
 (use-package! text-mode
   :init
+  (add-hook 'text-mode-hook 'show-paren-mode)
   (remove-hook 'text-mode-hook '+spell-remove-run-together-switch-for-aspell-h)
   (remove-hook 'text-mode-hook 'hl-line-mode))
 #+end_src
@@ -538,8 +571,8 @@
   (blink-matching-paren-dont-ignore-comments t)
   (show-paren-ring-bell-on-mismatch nil)
   :custom-face
-  (show-paren-match ((t(:background "#292929"
-                        :foreground "dark orange"
+  (show-paren-match ((t(:background "purple"
+                        :foreground "white"
                         :inverse-video nil
                         :underline nil
                         :slant normal
@@ -590,6 +623,7 @@
 
   (map! :map python-mode-map
         "C-c y" 'engine/search-python-3
+        "C-c g" 'engine/search-pygame-docs
         "C-c d" 'engine/search-python-3-docs
         "C-c ç" 'my-python-shebang
         "C-ç" 'elpy-shell-switch-to-shell
@@ -954,13 +988,14 @@
   (nswbuff-display-intermediate-buffers t)
   (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
   (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
-  (nswbuff-exclude-mode-regexp "info-mode\\|ranger-mode\\|treemacs-mode"))
+  (nswbuff-exclude-mode-regexp "info-mode\\|ranger-mode\\|treemacs-mode\\|pdf-view-mode"))
 #+end_src
 * Helpers
 ** Ivy
 #+begin_src emacs-lisp
 (use-package! ivy
   :custom
+  (counsel-grep-swiper-limit 5000)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
   (counsel-find-file-at-point t)
@@ -1059,6 +1094,9 @@
 #+begin_src emacs-lisp
 (use-package engine-mode
   :config
+
+  (defengine pygame-docs
+    "https://www.pygame.org/docs/search.html?q=%s")
 
   (defengine python-3
     "http://www.google.com/search?ie=utf-8&oe=utf-8&q=python 3 %s")

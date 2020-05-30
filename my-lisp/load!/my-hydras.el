@@ -49,7 +49,10 @@
   "
 
     _d_: goto def   _g_: goto dumb _s_: quickshell
-    _a_: goto ass   _b_: go back   _c_: clear errors"
+    _a_: goto ass   _b_: go back   _c_: clear errors
+
+
+"
 
   ("<escape>" nil)
   ("q" nil)
