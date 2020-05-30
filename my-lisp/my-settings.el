@@ -104,6 +104,8 @@
       :leader "0"'delete-window)
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
 (add-hook 'quickrun--mode-hook 'hl-line-mode)
 (advice-add 'dumb-jump-go :after #'my-recenter-window)

@@ -1,3 +1,10 @@
 #!/usr/bin/env python3
 
-import sys
+
+def run():
+    while True:
+        for i in range(10):
+
+
+
+run()

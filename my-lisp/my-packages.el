@@ -264,7 +264,7 @@
 
   :config
 
-  (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
+  ;; (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
 
   (map! :map (org-mode-map evil-org-mode-map)
         :n "zi"       '+fold/open-all
@@ -790,6 +790,7 @@
   (map! :nvig "C--"    'my-quit-treemacs
         :map (treemacs-mode-map evil-treemacs-state-map)
         "tp"   'move-file-to-trash
+        "zm"   'treemacs-collapse-all-projects
         "C-c pa"   'treemacs-add-project-to-workspace
         "C-c pa"   'treemacs-projectile
         "C-c pd"   'treemacs-remove-project-from-workspace
