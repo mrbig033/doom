@@ -955,6 +955,15 @@
         :leader "pG" 'projectile-configure-project
         :leader "pg" 'counsel-projectile-ag)
 
+
+  (defun my-search-packages ()
+    (interactive)
+    (counsel-ag  "(use-package " "~/.doom.d/my-lisp/"))
+
+  (defun my-search-settings ()
+    (interactive)
+    (counsel-ag nil "~/.doom.d/my-lisp/"))
+
   (defun ivy-with-thing-at-point (cmd)
     (let ((ivy-initial-inputs-alist
            (list

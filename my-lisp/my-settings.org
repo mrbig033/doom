@@ -164,10 +164,6 @@
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
 
-(defun my-search-settings ()
-  (interactive)
-  (counsel-ag nil "~/.doom.d/my-lisp/"))
-
 (defun my-magit-stage-modified-and-commit ()
   (interactive)
   (progn
@@ -326,12 +322,6 @@
   (interactive)
   (setq dir (kill-new (abbreviate-file-name default-directory)))
   (insert dir))
-
-(defun my-search-packages ()
-  (interactive)
-  (progn
-    (find-file "~/.doom.d/my-lisp/my-packages.org")
-    (swiper "(use-package ")))
 
 (defun my-par-backward-to-indentation ()
   (interactive)
