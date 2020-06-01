@@ -77,10 +77,12 @@
 (package! engine-mode)
 (package! lorem-ipsum)
 (package! yafolding)
-(package! beacon)
+(package! git-auto-commit-mode)
+(package! recursive-narrow)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
+(package! beacon :disable t)
 (package! evil-snipe :disable t)
 (package! org-web-tools :disable t)
 (package! benchmark-init :disable t)

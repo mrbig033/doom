@@ -35,10 +35,8 @@
         :n "'"        'evil-goto-mark
         :n "`"        'evil-goto-mark-line
         :nv ";"       'evil-repeat
-        :nv "$"       'evil-last-non-blank
-        :nv "g_"      'evil-end-of-line
-        :nv "g_"      'evil-end-of-line
         :nv "gt"      'eval-region
+        :nv "g)"      'evil-first-non-blank
         :nv "M-i"     'better-jumper-jump-forward
         :nvi "M-o"    'better-jumper-jump-backward
         :nvi "M-y"    'counsel-yank-pop
@@ -62,8 +60,7 @@
         :nvig "C-d"      'delete-char
         :nvig "C-h"      'delete-backward-char
         :nvig "C-w"      'backward-kill-word
-        :leader "su"  'my-evil-substitute
-        )
+        :leader "su"  'my-evil-substitute)
 
 
   ;; (advice-add '+evil-window-split-a :after #'evil-window-prev)
@@ -540,7 +537,7 @@
         "M-m"         'flycheck-first-error))
 
 (after! apheleia
-  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "79" "-")))
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
 
 (use-package! paren
   :ensure nil
@@ -567,7 +564,7 @@
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
-             #'(lambda () (setq-local fill-column 79)))
+             #'(lambda () (setq-local fill-column 57)))
 
   (add-hook! 'python-mode-hook
              #'elpy-mode
@@ -787,7 +784,9 @@
   (treemacs-indentation '(5 px))
   (treemacs-is-never-other-window t)
   (treemacs-no-delete-other-windows t)
-  (treemacs-default-visit-action 'treemacs-visit-node-in-most-recently-used-window)
+  ;; (treemacs-default-visit-action 'treemacs-visit-node-in-most-recently-used-window)
+  (treemacs-default-visit-action 'treemacs-visit-node-no-split)
+
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))
@@ -821,7 +820,7 @@
         "C-c t"    'my-show-treemacs-commands
         "çm"       'treemacs-create-dir
         "<insert>" 'treemacs-create-file
-        "m"        'treemacs-RET-action
+        "m"        'treemacs-visit-node-in-most-recently-used-window
         "C-j"      'my-treemacs-visit-node-and-hide
         "<escape>" 'treemacs-quit)
 
@@ -883,7 +882,8 @@
   (setq unkillable-scratch-behavior 'bury
         unkillable-buffers '("^pytasks.org$"
                              "^sct.py$"
-                             "pdf"
+                             "epdfinfo"
+                             "pdf$"
                              "*Treemacs"))
   (unkillable-scratch +1))
 
@@ -907,6 +907,17 @@
      eyebrowse-create-window-config
      eyebrowse-prev-window-config))
   :config
+
+  (defun super-save-command ()
+    "Save the current buffer if needed."
+    (when (and buffer-file-name
+               (buffer-modified-p (current-buffer))
+               (file-writable-p buffer-file-name)
+               (if (file-remote-p buffer-file-name) super-save-remote-files t)
+               (super-save-include-p buffer-file-name))
+      (let ((inhibit-message t))
+        (save-buffer))))
+
   (super-save-mode t))
 
 (use-package! eyebrowse
@@ -959,6 +970,7 @@
                         "*org-src-fontification.\\*"))
   :config
 
+  (setq swiper-use-visual-line-p (lambda (n-lines) nil))
   (map! :nvig "C-,"      'ivy-switch-buffer
         :nvig "C-."      'counsel-projectile-switch-to-buffer
         :nvig "C-/"      '+shell/toggle
@@ -990,7 +1002,7 @@
 
   (defun my-search-python-classes ()
     (interactive)
-    (counsel-ag  "^class"))
+    (counsel-ag  "^class "))
 
   (defun my-search-python-function ()
     (interactive)

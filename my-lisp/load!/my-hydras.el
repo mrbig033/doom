@@ -68,10 +68,10 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _d_: goto def   _s_: quickshell     _cs_: classes swiper
-    _a_: goto ass   _l_: clear errors   _fs_: functions swiper
-    _g_: goto dumb  _ca_: classes ag
-    _b_: go back    _fa_: functions ag
+    _d_: goto def    _s_: quickshell     _c_: classes ag
+    _a_: go at point _l_: clear errors   _f_: functions ager
+    _g_: goto dumb   _C_: classes swiper
+    _b_: go back     _F_: functions swip
 "
 
   ("<escape>" nil)
@@ -80,7 +80,7 @@
   ("d" elpy-goto-definition)
   ("ç" elpy-goto-definition)
   ("<return>" elpy-goto-definition)
-  ("a" elpy-goto-assignment)
+  ("a" counsel-ag-thing-at-point)
 
   ("g" dumb-jump-go)
   ("b" better-jumper-jump-backward)
@@ -89,11 +89,11 @@
   ("s" quickrun-shell)
   ("l" flycheck-clear)
 
-  ("ca" my-search-python-classes)
-  ("fa" my-search-python-function)
+  ("C" my-swiper-python-classes)
+  ("F" my-swiper-python-functions)
 
-  ("cs" my-swiper-python-classes)
-  ("fs" my-swiper-python-functions))
+  ("c" my-search-python-classes)
+  ("f" my-search-python-function))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "

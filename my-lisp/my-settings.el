@@ -75,6 +75,7 @@
       :n "<escape>" 'my-quiet-save-buffer
       :map snippet-mode-map
       :n "<escape>" 'ignore
+      :leader "nn" 'recursive-narrow-or-widen-dwim
       :leader "gs" 'magit-stage-modified
       :leader "P" 'my-deer-goto-python
       :leader "g SPC" 'my-magit-stage-modified-and-commit
@@ -108,8 +109,11 @@
       :leader "0"'delete-window)
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+
+(setq-default gac-debounce-interval 60)
 (remove-hook 'quickrun-after-run-hook '+eval-quickrun-scroll-to-bof-h)
 (add-hook 'quickrun--mode-hook 'hl-line-mode)
 (advice-add 'dumb-jump-go :after #'my-recenter-window)
