@@ -15,8 +15,9 @@
 (general-define-key
  :states  '(global normal visual insert)
  :keymaps 'override
- "M-," 'nswbuff-switch-to-previous-buffer
- "M-." 'nswbuff-switch-to-next-buffer
+ "C-s"    'counsel-grep-or-swiper
+ "M-,"    'nswbuff-switch-to-previous-buffer
+ "M-."    'nswbuff-switch-to-next-buffer
  "C-j"    'treemacs-select-window
  "M-h"    'windmove-left
  "M-l"    'windmove-right

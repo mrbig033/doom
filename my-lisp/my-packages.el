@@ -61,6 +61,7 @@
         :nvig "C-k"      'kill-line
         :nvig "C-d"      'delete-char
         :nvig "C-h"      'delete-backward-char
+        :nvig "C-w"      'backward-kill-word
         :leader "su"  'my-evil-substitute
         )
 
@@ -303,7 +304,8 @@
   (defun my-eval-buffer-and-leave-org-source ()
     (interactive)
     (eval-buffer)
-    (org-edit-src-exit))
+    (org-edit-src-exit)
+    (my-tangle-init))
 
   (defun my-org-started-with-clock ()
     (interactive)
@@ -410,6 +412,8 @@
 (use-package! text-mode
   :init
   (add-hook 'text-mode-hook 'show-paren-mode)
+  ;; (remove-hook 'text-mode-hook 'visual-line-mode)
+  (remove-hook 'text-mode-hook 'display-line-numbers-mode)
   (remove-hook 'text-mode-hook '+spell-remove-run-together-switch-for-aspell-h)
   (remove-hook 'text-mode-hook 'hl-line-mode))
 
@@ -442,6 +446,8 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! olivetti
+  :custom
+  (olivetti-enable-visual-line-mode nil)
   :config
   (setq-default olivetti-body-width 80))
 
@@ -558,7 +564,6 @@
              #'evil-smartparens-mode
              #'smartparens-strict-mode
              #'yafolding-mode
-             #'olivetti-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
@@ -878,6 +883,7 @@
   (setq unkillable-scratch-behavior 'bury
         unkillable-buffers '("^pytasks.org$"
                              "^sct.py$"
+                             "pdf"
                              "*Treemacs"))
   (unkillable-scratch +1))
 
@@ -938,7 +944,7 @@
 
 (use-package! ivy
   :custom
-  (counsel-grep-swiper-limit 5000)
+  (counsel-grep-swiper-limit 300000)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
   (counsel-find-file-at-point t)
@@ -953,8 +959,7 @@
                         "*org-src-fontification.\\*"))
   :config
 
-  (map! :nvig "C-s"      'counsel-grep-or-swiper
-        :nvig "C-,"      'ivy-switch-buffer
+  (map! :nvig "C-,"      'ivy-switch-buffer
         :nvig "C-."      'counsel-projectile-switch-to-buffer
         :nvig "C-/"      '+shell/toggle
         :map ivy-minibuffer-map
@@ -965,7 +970,7 @@
         :g "C-/"      'ivy-next-line
         :g "M-q"      'ivy-done
         :g "<insert>" 'yank
-        :leader "sg" 'counsel-grep
+        :leader "ss" 'counsel-grep-or-swiper
         :leader "sa" 'counsel-ag-thing-at-point
         :leader "pG" 'projectile-configure-project
         :leader "pg" 'counsel-projectile-ag)

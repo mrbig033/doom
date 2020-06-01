@@ -1,8 +1,7 @@
 # -*- mode: snippet -*-
-# name: elisp
-# key: el
+# name: remove-hook
+# uuid:
+# key: remove-hook
 # condition: t
 # --
-#+begin_src emacs-lisp
-$0
-#+end_src
+(remove-hook '${0:hook} ${1:function})`(doom-snippets-newline-or-eol)`

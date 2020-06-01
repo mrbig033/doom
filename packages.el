@@ -78,9 +78,10 @@
 (package! lorem-ipsum)
 (package! yafolding)
 (package! beacon)
+(package! helm-swoop)
 (package! aphelia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! shut-up :disable t)
 (package! evil-snipe :disable t)
 (package! org-web-tools :disable t)
-(package! benchmark-init :disabled t)
+(package! benchmark-init :disable t)
