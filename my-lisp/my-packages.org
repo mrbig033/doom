@@ -52,6 +52,7 @@
         :nv "gr"      'my-evil-sel-to-end
         :n "zi"       '+fold/open-all
         :v "<insert>" 'org-insert-link
+        :v "@"        'evil-execute-macro
         ;; :i "C-l"      'completion-at-point
         :map (minibuffer-local-map
               minibuffer-local-ns-map
@@ -282,13 +283,13 @@
 
   :config
 
-  ;; (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
-
   (map! :map (org-mode-map evil-org-mode-map)
-        :n "zi"       '+fold/open-all
-        :nv "gr"      'my-evil-sel-to-end
-        "C-l" 'recenter-top-bottom
-        "s-w" 'org-edit-special)
+        :n "zi"        '+fold/open-all
+        :nv "<insert>" 'org-insert-link
+        :nv "gr"       'my-evil-sel-to-end
+        "C-c o"        'my-org-force-open-other-window
+        "C-l"          'recenter-top-bottom
+        "s-w"          'org-edit-special)
 
   (map! :map (org-src-mode-map)
         "s-w" 'my-eval-buffer-and-leave-org-source)
@@ -296,6 +297,16 @@
   (org-indent-mode t)
 
   (setq org-agenda-files '("~/org/Agenda"))
+
+  (defun my-org-force-open-other-window ()
+    (interactive)
+    (let ((org-link-frame-setup (quote
+                                 ((vm . vm-visit-folder)
+                                  (vm-imap . vm-visit-imap-folder)
+                                  (gnus . gnus)
+                                  (file . find-file-other-window)
+                                  (wl . wl)))))
+      (org-open-at-point)))
 
   ;; MAKES SOURCE BUFFER NAMES NICER
   (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
@@ -367,6 +378,11 @@
   (org-pomodoro-long-break-format "LONG: %s")
   (org-pomodoro-format "P: %s"))
 #+end_src
+** Org Web Tools
+#+begin_src emacs-lisp
+(use-package! org-web-tools
+  :after org)
+#+end_src
 ** PDF Tools
 #+begin_src emacs-lisp
 (use-package! pdf-tools
@@ -384,6 +400,8 @@
 
 
   (map! :map pdf-view-mode-map
+        :nvieg "H" 'pdf-history-backward
+        :nvieg "L" 'pdf-history-forward
         :nvieg "C-s" 'pdf-occur
         :nvieg "M-s" 'my-last-buffer
         :nvieg "<escape>" 'ignore
@@ -394,6 +412,8 @@
         :nvieg "l"        'pdf-view-scroll-down-or-previous-page
         :nvieg "j"        'pdf-view-next-page
         :nvieg "k"        'pdf-view-previous-page
+        :nvieg "n"        'pdf-view-next-page
+        :nvieg "p"        'pdf-view-previous-page
         :nvieg "K"        'pdf-view-previous-line-or-previous-page
         :nvieg "J"        'pdf-view-next-line-or-next-page
         :nvieg "C-j"      'treemacs-select-window
@@ -409,6 +429,11 @@
 ** Cool Moves
 #+begin_src emacs-lisp
 (load! "cool-moves.el" my-load!)
+#+end_src
+** Targets
+#+begin_src emacs-lisp
+(load! "targets.el" my-load!)
+(targets-setup t)
 #+end_src
 ** Xah Text
 #+begin_src emacs-lisp

@@ -46,6 +46,7 @@
         :nv "gr"      'my-evil-sel-to-end
         :n "zi"       '+fold/open-all
         :v "<insert>" 'org-insert-link
+        :v "@"        'evil-execute-macro
         ;; :i "C-l"      'completion-at-point
         :map (minibuffer-local-map
               minibuffer-local-ns-map
@@ -264,13 +265,13 @@
 
   :config
 
-  ;; (add-to-list 'org-link-frame-setup #'(file . find-file-other-window))
-
   (map! :map (org-mode-map evil-org-mode-map)
-        :n "zi"       '+fold/open-all
-        :nv "gr"      'my-evil-sel-to-end
-        "C-l" 'recenter-top-bottom
-        "s-w" 'org-edit-special)
+        :n "zi"        '+fold/open-all
+        :nv "<insert>" 'org-insert-link
+        :nv "gr"       'my-evil-sel-to-end
+        "C-c o"        'my-org-force-open-other-window
+        "C-l"          'recenter-top-bottom
+        "s-w"          'org-edit-special)
 
   (map! :map (org-src-mode-map)
         "s-w" 'my-eval-buffer-and-leave-org-source)
@@ -278,6 +279,16 @@
   (org-indent-mode t)
 
   (setq org-agenda-files '("~/org/Agenda"))
+
+  (defun my-org-force-open-other-window ()
+    (interactive)
+    (let ((org-link-frame-setup (quote
+                                 ((vm . vm-visit-folder)
+                                  (vm-imap . vm-visit-imap-folder)
+                                  (gnus . gnus)
+                                  (file . find-file-other-window)
+                                  (wl . wl)))))
+      (org-open-at-point)))
 
   ;; MAKES SOURCE BUFFER NAMES NICER
   (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
@@ -347,6 +358,9 @@
   (org-pomodoro-long-break-format "LONG: %s")
   (org-pomodoro-format "P: %s"))
 
+(use-package! org-web-tools
+  :after org)
+
 (use-package! pdf-tools
   :init
   (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
@@ -362,6 +376,8 @@
 
 
   (map! :map pdf-view-mode-map
+        :nvieg "H" 'pdf-history-backward
+        :nvieg "L" 'pdf-history-forward
         :nvieg "C-s" 'pdf-occur
         :nvieg "M-s" 'my-last-buffer
         :nvieg "<escape>" 'ignore
@@ -372,6 +388,8 @@
         :nvieg "l"        'pdf-view-scroll-down-or-previous-page
         :nvieg "j"        'pdf-view-next-page
         :nvieg "k"        'pdf-view-previous-page
+        :nvieg "n"        'pdf-view-next-page
+        :nvieg "p"        'pdf-view-previous-page
         :nvieg "K"        'pdf-view-previous-line-or-previous-page
         :nvieg "J"        'pdf-view-next-line-or-next-page
         :nvieg "C-j"      'treemacs-select-window
@@ -385,6 +403,9 @@
     (counsel-M-x "^pdf-view- ")))
 
 (load! "cool-moves.el" my-load!)
+
+(load! "targets.el" my-load!)
+(targets-setup t)
 
 (load! "xah-text.el" my-load!)
 
@@ -962,6 +983,14 @@
     (interactive)
     (counsel-ag  "(use-package " "~/.doom.d/my-lisp/"))
 
+  (defun my-search-python-classes ()
+    (interactive)
+    (counsel-ag  "^class"))
+
+  (defun my-search-python-function ()
+    (interactive)
+    (counsel-ag  "def "))
+
   (defun my-search-settings ()
     (interactive)
     (counsel-ag nil "~/.doom.d/my-lisp/"))
@@ -974,11 +1003,7 @@
 
   (defun counsel-ag-thing-at-point ()
     (interactive)
-    (ivy-with-thing-at-point 'counsel-ag))
-
-  (defun counsel-projectile-ag-thing-at-point ()
-    (interactive)
-    (ivy-with-thing-at-point 'counsel-projectile-ag)))
+    (ivy-with-thing-at-point 'counsel-ag)))
 
 (use-package! ivy-prescient
   :hook ivy

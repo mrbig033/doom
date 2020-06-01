@@ -30,6 +30,7 @@
       "s-S" 'org-edit-special)
 
 (map! :map (global evil-org-mode-map treemacs-mode-map text-mode-map prog-mode-map)
+      :nv "gr"       'my-evil-sel-to-end
       "M-h"      'windmove-left
       "M-l"      'windmove-right
       "M-k"      'windmove-up
@@ -47,6 +48,7 @@
       "M-9"      'delete-other-windows
       "M-0"      'quit-window
       "M-/"      'hippie-expand
+      "C-c 0"    '+popup/raise
       "C-c w"    'my-window-to-register-one
       "C-c W"    'my-jump-to-register-one
       "C-c r"    'jump-to-register
@@ -164,6 +166,19 @@
 #+begin_src emacs-lisp
 
 (add-hook 'after-init-hook 'toggle-frame-maximized)
+
+(defun my-rename-file-and-buffer ()
+  "rename the current buffer and file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (message "buffer is not visiting a file!")
+      (let ((new-name (read-file-name "new name: " filename)))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (set-visited-file-name new-name t t)))))))
 
 (defun my-magit-stage-modified-and-commit ()
   (interactive)

@@ -51,7 +51,6 @@
     _d_: goto def   _g_: goto dumb _s_: quickshell    _c_: classes
     _a_: goto ass   _b_: go back   _l_: clear errors  _f_: functions
 
-
 "
 
   ("<escape>" nil)
