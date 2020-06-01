@@ -36,14 +36,34 @@
   ("i" info))
 
 (defhydra hydra-window (:color pink :hint nil :exit nil :foreign-keys nil)
+"
+
+  _H_: -w  _h_: sp ←  _b_: bal
+  _J_: +h  _j_: sp ↓
+  _K_: -h  _k_: sp ↑
+  _L_: +w  _l_: sp →
+
+"
   ("<escape>" nil)
-  ("L" evil-window-increase-width "+w")
-  ("H" evil-window-decrease-width "+-w")
-  ("J" evil-window-decrease-height "+h")
-  ("K" evil-window-increase-height "-h")
-  ("j" +evil-window-split-a "sp" :exit t)
-  ("l" +evil-window-vsplit-a "vs" :exit t)
-  ("b" balance-windows "bal" :exit t))
+  ("L" evil-window-increase-width)
+  ("H" evil-window-decrease-width)
+  ("J" evil-window-decrease-height)
+  ("K" evil-window-increase-height)
+  ("h" +evil-window-vsplit-a :exit t)
+  ("j" my-window-split-below :exit t)
+  ("k" +evil-window-split-a  :exit t)
+  ("l" my-window-split-right :exit t)
+  ("b" balance-windows :exit t))
+
+(defun my-window-split-right ()
+  (interactive)
+  (+evil-window-vsplit-a)
+  (other-window 1))
+
+(defun my-window-split-below ()
+  (interactive)
+  (+evil-window-split-a)
+  (other-window 1))
 
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
