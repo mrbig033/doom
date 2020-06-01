@@ -75,6 +75,7 @@
       :map snippet-mode-map
       :n "<escape>" 'ignore
       :leader "gs" 'magit-stage-modified
+      :leader "P" 'my-deer-goto-python
       :leader "g SPC" 'my-magit-stage-modified-and-commit
       :leader "gp" 'magit-push
       :leader "gd" 'magit-dispatch
@@ -141,7 +142,7 @@
         auto-revert-verbose nil
         custom-safe-themes t
         yas-indent-line 'fixed
-        use-package-always-defer t
+        ;; use-package-always-defer nil
         ns-option-modifier 'meta
         warning-minimum-level :error
         ns-right-option-modifier 'meta

@@ -1,5 +1,4 @@
 (use-package! evil
-  :demand t
   :init
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window)
   (add-hook 'evil-mode-hook 'evil-better-visual-line-on)
@@ -157,7 +156,6 @@
         :v "o" 'exchange-point-and-mark))
 
 (use-package! org
-  :demand t
   :init
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (remove-hook 'org-mode-hook 'flyspell-mode)
@@ -552,7 +550,6 @@
                         :weight ultrabold)))))
 
 (use-package! python
-  :demand t
   :init
 
   (add-hook! '(python-mode-hook inferior-python-mode-hook)
@@ -639,7 +636,6 @@
     (newline-and-indent)))
 
 (use-package! elpy
-  :demand t
   :custom
   (elpy-rpc-virtualenv-path 'current)
   :config
@@ -773,7 +769,7 @@
 
   (defun my-deer-goto-python ()
     (interactive)
-    (deer "~/.doom.d/my-lisp/my-packages.el"))
+    (deer "~/Documents/Python/"))
 
   (defun my-ranger-toggle-mark-and-advance ()
     (interactive)
@@ -781,7 +777,6 @@
     (ranger-next-file 1)))
 
 (use-package! treemacs
-  :demand t
   :custom
   (treemacs-width 25)
   (treemacs-indentation '(5 px))
@@ -879,7 +874,6 @@
   (winner-mode +1))
 
 (use-package! unkillable-scratch
-  :demand t
   :config
   (setq unkillable-scratch-behavior 'bury
         unkillable-buffers '("^pytasks.org$"
@@ -888,7 +882,6 @@
   (unkillable-scratch +1))
 
 (use-package! super-save
-  :demand t
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
@@ -911,7 +904,6 @@
   (super-save-mode t))
 
 (use-package! eyebrowse
-  :demand t
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -1026,7 +1018,6 @@
     (counsel-M-x "^helpful-")))
 
 (use-package! clipmon
-  :demand t
   :custom
   (selection-coding-system 'utf-8-unix)
   :config
@@ -1093,7 +1084,7 @@
   (doom-modeline-buffer-modification-icon nil)
   (doom-modeline-buffer-file-name-style 'buffer-name))
 
-(use-package! hl-line-mode
+(use-package! hl-line
   :config
   (setq-default hl-line-mode nil)
   (setq-default global-hl-line-mode nil)
@@ -1131,7 +1122,7 @@
   :config
   (beacon-mode +1))
 
-(use-package! messages-buffer-mode
+(use-package! simple
   :config
   (read-only-mode -1))
 
