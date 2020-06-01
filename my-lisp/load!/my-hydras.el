@@ -48,9 +48,10 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _d_: goto def   _g_: goto dumb _s_: quickshell    _c_: classes
-    _a_: goto ass   _b_: go back   _l_: clear errors  _f_: functions
-
+    _d_: goto def   _s_: quickshell     _cs_: classes swiper
+    _a_: goto ass   _l_: clear errors   _fs_: functions swiper
+    _g_: goto dumb  _ca_: classes ag
+    _b_: go back    _fa_: functions ag
 "
 
   ("<escape>" nil)
@@ -67,8 +68,12 @@
   ("<C-return>" better-jumper-jump-backward)
   ("s" quickrun-shell)
   ("l" flycheck-clear)
-  ("c" my-search-python-classes)
-  ("f" my-search-python-function))
+
+  ("ca" my-search-python-classes)
+  ("fa" my-search-python-function)
+
+  ("cs" my-swiper-python-classes)
+  ("fs" my-swiper-python-functions))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "

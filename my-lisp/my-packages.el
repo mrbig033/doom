@@ -388,8 +388,8 @@
         :nvieg "l"        'pdf-view-scroll-down-or-previous-page
         :nvieg "j"        'pdf-view-next-page
         :nvieg "k"        'pdf-view-previous-page
-        :nvieg "n"        'pdf-view-next-page
-        :nvieg "p"        'pdf-view-previous-page
+        :nvieg "p"        'pdf-view-previous-line-or-previous-page
+        :nvieg "n"        'pdf-view-next-line-or-next-page
         :nvieg "K"        'pdf-view-previous-line-or-previous-page
         :nvieg "J"        'pdf-view-next-line-or-next-page
         :nvieg "C-j"      'treemacs-select-window
@@ -979,6 +979,14 @@
   (defun my-search-packages ()
     (interactive)
     (counsel-ag  "(use-package " "~/.doom.d/my-lisp/"))
+
+  (defun my-swiper-python-classes ()
+    (interactive)
+    (swiper  "^class "))
+
+  (defun my-swiper-python-functions ()
+    (interactive)
+    (swiper  "def "))
 
   (defun my-search-python-classes ()
     (interactive)
