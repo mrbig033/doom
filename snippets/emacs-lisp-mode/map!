@@ -1,4 +1,0 @@
-# key: map
-# name: map!
-# --
-(map! :${1:g} $0)
