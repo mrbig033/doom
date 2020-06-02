@@ -10,10 +10,6 @@
       "M-/"         'hippie-expand
       "C-;"         'helpful-at-point
       "M-RET"       'my-indent-buffer
-      "M-h"         'windmove-left
-      "M-l"         'windmove-right
-      "M-k"         'windmove-up
-      "M-j"         'windmove-down
       "C-9"         'evilnc-comment-or-uncomment-lines
       "M-9"         'delete-other-windows
       "M-0"         'quit-window
@@ -47,8 +43,8 @@
       :v "C-c a"  'align-regexp
 
       ;; NORMAL AND VISUAL ;;
-      :nv "M-i"   'better-jumper-jump-backward
-      :nv "M-o"   'better-jumper-jump-forward
+      :nv "M-o"   'better-jumper-jump-backward
+      :nv "M-i"   'better-jumper-jump-forward
       :nv "C-h M" 'my-show-major-mode
       :nvig "M-," 'nswbuff-switch-to-previous-buffer
       :nvig "M-." 'nswbuff-switch-to-next-buffer
@@ -59,6 +55,13 @@
       :n "j"        'forward-button
       :n "k"        'backward-button
       :n "q"        'quit-window
+
+      ;; WINDMOVE ;;
+      :map (global-map evil-markdown-mode-map text-mode-map org-mode-map evil-org-mode-map)
+      :nvig "M-k"          'windmove-up
+      :nvig "M-j"          'windmove-down
+      :nvig "M-h"          'windmove-left
+      :nvig "M-l"          'windmove-right
 
       ;; ORG MODE ;;
       :map (global-map org-mode-map evil-org-mode-map)
@@ -85,7 +88,7 @@
 
       ;; SAVE BUFFER ;;
       :map (prog-mode-map text-mode-map conf-mode-map)
-      :n "<escape>" 'my-quiet-save-buffer
+      :n "<escape>" 'my-quiet-save-some-buffers
       :map (lisp-interaction-mode-map)
       :n "<escape>" nil
       ;; AVY ;;
@@ -237,4 +240,6 @@
       :leader "tS"    'my-sort-lines-by-length
       :leader "g SPC" 'my-magit-stage-modified-and-commit
       :leader "meb"   'my-eval-buffer
-      :leader "fo"    '+doom-dashboard/open)
+      :leader "fo"    '+doom-dashboard/open
+      :leader "ba"    'my-goto-markdown
+      )

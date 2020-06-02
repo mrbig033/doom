@@ -82,6 +82,7 @@
     "SPC fk" "Search Pkgs"
     "SPC nn" "Narrow Dwin"
     "SPC nw" "Widen"
+    "SPC ba" "Goto Markdown"
     "SPC meb" "Eval Buffer"
     "SPC med" "Eval Defun"
     "SPC mer" "Eval Region")
@@ -554,7 +555,6 @@
         "C-x m" 'elpy-multiedit-python-symbol-at-point
         "C-x M" 'elpy-multiedit-stop)
 
-  (advice-add 'elpy-multiedit-python-symbol-at-point :before #'my-save-some-buffers)
   (advice-add 'elpy-goto-definition :after #'my-recenter-window)
   (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
 
@@ -696,13 +696,12 @@
 
   (defun super-save-command ()
     "Save the current buffer if needed."
-    (shut-up
-      (when (and buffer-file-name
-                 (buffer-modified-p (current-buffer))
-                 (file-writable-p buffer-file-name)
-                 (if (file-remote-p buffer-file-name) super-save-remote-files t)
-                 (super-save-include-p buffer-file-name))
-        (save-buffer))))
+    (when (and buffer-file-name
+               (buffer-modified-p (current-buffer))
+               (file-writable-p buffer-file-name)
+               (if (file-remote-p buffer-file-name) super-save-remote-files t)
+               (super-save-include-p buffer-file-name))
+      (my-quiet-save-some-buffers)))
 
   (super-save-mode t))
 
@@ -724,6 +723,7 @@
 (use-package! evil
   :custom
   (evil-visualstar/persistent t)
+  (evil-respect-visual-line-mode t)
   (+evil-want-o/O-to-continue-comments nil)
   :config
 
@@ -741,6 +741,10 @@
 
 (after! apheleia
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(use-package! text-mode
+  :hook (text-mode . electric-operator-mode))
+
 
 (after! shut-up-ignore
   (when noninteractive

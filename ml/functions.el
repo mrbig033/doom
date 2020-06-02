@@ -11,6 +11,16 @@
     (evil-ex-nohighlight)
     (save-buffer)))
 
+(defun my-quiet-save-some-buffers ()
+  (interactive)
+  (let ((inhibit-message t))
+    (evil-ex-nohighlight)
+    (save-some-buffers t 0)))
+
+(defun my-save-some-buffers ()
+  (interactive)
+  (save-some-buffers t 0))
+
 (defun my-indent-buffer ()
   (interactive)
   (let ((inhibit-message t))
@@ -136,6 +146,10 @@
 (defun my-recentf-empty ()
   (interactive)
   (setq recentf-list nil))
+
+(defun my-goto-markdown ()
+  (interactive)
+  (find-file "~/.doom.d/.tmp/md.md"))
 
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
