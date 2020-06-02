@@ -11,32 +11,34 @@
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face
-                           :weight bold
-                           :height 1.0))))
+                                    :weight bold
+                                    :height 1.0))))
 
   :general
-  ("C-c j" 'treemacs-select-window
-   "C-0"   'my-treemacs-quit
-   "C-j"   'treemacs-select-window)
-  (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
-   "C-c pa"     'treemacs-add-project-to-workspace
-   "C-c pa"     'treemacs-projectile
-   "C-c pd"     'treemacs-remove-project-from-workspace
-   "C-c D"      'treemacs-delete
-   "C-p"        'treemacs-previous-project
-   "C-n"        'treemacs-next-project
-   "C-c t"      'my-show-treemacs-commands
-   "<insert>"   'treemacs-create-file
-   "C-j"        'my-treemacs-visit-node-and-hide
-   "<escape>"   'treemacs-quit)
+
+  (:keymaps   'global
+              "C-0"      'my-treemacs-quit
+              "C-j"      'treemacs-select-window)
+  (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
+              "C-j"      'my-treemacs-visit-node-and-hide
+              "C-p"      'treemacs-previous-project
+              "C-n"      'treemacs-next-project
+              "C-c t"    'my-show-treemacs-commands
+              "C-c D"    'treemacs-delete
+              "C-c pa"   'treemacs-projectile
+              "C-c pd"   'treemacs-remove-project-from-workspace
+              "C-c p0"   'eyebrowse-create-window-config
+              "<escape>" 'treemacs-quit
+              "<insert>" 'treemacs-create-file
+              "tp"       'move-file-to-trash
+              "çm"       'treemacs-create-dir
+              "zm"       'treemacs-collapse-all-projects
+              ","        'link-hint-open-link)
+
   (:states '(normal visual)
-   "m"          'treemacs-visit-node-in-most-recently-used-window
-   "çm"         'treemacs-create-dir
-   "tp"         'move-file-to-trash
-   "zm"         'treemacs-collapse-all-projects
-   ","          'link-hint-open-link
-   :prefix "SPC"
-   "pA" 'treemacs-add-and-display-current-project)
+           :prefix "SPC"
+           "pA" 'treemacs-add-and-display-current-project)
+
   :config
 
   (add-to-list 'treemacs-pre-file-insert-predicates
@@ -111,6 +113,12 @@
   (which-key-mode +1))
 
 (use-package! nswbuff
+  :general
+  (:keymaps 'override
+            :states '(normal visual insert)
+            "M-," 'nswbuff-switch-to-previous-buffer
+            "M-." 'nswbuff-switch-to-next-buffer)
+
   :custom
   (nswbuff-left "  ")
   (nswbuff-clear-delay 2)
@@ -247,7 +255,6 @@
 
   :config
 
-
   (defun my-org-force-open-other-window ()
     (interactive)
     (let ((org-link-frame-setup (quote
@@ -310,6 +317,15 @@
     (org-clock-out)))
 
 (use-package! avy
+
+  :general
+  (:states '(normal visual)
+           "g9"      'my-avy-goto-open-paren
+           "g0"      'my-avy-goto-close-paren
+           "F"       'evil-avy-goto-char-2-above
+           "f"       'evil-avy-goto-char-2-below
+           ","       'evil-avy-goto-word-or-subword-1)
+
   :custom
   (avy-case-fold-search 't)
   (avy-style 'at-full)
@@ -359,6 +375,27 @@
                                 "exe" "msi"
                                 "pdf" "doc"
                                 "docx"))
+
+  :general
+
+  (:keymaps     'ranger-mode-map
+                "çm"         'dired-create-directory
+                "<insert>"   'dired-create-empty-file
+                "i"          'my-ranger-go
+                "M-9"        'delete-other-windows
+                "tp"         'move-file-to-trash
+                "C-c 0"      'move-file-to-trash
+                "<escape>"   'ranger-close
+                "m"          'my-ranger-toggle-mark-and-advance
+                "gg"         'ranger-goto-top
+                "zp"         'ranger-preview-toggle
+                "çcm"        'dired-create-directory
+                "C-c l"      'counsel-find-file
+                "d"          'dired-do-flagged-delete
+                "x"          'diredp-delete-this-file
+                "d"          'dired-flag-file-deletion
+                "<c-return>" 'dired-do-find-marked-files)
+
   :config
 
   (defun my-ranger-go (path)
@@ -427,6 +464,7 @@
 (use-package! ivy
   :custom
   (counsel-grep-swiper-limit 300000)
+  (ivy-use-virtual-buffers t)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
   (counsel-find-file-at-point t)
@@ -439,6 +477,32 @@
                         "^agenda.org$"
                         "magit"
                         "*org-src-fontification.\\*"))
+  :general
+
+  (:states '(normal visual insert)
+           "C-s" 'counsel-grep-or-swiper
+           "M-y" 'counsel-yank-pop
+           "C-," 'ivy-switch-buffer
+           "C-." 'counsel-M-x)
+
+  (:keymaps 'counsel-describe-map
+            "C-." 'ivy-next-line
+            "C-," 'counsel-find-symbol)
+
+  (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
+            "M-y"      'ivy-next-line
+            "M-r"      'ivy-next-line
+            "C-,"      'ivy-next-line
+            "C-."      'ivy-next-line
+            "C-/"      'ivy-next-line
+            "M-q"      'ivy-done
+            "<insert>" 'yank
+            "C-k"      'kill-line
+            "C-d"      'delete-char
+            "C-h"      'delete-backward-char
+            "C-w"      'backward-kill-word
+            "<insert>" 'yank)
+
   :config
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
   (setq swiper-use-visual-line-p #'ignore)
@@ -596,8 +660,8 @@
     (evil-swap-keys-add-pair "-" "_")))
 
 (use-package! eyebrowse
-  :commands (eyebrowse-prev-window-config eyebrowse-next-window-config)
   :custom
+
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
   (eyebrowse-mode-line-style 'smart)
@@ -605,7 +669,24 @@
   (eyebrowse-mode-line-left-delimiter " [ ")
   (eyebrowse-mode-line-right-delimiter " ]  ")
   (eyebrowse-mode-line-separator " | ")
+
+                                        ;   :general
+
+                                        ;   ("M-q" 'eyebrowse-prev-window-config
+                                        ;    "M-w" 'eyebrowse-next-window-config)
+                                        ;   (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
+                                        ;    "<escape>"   'treemacs-quit)
+                                        ;   (:states '(normal visual)
+                                        ;    :prefix "SPC"
+                                        ;    "1" 'eyebrowse-switch-to-window-config-1
+                                        ;    "2" 'eyebrowse-switch-to-window-config-2
+                                        ;    "3" 'eyebrowse-switch-to-window-config-3
+                                        ;    "4" 'eyebrowse-switch-to-window-config-4
+                                        ;    "v" 'eyebrowse-create-window-config
+                                        ;    "x" 'eyebrowse-close-window-config)
+
   :config
+
   (eyebrowse-mode +1))
 
 (use-package! doom-modeline
@@ -729,7 +810,35 @@
 
 (use-package! pdf-view
   :init
+
   (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
+
+  :general
+
+  (:keymaps   'pdf-view-mode-map
+              :states '(normal visual)
+              "H"        'pdf-history-backward
+              "L"        'pdf-history-forward
+              "C-s"      'pdf-occur
+              "<escape>" 'ignore
+              "TAB"      'pdf-outline
+              "o"      'pdf-outline
+              "q"        'quit-window
+              "w"        'pdf-view-fit-width-to-window
+              "h"        'pdf-view-scroll-up-or-next-page
+              "l"        'pdf-view-scroll-down-or-previous-page
+              "j"        'pdf-view-next-page
+              "k"        'pdf-view-previous-page
+              "p"        'pdf-view-previous-line-or-previous-page
+              "n"        'pdf-view-next-line-or-next-page
+              "K"        'pdf-view-previous-line-or-previous-page
+              "J"        'pdf-view-next-line-or-next-page
+              "C-l"      'my-show-pdf-view-commands)
+
+  (:keymaps   'pdf-outline-buffer-mode-map
+              :states '(normal visual)
+              "<escape>"  'quit-window)
+
   :custom
 
   (pdf-view-continuous t)
@@ -747,6 +856,11 @@
   (evil-visualstar/persistent t)
   (evil-respect-visual-line-mode t)
   (+evil-want-o/O-to-continue-comments nil)
+  :general
+
+  (:keymaps 'override
+            :states '(normal visual insert)
+            "M-s"         'evil-switch-to-windows-last-buffer)
   :config
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
@@ -767,7 +881,19 @@
 (use-package! text-mode
   :hook (text-mode . electric-operator-mode))
 
+(use-package! recursive-narrow)
 
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
+
+(use-package! windmove
+  :general
+  (:keymaps 'override
+            :states '(normal visual insert)
+            "M-k" 'windmove-up
+            "M-j" 'windmove-down
+            "M-h" 'windmove-left
+            "M-l" 'windmove-right)
+  :custom
+  (windmove-wrap-around t))

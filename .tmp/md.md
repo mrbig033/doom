@@ -3,7 +3,7 @@
 The command `elpy-goto-definition` is useful when it gets results from within the current project or buffers, but it frequently takes me to the libraries and builtins of Python itself. I wish there was an option to make it's search less deep, so I only get results from my own files and not from Python. 
 
 # My configuration
-## OS 
+q## OS 
 macOS Mojave
 ## Result of `(elpy-config)`
 ```
