@@ -63,7 +63,10 @@
        use-package-always-defer t
        recentf-auto-cleanup "11:59pm"
        recentf-max-saved-items 20
-       +word-wrap-extra-indent 'single)
+       +word-wrap-extra-indent 'single
+       confirm-kill-emacs nil
+       auto-revert-verbose nil
+       trash-directory "~/.Trash")
 
 (put 'evil-emacs-state 'disabled t)
 

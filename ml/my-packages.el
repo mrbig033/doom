@@ -1,8 +1,5 @@
 ;;; ~/.doom.d/use-package.el -*- lexical-binding: t; -*-
 
-(use-package! shut-up
-  :demand t)
-
 (use-package! treemacs
   :commands treemacs-select-window
   :custom
@@ -16,7 +13,32 @@
   (treemacs-root-face ((t (:inherit font-lock-string-face
                            :weight bold
                            :height 1.0))))
+
+  :general
+  ("C-c j" 'treemacs-select-window
+   "C-0"   'my-treemacs-quit
+   "C-j"   'treemacs-select-window)
+  (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
+   "C-c pa"     'treemacs-add-project-to-workspace
+   "C-c pa"     'treemacs-projectile
+   "C-c pd"     'treemacs-remove-project-from-workspace
+   "C-c D"      'treemacs-delete
+   "C-p"        'treemacs-previous-project
+   "C-n"        'treemacs-next-project
+   "C-c t"      'my-show-treemacs-commands
+   "<insert>"   'treemacs-create-file
+   "C-j"        'my-treemacs-visit-node-and-hide
+   "<escape>"   'treemacs-quit)
+  (:states '(normal visual)
+   "m"          'treemacs-visit-node-in-most-recently-used-window
+   "çm"         'treemacs-create-dir
+   "tp"         'move-file-to-trash
+   "zm"         'treemacs-collapse-all-projects
+   ","          'link-hint-open-link
+   :prefix "SPC"
+   "pA" 'treemacs-add-and-display-current-project)
   :config
+
   (add-to-list 'treemacs-pre-file-insert-predicates
                #'treemacs-is-file-git-ignored?)
 

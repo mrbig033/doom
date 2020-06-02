@@ -20,7 +20,8 @@
       "C-h e"       'describe-package
       "C-S-j"       'cool-moves-line-forward
       "C-S-k"       'cool-moves-line-backward
-
+      "C-c t"       'git-timemachine
+      "C-c i"       'emacs-init-time
       ;; INSERT STATE ;;
       :i "C-h" 'evil-delete-backward-char-and-join
       :i "C-k" 'kill-line
@@ -240,6 +241,5 @@
       :leader "tS"    'my-sort-lines-by-length
       :leader "g SPC" 'my-magit-stage-modified-and-commit
       :leader "meb"   'my-eval-buffer
-      :leader "fo"    '+doom-dashboard/open
-      :leader "ba"    'my-goto-markdown
-      )
+      :leader "ba"    'my-goto-markdown)
+      ;; :leader "fo"    '+doom-dashboard/open
