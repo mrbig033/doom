@@ -8,8 +8,12 @@
   (treemacs-no-delete-other-windows t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
-  (treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))
+  (treemacs-root-face ((t (:inherit font-lock-string-face
+                           :weight bold
+                           :height 1.0))))
   :config
+  (add-to-list 'treemacs-pre-file-insert-predicates
+               #'treemacs-is-file-git-ignored?)
 
   (treemacs-follow-mode t)
   (treemacs-git-mode 'deferred)
@@ -23,6 +27,11 @@
     :with 'my-treemacs-nswbuff
     [remap nswbuff-switch-to-next-buffer]
     [remap nswbuff-switch-to-previous-buffer])
+
+  (defun my-treemacs-quit ()
+    (interactive)
+    (treemacs-select-window)
+    (treemacs-quit))
 
   (defun my-treemacs-nswbuff ()
     (interactive)
@@ -76,6 +85,7 @@
 
 (use-package! org
   :init
+
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
@@ -86,6 +96,19 @@
 
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
+
+  (map! :map (org-mode-map evil-org-mode-map)
+        :n "zi"        '+fold/open-all
+        :nv "<insert>" 'org-insert-link
+        "C-c o"        'my-org-force-open-other-window
+        "C-l"          'recenter-top-bottom
+        "s-w"          'org-edit-special
+        "M-h"         'windmove-left
+        "M-l"         'windmove-right
+        "M-k"         'windmove-up
+        "M-j"         'windmove-down
+        :map org-src-mode-map
+        "s-w" 'my-eval-buffer-and-leave-org-source)
 
   :custom
   (org-hide-emphasis-markers t)
@@ -181,16 +204,6 @@
       "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)))
 
   :config
-
-  (map! :map (org-mode-map evil-org-mode-map)
-        :n "zi"        '+fold/open-all
-        :nv "<insert>" 'org-insert-link
-        "C-c o"        'my-org-force-open-other-window
-        "C-l"          'recenter-top-bottom
-        "s-w"          'org-edit-special)
-
-  (map! :map (org-src-mode-map)
-        "s-w" 'my-eval-buffer-and-leave-org-source)
 
   (org-indent-mode t)
 
@@ -369,3 +382,177 @@
     (interactive)
     (ranger-toggle-mark)
     (ranger-next-file 1)))
+
+(use-package! ivy
+  :custom
+  (counsel-grep-swiper-limit 300000)
+  (ivy-extra-directories nil)
+  (counsel-outline-display-style 'title)
+  (counsel-find-file-at-point t)
+  (counsel-bookmark-avoid-dired t)
+  (ivy-count-format "")
+  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' %s")
+
+  (ivy-ignore-buffers '("^#.*#$"
+                        "^\\*.*\\*"
+                        "^agenda.org$"
+                        "magit"
+                        "*org-src-fontification.\\*"))
+  :config
+  ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
+  (setq swiper-use-visual-line-p #'ignore)
+
+  (defun my-search-packages ()
+    (interactive)
+    (counsel-ag  "(use-package " "~/.doom.d/my-lisp/"))
+
+  (defun my-swiper-python-classes ()
+    (interactive)
+    (swiper  "^class "))
+
+  (defun my-swiper-python-functions ()
+    (interactive)
+    (swiper  "def "))
+
+  (defun my-search-python-classes ()
+    (interactive)
+    (counsel-ag  "^class "))
+
+  (defun my-search-python-function ()
+    (interactive)
+    (counsel-ag  "def "))
+
+  (defun my-search-settings ()
+    (interactive)
+    (counsel-ag nil "~/.doom.d/my-lisp/"))
+
+  (defun ivy-with-thing-at-point (cmd)
+    (let ((ivy-initial-inputs-alist
+           (list
+            (cons cmd (thing-at-point 'symbol)))))
+      (funcall cmd)))
+
+  (defun counsel-ag-thing-at-point ()
+    (interactive)
+    (ivy-with-thing-at-point 'counsel-ag)))
+
+(use-package! evil-smartparens
+  :after evil
+  :config
+  (map! :map evil-smartparens-mode-map
+        :v "o" 'exchange-point-and-mark))
+
+
+(use-package! python
+  :init
+
+  (add-hook! '(python-mode-hook inferior-python-mode-hook)
+             #'rainbow-delimiters-mode
+             #'electric-operator-mode
+             #'evil-smartparens-mode
+             #'smartparens-strict-mode
+             #'yafolding-mode
+             #'evil-swap-keys-swap-double-single-quotes
+             #'evil-swap-keys-swap-underscore-dash
+             #'evil-swap-keys-swap-colon-semicolon
+             #'(lambda () (setq-local fill-column 57)))
+
+  (add-hook! 'python-mode-hook
+             #'elpy-mode
+             ;; #'apheleia-mode
+             )
+
+  :custom
+  (python-indent-guess-indent-offset-verbose nil)
+  :config
+
+  ;; (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+  (defun my-quickrun-shell ()
+    (interactive)
+    (quickrun-shell)
+    (other-window))
+
+  (set-company-backend!
+    'python-mode
+    'elpy-company-backend
+    '(company-files :with company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev))
+
+  (set-company-backend!
+    'inferior-python-mode
+    'elpy-company-backend
+    '(company-files :with company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev))
+
+  (map! :map python-mode-map
+        "C-c y" 'engine/search-python-3
+        "C-c g" 'engine/search-pygame-docs
+        "C-c d" 'engine/search-python-3-docs
+        "C-c ç" 'my-python-shebang
+        "C-ç" 'elpy-shell-switch-to-shell
+        "M-a"   'python-nav-backward-statement
+        "M-e"   'python-nav-forward-statement
+        "<M-backspace>"   'apheleia-format-buffer
+        :i "C-=" 'my-python-colon-newline
+        :i "C-h"'python-indent-dedent-line-backspace
+        :n "ç" 'hydra-python-mode/body
+        :nv "zi" 'yafolding-show-all
+        :nv "zm" 'yafolding-toggle-all
+        :nv "TAB" 'yafolding-toggle-element
+        :nv "<backtab>" 'yafolding-toggle-all
+        :nv "<return>" 'hydra-python-mode/body
+        :nv "<" 'python-indent-shift-left
+        :nv ">" 'python-indent-shift-right
+        :nvi "<C-return>" 'my-quickrun)
+
+  (map! :map inferior-python-mode-map
+        "C-ç" 'my-elpy-switch-to-buffer
+        :i "C-l" 'comint-clear-buffer)
+
+  (defun my-quickrun ()
+    (interactive)
+    (quickrun)
+    ;; (sit-for 0.5)
+    (windmove-down)
+    ;; (compilation-next-error 1)
+    )
+
+  (defun my-python-shebang ()
+    (interactive)
+    (kill-region (point-min) (point-max))
+    (insert "#!/usr/bin/env python3\n\n")
+    (evil-insert-state))
+
+  (defun my-python-colon-newline ()
+    (interactive)
+    (end-of-line)
+    (insert ":")
+    (newline-and-indent)))
+
+(use-package! elpy
+  :custom
+  (elpy-rpc-virtualenv-path 'current)
+  :config
+
+  (map! :map elpy-mode-map
+        "C-x m" 'elpy-multiedit-python-symbol-at-point
+        "C-x M" 'elpy-multiedit-stop)
+
+  (advice-add 'elpy-multiedit-python-symbol-at-point :before #'my-save-some-buffers)
+  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
+  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
+
+  (defun my-elpy-switch-to-buffer ()
+    (interactive)
+    (elpy-shell-switch-to-buffer)
+    (quit-windows-on "*Python*"))
+
+  (elpy-enable))
+
+(use-package! evil-swap-keys
+  :after evil
+  :config
+  (defun evil-swap-keys-swap-dash-underscore ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "-" "_")))

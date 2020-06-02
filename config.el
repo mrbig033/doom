@@ -62,6 +62,7 @@
 
 (setq! windmove-wrap-around t)
 (setq my-lisp "~/.doom.d/ml")
-(load! "keybindings.el" my-lisp)
 (load! "functions.el" my-lisp)
-(load! "use-packages.el" my-lisp)
+(load! "my-packages.el" my-lisp)
+(load! "keybindings.el" my-lisp)
+(load! "cool-moves.el" my-lisp)

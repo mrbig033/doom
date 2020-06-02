@@ -62,4 +62,7 @@
 (package! yafolding)
 (package! git-auto-commit-mode)
 (package! electric-operator)
+(package! evil-swap-keys)
+(package! evil-god-state)
+(package! evil-smartparens)
 (package! evil-snipe :disable t)
