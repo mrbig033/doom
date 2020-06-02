@@ -32,7 +32,8 @@
         (sort-subr reverse 'forward-line 'end-of-line nil nil
                    (lambda (l1 l2)
                      (apply #'< (mapcar (lambda (range) (- (cdr range) (car range)))
-                                        (list l1 l2)))))))))
+                                        (list l1 l2)))))
+        (reverse-region beg end)))))
 
 (defun my-recenter-window ()
   (interactive)
@@ -76,9 +77,6 @@
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
 
-(after! evil
-  (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
-
 (defun my-magit-stage-modified-and-commit ()
   (interactive)
   (progn
@@ -117,6 +115,11 @@
   (when killed-file-list
     (find-file (pop killed-file-list))))
 
+(defun my-widen-to-center ()
+  (interactive)
+  (save-excursion
+    (widen)
+    (recenter)))
+
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
-

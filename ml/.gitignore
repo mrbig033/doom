@@ -1,1 +1,4 @@
 flycheck*
+# Ignore hidden files
+.*
+.gitignore

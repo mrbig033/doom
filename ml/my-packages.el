@@ -4,6 +4,7 @@
   :custom
   (treemacs-width 25)
   (treemacs-indentation '(5 px))
+  (treemacs-show-hidden-files nil)
   (treemacs-is-never-other-window t)
   (treemacs-no-delete-other-windows t)
   (doom-themes-treemacs-enable-variable-pitch nil)
@@ -96,190 +97,93 @@
 (use-package! org
   :init
 
-  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (remove-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
 
+  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (remove-hook 'org-mode-hook 'flyspell-mode)
+
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
-
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
 
-  (map! :map (org-mode-map evil-org-mode-map)
-        :n "zi"        '+fold/open-all
-        :nv "<insert>" 'org-insert-link
-        "C-c o"        'my-org-force-open-other-window
-        "C-l"          'recenter-top-bottom
-        "s-w"          'org-edit-special
-        "M-h"         'windmove-left
-        "M-l"         'windmove-right
-        "M-k"         'windmove-up
-        "M-j"         'windmove-down
-        :map org-src-mode-map
-        "s-w" 'my-eval-buffer-and-leave-org-source)
-
   :custom
-  (org-hide-emphasis-markers t)
+
   (org-ellipsis ".")
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
+  (org-log-into-drawer t)
+  (org-timer-format "%s ")
+  (org-return-follows-link t)
+  (org-hide-emphasis-markers t)
+  (org-footnote-auto-adjust 't)
   (calendar-date-style 'european)
-  (org-agenda-hide-tags-regexp ".")
-  (org-agenda-show-all-dates nil)
-  (org-agenda-show-future-repeats 'next)
-  (org-agenda-show-outline-path nil)
-  (org-agenda-skip-additional-timestamps-same-entry 't)
-  (org-agenda-skip-archived-trees nil)
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-skip-timestamp-if-deadline-is-shown t)
-  (org-agenda-skip-timestamp-if-done t)
-  (org-agenda-skip-unavailable-files 't)
-  (org-allow-promoting-top-level-subtree nil)
-  (org-archive-location ".%s::datetree/")
+  (org-confirm-babel-evaluate nil)
+  (org-show-notification-handler nil)
+  (org-link-file-path-type 'relative)
+  (org-html-htmlize-output-type 'css)
   (org-babel-no-eval-on-ctrl-c-ctrl-c t)
+  (org-archive-location ".%s::datetree/")
+  (org-outline-path-complete-in-steps nil)
+  (org-enforce-todo-checkbox-dependencies t)
+  (org-allow-promoting-top-level-subtree nil)
+  (org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
-  (org-clock-auto-clock-resolution nil)
-  (org-clock-clocked-in-display nil)
+
+  (org-agenda-show-all-dates nil)
+  (org-agenda-hide-tags-regexp ".")
+  (org-agenda-show-outline-path nil)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-files '("~/org/Agenda"))
+  (org-agenda-skip-archived-trees nil)
+  (org-agenda-skip-timestamp-if-done t)
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-unavailable-files 't)
+  (org-agenda-show-future-repeats 'next)
+  (org-agenda-skip-timestamp-if-deadline-is-shown t)
+  (org-agenda-skip-additional-timestamps-same-entry 't)
+
+  (org-clock-persist t)
   (org-clock-in-resume t)
   (org-clock-into-drawer t)
-  (org-clock-out-remove-zero-time-clocks t)
-  (org-clock-persist t)
   (org-clock-persist-query-resume t)
-  (org-clock-report-include-clocking-task t)
+  (org-clock-clocked-in-display nil)
+  (org-clock-auto-clock-resolution nil)
   (org-clock-sound "~/Sounds/cuckoo.au")
-  (org-confirm-babel-evaluate nil)
-  (org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-  (org-enforce-todo-checkbox-dependencies t)
-  (org-export-html-postamble nil)
-  (org-export-preserve-breaks t)
-  (org-export-time-stamp-file nil)
-  (org-export-with-archived-trees nil)
-  (org-export-with-broken-links t)
-  (org-export-with-tags nil)
-  (org-export-with-toc nil)
-  (org-export-with-todo-keywords nil)
-  (org-footnote-auto-adjust 't)
-  (org-html-htmlize-output-type 'css)
-  (org-link-file-path-type 'relative)
-  (org-log-into-drawer t)
-  (org-outline-path-complete-in-steps nil)
-  (org-refile-allow-creating-parent-nodes nil)
-  (org-refile-targets '((projectile-project-buffers :maxlevel . 3)))
-  (org-refile-use-outline-path 'file)
-  (org-return-follows-link t)
-  (org-show-notification-handler nil)
-  (org-timer-format "%s ")
-  (org-src-preserve-indentation t)
-  (org-src-window-setup 'current-window)
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-clock-report-include-clocking-task t)
+
   (org-edit-src-content-indentation 1)
   (org-edit-src-persistent-message nil)
+  (org-edit-src-auto-save-idle-delay 0)
+
+  (org-export-with-toc nil)
+  (org-export-with-tags nil)
+  (org-export-preserve-breaks t)
+  (org-export-html-postamble nil)
+  (org-export-with-broken-links t)
+  (org-export-time-stamp-file nil)
+  (org-export-with-todo-keywords nil)
+  (org-export-with-archived-trees nil)
+
+  (org-refile-use-outline-path 'file)
+  (org-refile-allow-creating-parent-nodes nil)
+  (org-refile-targets '((projectile-project-buffers :maxlevel . 3)))
+
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively nil)
+  (org-src-preserve-indentation t)
+  (org-src-window-setup 'current-window)
   (org-src-ask-before-returning-to-edit-buffer nil)
-  (org-edit-src-auto-save-idle-delay 0)
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
 
-  (org-capture-templates
-   '(("t" "Personal todo" entry
-      (file+headline +org-capture-todo-file "Inbox") "* [ ] %? %i\nFrom: %f" :prepend t)
-
-     ("n" "Personal notes" entry
-      (file+headline +org-capture-notes-file "Inbox") "* %u %? %i \nFrom: %f" :prepend t)
-
-     ("j" "Journal" entry
-      (file+olp+datetree +org-capture-journal-file) "* %U %? %i \nFrom: %f" :prepend t)
-
-     ("p" "Project Templates")
-
-     ("pt" "Project - local todo" entry
-      (file+headline +org-capture-project-todo-file "Inbox") "* TODO %? %i \nFrom: %f" :prepend t)
-
-     ("pn" "Project - local notes" entry
-      (file+headline +org-capture-project-notes-file "Inbox") "* %U %? %i \nFrom: %f" :prepend t)
-
-     ("pc" "Project - local changelog" entry
-      (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %? %i \nFrom: %f" :prepend t)
-
-     ("o" "Central Project Templates")
-
-     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
-      "* TODO %? %i \nFrom: %f" :heading "Tasks" :prepend nil)
-
-     ("on" "Project notes" entry #'+org-capture-central-project-notes-file
-      "* %U %? %i \nFrom: %f" :heading "Notes" :prepend t)
-
-     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
-      "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)))
+  (load! "org-templates.el" my-lisp)
 
   :config
 
-  (org-indent-mode t)
+  (load! "org-defun.el" my-lisp)
 
-  (setq org-agenda-files '("~/org/Agenda"))
-
-  (defun my-org-force-open-other-window ()
-    (interactive)
-    (let ((org-link-frame-setup (quote
-                                 ((vm . vm-visit-folder)
-                                  (vm-imap . vm-visit-imap-folder)
-                                  (gnus . gnus)
-                                  (file . find-file-other-window)
-                                  (wl . wl)))))
-      (org-open-at-point)))
-
-  ;; MAKES SOURCE BUFFER NAMES NICER
-  (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
-    (concat "[S] "org-buffer-name""))
-
-  (defun my-org-key-translation ()
-    "Custom `org-mode' behaviours."
-    ;; Buffer-local key translation from "`" to "~".
-    (let ((keymap (make-sparse-keymap)))
-      (set-keymap-parent keymap key-translation-map)
-      (setq-local key-translation-map keymap)
-      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
-
-  (defun my-eval-buffer-and-leave-org-source ()
-    (interactive)
-    (eval-buffer)
-    (org-edit-src-exit)
-    (my-tangle-init))
-
-  (defun my-org-started-with-clock ()
-    (interactive)
-    (org-todo "STRT")
-    (org-clock-in))
-
-  (defun my-org-started-with-pomodoro ()
-    (interactive)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-goto-clock-and-start-pomodoro ()
-    (interactive)
-    (org-clock-goto)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-started-no-clock ()
-    (interactive)
-    (org-todo "STRT"))
-
-  (defun my-org-todo-done ()
-    (interactive)
-    (org-todo "DONE"))
-
-  (defun my-org-todo-done-pomodoro ()
-    (interactive)
-    (org-todo "DONE")
-    (org-pomodoro))
-
-  (defun my-org-todo ()
-    (interactive)
-    (org-todo "TODO")
-    (org-clock-out)))
+  (org-indent-mode t))
 
 (use-package! avy
   :custom
@@ -294,13 +198,15 @@
 
   (add-to-list 'avy-orders-alist '(my-avy-goto-parens . avy-order-closest))
 
-
-  (defun my-avy-goto-parens ()
+  (defun my-avy-goto-open-paren ()
     (interactive)
     (let ((avy-command this-command))   ; for look up in avy-orders-alist
       (avy-jump "(+")))
 
-
+  (defun my-avy-goto-close-paren ()
+    (interactive)
+    (let ((avy-command this-command))   ; for look up in avy-orders-alist
+      (avy-jump ")+")))
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))
 
@@ -565,13 +471,6 @@
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
 
-(after! apheleia
-  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
-
-(after! shut-up-ignore
-  (when noninteractive
-    (shut-up-silence-emacs)))
-
 (use-package! eyebrowse
   :custom
   (eyebrowse-wrap-around t)
@@ -716,3 +615,20 @@
   (defun my-show-pdf-view-commands ()
     (interactive)
     (counsel-M-x "^pdf-view- ")))
+
+(use-package! evil
+  :custom
+  (evil-visualstar/persistent t)
+  (+evil-want-o/O-to-continue-comments nil)
+  :config
+  (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
+
+(after! yasnippet
+  (setq! +snippets-dir "/Users/davi/.doom.d/ml/snips"))
+
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))

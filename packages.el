@@ -60,6 +60,7 @@
 (package! evil-god-state)
 (package! unkillable-scratch)
 (package! yafolding)
+(package! recursive-narrow)
 (package! git-auto-commit-mode)
 (package! electric-operator)
 (package! evil-swap-keys)
