@@ -11,33 +11,33 @@
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face
-                                    :weight bold
-                                    :height 1.0))))
+                           :weight bold
+                           :height 1.0))))
 
   :general
 
   (:keymaps   'global
-              "C-0"      'my-treemacs-quit
-              "C-j"      'treemacs-select-window)
+   "C-0"      'my-treemacs-quit
+   "C-j"      'treemacs-select-window)
   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
-              "C-j"      'my-treemacs-visit-node-and-hide
-              "C-p"      'treemacs-previous-project
-              "C-n"      'treemacs-next-project
-              "C-c t"    'my-show-treemacs-commands
-              "C-c D"    'treemacs-delete
-              "C-c pa"   'treemacs-projectile
-              "C-c pd"   'treemacs-remove-project-from-workspace
-              "C-c p0"   'eyebrowse-create-window-config
-              "<escape>" 'treemacs-quit
-              "<insert>" 'treemacs-create-file
-              "tp"       'move-file-to-trash
-              "çm"       'treemacs-create-dir
-              "zm"       'treemacs-collapse-all-projects
-              ","        'link-hint-open-link)
+   "C-j"      'my-treemacs-visit-node-and-hide
+   "C-p"      'treemacs-previous-project
+   "C-n"      'treemacs-next-project
+   "C-c t"    'my-show-treemacs-commands
+   "C-c D"    'treemacs-delete
+   "C-c pa"   'treemacs-projectile
+   "C-c pd"   'treemacs-remove-project-from-workspace
+   "C-c p0"   'eyebrowse-create-window-config
+   "<escape>" 'treemacs-quit
+   "<insert>" 'treemacs-create-file
+   "tp"       'move-file-to-trash
+   "çm"       'treemacs-create-dir
+   "zm"       'treemacs-collapse-all-projects
+   ","        'link-hint-open-link)
 
   (:states '(normal visual)
-           :prefix "SPC"
-           "pA" 'treemacs-add-and-display-current-project)
+   :prefix "SPC"
+   "pA" 'treemacs-add-and-display-current-project)
 
   :config
 
@@ -115,9 +115,9 @@
 (use-package! nswbuff
   :general
   (:keymaps 'override
-            :states '(normal visual insert)
-            "M-," 'nswbuff-switch-to-previous-buffer
-            "M-." 'nswbuff-switch-to-next-buffer)
+   :states '(normal visual insert)
+   "M-," 'nswbuff-switch-to-previous-buffer
+   "M-." 'nswbuff-switch-to-next-buffer)
 
   :custom
   (nswbuff-left "  ")
@@ -320,11 +320,11 @@
 
   :general
   (:states '(normal visual)
-           "g9"      'my-avy-goto-open-paren
-           "g0"      'my-avy-goto-close-paren
-           "F"       'evil-avy-goto-char-2-above
-           "f"       'evil-avy-goto-char-2-below
-           ","       'evil-avy-goto-word-or-subword-1)
+   "g9"      'my-avy-goto-open-paren
+   "g0"      'my-avy-goto-close-paren
+   "F"       'evil-avy-goto-char-2-above
+   "f"       'evil-avy-goto-char-2-below
+   ","       'evil-avy-goto-word-or-subword-1)
 
   :custom
   (avy-case-fold-search 't)
@@ -379,22 +379,22 @@
   :general
 
   (:keymaps     'ranger-mode-map
-                "çm"         'dired-create-directory
-                "<insert>"   'dired-create-empty-file
-                "i"          'my-ranger-go
-                "M-9"        'delete-other-windows
-                "tp"         'move-file-to-trash
-                "C-c 0"      'move-file-to-trash
-                "<escape>"   'ranger-close
-                "m"          'my-ranger-toggle-mark-and-advance
-                "gg"         'ranger-goto-top
-                "zp"         'ranger-preview-toggle
-                "çcm"        'dired-create-directory
-                "C-c l"      'counsel-find-file
-                "d"          'dired-do-flagged-delete
-                "x"          'diredp-delete-this-file
-                "d"          'dired-flag-file-deletion
-                "<c-return>" 'dired-do-find-marked-files)
+   "çm"         'dired-create-directory
+   "<insert>"   'dired-create-empty-file
+   "i"          'my-ranger-go
+   "M-9"        'delete-other-windows
+   "tp"         'move-file-to-trash
+   "C-c 0"      'move-file-to-trash
+   "<escape>"   'ranger-close
+   "m"          'my-ranger-toggle-mark-and-advance
+   "gg"         'ranger-goto-top
+   "zp"         'ranger-preview-toggle
+   "çcm"        'dired-create-directory
+   "C-c l"      'counsel-find-file
+   "d"          'dired-do-flagged-delete
+   "x"          'diredp-delete-this-file
+   "d"          'dired-flag-file-deletion
+   "<c-return>" 'dired-do-find-marked-files)
 
   :config
 
@@ -464,7 +464,6 @@
 (use-package! ivy
   :custom
   (counsel-grep-swiper-limit 300000)
-  (ivy-use-virtual-buffers t)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
   (counsel-find-file-at-point t)
@@ -480,28 +479,28 @@
   :general
 
   (:states '(normal visual insert)
-           "C-s" 'counsel-grep-or-swiper
-           "M-y" 'counsel-yank-pop
-           "C-," 'ivy-switch-buffer
-           "C-." 'counsel-M-x)
+   "C-s" 'counsel-grep-or-swiper
+   "M-y" 'counsel-yank-pop
+   "C-," 'ivy-switch-buffer
+   "C-." 'counsel-M-x)
 
   (:keymaps 'counsel-describe-map
-            "C-." 'ivy-next-line
-            "C-," 'counsel-find-symbol)
+   "C-." 'ivy-next-line
+   "C-," 'counsel-find-symbol)
 
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
-            "M-y"      'ivy-next-line
-            "M-r"      'ivy-next-line
-            "C-,"      'ivy-next-line
-            "C-."      'ivy-next-line
-            "C-/"      'ivy-next-line
-            "M-q"      'ivy-done
-            "<insert>" 'yank
-            "C-k"      'kill-line
-            "C-d"      'delete-char
-            "C-h"      'delete-backward-char
-            "C-w"      'backward-kill-word
-            "<insert>" 'yank)
+   "M-y"      'ivy-next-line
+   "M-r"      'ivy-next-line
+   "C-,"      'ivy-next-line
+   "C-."      'ivy-next-line
+   "C-/"      'ivy-next-line
+   "M-q"      'ivy-done
+   "<insert>" 'yank
+   "C-k"      'kill-line
+   "C-d"      'delete-char
+   "C-h"      'delete-backward-char
+   "C-w"      'backward-kill-word
+   "<insert>" 'yank)
 
   :config
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
@@ -816,28 +815,28 @@
   :general
 
   (:keymaps   'pdf-view-mode-map
-              :states '(normal visual)
-              "H"        'pdf-history-backward
-              "L"        'pdf-history-forward
-              "C-s"      'pdf-occur
-              "<escape>" 'ignore
-              "TAB"      'pdf-outline
-              "o"      'pdf-outline
-              "q"        'quit-window
-              "w"        'pdf-view-fit-width-to-window
-              "h"        'pdf-view-scroll-up-or-next-page
-              "l"        'pdf-view-scroll-down-or-previous-page
-              "j"        'pdf-view-next-page
-              "k"        'pdf-view-previous-page
-              "p"        'pdf-view-previous-line-or-previous-page
-              "n"        'pdf-view-next-line-or-next-page
-              "K"        'pdf-view-previous-line-or-previous-page
-              "J"        'pdf-view-next-line-or-next-page
-              "C-l"      'my-show-pdf-view-commands)
+   :states '(normal visual)
+   "H"        'pdf-history-backward
+   "L"        'pdf-history-forward
+   "C-s"      'pdf-occur
+   "<escape>" 'ignore
+   "TAB"      'pdf-outline
+   "o"      'pdf-outline
+   "q"        'quit-window
+   "w"        'pdf-view-fit-width-to-window
+   "h"        'pdf-view-scroll-up-or-next-page
+   "l"        'pdf-view-scroll-down-or-previous-page
+   "j"        'pdf-view-next-page
+   "k"        'pdf-view-previous-page
+   "p"        'pdf-view-previous-line-or-previous-page
+   "n"        'pdf-view-next-line-or-next-page
+   "K"        'pdf-view-previous-line-or-previous-page
+   "J"        'pdf-view-next-line-or-next-page
+   "C-l"      'my-show-pdf-view-commands)
 
   (:keymaps   'pdf-outline-buffer-mode-map
-              :states '(normal visual)
-              "<escape>"  'quit-window)
+   :states '(normal visual)
+   "<escape>"  'quit-window)
 
   :custom
 
@@ -859,8 +858,8 @@
   :general
 
   (:keymaps 'override
-            :states '(normal visual insert)
-            "M-s"         'evil-switch-to-windows-last-buffer)
+   :states '(normal visual insert)
+   "M-s"         'evil-switch-to-windows-last-buffer)
   :config
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
@@ -890,10 +889,19 @@
 (use-package! windmove
   :general
   (:keymaps 'override
-            :states '(normal visual insert)
-            "M-k" 'windmove-up
-            "M-j" 'windmove-down
-            "M-h" 'windmove-left
-            "M-l" 'windmove-right)
+   :states '(normal visual insert)
+   "M-k" 'windmove-up
+   "M-j" 'windmove-down
+   "M-h" 'windmove-left
+   "M-l" 'windmove-right)
   :custom
   (windmove-wrap-around t))
+
+(after! circe
+  (set-irc-server! "chat.freenode.net"
+                   `(:tls t
+                     :port 6697
+                     :nick "mrblack"
+                     :sasl-username "mrblack"
+                     ;; :sasl-password "mypassword"
+                     :channels ("#emacs"))))
