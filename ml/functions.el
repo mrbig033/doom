@@ -117,6 +117,6 @@
   (when killed-file-list
     (find-file (pop killed-file-list))))
 
-
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
+

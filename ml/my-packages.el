@@ -352,7 +352,7 @@
               ('h "~")
               ('n "~/Downloads")
               ('o "~/org")
-              ('p "~/Documents/Ppythonython")
+              ('p "~/Documents/Python")
               ('a "~/Documents/Python/proj/alien")
               ('s "~/scripts")
               ('f "~/.config")
@@ -701,3 +701,18 @@
         (save-buffer))))
 
   (super-save-mode t))
+
+(use-package! pdf-view
+  :init
+  (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
+  :custom
+
+  (pdf-view-continuous t)
+  (pdf-view-resize-factor 1.15)
+  (pdf-misc-size-indication-minor-mode t)
+
+  :config
+
+  (defun my-show-pdf-view-commands ()
+    (interactive)
+    (counsel-M-x "^pdf-view- ")))

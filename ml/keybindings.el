@@ -18,8 +18,11 @@
       "M-y"         'counsel-yank-pop
       "M-n"         'evil-forward-paragraph
       "M-p"         'evil-backward-paragraph
+      "C-h e"       'describe-package
       "C-S-j"       'cool-moves-line-forward
       "C-S-k"       'cool-moves-line-backward
+      :n "go"       'cool-moves-open-line-below
+      :n "gO"       'cool-moves-open-line-above
       :n "gsP"      'cool-moves-paragraph-backward
       :n "gsp"      'cool-moves-paragraph-forward
       :n "TAB"      '+fold/toggle
@@ -100,6 +103,31 @@
       :g "C-/"      'ivy-next-line
       :g "M-q"      'ivy-done
       :g "<insert>" 'yank
+      :map global-map
+      :nvig "C-,"      'ivy-switch-buffer
+      :nvig "C-."   'counsel-M-x
+      ;; PDF VIEW ;;
+      :map pdf-view-mode-map
+      :nvig "H"        'pdf-history-backward
+      :nvig "L"        'pdf-history-forward
+      :nvig "C-s"      'pdf-occur
+      :nvig "M-s"      'evil-switch-to-windows-last-buffer
+      :nvig "<escape>" 'ignore
+      :nvig "TAB"      'pdf-outline
+      :nvig "q"        'quit-window
+      :nvig "w"        'pdf-view-fit-width-to-window
+      :nvig "h"        'pdf-view-scroll-up-or-next-page
+      :nvig "l"        'pdf-view-scroll-down-or-previous-page
+      :nvig "j"        'pdf-view-next-page
+      :nvig "k"        'pdf-view-previous-page
+      :nvig "p"        'pdf-view-previous-line-or-previous-page
+      :nvig "n"        'pdf-view-next-line-or-next-page
+      :nvig "K"        'pdf-view-previous-line-or-previous-page
+      :nvig "J"        'pdf-view-next-line-or-next-page
+      :nvig "C-j"      'treemacs-select-window
+      :nvig "C-l"      'my-show-pdf-view-commands
+      :map pdf-outline-buffer-mode-map
+      "<escape>" 'quit-window
       ;; LEADER KEY ;;
       :map global-map
       "M-q"       'eyebrowse-prev-window-config
@@ -112,7 +140,7 @@
       :leader "4" 'eyebrowse-switch-to-window-config-4
       :leader "v" 'eyebrowse-create-window-config
       :leader "x" 'eyebrowse-close-window-config
-      :map global-map
+      ;; OTHER LEADER KEYS ;;
       :leader "r" 'deer
       :leader "0" 'delete-window
       :leader "pg" 'counsel-projectile-ag
@@ -140,3 +168,7 @@
       :leader "tS" 'my-sort-lines-by-length
       :leader "g SPC" 'my-magit-stage-modified-and-commit
       :leader "meb" 'my-eval-buffer)
+
+
+
+
