@@ -68,6 +68,13 @@
   :custom
   (which-key-idle-delay 0.4)
   :config
+  (which-key-add-key-based-replacements
+    "SPC tc" "Clean Lines"
+    "SPC td" "Dup Lines"
+    "SPC ti" "Dup Par"
+    "SPC tS" "Sort by Len"
+    "SPC bY" "Yank Dir"
+    "SPC fk" "Search Pkgs")
   (which-key-mode +1))
 
 (use-package! nswbuff
@@ -402,9 +409,13 @@
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
   (setq swiper-use-visual-line-p #'ignore)
 
+  (defun my-search-settings ()
+    (interactive)
+    (counsel-ag nil "~/.doom.d/ml/"))
+
   (defun my-search-packages ()
     (interactive)
-    (counsel-ag  "(use-package " "~/.doom.d/my-lisp/"))
+    (counsel-ag  "(use-package! "  "~/.doom.d/ml/"))
 
   (defun my-swiper-python-classes ()
     (interactive)
@@ -422,10 +433,6 @@
     (interactive)
     (counsel-ag  "def "))
 
-  (defun my-search-settings ()
-    (interactive)
-    (counsel-ag nil "~/.doom.d/my-lisp/"))
-
   (defun ivy-with-thing-at-point (cmd)
     (let ((ivy-initial-inputs-alist
            (list
@@ -441,7 +448,6 @@
   :config
   (map! :map evil-smartparens-mode-map
         :v "o" 'exchange-point-and-mark))
-
 
 (use-package! python
   :init

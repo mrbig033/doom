@@ -30,7 +30,7 @@
       :nvig "M-,"   'nswbuff-switch-to-previous-buffer
       :nvig "M-."   'nswbuff-switch-to-next-buffer
       ;; SAVE BUFFER ;;
-      :map (prog-mode-map text-mode-map)
+      :map (prog-mode-map text-mode-map conf-mode-map)
       :n "<escape>" 'my-quiet-save-buffer
       ;; AVY ;;
       :nv "g9"      'my-avy-goto-parens
@@ -119,6 +119,7 @@
                      (message (kill-new (abbreviate-file-name default-directory))))
       ;; SEARCH SETTINGS ;;
       :leader "fs" 'my-search-settings
+      :leader "fk" 'my-search-packages
       ;; EVIL SUBSTITUTE ;;
       :leader "su" (lambda () (interactive)
                      (evil-ex "%s/"))

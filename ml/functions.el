@@ -19,7 +19,6 @@
      (point-min)
      (point-max))))
 
-
 ;; https://stackoverflow.com/a/30697761
 (defun my-sort-lines-by-length (reverse beg end)
   "sort lines by length."
@@ -76,10 +75,6 @@
           (goto-char (point-min))
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
-
-(defun my-search-settings ()
-  (interactive)
-  (counsel-ag nil "~/.doom.d/ml/"))
 
 (after! evil
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
