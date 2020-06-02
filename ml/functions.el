@@ -85,5 +85,38 @@
     (let ((current-prefix-arg '(4))) (magit-stage-modified))
     (magit-commit-create)))
 
+(defun my-eval-buffer ()
+  (interactive)
+  (eval-buffer)
+  (let ((inhibit-message t))
+    (save-some-buffers t)))
+
+;;;; REOPEN KILLED FILED ;;;;
+
+(defvar killed-file-list nil
+  "List of recently killed files.")
+
+(defun add-file-to-killed-file-list ()
+  "If buffer is associated with a file name, add that file to the
+`killed-file-list' when killing the buffer."
+  (when buffer-file-name
+    (push buffer-file-name killed-file-list)))
+
+(add-hook 'kill-buffer-hook #'add-file-to-killed-file-list)
+
+(defun my-reopen-killed-file ()
+  "Reopen the most recently killed file, if one exists."
+  (interactive)
+  (when killed-file-list
+    (find-file (pop killed-file-list))))
+
+(defun my-reload-file ()
+  "Reopen the most recently killed file, if one exists."
+  (interactive)
+  (my-kill-this-buffer)
+  (when killed-file-list
+    (find-file (pop killed-file-list))))
+
+
 (fset 'my-dup-par
-   (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
+      (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))

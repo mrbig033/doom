@@ -74,7 +74,10 @@
     "SPC ti" "Dup Par"
     "SPC tS" "Sort by Len"
     "SPC bY" "Yank Dir"
-    "SPC fk" "Search Pkgs")
+    "SPC fk" "Search Pkgs"
+    "SPC meb" "Eval Buffer"
+    "SPC med" "Eval Defun"
+    "SPC mer" "Eval Region")
   (which-key-mode +1))
 
 (use-package! nswbuff
@@ -349,7 +352,7 @@
               ('h "~")
               ('n "~/Downloads")
               ('o "~/org")
-              ('p "~/Documents/Python")
+              ('p "~/Documents/Ppythonython")
               ('a "~/Documents/Python/proj/alien")
               ('s "~/scripts")
               ('f "~/.config")
@@ -398,7 +401,7 @@
   (counsel-find-file-at-point t)
   (counsel-bookmark-avoid-dired t)
   (ivy-count-format "")
-  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' %s")
+  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'flycheck*' %s")
 
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
@@ -415,7 +418,7 @@
 
   (defun my-search-packages ()
     (interactive)
-    (counsel-ag  "(use-package! "  "~/.doom.d/ml/"))
+    (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
 
   (defun my-swiper-python-classes ()
     (interactive)
@@ -465,8 +468,7 @@
 
   (add-hook! 'python-mode-hook
              #'elpy-mode
-             ;; #'apheleia-mode
-             )
+             #'apheleia-mode)
 
   :custom
   (python-indent-guess-indent-offset-verbose nil)
@@ -491,14 +493,14 @@
     '(company-dabbrev-code :with company-keywords company-dabbrev))
 
   (map! :map python-mode-map
-        "C-c y" 'engine/search-python-3
-        "C-c g" 'engine/search-pygame-docs
-        "C-c d" 'engine/search-python-3-docs
+        ;; "C-c y" 'engine/search-python-3
+        ;; "C-c g" 'engine/search-pygame-docs
+        ;; "C-c d" 'engine/search-python-3-docs
+        ;; "<M-backspace>"   'apheleia-format-buffer
         "C-c ç" 'my-python-shebang
         "C-ç" 'elpy-shell-switch-to-shell
         "M-a"   'python-nav-backward-statement
         "M-e"   'python-nav-forward-statement
-        "<M-backspace>"   'apheleia-format-buffer
         :i "C-=" 'my-python-colon-newline
         :i "C-h"'python-indent-dedent-line-backspace
         :n "ç" 'hydra-python-mode/body
@@ -562,3 +564,140 @@
     "Swap the underscore and the dash."
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
+
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))
+
+(use-package! eyebrowse
+  :custom
+  (eyebrowse-wrap-around t)
+  (eyebrowse-new-workspace t)
+  (eyebrowse-mode-line-style 'smart)
+  (eyebrowse-switch-back-and-forth t)
+  (eyebrowse-mode-line-left-delimiter " [ ")
+  (eyebrowse-mode-line-right-delimiter " ]  ")
+  (eyebrowse-mode-line-separator " | ")
+  :config
+  (eyebrowse-mode +1))
+
+(use-package! doom-modeline
+  :custom
+  (doom-modeline-percent-position '(-3 "%p"))
+  (doom-modeline-env-version nil)
+  (doom-modeline-env-enable-go nil)
+  (doom-modeline-major-mode-icon nil)
+  (doom-modeline-buffer-state-icon nil)
+  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-env-enable-ruby nil)
+  (doom-modeline-env-enable-perl nil)
+  (doom-modeline-env-enable-rust nil)
+  (doom-modeline-env-enable-python nil)
+  (doom-modeline-env-enable-elixir nil)
+  (doom-modeline-env-load-string ".")
+  (doom-modeline-major-mode-color-icon t)
+  (doom-modeline-checker-simple-format t)
+  (doom-modeline-buffer-modification-icon nil)
+  (doom-modeline-buffer-file-name-style 'buffer-name))
+
+(use-package! company
+  :custom
+  (company-ispell-dictionary "brazilian")
+  (company-minimum-prefix-length 1)
+  (company-show-numbers t)
+  (company-tooltip-limit 10)
+  (company-dabbrev-other-buffers t)
+  (company-selection-wrap-around t)
+  (company-auto-complete nil)
+  (company-dabbrev-ignore-case 'keep-prefix)
+  (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode text-mode org-mode))
+  :config
+  (setq-default company-call-backends '(company-capf
+                                        company-yasnippet
+                                        company-shell
+                                        company-shell-env
+                                        company-files
+                                        company-semantic
+                                        (company-dabbrev-code
+                                         company-gtags
+                                         company-etags
+                                         company-keywords)
+                                        company-dabbrev))
+
+  (map! :map company-active-map
+        "M-e" 'my-company-yasnippet
+        "M-q" 'company-complete-selection
+        "C-u" 'company-yasnippet
+        "M-w" 'my-company-comp-with-paren
+        "M-." 'my-company-comp-with-dot
+        "M-j" 'my-company-comp-space
+        "C-h" 'delete-backward-char
+        "M-0" 'company-complete-number
+        "M-1" 'company-complete-number
+        "M-2" 'company-complete-number
+        "M-3" 'company-complete-number
+        "M-4" 'company-complete-number
+        "M-5" 'company-complete-number
+        "M-6" 'company-complete-number
+        "M-7" 'company-complete-number
+        "M-8" 'company-complete-number
+        "M-9" 'company-complete-number)
+
+  (defun my-company-yasnippet ()
+    (interactive)
+    (company-abort)
+    (yas-expand))
+
+  (defun my-company-comp-with-paren ()
+    (interactive)
+    (company-complete-selection)
+    (insert "()")
+    (backward-char))
+
+  (defun my-company-comp-with-dot ()
+    (interactive)
+    (company-complete-selection)
+    (insert ".")
+    (company-complete))
+
+  (defun my-company-comp-space ()
+    (interactive)
+    (company-complete-selection)
+    (insert " ")))
+
+(use-package! super-save
+  :custom
+  (auto-save-default nil)
+  (super-save-idle-duration 5)
+  (super-save-auto-save-when-idle nil)
+  (super-save-triggers
+   '(quickrun
+     quit-window
+     eval-buffer
+     my-last-buffer
+     windmove-up
+     windmove-down
+     windmove-left
+     windmove-right
+     switch-to-buffer
+     delete-window
+     eyebrowse-close-window-config
+     eyebrowse-create-window-config
+     eyebrowse-prev-window-config))
+  :config
+
+  (defun super-save-command ()
+    "Save the current buffer if needed."
+    (shut-up
+      (when (and buffer-file-name
+                 (buffer-modified-p (current-buffer))
+                 (file-writable-p buffer-file-name)
+                 (if (file-remote-p buffer-file-name) super-save-remote-files t)
+                 (super-save-include-p buffer-file-name))
+        (save-buffer))))
+
+  (super-save-mode t))

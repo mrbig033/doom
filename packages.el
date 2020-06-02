@@ -65,4 +65,9 @@
 (package! evil-swap-keys)
 (package! evil-god-state)
 (package! evil-smartparens)
+(package! eyebrowse)
+(package! shut-up)
+(package! super-save)
+(package! aphelia
+  :recipe (:host github :repo "raxod502/apheleia"))
 (package! evil-snipe :disable t)

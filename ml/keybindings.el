@@ -32,6 +32,8 @@
       ;; SAVE BUFFER ;;
       :map (prog-mode-map text-mode-map conf-mode-map)
       :n "<escape>" 'my-quiet-save-buffer
+      :map (lisp-interaction-mode-map)
+      :n "<escape>" nil
       ;; AVY ;;
       :nv "g9"      'my-avy-goto-parens
       :nv "F"       'evil-avy-goto-char-2-above
@@ -40,6 +42,7 @@
       ;; TREEMACS ;;
       :map global
       "C-0"         'my-treemacs-quit
+      "C-j"         'treemacs-select-window
       :map (treemacs-mode-map evil-treemacs-state-map)
       "tp"          'move-file-to-trash
       "zm"          'treemacs-collapse-all-projects
@@ -98,18 +101,18 @@
       :g "M-q"      'ivy-done
       :g "<insert>" 'yank
       ;; LEADER KEY ;;
-
-      ;; WORKSPACES ;;
       :map global-map
-      "M-q"       '+workspace/switch-left
-      "M-w"       '+workspace/switch-right
-      :leader "0" '+workspace/switch-to-0
-      :leader "1" '+workspace/switch-to-1
-      :leader "2" '+workspace/switch-to-2
-      :leader "3" '+workspace/switch-to-3
-      :leader "v" '+workspace/new
-      :leader "x" '+workspace/delete
-
+      "M-q"       'eyebrowse-prev-window-config
+      "M-w"       'eyebrowse-next-window-config
+      ;; WORKSPACES ;;
+      ;; EYEBROWSE ;;
+      :leader "1" 'eyebrowse-switch-to-window-config-1
+      :leader "2" 'eyebrowse-switch-to-window-config-2
+      :leader "3" 'eyebrowse-switch-to-window-config-3
+      :leader "4" 'eyebrowse-switch-to-window-config-4
+      :leader "v" 'eyebrowse-create-window-config
+      :leader "x" 'eyebrowse-close-window-config
+      :map global-map
       :leader "r" 'deer
       :leader "0" 'delete-window
       :leader "pg" 'counsel-projectile-ag
@@ -131,7 +134,9 @@
       :leader "wk" '+evil-window-split-a
       :leader "wh" '+evil-window-vsplit-a
       :leader "td" 'my-dup-line
+      :leader "T" 'my-reopen-killed-file
       :leader "tc" 'xah-clean-empty-lines
       :leader "ti" 'my-dup-par
       :leader "tS" 'my-sort-lines-by-length
-      :leader "g SPC" 'my-magit-stage-modified-and-commit)
+      :leader "g SPC" 'my-magit-stage-modified-and-commit
+      :leader "meb" 'my-eval-buffer)
