@@ -1,6 +1,10 @@
 ;;; ~/.doom.d/use-package.el -*- lexical-binding: t; -*-
 
+(use-package! shut-up
+  :demand t)
+
 (use-package! treemacs
+  :commands treemacs-select-window
   :custom
   (treemacs-width 25)
   (treemacs-indentation '(5 px))
@@ -76,6 +80,8 @@
     "SPC tS" "Sort by Len"
     "SPC bY" "Yank Dir"
     "SPC fk" "Search Pkgs"
+    "SPC nn" "Narrow Dwin"
+    "SPC nw" "Widen"
     "SPC meb" "Eval Buffer"
     "SPC med" "Eval Defun"
     "SPC mer" "Eval Region")
@@ -98,6 +104,7 @@
   :init
 
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
+  (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
 
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -177,13 +184,107 @@
   (org-src-window-setup 'current-window)
   (org-src-ask-before-returning-to-edit-buffer nil)
 
-  (load! "org-templates.el" my-lisp)
+  (org-capture-templates
+   '(("t" "Personal Todo" entry
+      (file+headline +org-capture-todo-file "Inbox")
+      "* [ ] %? %i\nFrom: %f" :prepend t)
+
+     ("n" "Personal notes" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %u %? %i \nFrom: %f" :prepend t)
+
+     ("j" "Journal" entry
+      (file+olp+datetree +org-capture-journal-file)
+      "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("p" "Project Templates")
+
+     ("pt" "Project - local todo" entry
+      (file+headline +org-capture-project-todo-file "Inbox")
+      "* TODO %? %i \nFrom: %f" :prepend t)
+
+     ("pn" "Project - local notes" entry
+      (file+headline +org-capture-project-notes-file "Inbox")
+      "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("pc" "Project - local changelog" entry
+      (file+headline +org-capture-project-changelog-file "Unreleased")
+      "* %U %? %i \nFrom: %f" :prepend t)
+
+     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
+      "* TODO %? %i \nFrom: %f" :heading "Tasks" :prepend nil)
+
+     ("on" "Project notes" entry #'+org-capture-central-project-notes-file
+      "* %U %? %i \nFrom: %f" :heading "Notes" :prepend t)
+
+     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
+      "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)
+
+     ("o" "Central Project Templates")))
 
   :config
 
-  (load! "org-defun.el" my-lisp)
 
-  (org-indent-mode t))
+  (defun my-org-force-open-other-window ()
+    (interactive)
+    (let ((org-link-frame-setup (quote
+                                 ((vm . vm-visit-folder)
+                                  (vm-imap . vm-visit-imap-folder)
+                                  (gnus . gnus)
+                                  (file . find-file-other-window)
+                                  (wl . wl)))))
+      (org-open-at-point)))
+
+  ;; MAKES SOURCE BUFFER NAMES NICER
+  (defun org-src--construct-edit-buffer-name (org-buffer-name)
+    (concat "[S] "org-buffer-name""))
+
+  (defun my-org-key-translation ()
+    "Custom `org-mode' behaviours."
+    ;; Buffer-local key translation from "`" to "~".
+    (let ((keymap (make-sparse-keymap)))
+      (set-keymap-parent keymap key-translation-map)
+      (setq-local key-translation-map keymap)
+      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
+
+  (defun my-eval-buffer-and-leave-org-source ()
+    (interactive)
+    (eval-buffer)
+    (org-edit-src-exit))
+
+  (defun my-org-started-with-clock ()
+    (interactive)
+    (org-todo "STRT")
+    (org-clock-in))
+
+  (defun my-org-started-with-pomodoro ()
+    (interactive)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-goto-clock-and-start-pomodoro ()
+    (interactive)
+    (org-clock-goto)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-started-no-clock ()
+    (interactive)
+    (org-todo "STRT"))
+
+  (defun my-org-todo-done ()
+    (interactive)
+    (org-todo "DONE"))
+
+  (defun my-org-todo-done-pomodoro ()
+    (interactive)
+    (org-todo "DONE")
+    (org-pomodoro))
+
+  (defun my-org-todo ()
+    (interactive)
+    (org-todo "TODO")
+    (org-clock-out)))
 
 (use-package! avy
   :custom
@@ -211,6 +312,7 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
+  :demand t
   :hook (ranger-mode . olivetti-mode)
   :custom
   (ranger-max-tabs 0)
@@ -384,7 +486,7 @@
   (defun my-quickrun-shell ()
     (interactive)
     (quickrun-shell)
-    (other-window))
+    (other-window 1))
 
   (set-company-backend!
     'python-mode
@@ -472,6 +574,7 @@
     (evil-swap-keys-add-pair "-" "_")))
 
 (use-package! eyebrowse
+  :commands (eyebrowse-prev-window-config eyebrowse-next-window-config)
   :custom
   (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
@@ -529,8 +632,8 @@
 
   (map! :map company-active-map
         "M-e" 'my-company-yasnippet
+        "C-y" 'company-yasnippet
         "M-q" 'company-complete-selection
-        "C-u" 'company-yasnippet
         "M-w" 'my-company-comp-with-paren
         "M-." 'my-company-comp-with-dot
         "M-j" 'my-company-comp-space
@@ -569,6 +672,7 @@
     (insert " ")))
 
 (use-package! super-save
+  :after-call (pre-command-hook after-find-file super-save-mode)
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
@@ -587,6 +691,7 @@
      eyebrowse-close-window-config
      eyebrowse-create-window-config
      eyebrowse-prev-window-config))
+
   :config
 
   (defun super-save-command ()
@@ -621,7 +726,15 @@
   (evil-visualstar/persistent t)
   (+evil-want-o/O-to-continue-comments nil)
   :config
+
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
+
+(use-package! projectile
+  :custom
+  (projectile-track-known-projects-automatically nil))
+
+(after! evil
+  (evil-better-visual-line-on))
 
 (after! yasnippet
   (setq! +snippets-dir "/Users/davi/.doom.d/ml/snips"))

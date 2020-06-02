@@ -1,6 +1,5 @@
 ;;; ~/.doom.d/functions.el -*- lexical-binding: t; -*-
 
-
 (defun my-evil-sel-to-end ()
   (interactive)
   (evil-visual-char)
@@ -111,7 +110,7 @@
 (defun my-reload-file ()
   "Reopen the most recently killed file, if one exists."
   (interactive)
-  (my-kill-this-buffer)
+  (kill-this-buffer)
   (when killed-file-list
     (find-file (pop killed-file-list))))
 
@@ -120,6 +119,23 @@
   (save-excursion
     (widen)
     (recenter)))
+
+(defun my-recompile-doom ()
+  (interactive)
+  (let ((current-prefix-arg 4))
+    (byte-force-recompile "~/.doom.d/ml/")))
+
+(defun my-save-some-buffers ()
+  (interactive)
+  (save-some-buffers t 0))
+
+(defun my-show-major-mode ()
+  (interactive)
+  (helpful-variable 'major-mode))
+
+(defun my-recentf-empty ()
+  (interactive)
+  (setq recentf-list nil))
 
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))

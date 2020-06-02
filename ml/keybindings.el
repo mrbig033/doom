@@ -1,7 +1,7 @@
 ;;; ~/.doom.d/keybindings.el -*- lexical-binding: t; -*-
 
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
-(define-key key-translation-map (kbd "<f12>") (kbd "C-c"))
+(define-key key-translation-map (kbd "<f12>") (kbd "SPC"))
 
 
 (map! "M-s"         'evil-switch-to-windows-last-buffer
@@ -24,35 +24,59 @@
       "C-h e"       'describe-package
       "C-S-j"       'cool-moves-line-forward
       "C-S-k"       'cool-moves-line-backward
-      :i "M-e"      'yas-expand
-      :n "go"       'cool-moves-open-line-below
-      :n "gO"       'cool-moves-open-line-above
-      :n "gsP"      'cool-moves-paragraph-backward
-      :n "gsp"      'cool-moves-paragraph-forward
-      :n "TAB"      '+fold/toggle
-      :n "zi"       '+fold/open-all
-      :n "ge"       'evil-end-of-visual-line
-      :n "gr"       'my-evil-sel-to-end
-      :v "C-c a"    'align-regexp
-      :nvig "M-,"   'nswbuff-switch-to-previous-buffer
-      :nvig "M-."   'nswbuff-switch-to-next-buffer
+
+      ;; INSERT STATE ;;
+      :i "C-h" 'evil-delete-backward-char-and-join
+      :i "C-k" 'kill-line
+      :i "C-p" 'previous-line
+      :i "C-n" 'next-line
+      :i "M-d" 'kill-word
+      :i "C-d" 'delete-char
+      :i "M-e" 'yas-expand
+
+      ;; NORMAL STATE ;;
+      :n "go"  'cool-moves-open-line-below
+      :n "gO"  'cool-moves-open-line-above
+      :n "gsP" 'cool-moves-paragraph-backward
+      :n "gsp" 'cool-moves-paragraph-forward
+      :n "TAB" '+fold/toggle
+      :n "zi"  '+fold/open-all
+      :n "ge"  'evil-end-of-visual-line
+
+      ;; VISUAL ;;
+      :v "C-c a"  'align-regexp
+
+      ;; NORMAL AND VISUAL ;;
+      :nv "M-i"   'better-jumper-jump-backward
+      :nv "M-o"   'better-jumper-jump-forward
+      :nv "C-h M" 'my-show-major-mode
+      :nvig "M-," 'nswbuff-switch-to-previous-buffer
+      :nvig "M-." 'nswbuff-switch-to-next-buffer
+
+      ;; DOOM DASHBORD ;;
+      :map +doom-dashboard-mode-map
+      :n "<escape>" 'quit-window
+      :n "j"        'forward-button
+      :n "k"        'backward-button
+      :n "q"        'quit-window
 
       ;; ORG MODE ;;
-
-      :map (org-mode-map evil-org-mode-map)
-      :n "zi"        '+fold/open-all
-      :nv "<insert>" 'org-insert-link
-      "C-c o"        'my-org-force-open-other-window
-      "C-l"          'recenter-top-bottom
+      :map (global-map org-mode-map evil-org-mode-map)
+      "M-k"          'windmove-up
+      "M-j"          'windmove-down
+      "M-h"          'windmove-left
+      "M-l"          'windmove-right
       "s-w"          'org-edit-special
-      "M-h"         'windmove-left
-      "M-l"         'windmove-right
-      "M-k"         'windmove-up
-      "M-j"         'windmove-down
+      "C-l"          'recenter-top-bottom
+      "C-c o"        'my-org-force-open-other-window
+      :n "zi"        '+fold/open-all
+      :n "gr"        'my-evil-sel-to-end
+      :nv "<insert>" 'org-insert-link
       :map org-src-mode-map
       "s-w" 'my-eval-buffer-and-leave-org-source
-      :map global-map
+
       ;; EVIL GOD STATE ;;
+      :map global-map
       :v "."          'evil-exit-visual-state
       :n "."          'evil-execute-in-god-state
       :map god-local-mode-map
@@ -125,7 +149,9 @@
       :nvig "C-d"      'delete-char
       :nvig "C-h"      'delete-backward-char
       :nvig "C-w"      'backward-kill-word
-
+      :map counsel-describe-map
+      :g "C-." 'ivy-next-line
+      :g "C-," 'counsel-find-symbol
       ;; IVY KEYBINDINGS ;;
       :map ivy-minibuffer-map
       :g "M-y"      'ivy-next-line
@@ -202,16 +228,13 @@
                      (+evil-window-vsplit-a) (other-window 1))
       :leader "wj" (lambda () (interactive)
                      (+evil-window-split-a) (other-window 1))
-      :leader "wk" '+evil-window-split-a
-      :leader "wh" '+evil-window-vsplit-a
-      :leader "td" 'my-dup-line
-      :leader "T" 'my-reopen-killed-file
-      :leader "tc" 'xah-clean-empty-lines
-      :leader "ti" 'my-dup-par
-      :leader "tS" 'my-sort-lines-by-length
+      :leader "wk"    '+evil-window-split-a
+      :leader "wh"    '+evil-window-vsplit-a
+      :leader "td"    'my-dup-line
+      :leader "T"     'my-reopen-killed-file
+      :leader "tc"    'xah-clean-empty-lines
+      :leader "ti"    'my-dup-par
+      :leader "tS"    'my-sort-lines-by-length
       :leader "g SPC" 'my-magit-stage-modified-and-commit
-      :leader "meb" 'my-eval-buffer)
-
-
-
-
+      :leader "meb"   'my-eval-buffer
+      :leader "fo"    '+doom-dashboard/open)

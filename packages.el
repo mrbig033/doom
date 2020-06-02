@@ -69,6 +69,7 @@
 (package! eyebrowse)
 (package! shut-up)
 (package! super-save)
-(package! aphelia
+(package! evil-better-visual-line)
+(package! apheleia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! evil-snipe :disable t)

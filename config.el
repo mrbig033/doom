@@ -58,11 +58,16 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq! my-lisp "~/.doom.d/ml"
+       windmove-wrap-around t
+       use-package-always-defer t
+       recentf-auto-cleanup "11:59pm"
+       recentf-max-saved-items 20
+       +word-wrap-extra-indent 'single)
+
 (put 'evil-emacs-state 'disabled t)
 
-(setq! windmove-wrap-around t)
-(setq my-lisp "~/.doom.d/ml")
 (load! "functions.el" my-lisp)
-(load! "my-packages.el" my-lisp)
 (load! "keybindings.el" my-lisp)
+(load! "my-packages.el" my-lisp)
 (load! "cool-moves.el" my-lisp)
