@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "mrbig"
@@ -40,7 +39,6 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -69,8 +67,11 @@
        trash-directory "~/.Trash")
 
 (global-flycheck-mode -1)
+;; (auto-save-visited-mode +1)
 
 (load! "functions.el" my-lisp)
 (load! "keybindings.el" my-lisp)
+(load! "keybindings.el" my-lisp)
 (load! "my-packages.el" my-lisp)
+(load! "my-hydras.el" my-lisp)
 (load! "cool-moves.el" my-lisp)

@@ -153,3 +153,13 @@
 
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
+
+(defun my-backward-paragraph-do-indentation ()
+  (interactive)
+  (evil-backward-paragraph 2)
+  (forward-to-indentation 1))
+
+(defun my-forward-paragraph-do-indentation ()
+  (interactive)
+  (evil-forward-paragraph 1)
+  (forward-to-indentation 1))

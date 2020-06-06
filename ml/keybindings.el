@@ -4,21 +4,25 @@
 ;; (define-key key-translation-map (kbd "<f12>") (kbd "SPC"))
 
 
-(map! "M--"         'winner-undo
-      "M-="         'winner-redo
-      "M-/"         'hippie-expand
-      "C-;"         'helpful-at-point
-      "M-RET"       'my-indent-buffer
-      "C-9"         'evilnc-comment-or-uncomment-lines
-      "M-9"         'delete-other-windows
-      "M-0"         'quit-window
-      "M-n"         'evil-forward-paragraph
-      "M-p"         'evil-backward-paragraph
-      "C-h e"       'describe-package
-      "C-S-j"       'cool-moves-line-forward
-      "C-S-k"       'cool-moves-line-backward
-      "C-c t"       'git-timemachine
-      "C-c i"       'emacs-init-time
+(map! "M--"   'winner-undo
+      "M-="   'winner-redo
+      "M-/"   'hippie-expand
+      "C-;"   'helpful-at-point
+      "M-RET" 'my-indent-buffer
+      "C-9"   'evilnc-comment-or-uncomment-lines
+      "M-9"   'delete-other-windows
+      "M-0"   'quit-window
+      "M-n"   'evil-forward-paragraph
+      "M-p"   'evil-backward-paragraph
+      "M-k"   'windmove-up
+      "M-j"   'windmove-down
+      "M-h"   'windmove-left
+      "M-l"   'windmove-right
+      "C-h e" 'describe-package
+      "C-S-j" 'cool-moves-line-forward
+      "C-S-k" 'cool-moves-line-backward
+      "C-c t" 'git-timemachine
+      "C-c i" 'emacs-init-time
 
       ;; INSERT STATE ;;
       :i "C-h" 'evil-delete-backward-char-and-join
@@ -74,7 +78,7 @@
 
       ;; SAVE BUFFER ;;
       :map (prog-mode-map text-mode-map conf-mode-map)
-      :n "<escape>" 'my-quiet-save-some-buffers
+      :n "<escape>" 'my-quiet-save-buffer
       :map (lisp-interaction-mode-map)
       :n "<escape>" nil
 
@@ -102,6 +106,7 @@
       :leader "pG" 'projectile-configure-project
       :leader "nn" 'recursive-narrow-or-widen-dwim
       :leader "nw" 'my-widen-to-center
+      :leader "to" 'olivetti-mode
 
       ;; COPY DIRECTORY PATH ;;
       :leader "fY" (lambda () (interactive)
@@ -131,4 +136,4 @@
       :leader "g SPC" 'my-magit-stage-modified-and-commit
       :leader "meb"   'my-eval-buffer
       :leader "ba"    'my-goto-markdown)
-      ;; :leader "fo"    '+doom-dashboard/open
+;; :leader "fo"    '+doom-dashboard/open

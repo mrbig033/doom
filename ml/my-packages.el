@@ -1,5 +1,9 @@
 ;;; ~/.doom.d/use-package.el -*- lexical-binding: t; -*-
 
+(use-package! hydra
+  :config
+  (map! :leader "j" 'hydra-org-clock/body))
+
 (use-package! treemacs
   :commands treemacs-select-window
   :custom
@@ -100,6 +104,7 @@
   (which-key-add-key-based-replacements
     "SPC tc" "Clean Lines"
     "SPC td" "Dup Lines"
+    "SPC to" "Olivetti Mode"
     "SPC ti" "Dup Par"
     "SPC tS" "Sort by Len"
     "SPC bY" "Yank Dir"
@@ -591,6 +596,8 @@
         ;; "C-c g" 'engine/search-pygame-docs
         ;; "C-c d" 'engine/search-python-3-docs
         ;; "<M-backspace>"   'apheleia-format-buffer
+        "M-p" 'my-backward-paragraph-do-indentation
+        "M-n" 'my-forward-paragraph-do-indentation
         "C-c ç" 'my-python-shebang
         "C-ç" 'elpy-shell-switch-to-shell
         "M-a"   'python-nav-backward-statement
@@ -795,15 +802,6 @@
      eyebrowse-prev-window-config))
 
   :config
-
-  (defun super-save-command ()
-    "Save the current buffer if needed."
-    (when (and buffer-file-name
-               (buffer-modified-p (current-buffer))
-               (file-writable-p buffer-file-name)
-               (if (file-remote-p buffer-file-name) super-save-remote-files t)
-               (super-save-include-p buffer-file-name))
-      (my-quiet-save-some-buffers)))
 
   (super-save-mode t))
 
