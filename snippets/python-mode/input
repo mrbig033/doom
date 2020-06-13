@@ -1,0 +1,4 @@
+# key: i
+# name: input
+# --
+input("$0")

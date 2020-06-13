@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: remove-hook
+# uuid:
+# key: remove-hook
+# condition: t
+# --
+(remove-hook '${0:hook} ${1:function})`(doom-snippets-newline-or-eol)`

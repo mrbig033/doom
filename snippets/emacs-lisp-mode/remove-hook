@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: remove-hook
+# key: remove-hook
+# --
+(remove-hook '${0:hook} '${1:function})`(doom-snippets-newline-or-eol)`

@@ -41,6 +41,7 @@
       :n "TAB" '+fold/toggle
       :n "zi"  '+fold/open-all
       :n "ge"  'evil-end-of-visual-line
+      :n "Q"   'delete-frame
 
       ;; VISUAL ;;
       :v "C-c a"  'align-regexp
