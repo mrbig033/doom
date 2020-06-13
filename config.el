@@ -58,6 +58,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+(setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
 (setq-default recentf-max-saved-items 20)
 
@@ -78,3 +79,4 @@
 (load! "my-packages.el" my-lisp)
 (load! "my-hydras.el" my-lisp)
 (load! "cool-moves.el" my-lisp)
+(load! "auto-capitalize.el" my-lisp)

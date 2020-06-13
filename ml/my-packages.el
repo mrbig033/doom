@@ -101,6 +101,12 @@
   (which-key-idle-delay 0.4)
   :config
   (which-key-add-key-based-replacements
+    "SPC ef"  "Roam Find-File"
+    "SPC ej"  "Roam Index"
+    "SPC eb"  "Roam Switch Buffer"
+    "SPC eg"  "Roam Graph"
+    "SPC ei"  "Roam Insert"
+    "SPC er"  "Roam"
     "SPC sW"  "Wordnut Search"
     "SPC sw"  "Wornut Word"
     "SPC te"  "HL Sentence"
@@ -195,6 +201,7 @@
   (org-agenda-show-outline-path nil)
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-files '("~/org/Agenda"))
+  (org-agenda-file "~/org/Agenda/agenda.org")
   (org-agenda-skip-archived-trees nil)
   (org-agenda-skip-timestamp-if-done t)
   (org-agenda-skip-scheduled-if-done t)
@@ -238,41 +245,42 @@
 
   (org-capture-templates
    '(("t" "Todo" entry
-      (file+headline +org-capture-todo-file "Inbox")
-      "* [ ] %? %i\nFrom: %f" :prepend t)
+      (file+headline org-agenda-file "Inbox")
+      "* [ ] %? %i")
 
      ("n" "Notes" entry
-      (file+headline +org-capture-notes-file "Inbox")
-      "* %u %? %i \nFrom: %f" :prepend t)
+      (file+headline org-agenda-file "Notes")
+      "* [%<%y-%m-%d>] %? %i" :prepend t)
 
      ("j" "Journal" entry
-      (file+olp+datetree +org-capture-journal-file)
-      "* %U %? %i \nFrom: %f" :prepend t)
+      (file+olp+datetree org-agenda-file)
+      "* %? %i" :prepend t)
 
-     ("p" "Projects")
+     ;; ("p" "Projects")
 
-     ("pt" "Project - local todo" entry
-      (file+headline +org-capture-project-todo-file "Inbox")
-      "* TODO %? %i \nFrom: %f" :prepend t)
+     ;; ("pt" "Project - local todo" entry
+     ;;  (file+headline +org-capture-project-todo-file "Inbox")
+     ;;  "* TODO %? %i" :prepend t)
 
-     ("pn" "Project - local notes" entry
-      (file+headline +org-capture-project-notes-file "Inbox")
-      "* %U %? %i \nFrom: %f" :prepend t)
+     ;; ("pn" "Project - local notes" entry
+     ;;  (file+headline +org-capture-project-notes-file "Inbox")
+     ;;  "* %U %? %i" :prepend t)
 
-     ("pc" "Project - local changelog" entry
-      (file+headline +org-capture-project-changelog-file "Unreleased")
-      "* %U %? %i \nFrom: %f" :prepend t)
+     ;; ("pc" "Project - local changelog" entry
+     ;;  (file+headline +org-capture-project-changelog-file "Unreleased")
+     ;;  "* %U %? %i" :prepend t)
 
-     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
-      "* TODO %? %i \nFrom: %f" :heading "Tasks" :prepend nil)
+     ;; ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
+     ;;  "* TODO %? %i" :heading "Tasks" :prepend nil)
 
-     ("on" "Project notes" entry #'+org-capture-central-project-notes-file
-      "* %U %? %i \nFrom: %f" :heading "Notes" :prepend t)
+     ;; ("on" "Project notes" entry #'+org-capture-central-project-notes-file
+     ;;  "* %U %? %i" :heading "Notes" :prepend t)
 
-     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
-      "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)
+     ;; ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
+     ;;  "* %U %? %i" :heading "Changelog" :prepend t)
 
-     ("o" "Central Projects")))
+     ;; ("o" "Central Projects")
+     ))
 
 
   :config
@@ -894,7 +902,14 @@
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
 
 (use-package! text-mode
-  :hook (text-mode . electric-operator-mode))
+  :init
+  (add-hook! 'text-mode-hook 'my-text-mode-hooks)
+  :config
+  (defun my-text-mode-hooks ()
+    (electric-operator-mode +1)
+    (auto-capitalize-mode +1)
+    (hl-line-mode -1)
+    (hl-sentence-mode +1)))
 
 (use-package! recursive-narrow)
 
@@ -921,9 +936,9 @@
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
 
-;; (use-package wordnut
-;;   :custom
-;;   (wordnut-cmd "/usr/local/bin/wn"))
+(use-package! wordnut
+  :init
+  (add-hook 'wordnut-mode-hook 'hide-mode-line-mode))
 
 (after! shut-up-ignore
   (when noninteractive
@@ -938,5 +953,23 @@
                      ;; :sasl-password "mypassword"
                      :channels ("#emacs"))))
 
-(after! org-roam
-  (setq! org-roam-directory "~/org/Data/roam"))
+(use-package! org-roam
+  :init
+  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
+  :custom
+  (org-roam-directory "~/org/Data/roam")
+  (org-roam-buffer-width 0.25)
+  (org-roam-buffer-no-delete-other-windows t)
+  (org-roam-index-file "~/org/Data/roam/index.org")
+  :config
+
+  (defun my-show-org-roam-commands ()
+    (interactive)
+    (counsel-M-x "^org-roam- "))
+
+
+
+
+
+
+  )

@@ -14,11 +14,14 @@
       "M-0"   'quit-window
       "M-n"   'evil-forward-paragraph
       "M-p"   'evil-backward-paragraph
+      "M-]"   'evil-window-prev
+      "M-["   'evil-window-next
       "M-k"   'windmove-up
       "M-j"   'windmove-down
       "M-h"   'windmove-left
       "M-l"   'windmove-right
       "C-'"   'org-cycle-agenda-files
+      "C-c r"  'my-show-org-roam-commands
       "C-h e" 'describe-package
       "C-S-j" 'cool-moves-line-forward
       "C-S-k" 'cool-moves-line-backward
@@ -60,6 +63,7 @@
       ;; WORDNUT ;;
       :map (wordnut-mode-map osx-dictionary-mode-map)
       :nv "q" 'quit-window
+      :n "<escape>" 'quit-window
 
       ;; DOOM DASHBORD ;;
       :map +doom-dashboard-mode-map
@@ -112,10 +116,10 @@
       :leader "sw"  'wordnut-lookup-current-word
       :leader "sW"  'wordnut-search
       :leader "te"  'hl-sentence-mode
+      :leader "th"  'hl-line-mode
       :leader "l"   'link-hint-open-link
       :leader "br"  '+popup/raise
       :leader "mgx" 'org-capture-goto-last-stored
-      :leader "nrn" 'org-roam-jump-to-index
       :leader "z"   'org-capture
       :leader "x"   'eyebrowse-close-window-config
       :leader "r"   'deer
@@ -129,6 +133,14 @@
       :leader "fY" (lambda () (interactive)
                      (message
                       (kill-new (abbreviate-file-name default-directory))))
+
+      ;; ORG ROAM ;;
+      :leader "ef" 'org-roam-find-file
+      :leader "ej" 'org-roam-jump-to-index
+      :leader "eb" 'org-roam-switch-to-buffer
+      :leader "eg" 'org-roam-graph
+      :leader "ei" 'org-roam-insert
+      :leader "er" 'org-roam
 
       ;; SEARCH SETTINGS ;;
       :leader "fs" 'my-search-settings
