@@ -152,7 +152,10 @@
   (advice-add 'org-edit-special :after #'my-indent-buffer)
 
   :custom
-
+  (+org-capture-todo-file "Agenda/todo.org")
+  (+org-capture-notes-file "Agenda/notes.org")
+  (+org-capture-journal-file "Agenda/journal.org")
+  (+org-capture-projects-file "Agenda/projects.org")
   (org-ellipsis ".")
   (org-log-into-drawer t)
   (org-timer-format "%s ")
@@ -328,8 +331,7 @@
    "g9"      'my-avy-goto-open-paren
    "g0"      'my-avy-goto-close-paren
    "F"       'evil-avy-goto-char-2-above
-   "f"       'evil-avy-goto-char-2-below
-   ","       'evil-avy-goto-word-or-subword-1)
+   "f"       'evil-avy-goto-char-2-below)
 
   :custom
   (avy-case-fold-search 't)
@@ -385,6 +387,7 @@
 
   (:keymaps     'ranger-mode-map
    "çm"         'dired-create-directory
+   "r"          'ranger-refresh
    "<insert>"   'dired-create-empty-file
    "i"          'my-ranger-go
    "M-9"        'delete-other-windows

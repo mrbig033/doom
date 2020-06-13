@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: input
-# uuid:
-# key: i
-# condition: t
-# --
-input("$0")

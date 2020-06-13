@@ -18,6 +18,7 @@
       "M-j"   'windmove-down
       "M-h"   'windmove-left
       "M-l"   'windmove-right
+      "C-'"   'org-cycle-agenda-files
       "C-h e" 'describe-package
       "C-S-j" 'cool-moves-line-forward
       "C-S-k" 'cool-moves-line-backward
@@ -71,11 +72,11 @@
 
       ;; EVIL GOD STATE ;;
       :map global-map
-      :v "."          'evil-exit-visual-state
-      :n "."          'evil-execute-in-god-state
+      :v ","          'evil-exit-visual-state
+      :n ","          'evil-execute-in-god-state
       :map god-local-mode-map
       :nig "<escape>" 'evil-god-state-bail
-      :nig "."        'evil-god-state-bail
+      :nig ","        'evil-god-state-bail
 
       ;; SAVE BUFFER ;;
       :map (prog-mode-map text-mode-map conf-mode-map)
