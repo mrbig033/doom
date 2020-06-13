@@ -56,6 +56,9 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+(put 'narrow-to-region 'disabled nil)
+(put 'customize-group 'disabled nil)
+
 (setq-default recentf-max-saved-items 20)
 
 (setq! my-lisp "~/.doom.d/ml"

@@ -1,0 +1,5 @@
+# key: open
+# name: with open
+# --
+with open(${1:filename}${2:, "${3:mode}"}) as ${4:f}:
+    $0

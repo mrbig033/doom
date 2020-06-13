@@ -52,6 +52,15 @@
       :nv "M-i"   'better-jumper-jump-forward
       :nv "C-h M" 'my-show-major-mode
 
+      ;; EWW ;;
+      :map eww-mode-map
+      :nvig "." 'link-hint-open-link
+
+
+      ;; WORDNUT ;;
+      :map (wordnut-mode-map osx-dictionary-mode-map)
+      :nv "q" 'quit-window
+
       ;; DOOM DASHBORD ;;
       :map +doom-dashboard-mode-map
       :n "<escape>" 'quit-window
@@ -69,7 +78,6 @@
       :nv "<insert>" 'org-insert-link
       :map org-src-mode-map
       "s-w" 'my-eval-buffer-and-leave-org-source
-
       ;; EVIL GOD STATE ;;
       :map global-map
       :v ","          'evil-exit-visual-state
@@ -101,14 +109,21 @@
 
 
       ;; LEADER KEY ;;
-
-      ;; OTHER LEADER KEYS ;;
-      :leader "r" 'deer
-      :leader "0" 'delete-window
-      :leader "pG" 'projectile-configure-project
-      :leader "nn" 'recursive-narrow-or-widen-dwim
-      :leader "nw" 'my-widen-to-center
-      :leader "to" 'olivetti-mode
+      :leader "sw"  'wordnut-lookup-current-word
+      :leader "sW"  'wordnut-search
+      :leader "te"  'hl-sentence-mode
+      :leader "l"   'link-hint-open-link
+      :leader "br"  '+popup/raise
+      :leader "mgx" 'org-capture-goto-last-stored
+      :leader "nrn" 'org-roam-jump-to-index
+      :leader "z"   'org-capture
+      :leader "x"   'eyebrowse-close-window-config
+      :leader "r"   'deer
+      :leader "0"   'delete-window
+      :leader "pG"  'projectile-configure-project
+      :leader "nn"  'recursive-narrow-or-widen-dwim
+      :leader "nw"  'my-widen-to-center
+      :leader "to"  'olivetti-mode
 
       ;; COPY DIRECTORY PATH ;;
       :leader "fY" (lambda () (interactive)

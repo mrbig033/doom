@@ -31,7 +31,6 @@
    "C-c D"    'treemacs-delete
    "C-c pa"   'treemacs-projectile
    "C-c pd"   'treemacs-remove-project-from-workspace
-   "C-c p0"   'eyebrowse-create-window-config
    "<escape>" 'treemacs-quit
    "<insert>" 'treemacs-create-file
    "tp"       'move-file-to-trash
@@ -102,16 +101,24 @@
   (which-key-idle-delay 0.4)
   :config
   (which-key-add-key-based-replacements
-    "SPC tc" "Clean Lines"
-    "SPC td" "Dup Lines"
-    "SPC to" "Olivetti Mode"
-    "SPC ti" "Dup Par"
-    "SPC tS" "Sort by Len"
-    "SPC bY" "Yank Dir"
-    "SPC fk" "Search Pkgs"
-    "SPC nn" "Narrow Dwin"
-    "SPC nw" "Widen"
-    "SPC ba" "Goto Markdown"
+    "SPC sW"  "Wordnut Search"
+    "SPC sw"  "Wornut Word"
+    "SPC te"  "HL Sentence"
+    "SPC br"  "Popup Raise"
+    "SPC mgx" "Org Last"
+    "SPC nrn" "Index"
+    "SPC nrc" "Capture"
+    "SPC nrb" "Switch Buffer"
+    "SPC tc"  "Clean Lines"
+    "SPC td"  "Dup Lines"
+    "SPC to"  "Olivetti Mode"
+    "SPC ti"  "Dup Par"
+    "SPC tS"  "Sort by Len"
+    "SPC bY"  "Yank Dir"
+    "SPC fk"  "Search Pkgs"
+    "SPC nn"  "Narrow Dwin"
+    "SPC nw"  "Widen"
+    "SPC ba"  "Goto Markdown"
     "SPC meb" "Eval Buffer"
     "SPC med" "Eval Defun"
     "SPC mer" "Eval Region")
@@ -150,6 +157,12 @@
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
+
+  :general
+
+  (:keymaps     'org-capture-mode-map
+   :states      '(normal visual insert)
+   "<M-return>" 'org-capture-finalize)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
@@ -224,11 +237,11 @@
   (org-src-ask-before-returning-to-edit-buffer nil)
 
   (org-capture-templates
-   '(("t" "Personal Todo" entry
+   '(("t" "Todo" entry
       (file+headline +org-capture-todo-file "Inbox")
       "* [ ] %? %i\nFrom: %f" :prepend t)
 
-     ("n" "Personal notes" entry
+     ("n" "Notes" entry
       (file+headline +org-capture-notes-file "Inbox")
       "* %u %? %i \nFrom: %f" :prepend t)
 
@@ -236,7 +249,7 @@
       (file+olp+datetree +org-capture-journal-file)
       "* %U %? %i \nFrom: %f" :prepend t)
 
-     ("p" "Project Templates")
+     ("p" "Projects")
 
      ("pt" "Project - local todo" entry
       (file+headline +org-capture-project-todo-file "Inbox")
@@ -259,7 +272,8 @@
      ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
       "* %U %? %i \nFrom: %f" :heading "Changelog" :prepend t)
 
-     ("o" "Central Project Templates")))
+     ("o" "Central Projects")))
+
 
   :config
 
@@ -340,7 +354,7 @@
   (avy-highlight-first t)
   (avy-single-candidate-jump t)
   :custom-face
-  (avy-background-face((t (:foreground "LightSkyBlue4"))))
+  (avy-background-face((t (:foreground "LightSkyBlue3"))))
   :config
 
   (add-to-list 'avy-orders-alist '(my-avy-goto-parens . avy-order-closest))
@@ -679,20 +693,21 @@
   (eyebrowse-mode-line-right-delimiter " ]  ")
   (eyebrowse-mode-line-separator " | ")
 
-                                        ;   :general
+  :general
 
-                                        ;   ("M-q" 'eyebrowse-prev-window-config
-                                        ;    "M-w" 'eyebrowse-next-window-config)
-                                        ;   (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
-                                        ;    "<escape>"   'treemacs-quit)
-                                        ;   (:states '(normal visual)
-                                        ;    :prefix "SPC"
-                                        ;    "1" 'eyebrowse-switch-to-window-config-1
-                                        ;    "2" 'eyebrowse-switch-to-window-config-2
-                                        ;    "3" 'eyebrowse-switch-to-window-config-3
-                                        ;    "4" 'eyebrowse-switch-to-window-config-4
-                                        ;    "v" 'eyebrowse-create-window-config
-                                        ;    "x" 'eyebrowse-close-window-config)
+  ("M-q" 'eyebrowse-prev-window-config
+   "M-w" 'eyebrowse-next-window-config)
+  (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
+   "<escape>"   'treemacs-quit)
+  (:states '(normal visual)
+   :prefix "SPC"
+   "1" 'eyebrowse-switch-to-window-config-1
+   "2" 'eyebrowse-switch-to-window-config-2
+   "3" 'eyebrowse-switch-to-window-config-3
+   "4" 'eyebrowse-switch-to-window-config-4
+   "v" 'eyebrowse-create-window-config
+   "x" 'eyebrowse-close-window-config
+   )
 
   :config
 
@@ -883,10 +898,6 @@
 
 (use-package! recursive-narrow)
 
-(after! shut-up-ignore
-  (when noninteractive
-    (shut-up-silence-emacs)))
-
 (use-package! windmove
   :general
   (:keymaps 'override
@@ -898,6 +909,26 @@
   :custom
   (windmove-wrap-around t))
 
+(use-package! hl-sentence
+  :init
+  (add-hook 'hl-sentence-mode-hook 'my-hl-sentence-hooks)
+  :config
+
+  (defun my-hl-sentence-hooks ()
+    (interactive)
+    (hl-line-mode -1))
+
+  (custom-set-faces
+   '(hl-sentence ((t (:inherit hl-line))))))
+
+;; (use-package wordnut
+;;   :custom
+;;   (wordnut-cmd "/usr/local/bin/wn"))
+
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))
+
 (after! circe
   (set-irc-server! "chat.freenode.net"
                    `(:tls t
@@ -906,3 +937,6 @@
                      :sasl-username "mrblack"
                      ;; :sasl-password "mypassword"
                      :channels ("#emacs"))))
+
+(after! org-roam
+  (setq! org-roam-directory "~/org/Data/roam"))

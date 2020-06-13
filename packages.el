@@ -70,6 +70,8 @@
 (package! shut-up)
 (package! super-save)
 (package! evil-better-visual-line)
+(package! hl-sentence)
+(package! wordnut)
 (package! apheleia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! evil-snipe :disable t)
