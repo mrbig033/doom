@@ -50,8 +50,6 @@
 ;(unpin! t)
 
 (package! nswbuff)
-(package! org-pomodoro)
-(package! nswbuff)
 (package! olivetti)
 (package! super-save)
 (package! eyebrowse)
@@ -72,6 +70,7 @@
 (package! evil-better-visual-line)
 (package! hl-sentence)
 (package! wordnut)
+(package! org-web-tools)
 (package! apheleia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! evil-snipe :disable t)

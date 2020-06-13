@@ -15,32 +15,32 @@
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face
-                           :weight bold
-                           :height 1.0))))
+                                    :weight bold
+                                    :height 1.0))))
 
   :general
 
   (:keymaps   'global
-   "C-0"      'my-treemacs-quit
-   "C-j"      'treemacs-select-window)
+              "C-0"      'my-treemacs-quit
+              "C-j"      'treemacs-select-window)
   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
-   "C-j"      'my-treemacs-visit-node-and-hide
-   "C-p"      'treemacs-previous-project
-   "C-n"      'treemacs-next-project
-   "C-c t"    'my-show-treemacs-commands
-   "C-c D"    'treemacs-delete
-   "C-c pa"   'treemacs-projectile
-   "C-c pd"   'treemacs-remove-project-from-workspace
-   "<escape>" 'treemacs-quit
-   "<insert>" 'treemacs-create-file
-   "tp"       'move-file-to-trash
-   "çm"       'treemacs-create-dir
-   "zm"       'treemacs-collapse-all-projects
-   ","        'link-hint-open-link)
+              "C-j"      'my-treemacs-visit-node-and-hide
+              "C-p"      'treemacs-previous-project
+              "C-n"      'treemacs-next-project
+              "C-c t"    'my-show-treemacs-commands
+              "C-c D"    'treemacs-delete
+              "C-c pa"   'treemacs-projectile
+              "C-c pd"   'treemacs-remove-project-from-workspace
+              "<escape>" 'treemacs-quit
+              "<insert>" 'treemacs-create-file
+              "tp"       'move-file-to-trash
+              "çm"       'treemacs-create-dir
+              "zm"       'treemacs-collapse-all-projects
+              ","        'link-hint-open-link)
 
   (:states '(normal visual)
-   :prefix "SPC"
-   "pA" 'treemacs-add-and-display-current-project)
+           :prefix "SPC"
+           "pA" 'treemacs-add-and-display-current-project)
 
   :config
 
@@ -101,11 +101,17 @@
   (which-key-idle-delay 0.4)
   :config
   (which-key-add-key-based-replacements
+    "SPC mwi"  "OW Insert"
+    "SPC mwe"  "OW Archive"
+    "SPC mwv"  "OW Attach"
+    "SPC mwr"  "OW Read As Org"
+    "SPC mwc"  "OW Links to Entries"
     "SPC ef"  "Roam Find-File"
     "SPC ej"  "Roam Index"
     "SPC eb"  "Roam Switch Buffer"
     "SPC eg"  "Roam Graph"
     "SPC ei"  "Roam Insert"
+    "SPC ed"  "Roam Deft"
     "SPC er"  "Roam"
     "SPC sW"  "Wordnut Search"
     "SPC sw"  "Wornut Word"
@@ -133,9 +139,9 @@
 (use-package! nswbuff
   :general
   (:keymaps 'override
-   :states '(normal visual insert)
-   "M-," 'nswbuff-switch-to-previous-buffer
-   "M-." 'nswbuff-switch-to-next-buffer)
+            :states '(normal visual insert)
+            "M-," 'nswbuff-switch-to-previous-buffer
+            "M-." 'nswbuff-switch-to-next-buffer)
 
   :custom
   (nswbuff-left "  ")
@@ -167,8 +173,8 @@
   :general
 
   (:keymaps     'org-capture-mode-map
-   :states      '(normal visual insert)
-   "<M-return>" 'org-capture-finalize)
+                :states      '(normal visual insert)
+                "<M-return>" 'org-capture-finalize)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
@@ -246,7 +252,7 @@
   (org-capture-templates
    '(("t" "Todo" entry
       (file+headline org-agenda-file "Inbox")
-      "* [ ] %? %i")
+      "* TODO %? %i\n:DEADLINE: %^t")
 
      ("n" "Notes" entry
       (file+headline org-agenda-file "Notes")
@@ -346,14 +352,47 @@
     (org-todo "TODO")
     (org-clock-out)))
 
+
+(use-package! org-roam
+  :init
+  (require 'org-roam-protocol)
+  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
+  :custom
+  (org-roam-directory "~/org/Data/roam")
+  (org-roam-buffer-width 0.25)
+  (org-roam-buffer-no-delete-other-windows t)
+  (org-roam-index-file "~/org/Data/roam/index.org")
+  :config
+
+  (defun my-show-org-roam-commands ()
+    (interactive)
+    (counsel-M-x "^org-roam- ")))
+
+(use-package! deft
+  :after org
+
+  :general
+
+  (:keymaps   'deft-mode-map
+              :states    'normal
+              "q"        'quit-window
+              "<escape>" 'quit-window
+              "m"        'widget-button-press)
+
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory  "~/org/Data/roam"))
+
 (use-package! avy
 
   :general
   (:states '(normal visual)
-   "g9"      'my-avy-goto-open-paren
-   "g0"      'my-avy-goto-close-paren
-   "F"       'evil-avy-goto-char-2-above
-   "f"       'evil-avy-goto-char-2-below)
+           "g9"      'my-avy-goto-open-paren
+           "g0"      'my-avy-goto-close-paren
+           "F"       'evil-avy-goto-char-2-above
+           "f"       'evil-avy-goto-char-2-below)
 
   :custom
   (avy-case-fold-search 't)
@@ -408,23 +447,23 @@
   :general
 
   (:keymaps     'ranger-mode-map
-   "çm"         'dired-create-directory
-   "r"          'ranger-refresh
-   "<insert>"   'dired-create-empty-file
-   "i"          'my-ranger-go
-   "M-9"        'delete-other-windows
-   "tp"         'move-file-to-trash
-   "C-c 0"      'move-file-to-trash
-   "<escape>"   'ranger-close
-   "m"          'my-ranger-toggle-mark-and-advance
-   "gg"         'ranger-goto-top
-   "zp"         'ranger-preview-toggle
-   "çcm"        'dired-create-directory
-   "C-c l"      'counsel-find-file
-   "d"          'dired-do-flagged-delete
-   "x"          'diredp-delete-this-file
-   "d"          'dired-flag-file-deletion
-   "<c-return>" 'dired-do-find-marked-files)
+                "çm"         'dired-create-directory
+                "r"          'ranger-refresh
+                "<insert>"   'dired-create-empty-file
+                "i"          'my-ranger-go
+                "M-9"        'delete-other-windows
+                "tp"         'move-file-to-trash
+                "C-c 0"      'move-file-to-trash
+                "<escape>"   'ranger-close
+                "m"          'my-ranger-toggle-mark-and-advance
+                "gg"         'ranger-goto-top
+                "zp"         'ranger-preview-toggle
+                "çcm"        'dired-create-directory
+                "C-c l"      'counsel-find-file
+                "d"          'dired-do-flagged-delete
+                "x"          'diredp-delete-this-file
+                "d"          'dired-flag-file-deletion
+                "<c-return>" 'dired-do-find-marked-files)
 
   :config
 
@@ -509,28 +548,28 @@
   :general
 
   (:states '(normal visual insert)
-   "C-s" 'counsel-grep-or-swiper
-   "M-y" 'counsel-yank-pop
-   "C-," 'ivy-switch-buffer
-   "C-." 'counsel-M-x)
+           "C-s" 'counsel-grep-or-swiper
+           "M-y" 'counsel-yank-pop
+           "C-," 'ivy-switch-buffer
+           "C-." 'counsel-M-x)
 
   (:keymaps 'counsel-describe-map
-   "C-." 'ivy-next-line
-   "C-," 'counsel-find-symbol)
+            "C-." 'ivy-next-line
+            "C-," 'counsel-find-symbol)
 
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
-   "M-y"      'ivy-next-line
-   "M-r"      'ivy-next-line
-   "C-,"      'ivy-next-line
-   "C-."      'ivy-next-line
-   "C-/"      'ivy-next-line
-   "M-q"      'ivy-done
-   "<insert>" 'yank
-   "C-k"      'kill-line
-   "C-d"      'delete-char
-   "C-h"      'delete-backward-char
-   "C-w"      'backward-kill-word
-   "<insert>" 'yank)
+            "M-y"      'ivy-next-line
+            "M-r"      'ivy-next-line
+            "C-,"      'ivy-next-line
+            "C-."      'ivy-next-line
+            "C-/"      'ivy-next-line
+            "M-q"      'ivy-done
+            "<insert>" 'yank
+            "C-k"      'kill-line
+            "C-d"      'delete-char
+            "C-h"      'delete-backward-char
+            "C-w"      'backward-kill-word
+            "<insert>" 'yank)
 
   :config
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
@@ -706,16 +745,16 @@
   ("M-q" 'eyebrowse-prev-window-config
    "M-w" 'eyebrowse-next-window-config)
   (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
-   "<escape>"   'treemacs-quit)
+                "<escape>"   'treemacs-quit)
   (:states '(normal visual)
-   :prefix "SPC"
-   "1" 'eyebrowse-switch-to-window-config-1
-   "2" 'eyebrowse-switch-to-window-config-2
-   "3" 'eyebrowse-switch-to-window-config-3
-   "4" 'eyebrowse-switch-to-window-config-4
-   "v" 'eyebrowse-create-window-config
-   "x" 'eyebrowse-close-window-config
-   )
+           :prefix "SPC"
+           "1" 'eyebrowse-switch-to-window-config-1
+           "2" 'eyebrowse-switch-to-window-config-2
+           "3" 'eyebrowse-switch-to-window-config-3
+           "4" 'eyebrowse-switch-to-window-config-4
+           "v" 'eyebrowse-create-window-config
+           "x" 'eyebrowse-close-window-config
+           )
 
   :config
 
@@ -839,28 +878,28 @@
   :general
 
   (:keymaps   'pdf-view-mode-map
-   :states '(normal visual)
-   "H"        'pdf-history-backward
-   "L"        'pdf-history-forward
-   "C-s"      'pdf-occur
-   "<escape>" 'ignore
-   "TAB"      'pdf-outline
-   "o"      'pdf-outline
-   "q"        'quit-window
-   "w"        'pdf-view-fit-width-to-window
-   "h"        'pdf-view-scroll-up-or-next-page
-   "l"        'pdf-view-scroll-down-or-previous-page
-   "j"        'pdf-view-next-page
-   "k"        'pdf-view-previous-page
-   "p"        'pdf-view-previous-line-or-previous-page
-   "n"        'pdf-view-next-line-or-next-page
-   "K"        'pdf-view-previous-line-or-previous-page
-   "J"        'pdf-view-next-line-or-next-page
-   "C-l"      'my-show-pdf-view-commands)
+              :states '(normal visual)
+              "H"        'pdf-history-backward
+              "L"        'pdf-history-forward
+              "C-s"      'pdf-occur
+              "<escape>" 'ignore
+              "TAB"      'pdf-outline
+              "o"      'pdf-outline
+              "q"        'quit-window
+              "w"        'pdf-view-fit-width-to-window
+              "h"        'pdf-view-scroll-up-or-next-page
+              "l"        'pdf-view-scroll-down-or-previous-page
+              "j"        'pdf-view-next-page
+              "k"        'pdf-view-previous-page
+              "p"        'pdf-view-previous-line-or-previous-page
+              "n"        'pdf-view-next-line-or-next-page
+              "K"        'pdf-view-previous-line-or-previous-page
+              "J"        'pdf-view-next-line-or-next-page
+              "C-l"      'my-show-pdf-view-commands)
 
   (:keymaps   'pdf-outline-buffer-mode-map
-   :states '(normal visual)
-   "<escape>"  'quit-window)
+              :states '(normal visual)
+              "<escape>"  'quit-window)
 
   :custom
 
@@ -882,8 +921,8 @@
   :general
 
   (:keymaps 'override
-   :states '(normal visual insert)
-   "M-s"         'evil-switch-to-windows-last-buffer)
+            :states '(normal visual insert)
+            "M-s"         'evil-switch-to-windows-last-buffer)
   :config
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
@@ -908,7 +947,6 @@
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)
     (auto-capitalize-mode +1)
-    (hl-line-mode -1)
     (hl-sentence-mode +1)))
 
 (use-package! recursive-narrow)
@@ -916,22 +954,16 @@
 (use-package! windmove
   :general
   (:keymaps 'override
-   :states '(normal visual insert)
-   "M-k" 'windmove-up
-   "M-j" 'windmove-down
-   "M-h" 'windmove-left
-   "M-l" 'windmove-right)
+            :states '(normal visual insert)
+            "M-k" 'windmove-up
+            "M-j" 'windmove-down
+            "M-h" 'windmove-left
+            "M-l" 'windmove-right)
   :custom
   (windmove-wrap-around t))
 
 (use-package! hl-sentence
-  :init
-  (add-hook 'hl-sentence-mode-hook 'my-hl-sentence-hooks)
   :config
-
-  (defun my-hl-sentence-hooks ()
-    (interactive)
-    (hl-line-mode -1))
 
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
@@ -947,29 +979,8 @@
 (after! circe
   (set-irc-server! "chat.freenode.net"
                    `(:tls t
-                     :port 6697
-                     :nick "mrblack"
-                     :sasl-username "mrblack"
-                     ;; :sasl-password "mypassword"
-                     :channels ("#emacs"))))
-
-(use-package! org-roam
-  :init
-  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
-  :custom
-  (org-roam-directory "~/org/Data/roam")
-  (org-roam-buffer-width 0.25)
-  (org-roam-buffer-no-delete-other-windows t)
-  (org-roam-index-file "~/org/Data/roam/index.org")
-  :config
-
-  (defun my-show-org-roam-commands ()
-    (interactive)
-    (counsel-M-x "^org-roam- "))
-
-
-
-
-
-
-  )
+                          :port 6697
+                          :nick "mrblack"
+                          :sasl-username "mrblack"
+                          ;; :sasl-password "mypassword"
+                          :channels ("#emacs"))))

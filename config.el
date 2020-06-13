@@ -58,6 +58,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+(remove-hook! 'prog-mode-hook 'hl-line-mode)
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
 (setq-default recentf-max-saved-items 20)

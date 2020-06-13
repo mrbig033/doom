@@ -21,7 +21,9 @@
       "M-h"   'windmove-left
       "M-l"   'windmove-right
       "C-'"   'org-cycle-agenda-files
-      "C-c r"  'my-show-org-roam-commands
+      "C-c r" 'my-show-org-roam-commands
+      "C-l"   'recenter-top-bottom
+      "C-c o" 'my-org-force-open-other-window
       "C-h e" 'describe-package
       "C-S-j" 'cool-moves-line-forward
       "C-S-k" 'cool-moves-line-backward
@@ -38,6 +40,7 @@
       :i "M-e" 'yas-expand
 
       ;; NORMAL STATE ;;
+      :n "gr"  'my-evil-sel-to-end
       :n "go"  'cool-moves-open-line-below
       :n "gO"  'cool-moves-open-line-above
       :n "gsP" 'cool-moves-paragraph-backward
@@ -54,11 +57,7 @@
       :nv "M-o"   'better-jumper-jump-backward
       :nv "M-i"   'better-jumper-jump-forward
       :nv "C-h M" 'my-show-major-mode
-
-      ;; EWW ;;
-      :map eww-mode-map
       :nvig "." 'link-hint-open-link
-
 
       ;; WORDNUT ;;
       :map (wordnut-mode-map osx-dictionary-mode-map)
@@ -73,13 +72,19 @@
       :n "q"        'quit-window
 
       ;; ORG MODE ;;
-      :map (global-map org-mode-map evil-org-mode-map)
-      "s-w"          'org-edit-special
+      :map (org-mode-map evil-org-mode-map)
       "C-l"          'recenter-top-bottom
       "C-c o"        'my-org-force-open-other-window
+      "s-w"          'org-edit-special
       :n "zi"        '+fold/open-all
       :n "gr"        'my-evil-sel-to-end
       :nv "<insert>" 'org-insert-link
+      :leader "mwi"    'org-web-tools-insert-link-for-url
+      :leader "mwe"    'org-web-tools-archive-view
+      :leader "mwv"    'org-web-tools-archive-attach
+      :leader "mwr"    'org-web-tools-read-url-as-org
+      :leader "mwc"    'org-web-tools-convert-links-to-page-entries
+
       :map org-src-mode-map
       "s-w" 'my-eval-buffer-and-leave-org-source
       ;; EVIL GOD STATE ;;
@@ -140,6 +145,7 @@
       :leader "eb" 'org-roam-switch-to-buffer
       :leader "eg" 'org-roam-graph
       :leader "ei" 'org-roam-insert
+      :leader "ed" 'deft
       :leader "er" 'org-roam
 
       ;; SEARCH SETTINGS ;;
