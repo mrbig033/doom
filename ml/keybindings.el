@@ -61,8 +61,8 @@
       :n "L"   'projectile-next-project-buffer
 
       :vn "çf" 'org-roam-find-file
+      :vn "çl" 'org-roam-find-file
       :vn "çj" 'org-roam-jump-to-index
-      :vn "çl" 'org-roam-jump-to-index
       :vn "çb" 'org-roam-switch-to-buffer
       :vn "çg" 'org-roam-graph
       :vn "çi" 'org-roam-insert
@@ -160,6 +160,8 @@
       :leader "br"  '+popup/raise
       :leader "mgx" 'org-capture-goto-last-stored
       :leader "z"   'org-capture
+      :leader "ww"  'doom/window-maximize-vertically
+      :leader "k"   'kill-current-buffer
       :leader "x"   'eyebrowse-close-window-config
       :leader "r"   'deer
       :leader "0"   'delete-window

@@ -109,7 +109,7 @@
 
     "çf"  "Roam Find-File"
     "çj"  "Roam Index"
-    "çl"  "Roam Index"
+    "çl"  "Roam Find-File"
     "çb"  "Roam Switch Buffer"
     "çg"  "Roam Graph"
     "çi"  "Roam Insert"
@@ -380,6 +380,8 @@
                                       ("arrowtail" . "normal")
                                       ("dir" . "back")))
 
+  (org-roam-graph-extra-config '(("rankdir" . "RL")))
+
   (org-roam-graph-node-extra-config '(("shape" . "underline")
                                       ("style" . "rounded,filled")
                                       ("fillcolor" . "#FFFFD7")
@@ -614,6 +616,7 @@
    "C-,"      'ivy-next-line
    "C-."      'ivy-next-line
    "C-/"      'ivy-next-line
+   "C-j" 'ivy-immediate-done
    "M-q"      'ivy-done
    "<insert>" 'yank
    "C-k"      'kill-line
