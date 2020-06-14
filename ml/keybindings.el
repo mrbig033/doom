@@ -71,8 +71,7 @@
       :vn "çd" 'deft
       :vn "çx" 'my-roam-indexes
       :vn "ço" 'my-roam-logic
-      :vn "ça" 'my-roam-fallacies
-      )
+      :vn "ça" 'my-roam-fallacies)
 
 ;; VISUAL AND MIXED STATES ;;
 (map! :v "C-c a"  'align-regexp
