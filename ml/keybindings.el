@@ -91,10 +91,17 @@
 
       ;; ORG MODE ;;
       :map (org-mode-map evil-org-mode-map)
-      "C-l"           'recenter-top-bottom
-      "C-j"           'treemacs-select-window
-      "C-c o"         'my-org-force-open-other-window
-      "s-w"           'org-edit-special
+      :nvig "C-l"           'recenter-top-bottom
+      :nvig "C-j"           'treemacs-select-window
+      :nvig "C-c o"         'my-org-force-open-other-window
+      :nvig "s-w"           'org-edit-special
+      :i "C-h" 'evil-delete-backward-char-and-join
+      :i "C-k" 'kill-line
+      :i "C-p" 'previous-line
+      :i "C-n" 'next-line
+      :i "M-d" 'kill-word
+      :i "C-d" 'delete-char
+      :i "M-e" 'yas-expand
       :nvg "C-S-j" 'cool-moves-line-forward
       :nvg "C-S-k" 'cool-moves-line-backward
       :nvig "<C-tab>" 'org-shifttab

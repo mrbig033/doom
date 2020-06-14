@@ -365,6 +365,14 @@
   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
   (add-hook 'org-roam-mode-hook 'abbrev-mode)
   :custom
+  (org-roam-capture-templates '(("d" "default" plain
+                                 #'org-roam-capture--get-point "%?"
+                                 :file-name "%<%Y_%m_%d>-${slug}"
+                                 :head "#+title: ${title}"
+                                 :unnarrowed t)))
+  (org-roam-graph-exclude-matcher '("index" "bboba"))
+  (org-roam-graph-executable "dot")
+  (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
   (org-roam-directory "~/org/Data/roam")
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
@@ -806,7 +814,7 @@
   (company-selection-wrap-around t)
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
-  (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode text-mode org-mode))
+  (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode))
   :config
   (setq-default company-call-backends '(company-capf
                                         company-yasnippet
@@ -989,6 +997,28 @@
 (use-package! wordnut
   :init
   (add-hook 'wordnut-mode-hook 'hide-mode-line-mode))
+
+(use-package! clipmon
+  :config
+  (clipmon-mode-start))
+
+;; (use-package! org-brain
+;;   :init
+;;   (setq! org-brain-path "/Users/davi/org/Data/roam")
+;;   :custom
+;;   (org-id-locations-file "/Users/davi/org/Data/roam/.orgids")
+;;   (org-brain-visualize-default-choices 'all)
+;;   (org-brain-title-max-length 12)
+;;   (org-brain-include-file-entries nil)
+;;   (org-brain-file-entries-use-title nil)
+;;   :config
+;;   (bind-key "C-c b" 'org-brain-prefix-map org-mode-map)
+
+;;   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer)
+;;   (push '("b" "Brain" plain (function org-brain-goto-end)
+;;           "* %i%?" :empty-lines 1)
+;;         org-capture-templates))
+
 
 (after! shut-up-ignore
   (when noninteractive

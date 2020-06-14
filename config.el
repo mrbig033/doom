@@ -82,8 +82,8 @@
 
 
 (load! "functions.el" my-lisp)
-(load! "keybindings.el" my-lisp)
 (load! "my-packages.el" my-lisp)
 (load! "my-hydras.el" my-lisp)
 (load! "cool-moves.el" my-lisp)
 (load! "auto-capitalize.el" my-lisp)
+(load! "keybindings.el" my-lisp)
