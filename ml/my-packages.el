@@ -109,12 +109,22 @@
 
     "çf"  "Roam Find-File"
     "çj"  "Roam Index"
+    "çl"  "Roam Index"
     "çb"  "Roam Switch Buffer"
     "çg"  "Roam Graph"
     "çi"  "Roam Insert"
     "çd"  "Roam Deft"
     "çc"  "Roam Re-Cache"
     "çç"  "Roam"
+
+    "C-ç f"  "Roam Find-File"
+    "C-ç j"  "Roam Index"
+    "C-ç b"  "Roam Switch Buffer"
+    "C-ç g"  "Roam Graph"
+    "C-ç i"  "Roam Insert"
+    "C-ç d"  "Roam Deft"
+    "C-ç c"  "Roam Re-Cache"
+    "C-ç ç"  "Roam"
 
     "SPC sW"  "Wordnut Search"
     "SPC sw"  "Wornut Word"
@@ -188,7 +198,7 @@
   (+org-capture-projects-file "Agenda/projects.org")
   (org-ellipsis ".")
   (org-log-into-drawer t)
-  (org-tab-follows-link 't)
+  ;; (org-tab-follows-link 't)
   (org-timer-format "%s ")
   (org-return-follows-link t)
   (org-hide-emphasis-markers t)
@@ -365,14 +375,23 @@
   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
   (add-hook 'org-roam-mode-hook 'abbrev-mode)
   :custom
+
+  (org-roam-graph-node-extra-config '(("shape" . "underline")
+                                      ("style" . "rounded,filled")
+                                      ("fillcolor" . "#FFFFD7")
+                                      ("color" . "#C9C9C9")
+                                      ("fontcolor" . "#111111")))
+
   (org-roam-capture-templates '(("d" "default" plain
                                  #'org-roam-capture--get-point "%?"
-                                 :file-name "%<%Y_%m_%d>-${slug}"
+                                 :file-name "${slug}-%<%C%m>"
                                  :head "#+title: ${title}"
                                  :unnarrowed t)))
   (org-roam-graph-exclude-matcher '("index" "bboba"))
+  ;; possible values: dot (default) neato fdp sfdp twopi circles circo
   (org-roam-graph-executable "dot")
   (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+
   (org-roam-directory "~/org/Data/roam")
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
@@ -401,9 +420,12 @@
 
   (:keymaps   'deft-mode-map
    :states    'insert
+   "<escape>" 'quit-window
    "C-h" 'deft-filter-decrement)
 
   :custom
+  (deft-separator " - ")
+  (deft-extensions '("org"))
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
@@ -1018,7 +1040,6 @@
 ;;   (push '("b" "Brain" plain (function org-brain-goto-end)
 ;;           "* %i%?" :empty-lines 1)
 ;;         org-capture-templates))
-
 
 (after! shut-up-ignore
   (when noninteractive

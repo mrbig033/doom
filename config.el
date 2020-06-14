@@ -74,6 +74,7 @@
 
 
 (global-flycheck-mode -1)
+(global-subword-mode +1)
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))

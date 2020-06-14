@@ -35,7 +35,15 @@
       :i "C-n" 'next-line
       :i "M-d" 'kill-word
       :i "C-d" 'delete-char
-      :i "M-e" 'yas-expand)
+      :i "M-e" 'yas-expand
+      :i "C-ç f" 'org-roam-find-file
+      :i "C-ç j" 'org-roam-jump-to-index
+      :i "C-ç b" 'org-roam-switch-to-buffer
+      :i "C-ç g" 'org-roam-graph
+      :i "C-ç i" 'org-roam-insert
+      :i "C-ç ç" 'org-roam
+      :i "C-ç c" 'org-roam-db-build-cache
+      :i "C-ç d" 'deft)
 
 ;; NORMAL STATE ;;
 (map! :n "gr"  'my-evil-sel-to-end
@@ -54,6 +62,7 @@
 
       :vn "çf" 'org-roam-find-file
       :vn "çj" 'org-roam-jump-to-index
+      :vn "çl" 'org-roam-jump-to-index
       :vn "çb" 'org-roam-switch-to-buffer
       :vn "çg" 'org-roam-graph
       :vn "çi" 'org-roam-insert
