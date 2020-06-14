@@ -398,7 +398,15 @@
                                  :file-name "${slug}-%<%C%m>"
                                  :head "#+title: ${title}"
                                  :unnarrowed t)))
-  (org-roam-graph-exclude-matcher '("index" "bboba"))
+  (org-roam-graph-exclude-matcher '("index"
+                                    "bboba"
+                                    "phil"
+                                    "ethics"
+                                    "logic_org-2006"
+                                    "animalw-2006.org"
+                                    "petitio_principii-2006.org"
+                                    "conseq-2006.org"))
+
   ;; possible values: dot (default) neato fdp sfdp twopi circles circo
   (org-roam-graph-executable "dot")
   (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
@@ -1023,7 +1031,10 @@
     (auto-capitalize-mode +1)
     (hl-line-mode -1)))
 
-(use-package! recursive-narrow)
+(use-package! recursive-narrow
+  :init
+  (require 'recursive-narrow))
+
 
 (use-package! windmove
   :general
