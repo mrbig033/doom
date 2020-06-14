@@ -68,7 +68,11 @@
       :vn "çi" 'org-roam-insert
       :vn "çç" 'org-roam
       :vn "çc" 'org-roam-db-build-cache
-      :vn "çd" 'deft)
+      :vn "çd" 'deft
+      :vn "çx" 'my-roam-indexes
+      :vn "ço" 'my-roam-logic
+      :vn "ça" 'my-roam-fallacies
+      )
 
 ;; VISUAL AND MIXED STATES ;;
 (map! :v "C-c a"  'align-regexp

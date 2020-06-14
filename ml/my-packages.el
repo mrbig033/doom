@@ -115,7 +115,11 @@
     "çi"  "Roam Insert"
     "çd"  "Roam Deft"
     "çc"  "Roam Re-Cache"
+    "çx"  "Roam Indexes"
+    "ço"  "Roam Logic"
+    "ça"  "Roam Fallacies"
     "çç"  "Roam"
+
 
     "C-ç f"  "Roam Find-File"
     "C-ç j"  "Roam Index"
@@ -412,7 +416,19 @@
 
   (defun my-show-org-roam-commands ()
     (interactive)
-    (counsel-M-x "^org-roam- ")))
+    (counsel-M-x "^org-roam- "))
+
+  (defun my-roam-indexes ()
+    (interactive)
+    (org-roam-find-file "index "))
+
+  (defun my-roam-logic ()
+    (interactive)
+    (org-roam-find-file "logic "))
+
+  (defun my-roam-fallacies ()
+    (interactive)
+    (org-roam-find-file "fallacy ")))
 
 (use-package! deft
   :after org
@@ -591,6 +607,8 @@
   (counsel-find-file-at-point t)
   (counsel-bookmark-avoid-dired t)
   (ivy-count-format "")
+  ;; (ivy-count-format "%-2d ")
+
   (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'flycheck*' %s")
 
   (ivy-ignore-buffers '("^#.*#$"
