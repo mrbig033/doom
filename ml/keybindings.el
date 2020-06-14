@@ -57,8 +57,8 @@
       :n "Q"   'delete-frame
       :n "z="  'flyspell-correct-previous
 
-      :n "H"   'previous-buffer
-      :n "L"   'next-buffer
+      :n "H"   'projectile-previous-project-buffer
+      :n "L"   'projectile-next-project-buffer
 
       :vn "çf" 'org-roam-find-file
       :vn "çj" 'org-roam-jump-to-index

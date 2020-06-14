@@ -376,10 +376,15 @@
   (add-hook 'org-roam-mode-hook 'abbrev-mode)
   :custom
 
+  (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
+                                      ("arrowtail" . "normal")
+                                      ("dir" . "back")))
+
   (org-roam-graph-node-extra-config '(("shape" . "underline")
                                       ("style" . "rounded,filled")
                                       ("fillcolor" . "#FFFFD7")
                                       ("color" . "#C9C9C9")
+
                                       ("fontcolor" . "#111111")))
 
   (org-roam-capture-templates '(("d" "default" plain
