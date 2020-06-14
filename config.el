@@ -69,13 +69,19 @@
        +word-wrap-extra-indent 'single
        confirm-kill-emacs nil
        auto-revert-verbose nil
+       eldoc-idle-delay 2
        trash-directory "~/.Trash")
 
+
 (global-flycheck-mode -1)
-;; (auto-save-visited-mode +1)
+
+(defun my-buffer-predicate (buffer)
+  (if (string-match "\*" (buffer-name buffer)) nil t))
+
+(set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
+
 
 (load! "functions.el" my-lisp)
-(load! "keybindings.el" my-lisp)
 (load! "keybindings.el" my-lisp)
 (load! "my-packages.el" my-lisp)
 (load! "my-hydras.el" my-lisp)
