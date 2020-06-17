@@ -139,6 +139,8 @@
       :map god-local-mode-map
       :nig "<escape>" 'evil-god-state-bail
       :nig ","        'evil-god-state-bail
+      :map markdown-mode-map
+      :v "<insert>" 'markdown-insert-link
 
       :map (minibuffer-local-map
             minibuffer-local-ns-map

@@ -619,8 +619,6 @@
 
   (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'flycheck*' %s")
 
-  (counsel-ag-base-command "ag --vimgrep %s")
-
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
                         "^agenda.org$"
@@ -1059,29 +1057,18 @@
   (add-hook 'wordnut-mode-hook 'hide-mode-line-mode))
 
 (use-package! clipmon
-  :config
+  :init
   (clipmon-mode-start))
 
 (use-package! olivetti
   :init
   (setq-default olivetti-body-width 85))
 
-;; (use-package! org-brain
-;;   :init
-;;   (setq! org-brain-path "/Users/davi/org/Data/roam")
-;;   :custom
-;;   (org-id-locations-file "/Users/davi/org/Data/roam/.orgids")
-;;   (org-brain-visualize-default-choices 'all)
-;;   (org-brain-title-max-length 12)
-;;   (org-brain-include-file-entries nil)
-;;   (org-brain-file-entries-use-title nil)
-;;   :config
-;;   (bind-key "C-c b" 'org-brain-prefix-map org-mode-map)
-
-;;   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer)
-;;   (push '("b" "Brain" plain (function org-brain-goto-end)
-;;           "* %i%?" :empty-lines 1)
-;;         org-capture-templates))
+(use-package! markdown-mode
+  :custom
+  (markdown-hide-urls 't)
+  (markdown-hide-markup nil)
+  (markdown-enable-wiki-links t))
 
 (after! shut-up-ignore
   (when noninteractive
