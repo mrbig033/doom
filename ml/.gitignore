@@ -1,5 +1,5 @@
 flycheck*
 # Ignore hidden files
 .*
-.tmp
+.tmp/**
 .gitignore
