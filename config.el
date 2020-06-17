@@ -81,7 +81,6 @@
 
 (set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
 
-
 (load! "functions.el" my-lisp)
 (load! "my-packages.el" my-lisp)
 (load! "my-hydras.el" my-lisp)

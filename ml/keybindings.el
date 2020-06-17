@@ -55,6 +55,7 @@
       :n "zi"  '+fold/open-all
       :n "ge"  'evil-end-of-visual-line
       :n "Q"   'delete-frame
+      :n "0"   'evil-beginning-of-visual-line
       :n "z="  'flyspell-correct-previous
 
       :n "H"   'projectile-previous-project-buffer
@@ -78,7 +79,7 @@
       :nv "M-o"   'better-jumper-jump-backward
       :nv "M-i"   'better-jumper-jump-forward
       :nv "C-h M" 'my-show-major-mode
-      :nv "." 'link-hint-open-link
+      :nv ";"     'link-hint-open-link
       :nvg "C-S-j" 'cool-moves-line-forward
       :nvg "C-S-k" 'cool-moves-line-backward)
 

@@ -71,6 +71,7 @@
 (package! hl-sentence)
 (package! wordnut)
 (package! org-web-tools)
+(package! typo)
 (package! apheleia
   :recipe (:host github :repo "raxod502/apheleia"))
 (package! evil-snipe :disable t)

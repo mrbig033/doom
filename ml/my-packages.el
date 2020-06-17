@@ -120,7 +120,6 @@
     "ça"  "Roam Fallacies"
     "çç"  "Roam"
 
-
     "C-ç f"  "Roam Find-File"
     "C-ç j"  "Roam Index"
     "C-ç b"  "Roam Switch Buffer"
@@ -398,10 +397,10 @@
                                  :file-name "${slug}-%<%C%m>"
                                  :head "#+title: ${title}"
                                  :unnarrowed t)))
-  (org-roam-graph-exclude-matcher '("index"
-                                    "bboba"
-                                    "phil"
-                                    "ethics"
+  (org-roam-graph-exclude-matcher '("index.org"
+                                    "afc_bboba-2006.org"
+                                    "phil-2006.org"
+                                    "ethics-2006.org"
                                     "logic_org-2006"
                                     "animalw-2006.org"
                                     "petitio_principii-2006.org"
@@ -468,6 +467,7 @@
   (:states '(normal visual)
    "g9"      'my-avy-goto-open-paren
    "g0"      'my-avy-goto-close-paren
+   "."       'avy-goto-subword-1
    "F"       'evil-avy-goto-char-2-above
    "f"       'evil-avy-goto-char-2-below)
 
@@ -618,6 +618,8 @@
   ;; (ivy-count-format "%-2d ")
 
   (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'flycheck*' %s")
+
+  (counsel-ag-base-command "ag --vimgrep %s")
 
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
@@ -1035,7 +1037,6 @@
   :init
   (require 'recursive-narrow))
 
-
 (use-package! windmove
   :general
   (:keymaps 'override
@@ -1060,6 +1061,10 @@
 (use-package! clipmon
   :config
   (clipmon-mode-start))
+
+(use-package! olivetti
+  :init
+  (setq-default olivetti-body-width 85))
 
 ;; (use-package! org-brain
 ;;   :init
