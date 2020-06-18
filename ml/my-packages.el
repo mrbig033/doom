@@ -196,6 +196,8 @@
    "gr"       'my-evil-sel-to-end)
   (:keymaps   '(doom-leader-map)
    "a"        'org-agenda)
+  (:keymaps   '(org-agenda-mode-map)
+   "<escape>"  'org-agenda-quit)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
