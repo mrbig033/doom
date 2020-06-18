@@ -25,8 +25,8 @@
       "C-c m" 'define-mode-abbrev
       "C-c M" 'define-global-abbrev
       "C-'"   'org-cycle-agenda-files
-      "C-c r" 'my-show-org-roam-commands
       "C-c u" 'redraw-display
+      "C-c a" 'my-goto-agenda
       "C-l"   'recenter-top-bottom
       "C-c d" 'ispell-change-dictionary
       "C-c o" 'my-org-force-open-other-window
