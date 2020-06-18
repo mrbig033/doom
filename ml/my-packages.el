@@ -1072,7 +1072,12 @@
 
   :general
 
+  (:keymaps   '(evil-emacs-state-map)
+   "<escape>" 'evil-force-normal-state)
+
   (:keymaps   '(evil-normal-state-map)
+   "C-z"      'ignore
+   "C-c z"    'evil-emacs-state
    "g3"       'evil-backward-word-end
    "g#"       'evil-forward-word-end
    "gr"       'my-evil-sel-to-end
@@ -1089,7 +1094,6 @@
    "z0"       'endless/ispell-word-then-abbrev
    "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
-
   (:keymaps '(evil-insert-state-map)
    "C-h"    'evil-delete-backward-char-and-join
    "M-e"    'yas-expand
