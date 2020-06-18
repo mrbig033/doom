@@ -20,6 +20,3 @@
        :nvig "C-d"      'delete-char
        :nvig "C-h"      'delete-backward-char
        :nvig "C-w"      'backward-kill-word))
-
-(map! :map (org-mode-map evil-org-mode-map)
-      :n "gr"       'my-evil-sel-to-end)
