@@ -660,6 +660,7 @@
              #'elpy-mode
              #'apheleia-mode)
   :general
+
   (:keymaps    '(python-mode-map)
    "M-p"       'my-backward-paragraph-do-indentation
    "M-n"       'my-forward-paragraph-do-indentation
@@ -669,23 +670,25 @@
    "M-e"       'python-nav-forward-statement
    :states    '(normal)
    "ç"        'hydra-python-mode/body
-   "<return>" 'hydra-python-mode/body)
+   "<return>" 'hydra-python-mode/body
+   (:states '(insert)
+    "C-=" 'my-python-colon-newline
+    "C-h"'python-indent-dedent-line-backspace)
+   (:states '(normal visual)
+    "zi" 'yafolding-show-all
+    "zm" 'yafolding-toggle-all
+    "TAB" 'yafolding-toggle-element
+    "<backtab>" 'yafolding-toggle-all
+    "<" 'python-indent-shift-left
+    ">" 'python-indent-shift-right)
+   (:states '(normal visual insert)
+    "<C-return>" 'my-quickrun))
+
   (:keymaps '(inferior-python-mode-map)
    "C-ç" 'my-elpy-switch-to-buffer
    :states '(insert)
    "C-l" 'comint-clear-buffer)
-  (:states '(insert)
-   "C-=" 'my-python-colon-newline
-   "C-h"'python-indent-dedent-line-backspace)
-  (:states '(normal visual)
-   "zi" 'yafolding-show-all
-   "zm" 'yafolding-toggle-all
-   "TAB" 'yafolding-toggle-element
-   "<backtab>" 'yafolding-toggle-all
-   "<" 'python-indent-shift-left
-   ">" 'python-indent-shift-right)
-  (:states '(normal visual insert)
-   "<C-return>" 'my-quickrun)
+
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
@@ -759,9 +762,14 @@
 (use-package! evil-god-state
   :after evil
   :general
-  ("."          'evil-execute-in-god-state)
+
   (:keymaps '(god-local-mode-map)
    :states  '(normal insert global)
+   "."        'evil-god-state-bail
+   "<escape>" 'evil-god-state-bail)
+
+  (:keymaps '(global-map)
+   :states  '(normal)
    "."        'evil-god-state-bail
    "<escape>" 'evil-god-state-bail)
 
@@ -932,6 +940,7 @@
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes        '(not erc-mode message-mode help-mode gud-mode eshell-mode))
+
 
   :general
   (:keymaps                    '(company-active-map)
