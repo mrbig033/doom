@@ -178,7 +178,7 @@
   (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
 
 (use-package! org
-  :after-call after-find-file
+  :demand t
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -189,10 +189,10 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-  :general
-  (:keymaps   '(org-mode-map evil-org-mode-map)
-   :states    'normal
-   "gr"       'my-evil-sel-to-end)
+  ;; :general
+  ;; (:keymaps   '(org-mode-map evil-org-mode-map)
+  ;;  :states    'normal
+  ;;  "gr"       'my-evil-sel-to-end)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
