@@ -190,10 +190,7 @@
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 (general-unbind 'normal
 :keymaps 'evil-org-mode-map
-  "gr"
-  "C-k"
-  "C-y"
-  "C-e")
+  "gr")
 
   (general-unbind
     :keymaps 'treemacs-mode-map
