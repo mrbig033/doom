@@ -660,19 +660,20 @@
              #'elpy-mode
              #'apheleia-mode)
   :general
-  (:keymaps '(python-mode-map)
-   "M-p"    'my-backward-paragraph-do-indentation
-   "M-n"    'my-forward-paragraph-do-indentation
-   "C-c ç"  'my-python-shebang
-   "C-ç"    'elpy-shell-switch-to-shell
-   "M-a"    'python-nav-backward-statement
-   "M-e"    'python-nav-forward-statement)
+  (:keymaps    '(python-mode-map)
+   "M-p"       'my-backward-paragraph-do-indentation
+   "M-n"       'my-forward-paragraph-do-indentation
+   "C-c ç"     'my-python-shebang
+   "C-ç"       'elpy-shell-switch-to-shell
+   "M-a"       'python-nav-backward-statement
+   "M-e"       'python-nav-forward-statement
+   :states    '(normal)
+   "ç"        'hydra-python-mode/body
+   "<return>" 'hydra-python-mode/body)
   (:keymaps '(inferior-python-mode-map)
    "C-ç" 'my-elpy-switch-to-buffer
    :states '(insert)
    "C-l" 'comint-clear-buffer)
-  (:states '(normal)
-   "ç" 'hydra-python-mode/body)
   (:states '(insert)
    "C-=" 'my-python-colon-newline
    "C-h"'python-indent-dedent-line-backspace)
@@ -681,7 +682,6 @@
    "zm" 'yafolding-toggle-all
    "TAB" 'yafolding-toggle-element
    "<backtab>" 'yafolding-toggle-all
-   "<return>" 'hydra-python-mode/body
    "<" 'python-indent-shift-left
    ">" 'python-indent-shift-right)
   (:states '(normal visual insert)
@@ -932,7 +932,7 @@
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes        '(not erc-mode message-mode help-mode gud-mode eshell-mode))
-  
+
   :general
   (:keymaps                    '(company-active-map)
    "M-e"                       'my-company-yasnippet
@@ -1057,8 +1057,8 @@
   :general
 
   (:keymaps 'override
-   :states '(normal visual insert)
-   "M-s"         'evil-switch-to-windows-last-buffer)
+   :states  '(normal visual insert)
+   "M-s"    'my-last-buffer)
   :config
 
   (defun my-open-two-lines ()
@@ -1106,13 +1106,7 @@
 (use-package! windmove
   ;; :after-call (windmove-up windmove-down windmove-left windmove-right)
   :custom
-  (windmove-wrap-around t)
-  :general
-  (:states '(normal visual insert)
-   "M-k"   'windmove-up
-   "M-j"   'windmove-down
-   "M-h"   'windmove-left
-   "M-l"   'windmove-right))
+  (windmove-wrap-around t))
 
 (use-package! hl-sentence
   :config
@@ -1268,4 +1262,4 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 60 15)))
+  (gac-debounce-interval (* 60 30)))
