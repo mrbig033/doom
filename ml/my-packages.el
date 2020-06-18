@@ -178,7 +178,6 @@
   (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
 
 (use-package! org
-  :demand t
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -189,6 +188,7 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+evil-org-mode-map <normal-state> g r
   ;; :general
   ;; (:keymaps   '(org-mode-map evil-org-mode-map)
   ;;  :states    'normal
