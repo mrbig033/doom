@@ -218,3 +218,7 @@
 (defun my-last-buffer ()
   (interactive)
   (switch-to-buffer nil))
+
+(defun my-buffer-predicate (buffer)
+  (if (string-match "\*" (buffer-name buffer)) nil t))
+(set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
