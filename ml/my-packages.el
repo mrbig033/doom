@@ -1264,6 +1264,4 @@
   ;; (gac-debounce-interval (* 60 10))
   (gac-debounce-interval nil)
   :config
-  (defun gac-process-sentinel (proc status)
-    "Report PROC change to STATUS."
-    (message " auto commit")))
+  )
