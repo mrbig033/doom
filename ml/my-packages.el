@@ -777,10 +777,8 @@
             "."        'evil-god-state-bail
             "<escape>" 'evil-god-state-bail)
 
-  (:keymaps '(global-map)
-            :states  '(normal)
-            "."        'evil-god-state-bail
-            "<escape>" 'evil-god-state-bail)
+  (:keymaps '(evil-normal-state-map)
+            "."        'evil-execute-in-god-state)
 
   :config
 
