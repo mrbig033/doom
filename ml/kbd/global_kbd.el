@@ -1,8 +1,5 @@
 ;; GLOBALS
-(map! "M--"   'winner-undo
-      "M-'"   'winner-undo
-      "M-="   'winner-redo
-      "M-+"   'winner-redo
+(map!
       "M-/"   'hippie-expand
       "C-x p" 'check-parens
       "C-;"   'helpful-at-point
@@ -32,3 +29,8 @@
       "C-c t" 'git-timemachine
       "C-c -" 'insert-char
       "C-c i" 'emacs-init-time)
+
+(map! :nvig "M-k"   'windmove-up
+      :nvig "M-j"   'windmove-down
+      :nvig "M-h"   'windmove-left
+      :nvig "M-l"   'windmove-right)
