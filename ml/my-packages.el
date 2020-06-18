@@ -193,6 +193,8 @@
   (:keymaps   '(evil-org-mode-map org-mode-map)
    :states    'normal
    "gr"       'my-evil-sel-to-end)
+  (:keymaps   '(doom-leader-map)
+   "aa"    'org-agenda)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
