@@ -805,8 +805,6 @@
 
   ("M-q" 'eyebrowse-prev-window-config
    "M-w" 'eyebrowse-next-window-config)
-  (:keybindings '(treemacs-mode-map evil-treemacs-state-map)
-   "<escape>"   'treemacs-quit)
   (:states '(normal visual)
    :prefix "SPC"
    "1" 'eyebrowse-switch-to-window-config-1
