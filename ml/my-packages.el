@@ -669,8 +669,6 @@
    "C-ç"    'elpy-shell-switch-to-shell
    "M-a"    'python-nav-backward-statement
    "M-e"    'python-nav-forward-statement
-   :states '(insert)
-   "C-c Ç" 'my-last-buffer)
   (:keymaps '(inferior-python-mode-map)
    "C-ç" 'my-elpy-switch-to-buffer
    :states '(insert)

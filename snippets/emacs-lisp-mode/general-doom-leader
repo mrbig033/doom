@@ -6,4 +6,4 @@
 # --
 :general
 (:keymaps '(doom-leader-map)
- "SPC $1" '$0)
+ "$1"     '$0)
