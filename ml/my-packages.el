@@ -501,6 +501,12 @@
     (interactive)
     (deer "~/.doom.d/ml/kbd/"))
 
+      '(lambda () (interactive)
+                          (find-file "~/.doom.d/ml/my-packages.el")
+                          (my-recenter-window)
+                          (message nil))
+
+
   (defun my-deer-goto-python ()
     (interactive)
     (deer "~/Documents/Python/"))
@@ -573,6 +579,10 @@
     (counsel-ag nil "~/.emacs.d/" "-G '.org'"))
 
   (defun my-search-packages ()
+    (interactive)
+    (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
+
+  (defun my-search-kbds ()
     (interactive)
     (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
 

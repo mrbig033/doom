@@ -99,3 +99,4 @@
 (load! "/Users/davi/.doom.d/ml/kbd/global_kbd.el")
 (load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")
 (load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")
+(load! "/Users/davi/.doom.d/ml/kbd/trans_kbd.el")

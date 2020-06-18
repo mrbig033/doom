@@ -190,3 +190,13 @@
   "kill arg lines backward."
   (interactive "p")
   (kill-line (- 1 arg)))
+
+(defun my-goto-my-packages ()
+  (interactive)
+  (find-file "~/.doom.d/ml/my-packages.el")
+  (my-recenter-window)
+  (message nil))
+
+(defun my-copy-directory ()
+  (interactive)
+  (message (kill-new (abbreviate-file-name default-directory))))
