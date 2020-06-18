@@ -1,3 +1,5 @@
+;;;;;;;;;; INITIAL SETTINGS ;;;;;;;;;;
+
 (setq user-full-name "mrbig"
       user-mail-address "mrbig033@protonmail.com"
       doom-font (font-spec :family "Input Mono" :size 20)
@@ -34,6 +36,10 @@
 
 (map! :map (org-mode-map evil-org-mode-map)
       :n "gr"       'my-evil-sel-to-end)
+
+;;;;;;;;;;  ;;;;;;;;;;
+
+
 
 (global-flycheck-mode -1)
 (global-subword-mode +1)
