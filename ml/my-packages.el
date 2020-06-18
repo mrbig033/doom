@@ -1073,45 +1073,56 @@
   (+evil-want-o/O-to-continue-comments nil)
 
   :general
-  (:keymaps '(evil-normal-state-map)
+
+  (:keymaps   '(evil-normal-state-map)
    "g3"       'evil-backward-word-end
    "g#"       'evil-forward-word-end
-   "gr"  'my-evil-sel-to-end
-   "go"  'cool-moves-open-line-below
-   "g,"  'goto-last-change
-   "g;"  'goto-last-change-reverse
-   "gO"  'cool-moves-open-line-above
-   "gsP" 'cool-moves-paragraph-backward
-   "gsp" 'cool-moves-paragraph-forward
-   "TAB" '+fold/toggle
-   "zi"  '+fold/open-all
-   "Q"   'my-delete-frame
-   "-"   'insert-char
-   "z0"  'endless/ispell-word-then-abbrev
-   "z="  'flyspell-correct-previous
+   "gr"       'my-evil-sel-to-end
+   "go"       'cool-moves-open-line-below
+   "g,"       'goto-last-change
+   "g;"       'goto-last-change-reverse
+   "gO"       'cool-moves-open-line-above
+   "gsP"      'cool-moves-paragraph-backward
+   "gsp"      'cool-moves-paragraph-forward
+   "TAB"      '+fold/toggle
+   "zi"       '+fold/open-all
+   "Q"        'my-delete-frame
+   "-"        'insert-char
+   "z0"       'endless/ispell-word-then-abbrev
+   "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
 
   (:keymaps '(evil-insert-state-map)
-   "C-h"      'evil-delete-backward-char-and-join
-   "C-k"      'kill-line
-   "C-p"      'previous-line
-   "C-n"      'next-line
-   "M-d"      'kill-word
-   "C-d"      'delete-char)
+   "C-h"    'evil-delete-backward-char-and-join
+   "M-e"    'yas-expand
+   "C-ç d"  'deft
+   "C-k"    'kill-line
+   "C-p"    'previous-line
+   "C-n"    'next-line
+   "M-d"    'kill-word
+   "C-d"    'delete-char)
+
+  (:keymaps '(evil-visual-state-map)
+   "C-c a"  'align-regexp)
 
   (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
    "M-s"      'my-last-buffer
    "M-]"      'evil-window-prev
    "M-["      'evil-window-next
+   "C-S-j" 'cool-moves-line-forward
+   "C-S-k" 'cool-moves-line-backward
    "s-2"      'evil-execute-macro
    "ge"       'evil-end-of-visual-line
    "0"        'evil-beginning-of-visual-line
    "C-9"      'evilnc-comment-or-uncomment-lines)
-
   (:keymaps '(evil-visual-state-map evil-normal-state-map)
    "M-s"      'my-last-buffer
    "M-]"      'evil-window-prev
+   ";"     'link-hint-open-link
    "çd" 'deft
+   "M-o"   'better-jumper-jump-backward
+   "M-i"   'better-jumper-jump-forward
+   "C-h M" 'my-show-major-mode
    "M-["      'evil-window-next
    "s-2"      'evil-execute-macro
    "C-9"      'evilnc-comment-or-uncomment-lines
