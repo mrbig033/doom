@@ -5,6 +5,12 @@
       (:map helpful-mode-map
        :nvig "C-r" 'helpful-update)
 
+      (:map (evil-org-mode-map org-mode-map global-map)
+       :nvig "M-k"   'windmove-up
+       :nvig "M-j"   'windmove-down
+       :nvig "M-h"   'windmove-left
+       :nvig "M-l"   'windmove-right)
+
       (:map (minibuffer-local-map
              minibuffer-local-ns-map
              minibuffer-local-completion-map
@@ -13,10 +19,5 @@
              read-expression-map
              evil-ex-completion-map
              evil-ex-search-keymap)
-
        "C-y" 'kill-ring-save
-       :nvig "<insert>" 'yank
-       :nvig "C-k"      'kill-line
-       :nvig "C-d"      'delete-char
-       :nvig "C-h"      'delete-backward-char
-       :nvig "C-w"      'backward-kill-word))
+       :nvig "<insert>" 'yank))
