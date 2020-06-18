@@ -16,6 +16,7 @@
        :leader "cw"  'count-words
        :leader "hdS" 'my-search-doom-help
        :leader "k"   'kill-current-buffer
+       :leader "bu"  'unkillable-scratch
        :leader "l"   'link-hint-open-link
        :leader "mgx" 'org-capture-goto-last-stored
        :leader "nn"  'recursive-narrow-or-widen-dwim
