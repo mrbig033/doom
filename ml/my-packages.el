@@ -420,7 +420,6 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
-  :demand t
   :hook (ranger-mode . olivetti-mode)
   :custom
   (ranger-max-tabs 0)
@@ -466,6 +465,16 @@
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
 
+  (:keymaps     'doom-leader-map
+   "r"   'deer
+   "SPC k"  'my-deer-goto-my-kdb
+   "SPC l"   'my-deer-goto-my-lisp)
+
+  (:keymaps     'doom-leader-map
+   "r"   'deer
+   "SPC r"  'ranger
+   "SPC k"  'my-deer-goto-my-kdb
+   "SPC l"   'my-deer-goto-my-lisp)
   :config
 
   (defun my-ranger-go (path)
@@ -1065,18 +1074,22 @@
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
+
+
 (use-package! projectile
+  :general
+  (:keymaps '(doom-leader-map)
+   "sp"  'counsel-projectile-ag
+   "pG"  'projectile-configure-project
+   "fp"  '+ivy/projectile-find-file)
+  (:states '(normal visual)
+   "H"   'projectile-previous-project-buffer
+   "L"   'projectile-next-project-buffer)
   :custom
   (projectile-track-known-projects-automatically nil))
 
 (after! evil
   (evil-better-visual-line-on))
-
-;; (use-package! yasnippet
-;;   :after-call after-find-file
-;;   :init
-;;   (setq! +snippets-dir "/Users/davi/.doom.d/etc/snips"
-;;          yas--default-user-snippets-dir "/Users/davi/.doom.d/etc/snips"))
 
 (after! apheleia
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
