@@ -1096,7 +1096,8 @@
    "z0"       'endless/ispell-word-then-abbrev
    "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
-  (:keymaps '(evil-insert-state-map)
+  (:keymaps '(evil-insert-state-map evil-org-mode-map)
+   :states '(insert)
    "C-h"    'evil-delete-backward-char-and-join
    "M-e"    'yas-expand
    "C-ç d"  'deft
