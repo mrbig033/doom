@@ -192,9 +192,7 @@
   :general
   (:keymaps   '(org-mode-map evil-org-mode-map)
    :states    'normal
-   "gç"       'my-evil-sel-to-end
-
-   )
+   "gç"       'my-evil-sel-to-end)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
