@@ -188,6 +188,7 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+
   (general-unbind 'normal
     :keymaps 'evil-org-mode-map
     "gr")
