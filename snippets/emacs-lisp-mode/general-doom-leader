@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: general-doom-leader
+# uuid: general-doom-leader
+# key: gul
+# condition: t            
+# --
+:general
+(:keymaps '(doom-leader-map)
+ "SPC $1" '$0)
