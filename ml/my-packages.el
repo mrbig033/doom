@@ -192,6 +192,7 @@
   (general-unbind 'normal
     :keymaps 'evil-org-mode-map
     "gr")
+
   ;; :general
   ;; (:keymaps   '(org-mode-map evil-org-mode-map)
   ;;  :states    'normal
