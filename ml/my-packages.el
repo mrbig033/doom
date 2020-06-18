@@ -464,11 +464,12 @@
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
 
-  (:keymaps     'doom-leader-map
-   "r"   'deer
-   "R"  'ranger
-   "SPC k"  'my-deer-goto-my-kdb
-   "SPC l"   'my-deer-goto-my-lisp)
+  (:keymaps 'doom-leader-map
+   "r"      'deer
+   "R"      'ranger
+   "SPC K"  'my-deer-goto-my-kdb
+   "SPC L"  'my-deer-goto-my-lisp
+   )
 
   :config
 
@@ -671,18 +672,18 @@
    :states    '(normal)
    "ç"        'hydra-python-mode/body
    "<return>" 'hydra-python-mode/body
-   (:states '(insert)
-    "C-=" 'my-python-colon-newline
-    "C-h"'python-indent-dedent-line-backspace)
-   (:states '(normal visual)
-    "zi" 'yafolding-show-all
-    "zm" 'yafolding-toggle-all
-    "TAB" 'yafolding-toggle-element
-    "<backtab>" 'yafolding-toggle-all
-    "<" 'python-indent-shift-left
-    ">" 'python-indent-shift-right)
-   (:states '(normal visual insert)
-    "<C-return>" 'my-quickrun))
+   :states '(insert)
+   "C-=" 'my-python-colon-newline
+   "C-h"'python-indent-dedent-line-backspace
+   :states '(normal visual)
+   "zi" 'yafolding-show-all
+   "zm" 'yafolding-toggle-all
+   "TAB" 'yafolding-toggle-element
+   "<backtab>" 'yafolding-toggle-all
+   "<" 'python-indent-shift-left
+   ">" 'python-indent-shift-right
+   :states '(normal visual insert)
+   "<C-return>" 'my-quickrun)
 
   (:keymaps '(inferior-python-mode-map)
    "C-ç" 'my-elpy-switch-to-buffer
@@ -1128,13 +1129,17 @@
 (use-package! wordnut
   :init
   (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
-  :config
-  (map! :leader "sw"  'wordnut-lookup-current-word
-        :leader "sW"  'wordnut-search
-        :map (wordnut-mode-map)
-        :nv "q" 'quit-window
-        :nv "Q" 'kill-this-buffer
-        :n "<escape>" 'quit-window))
+  :general
+  (:keymaps '(doom-leader-map)
+   "sW"  'wordnut-search
+   "sw"  'wordnut-lookup-current-word)
+  (:keymaps '(wordnut-mode-map)
+   :states '(normal visual)
+   "q" 'quit-window
+   "Q" 'kill-this-buffer
+   :states '(normal)
+   "<escape>" 'quit-window))
+
 
 (use-package! osx-dictionary
   :init
