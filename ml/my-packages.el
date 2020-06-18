@@ -1208,7 +1208,7 @@
   :init
   (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
   :general
-  (:keymaps '(ox-dictionary-mode-map)
+  (:keymaps '(osx-dictionary-mode-map)
    :states  '(normal)
    "<escape>" 'quit-window
    :states  '(normal visual)
