@@ -96,7 +96,6 @@
       :leader "ww"  'doom/window-maximize-vertically
       :leader "k"   'kill-current-buffer
       :leader "x"   'eyebrowse-close-window-config
-      :leader "r"   'deer
       :leader "0"   'delete-window
       :leader "nn"  'recursive-narrow-or-widen-dwim
       :leader "nw"  'my-widen-to-center
@@ -105,8 +104,6 @@
       :leader "hdS" 'my-search-doom-help
       :leader "SPC" nil
       :leader "k"   'kill-current-buffer
-      :leader "SPC k"  'my-deer-goto-my-kdb
-      :leader "SPC l"   'my-deer-goto-my-lisp
       :leader "SPC p" 'my-goto-my-packages
       :leader "SPC x" 'org-capture
       ;; TEXT ;;
@@ -187,6 +184,3 @@
        :nvig "C-d"      'delete-char
        :nvig "C-h"      'delete-backward-char
        :nvig "C-w"      'backward-kill-word))
-
-(map! :map (org-mode-map evil-org-mode-map)
-      :n "gr"       'my-evil-sel-to-end)
