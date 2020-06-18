@@ -1259,7 +1259,7 @@
         :n "<escape>" 'ignore))
 
 
-(use-package!
+(use-package! git-auto-commit-mode
   :init
   :config
   (map! :map (emacs-lisp-mode-map)
