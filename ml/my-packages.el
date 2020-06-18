@@ -1262,4 +1262,6 @@
 (use-package! git-auto-commit-mode
   :init
   :config
+gac-automatically-add-new-files-p
+
   )
