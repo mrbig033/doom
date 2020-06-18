@@ -1258,6 +1258,7 @@
         :n "<escape>" 'my-quiet-save-buffer
         :map (lisp-interaction-mode-map)
         :n "<escape>" 'ignore))
+
 (use-package! git-auto-commit-mode
   :custom
   ;; (gac-debounce-interval (* 60 10))
