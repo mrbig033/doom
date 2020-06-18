@@ -25,8 +25,6 @@
       :n "g3"  'evil-backward-word-end
       :n "g#"  'evil-forward-word-end
       :n "-"   'insert-char
-      :n "H"   'projectile-previous-project-buffer
-      :n "L"   'projectile-next-project-buffer
 
       :n "z0"  'endless/ispell-word-then-abbrev
       :n "z="  'flyspell-correct-previous
