@@ -1259,6 +1259,6 @@
         :n "<escape>" 'ignore))
 
 
-(use-package! git-auto-commit-mode
-  :custom
-  (gac-debounce-interval 120))
+;; (use-package! git-auto-commit-mode
+;;   :custom
+;;   (gac-debounce-interval 120))
