@@ -102,6 +102,20 @@
   :config
   (which-key-add-key-based-replacements
 
+    "SPC SPC rf"  "Roam Find File"
+    "SPC SPC rl"  "Roam Find-File"
+    "SPC SPC rj"  "Roam Index"
+    "SPC SPC rb"  "Roam Switch Buffer"
+    "SPC SPC rg"  "Roam Graph"
+    "SPC SPC ri"  "Roam Insert"
+    "SPC SPC rd"  "Roam Deft"
+    "SPC SPC rc"  "Roam Re-Cache"
+    "SPC SPC rx"  "Roam Indexes"
+    "SPC SPC ro"  "Roam Logic"
+    "SPC SPC ra"  "Roam Fallacies"
+    "SPC SPC rs"  "Roam Commands"
+    "SPC SPC rç"  "Roam"
+
     "SPC mwi"  "OW Insert"
     "SPC mwe"  "OW Archive"
     "SPC mwv"  "OW Attach"
@@ -118,27 +132,6 @@
     "SPC eq" "Eval & Quit"
     "SPC ek" "Eval & Kill"
 
-    "çf"  "Roam Find-File"
-    "çj"  "Roam Index"
-    "çl"  "Roam Find-File"
-    "çb"  "Roam Switch Buffer"
-    "çg"  "Roam Graph"
-    "çi"  "Roam Insert"
-    "çd"  "Roam Deft"
-    "çc"  "Roam Re-Cache"
-    "çx"  "Roam Indexes"
-    "ço"  "Roam Logic"
-    "ça"  "Roam Fallacies"
-    "çç"  "Roam"
-
-    "C-ç f"  "Roam Find-File"
-    "C-ç j"  "Roam Index"
-    "C-ç b"  "Roam Switch Buffer"
-    "C-ç g"  "Roam Graph"
-    "C-ç i"  "Roam Insert"
-    "C-ç d"  "Roam Deft"
-    "C-ç c"  "Roam Re-Cache"
-    "C-ç ç"  "Roam"
 
     "SPC sW"  "Wordnut Search"
     "SPC sw"  "Wornut Word"
@@ -293,6 +286,8 @@
   (add-hook 'org-roam-mode-hook 'abbrev-mode)
   :custom
 
+  (org-roam-buffer-window-parameters '((no-other-window . t)))
+
   (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
                                       ("arrowtail" . "normal")
                                       ("dir" . "back")))
@@ -327,9 +322,22 @@
   (org-roam-directory "~/org/Data/roam")
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
-  :config
+  :general
+  (:keymaps '(doom-leader-map)
+   "SPC rf" 'org-roam-find-file
+   "SPC rl" 'org-roam-find-file
+   "SPC rj" 'org-roam-jump-to-index
+   "SPC rb" 'org-roam-switch-to-buffer
+   "SPC rg" 'org-roam-graph
+   "SPC ri" 'org-roam-insert
+   "SPC rç" 'org-roam
+   "SPC rc" 'org-roam-db-build-cache
+   "SPC rx" 'my-roam-indexes
+   "SPC ro" 'my-roam-logic
+   "SPC ra" 'my-roam-fallacies
+   "SPC rs" 'my-show-org-roam-commands)
 
-  (setq! org-roam-buffer-window-parameters '((no-other-window . t)))
+  :config
 
   (defun my-org-roam-open-link ()
     (interactive)
@@ -596,6 +604,7 @@
 
   (defun my-search-packages ()
     (interactive)
+    (my-widen-to-center-with-excursion)
     (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
 
   (defun my-swiper-python-classes ()
