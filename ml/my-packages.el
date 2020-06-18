@@ -194,7 +194,7 @@
     "gr")
 
   :general
-  (:keymaps   '(org-mode-map evil-org-mode-map)
+  (:keymaps   '(evil-org-mode-map)
    :states    'normal
    "gr"       'my-evil-sel-to-end)
 
