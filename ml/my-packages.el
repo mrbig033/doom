@@ -1261,8 +1261,7 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  ;; (gac-debounce-interval (* 60 10))
-  (gac-debounce-interval nil)
+  (gac-debounce-interval (* 60 10))
   :config
   (defun gac-process-sentinel (proc status)
     "Report PROC change to STATUS."

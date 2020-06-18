@@ -6,13 +6,6 @@
       :i "M-d" 'kill-word
       :i "C-d" 'delete-char
       :i "M-e" 'yas-expand
-      :i "C-ç f" 'org-roam-find-file
-      :i "C-ç j" 'org-roam-jump-to-index
-      :i "C-ç b" 'org-roam-switch-to-buffer
-      :i "C-ç g" 'org-roam-graph
-      :i "C-ç i" 'org-roam-insert
-      :i "C-ç ç" 'org-roam
-      :i "C-ç c" 'org-roam-db-build-cache
       :i "C-ç d" 'deft)
 
 ;; NORMAL STATE ;;
@@ -38,18 +31,9 @@
       :n "z0"  'endless/ispell-word-then-abbrev
       :n "z="  'flyspell-correct-previous
 
-      :vn "çf" 'org-roam-find-file
-      :vn "çl" 'org-roam-find-file
-      :vn "çj" 'org-roam-jump-to-index
-      :vn "çb" 'org-roam-switch-to-buffer
-      :vn "çg" 'org-roam-graph
-      :vn "çi" 'org-roam-insert
-      :vn "çç" 'org-roam
-      :vn "çc" 'org-roam-db-build-cache
       :vn "çd" 'deft
-      :vn "çx" 'my-roam-indexes
-      :vn "ço" 'my-roam-logic
-      :vn "ça" 'my-roam-fallacies)
+
+      )
 
 ;; VISUAL AND MIXED STATES ;;
 (map! :v "C-c a"  'align-regexp
