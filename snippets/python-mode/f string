@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: f string
+# key: f
+# binding: C-c f
+# --
+f"$0"

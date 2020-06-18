@@ -1,0 +1,6 @@
+# key: clear
+# name: clear screen
+# --
+from os import system
+
+system("clear")

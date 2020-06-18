@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: self with atribute
+# uuid: self with atribute
+# key: sa
+# condition: t
+# --
+self.${1:atribute} = $0

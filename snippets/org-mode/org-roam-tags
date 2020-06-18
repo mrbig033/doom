@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-roam tags
+# uuid:
+# key: rtags
+# condition: t
+# --
+#+roam_tags: $0

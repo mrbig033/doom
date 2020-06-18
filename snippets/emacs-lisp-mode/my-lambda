@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: my lambda
+# key: la
+# uuid: lambda
+# --
+(lambda ($1) (interactive) `(doom-snippets-format "%n%s")`${0:commands})

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: def function(self):
+# key: ds     
+# --
+def ${1:funcname}(self):
+    """$2."""
+    ${0:pass}

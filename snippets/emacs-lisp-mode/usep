@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: use-package!
+# uuid:
+# key: usep
+# condition: t
+# --
+(use-package! $1
+  :$0)

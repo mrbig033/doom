@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: defun interactive
+# uuid: defun interactive
+# key: defi
+# condition: t
+# --
+(defun $1 ()
+  (interactive)
+  ($0))
