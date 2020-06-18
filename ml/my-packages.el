@@ -190,9 +190,11 @@
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
   :general
-  (:keymaps   '(evil-org-mode-map)
+  (:keymaps   '(org-mode-map evil-org-mode-map)
    :states    'normal
-   "gr"       'my-evil-sel-to-end)
+   "gç"       'my-evil-sel-to-end
+
+   )
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
