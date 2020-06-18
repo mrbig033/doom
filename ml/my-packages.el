@@ -178,7 +178,7 @@
   (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
 
 (use-package! org
-  :after-call
+  :after-call after-find-file
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
