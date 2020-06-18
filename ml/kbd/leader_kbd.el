@@ -2,7 +2,6 @@
 (map! :leader "sw"  'wordnut-lookup-current-word
       :leader "sW"  'wordnut-search
       :leader "sg"  'counsel-ag
-      :leader "sp"  'counsel-projectile-ag
       :leader "l"   'link-hint-open-link
       :leader "br"  '+popup/raise
       :leader "mgx" 'org-capture-goto-last-stored
@@ -12,8 +11,6 @@
       :leader "x"   'eyebrowse-close-window-config
       :leader "r"   'deer
       :leader "0"   'delete-window
-      :leader "pG"  'projectile-configure-project
-      :leader "fp"  '+ivy/projectile-find-file
       :leader "nn"  'recursive-narrow-or-widen-dwim
       :leader "nw"  'my-widen-to-center
       :leader "to"  'olivetti-mode
