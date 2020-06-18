@@ -28,6 +28,7 @@
       "C-c u" 'redraw-display
       "C-c a" 'my-goto-agenda
       "C-l"   'recenter-top-bottom
+      "s-2"   'evil-execute-macro
       "C-c d" 'ispell-change-dictionary
       "C-c o" 'my-org-force-open-other-window
       "C-h e" 'describe-package
