@@ -5,7 +5,6 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
-
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
@@ -40,7 +39,6 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;(package! builtin-package :pin "1a2b3c4d5e")
 
-
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! pinned-package)
@@ -49,29 +47,42 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! nswbuff)
-(package! olivetti)
-(package! super-save)
-(package! eyebrowse)
+(package! vlf)
+(package! typo)
 (package! elpy)
+(package! wordnut)
+(package! shut-up)
+(package! nswbuff)
+(package! delight)
 (package! clipmon)
-(package! evil-god-state)
-(package! unkillable-scratch)
+(package! olivetti)
 (package! yafolding)
+(package! eyebrowse)
+(package! super-save)
+(package! hl-sentence)
+(package! org-web-tools)
 (package! recursive-narrow)
-(package! git-auto-commit-mode)
+(package! google-translate)
+(package! artbollocks-mode)
 (package! electric-operator)
+(package! unkillable-scratch)
+(package! git-auto-commit-mode)
+(package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
+
 (package! evil-swap-keys)
 (package! evil-god-state)
 (package! evil-smartparens)
-(package! eyebrowse)
-(package! shut-up)
-(package! super-save)
 (package! evil-better-visual-line)
-(package! hl-sentence)
-(package! wordnut)
-(package! org-web-tools)
-(package! typo)
-(package! apheleia
-  :recipe (:host github :repo "raxod502/apheleia"))
+
+(package! poet-theme)
+(package! plan9-theme)
+(package! kaolin-themes)
+(package! dracula-theme)
+(package! badwolf-theme)
+(package! solarized-theme)
+(package! spacemacs-theme)
+
+(package! elmacro :disable t)
+(package! pabbrev :disable t)
+(package! treemacs :disable t)
 (package! evil-snipe :disable t)

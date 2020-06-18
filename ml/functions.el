@@ -96,7 +96,29 @@
   (interactive)
   (eval-buffer)
   (let ((inhibit-message t))
-    (save-some-buffers t)))
+    (save-some-buffers t))
+  (message " buffer evaluated"))
+
+(defun my-eval-buffer-quit ()
+  (interactive)
+  (eval-buffer)
+  (let ((inhibit-message t))
+    (save-some-buffers t)
+    (quit-window)))
+
+(defun my-eval-buffer-quit ()
+  (interactive)
+  (eval-buffer)
+  (let ((inhibit-message t))
+    (save-some-buffers t)
+    (quit-window)))
+
+(defun my-eval-buffer-kill ()
+  (interactive)
+  (eval-buffer)
+  (let ((inhibit-message t))
+    (save-some-buffers t)
+    (kill-current-buffer)))
 
 ;;;; REOPEN KILLED FILED ;;;;
 
@@ -152,7 +174,7 @@
   (find-file "~/.doom.d/.tmp/md.md"))
 
 (fset 'my-dup-par
-      (kmacro-lambda-form [?y ?i ?p ?\} ?o escape ?p] 0 "%d"))
+      (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
 
 (defun my-backward-paragraph-do-indentation ()
   (interactive)
@@ -164,3 +186,7 @@
   (evil-forward-paragraph 1)
   (forward-to-indentation 1))
 
+(defun my-backward-kill-line (arg)
+  "kill arg lines backward."
+  (interactive "p")
+  (kill-line (- 1 arg)))

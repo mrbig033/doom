@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: roam key
-# uuid:
-# key: rkey
-# condition: t
-# --
-#+roam_key: $0

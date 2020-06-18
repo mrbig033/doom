@@ -175,25 +175,15 @@
 
 (use-package! org
   :init
-
+  (remove-hook 'org-mode-hook 'flyspell-mode)
+  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
-
-  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (remove-hook 'org-mode-hook 'flyspell-mode)
-
-  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
-  (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
-
-  :general
-
-  (:keymaps     'org-capture-mode-map
-   :states      '(normal visual insert)
-   "<M-return>" 'org-capture-finalize)
-
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
+  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
   (+org-capture-notes-file "Agenda/notes.org")
@@ -220,7 +210,7 @@
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
-
+  (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
   (org-agenda-show-outline-path nil)
@@ -234,7 +224,6 @@
   (org-agenda-show-future-repeats 'next)
   (org-agenda-skip-timestamp-if-deadline-is-shown t)
   (org-agenda-skip-additional-timestamps-same-entry 't)
-
   (org-clock-persist t)
   (org-clock-in-resume t)
   (org-clock-into-drawer t)
@@ -244,11 +233,9 @@
   (org-clock-sound "~/Sounds/cuckoo.au")
   (org-clock-out-remove-zero-time-clocks t)
   (org-clock-report-include-clocking-task t)
-
   (org-edit-src-content-indentation 1)
   (org-edit-src-persistent-message nil)
   (org-edit-src-auto-save-idle-delay 0)
-
   (org-export-with-toc nil)
   (org-export-with-tags nil)
   (org-export-preserve-breaks t)
@@ -257,11 +244,9 @@
   (org-export-time-stamp-file nil)
   (org-export-with-todo-keywords nil)
   (org-export-with-archived-trees nil)
-
   (org-refile-use-outline-path 'file)
   (org-refile-allow-creating-parent-nodes nil)
   (org-refile-targets '((projectile-project-buffers :maxlevel . 3)))
-
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively nil)
   (org-src-preserve-indentation t)
@@ -276,100 +261,13 @@
      ("n" "Notes" entry
       (file+headline org-agenda-file "Notes")
       "* [%<%y-%m-%d>] %? %i" :prepend t)
-
      ("j" "Journal" entry
       (file+olp+datetree org-agenda-file)
-      "* %? %i" :prepend t)
-
-     ;; ("p" "Projects")
-
-     ;; ("pt" "Project - local todo" entry
-     ;;  (file+headline +org-capture-project-todo-file "Inbox")
-     ;;  "* TODO %? %i" :prepend t)
-
-     ;; ("pn" "Project - local notes" entry
-     ;;  (file+headline +org-capture-project-notes-file "Inbox")
-     ;;  "* %U %? %i" :prepend t)
-
-     ;; ("pc" "Project - local changelog" entry
-     ;;  (file+headline +org-capture-project-changelog-file "Unreleased")
-     ;;  "* %U %? %i" :prepend t)
-
-     ;; ("ot" "Project todo" entry #'+org-capture-central-project-todo-file
-     ;;  "* TODO %? %i" :heading "Tasks" :prepend nil)
-
-     ;; ("on" "Project notes" entry #'+org-capture-central-project-notes-file
-     ;;  "* %U %? %i" :heading "Notes" :prepend t)
-
-     ;; ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file
-     ;;  "* %U %? %i" :heading "Changelog" :prepend t)
-
-     ;; ("o" "Central Projects")
-     ))
+      "* %? %i" :prepend t)))
 
   :config
-  (setq! org-id-link-to-org-use-id t)
 
-  (defun my-org-force-open-other-window ()
-    (interactive)
-    (let ((org-link-frame-setup (quote
-                                 ((vm . vm-visit-folder)
-                                  (vm-imap . vm-visit-imap-folder)
-                                  (gnus . gnus)
-                                  (file . find-file-other-window)
-                                  (wl . wl)))))
-      (org-open-at-point)))
-
-  ;; MAKES SOURCE BUFFER NAMES NICER
-  (defun org-src--construct-edit-buffer-name (org-buffer-name)
-    (concat "[S] "org-buffer-name""))
-
-  (defun my-org-key-translation ()
-    "Custom `org-mode' behaviours."
-    ;; Buffer-local key translation from "`" to "~".
-    (let ((keymap (make-sparse-keymap)))
-      (set-keymap-parent keymap key-translation-map)
-      (setq-local key-translation-map keymap)
-      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
-
-  (defun my-eval-buffer-and-leave-org-source ()
-    (interactive)
-    (eval-buffer)
-    (org-edit-src-exit))
-
-  (defun my-org-started-with-clock ()
-    (interactive)
-    (org-todo "STRT")
-    (org-clock-in))
-
-  (defun my-org-started-with-pomodoro ()
-    (interactive)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-goto-clock-and-start-pomodoro ()
-    (interactive)
-    (org-clock-goto)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-started-no-clock ()
-    (interactive)
-    (org-todo "STRT"))
-
-  (defun my-org-todo-done ()
-    (interactive)
-    (org-todo "DONE"))
-
-  (defun my-org-todo-done-pomodoro ()
-    (interactive)
-    (org-todo "DONE")
-    (org-pomodoro))
-
-  (defun my-org-todo ()
-    (interactive)
-    (org-todo "TODO")
-    (org-clock-out)))
+  (load! "~/.doom.d/ml/extras/org_defun.el"))
 
 (use-package! org-roam
   :after org
@@ -414,6 +312,7 @@
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
   :config
+
   (setq! org-roam-buffer-window-parameters '((no-other-window . t)))
 
   (defun my-org-roam-open-link ()
@@ -464,10 +363,10 @@
 (use-package! avy
 
   :general
-  (:states '(normal visual)
+  (:states '(normal visual operator)
    "g9"      'my-avy-goto-open-paren
    "g0"      'my-avy-goto-close-paren
-   "."       'avy-goto-subword-1
+   ","       'avy-goto-subword-1
    "F"       'evil-avy-goto-char-2-above
    "f"       'evil-avy-goto-char-2-below)
 
@@ -596,7 +495,11 @@
 
   (defun my-deer-goto-my-lisp ()
     (interactive)
-    (deer "~/.doom.d/my-lisp/my-packages.el"))
+    (deer "~/.doom.d/ml/"))
+
+  (defun my-deer-goto-my-kdb ()
+    (interactive)
+    (deer "~/.doom.d/ml/kbd/"))
 
   (defun my-deer-goto-python ()
     (interactive)
@@ -615,15 +518,13 @@
   (counsel-find-file-at-point t)
   (counsel-bookmark-avoid-dired t)
   (ivy-count-format "")
-  ;; (ivy-count-format "%-2d ")
-
-  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.html' --ignore '*.elc' --ignore 'flycheck*' %s")
 
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*"
                         "^agenda.org$"
                         "magit"
                         "*org-src-fontification.\\*"))
+
   :general
 
   (:states '(normal visual insert)
@@ -652,12 +553,24 @@
    "<insert>" 'yank)
 
   :config
+
+  (map! :leader "sg"  'counsel-ag
+        :leader "sp"  'counsel-projectile-ag)
+
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
   (setq swiper-use-visual-line-p #'ignore)
 
   (defun my-search-settings ()
     (interactive)
     (counsel-ag nil "~/.doom.d/ml/"))
+
+  (defun my-search-kbds ()
+    (interactive)
+    (counsel-ag nil "~/.doom.d/ml/kbd/"))
+
+  (defun my-search-doom-help ()
+    (interactive)
+    (counsel-ag nil "~/.emacs.d/" "-G '.org'"))
 
   (defun my-search-packages ()
     (interactive)
@@ -809,6 +722,22 @@
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
 
+(use-package! evil-god-state
+  :after evil
+  :config
+
+  (map! :v "."          'evil-exit-visual-state
+        :v "gr"         'eval-region
+        :n "."          'evil-execute-in-god-state
+        :map god-local-mode-map
+        :nig "<escape>" 'evil-god-state-bail
+        :nig "."        'evil-god-state-bail)
+
+  (defun evil-swap-keys-swap-dash-underscore ()
+    "Swap the underscore and the dash."
+    (interactive)
+    (evil-swap-keys-add-pair "-" "_")))
+
 (use-package! eyebrowse
   :custom
 
@@ -842,27 +771,125 @@
 
 (use-package! doom-modeline
   :custom
-  (doom-modeline-percent-position '(-3 "%p"))
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-state-icon nil)
-  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-buffer-encoding t)
   (doom-modeline-enable-word-count nil)
   (doom-modeline-env-enable-ruby nil)
   (doom-modeline-env-enable-perl nil)
   (doom-modeline-env-enable-rust nil)
   (doom-modeline-env-enable-python nil)
+  (doom-modeline-lsp nil)
   (doom-modeline-env-enable-elixir nil)
   (doom-modeline-env-load-string ".")
+  (doom-modeline-buffer-modification-icon nil)
+  (doom-modeline-irc nil)
   (doom-modeline-major-mode-color-icon t)
   (doom-modeline-checker-simple-format t)
-  (doom-modeline-buffer-modification-icon nil)
-  (doom-modeline-buffer-file-name-style 'buffer-name))
+  (doom-modeline-bar-width 2)
+  (doom-modeline-percent-position '(-3 "%p"))
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  :config
+  (setq-default doom-modeline--vcs-text nil))
+
+(use-package! delight
+  :after-call after-find-file
+  :config
+  (delight '((org-mode "[o]")
+             (markdown-mode "[md]" "markdown")
+             (sh-mode "[sh]" "Shell-script[bash]")
+             (special-mode "[spe]" "special")
+             (message-mode "[msg]" "messages")
+             (fundamental-mode "[fun]" "fundamental")
+             (python-mode "[py]" " python")
+             (emacs-lisp-mode "[el]" "emacs-lisp")
+             (lisp-interaction-mode "[lin]" "lisp interaction"))))
+
+(use-package! flyspell
+  :config
+  (defun spelling-brasileiro ()
+    (interactive)
+
+    (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
+                company-dabbrev-ignore-case 'keep-prefix)
+
+    (ispell-change-dictionary "brasileiro")
+    (flyspell-mode +1)
+    (message " ispell brasileiro"))
+
+  (defun spelling-english ()
+    (interactive)
+    (setq-local company-ispell-dictionary nil
+                ispell-local-dictionary "english")
+    (flyspell-mode)
+    (message " ispell english")))
+
+(use-package! ispell
+  :custom
+  (ispell-quietly t)
+
+  :config
+
+  ;; https://stackoverflow.com/a/19186801
+
+  (defvar limit-ispell-choices-to 5
+    "Number indicating the maximum number of choices to present")
+
+  (setq! limit-ispell-choices-to 20)
+
+  (defadvice ispell-parse-output (after limit-ispell-choices activate)
+    (when (and (listp ad-return-value)
+               ad-return-value)
+      (let* ((miss-list-end (nthcdr (- limit-ispell-choices-to 1)
+                                    (nth 2 ad-return-value)))
+             (guess-list-end (nthcdr (- limit-ispell-choices-to 1)
+                                     (nth 3 ad-return-value))))
+        (when miss-list-end (setcdr miss-list-end nil))
+        (when guess-list-end (setcdr guess-list-end nil)))))
+
+  ;; Save corrections to abbrev
+
+  (defun endless/simple-get-word ()
+    (car-safe (save-excursion (ispell-get-word nil))))
+
+  (defun endless/ispell-word-then-abbrev (p)
+    "call `ispell-word', then create an abbrev for it.
+      with prefix p, create local abbrev. otherwise it will
+      be global.
+      if there's nothing wrong with the word at point, keep
+      looking for a typo until the beginning of buffer. you can
+      skip typos you don't want to fix with `spc', and you can
+      abort completely with `c-g'."
+    (interactive "p")
+    (let (bef aft)
+      (save-excursion
+        (while (if (setq bef (endless/simple-get-word))
+                   ;; word was corrected or used quit.
+                   (if (ispell-word nil 'quiet)
+                       nil ; end the loop.
+                     ;; also end if we reach `bob'.
+                     (not (bobp)))
+                 ;; if there's no word at point, keep looking
+                 ;; until `bob'.
+                 (not (bobp)))
+          (backward-word)
+          (backward-char))
+        (setq aft (endless/simple-get-word)))
+      (if (and aft bef (not (equal aft bef)))
+          (let ((aft (downcase aft))
+                (bef (downcase bef)))
+            (define-abbrev
+              (if p local-abbrev-table global-abbrev-table)
+              bef aft)
+            (message "\"%s\" now expands to \"%s\" %sally"
+                     bef aft (if p "loc" "glob")))
+        (user-error "no typo at or before point")))))
 
 (use-package! company
   :custom
-  (company-ispell-dictionary "brazilian")
+  (company-ispell-available t)
   (company-minimum-prefix-length 1)
   (company-show-numbers t)
   (company-tooltip-limit 10)
@@ -872,36 +899,28 @@
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode))
   :config
-  (setq-default company-call-backends '(company-capf
-                                        company-yasnippet
-                                        company-shell
-                                        company-shell-env
-                                        company-files
-                                        company-semantic
-                                        (company-dabbrev-code
-                                         company-gtags
-                                         company-etags
-                                         company-keywords)
-                                        company-dabbrev))
 
   (map! :map company-active-map
-        "M-e" 'my-company-yasnippet
-        "C-y" 'company-yasnippet
-        "M-q" 'company-complete-selection
-        "M-w" 'my-company-comp-with-paren
-        "M-." 'my-company-comp-with-dot
-        "M-j" 'my-company-comp-space
-        "C-h" 'delete-backward-char
-        "M-0" 'company-complete-number
-        "M-1" 'company-complete-number
-        "M-2" 'company-complete-number
-        "M-3" 'company-complete-number
-        "M-4" 'company-complete-number
-        "M-5" 'company-complete-number
-        "M-6" 'company-complete-number
-        "M-7" 'company-complete-number
-        "M-8" 'company-complete-number
-        "M-9" 'company-complete-number)
+        "M-e"       'my-company-yasnippet
+        "C-y"       'company-yasnippet
+        "<return>"  'company-complete-selection
+        "C-m"  'company-complete-selection
+        "M-q"       'company-complete-selection
+        "M-w"       'my-company-comp-with-paren
+        "M-."       'my-company-comp-with-dot
+        "M-j"       'my-company-comp-space
+        "C-u"       'my-backward-kill-line
+        "C-h"       'delete-backward-char
+        "M-0"       'company-complete-number
+        "M-1"       'company-complete-number
+        "M-2"       'company-complete-number
+        "M-3"       'company-complete-number
+        "M-4"       'company-complete-number
+        "M-5"       'company-complete-number
+        "M-6"       'company-complete-number
+        "M-7"       'company-complete-number
+        "M-8"       'company-complete-number
+        "M-9"       'company-complete-number)
 
   (defun my-company-yasnippet ()
     (interactive)
@@ -926,7 +945,8 @@
     (insert " ")))
 
 (use-package! super-save
-  :after-call (pre-command-hook after-find-file super-save-mode)
+  ;; :after-call (pre-command-hook after-find-file super-save-mode)
+  :after-call after-find-file
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
@@ -996,7 +1016,7 @@
 (use-package! evil
   :custom
   (evil-visualstar/persistent t)
-  (evil-respect-visual-line-mode t)
+  (evil-respect-visual-line-mode nil)
   (+evil-want-o/O-to-continue-comments nil)
   :general
 
@@ -1004,6 +1024,12 @@
    :states '(normal visual insert)
    "M-s"         'evil-switch-to-windows-last-buffer)
   :config
+
+  (defun my-open-two-lines ()
+    (interactive)
+    (end-of-line)
+    (newline-and-indent 2)
+    (evil-insert-state))
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
@@ -1014,8 +1040,11 @@
 (after! evil
   (evil-better-visual-line-on))
 
-(after! yasnippet
-  (setq! +snippets-dir "/Users/davi/.doom.d/ml/snips"))
+;; (use-package! yasnippet
+;;   :after-call after-find-file
+;;   :init
+;;   (setq! +snippets-dir "/Users/davi/.doom.d/etc/snips"
+;;          yas--default-user-snippets-dir "/Users/davi/.doom.d/etc/snips"))
 
 (after! apheleia
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
@@ -1024,27 +1053,27 @@
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
   (remove-hook 'text-mode-hook 'hl-line-mode)
-  (add-hook 'text-mode-hook 'abbrev-mode)
   :config
+  (map! :map (text-mode-map)
+        :n "<escape>" 'my-quiet-save-buffer)
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)
-    (auto-capitalize-mode +1)
-    (hl-line-mode -1)))
+    (abbrev-mode +1)
+    (auto-capitalize-mode +1)))
 
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
 
 (use-package! windmove
-  :general
-  (:keymaps 'override
-   :states '(normal visual insert)
-   "M-k" 'windmove-up
-   "M-j" 'windmove-down
-   "M-h" 'windmove-left
-   "M-l" 'windmove-right)
+  :after-call (windmove-up windmove-down windmove-left windmove-right)
   :custom
-  (windmove-wrap-around t))
+  (windmove-wrap-around t)
+  :config
+  (map! :nvig "M-k"   'windmove-up
+        :nvig "M-j"   'windmove-down
+        :nvig "M-h"   'windmove-left
+        :nvig "M-l"   'windmove-right))
 
 (use-package! hl-sentence
   :config
@@ -1052,9 +1081,27 @@
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
 
+;; osx-dictionary
+
 (use-package! wordnut
   :init
-  (add-hook 'wordnut-mode-hook 'hide-mode-line-mode))
+  (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
+  :config
+  (map! :leader "sw"  'wordnut-lookup-current-word
+        :leader "sW"  'wordnut-search
+        :map (wordnut-mode-map)
+        :nv "q" 'quit-window
+        :nv "Q" 'kill-this-buffer
+        :n "<escape>" 'quit-window))
+
+(use-package! osx-dictionary
+  :init
+  (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
+  :config
+  (map! :map (osx-dictionary-mode-map)
+        :nv "q" 'quit-window
+        :nv "Q" 'kill-this-buffer
+        :n "<escape>" 'quit-window))
 
 (use-package! clipmon
   :init
@@ -1064,21 +1111,115 @@
   :init
   (setq-default olivetti-body-width 85))
 
+(use-package! typo
+  :config
+
+  (define-typo-cycle typo-cycle-right-single-quotation-mark
+    "Cycle through the right quotation mark and the typewriter apostrophe."
+    ( "'" "’"))
+
+  (define-typo-cycle typo-cycle-dashes
+    "Cycle through various dashes."
+    ("—"   ; em dash
+     "‐"   ; hyphen
+     "-"   ; hyphen-minus
+     "−"   ; minus sign
+     "–"   ; en dash
+     "‑"   ; non-breaking hyphen
+     )))
+
+(use-package! google-translate
+  :custom
+  (google-translate-pop-up-buffer-set-focus t)
+  (google-translate-default-source-language "pt")
+  (google-translate-default-target-language "en")
+  (google-translate-translation-directions-alist '(("pt" . "en") ("en" . "pt"))))
+
 (use-package! markdown-mode
+  :init
+
+  (add-hook! 'markdown-mode-hook
+             #'typo-mode
+             #'artbollocks-mode
+             #'abbrev-mode
+             #'my-mardown-hooks)
   :custom
   (markdown-hide-urls 't)
   (markdown-hide-markup nil)
-  (markdown-enable-wiki-links t))
+  (markdown-enable-wiki-links t)
+  :config
+
+  (map! :map (markdown-mode-map evil-markdown-mode-map)
+        :i "C-h" 'markdown-outdent-or-delete
+        :i "<tab>" 'tab-to-tab-stop
+        :nvig "<C-return>"   'my-open-two-lines
+        :nvig "M--"   'winner-undo
+        :nvig "M-="   'winner-redo
+        :nvig "M-n"   'my-forward-paragraph-do-indentation
+        :nvig "M-p"   'my-backward-paragraph-do-indentation
+        :v "<insert>" 'markdown-insert-link)
+
+
+  (defun my-mardown-hooks ()
+    (interactive)
+    (setq-local company-dabbrev-other-buffers nil
+                company-minimum-prefix-length 1
+                company-tooltip-idle-delay 0.5
+                company-idle-delay 0.25))
+
+  (set-company-backend!
+    'text-mode
+    'company-ispell
+    'company-dabbrev
+    '(company-dabbrev  :with company-capf company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev)))
 
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
 
-(after! circe
-  (set-irc-server! "chat.freenode.net"
-                   `(:tls t
-                     :port 6697
-                     :nick "mrblack"
-                     :sasl-username "mrblack"
-                     ;; :sasl-password "mypassword"
-                     :channels ("#emacs"))))
+(use-package! org-pomodoro
+  :after org
+  :config
+  (setq org-pomodoro-offset 1
+        org-pomodoro-start-sound-args t
+        org-pomodoro-length (* 25 org-pomodoro-offset)
+        org-pomodoro-short-break-length (/ org-pomodoro-length 5)
+        org-pomodoro-long-break-length (* org-pomodoro-length 0.8)
+        org-pomodoro-long-break-frequency 4
+        org-pomodoro-ask-upon-killing nil
+        org-pomodoro-manual-break t
+        org-pomodoro-keep-killed-pomodoro-time t
+        org-pomodoro-time-format "%.2m"
+        org-pomodoro-short-break-format "short: %s"
+        org-pomodoro-long-break-format "long: %s"
+        org-pomodoro-format "p: %s"))
+
+(use-package pabbrev
+  :custom
+  (pabbrev-idle-timer-verbose nil))
+
+(use-package! unkillable-scratch
+  :custom
+  (unkillable-scratch-behavior 'bury)
+  (unkillable-buffers '("^\\*scratch\\*$" "^agenda.org$"))
+  :config
+  (unkillable-scratch))
+
+(use-package! prog-mode
+  :config
+  (map! :map (prog-mode-map)
+        :n "<escape>" 'my-quiet-save-buffer))
+
+(use-package! conf-mode
+  :config
+  (map! :map (conf-mode-map)
+        :n "<escape>" 'my-quiet-save-buffer))
+
+(use-package! elisp-mode
+  :init
+  :config
+  (map! :map (emacs-lisp-mode-map)
+        :n "<escape>" 'my-quiet-save-buffer
+        :map (lisp-interaction-mode-map)
+        :n "<escape>" 'ignore))

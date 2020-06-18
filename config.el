@@ -29,7 +29,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-solarized-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -58,23 +58,32 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
-(remove-hook! 'prog-mode-hook 'hl-line-mode)
+
+;; (remove-hook! 'prog-mode-hook 'hl-line-mode)
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
+
+                                        ; (add-to-list 'warning-suppress-types "undo discard-info")
 
 (setq-default recentf-max-saved-items 20)
 
 (setq! my-lisp "~/.doom.d/ml"
+       my-kbd "~/.doom.d/ml/kbd"
        use-package-always-defer t
        recentf-auto-cleanup "11:59pm"
        +word-wrap-extra-indent 'single
        confirm-kill-emacs nil
        auto-revert-verbose nil
        eldoc-idle-delay 2
-       trash-directory "~/.Trash")
-
+       trash-directory "~/.Trash"
+       flyspell-correct-auto-delay 1
+       custom-file "~/.doom.d/.custom-file.el"
+       abbrev-file-name "~/.doom.d/etc/abbrev.el"
+       flycheck-global-modes '(not emacs-lisp-mode)
+       langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.9.1/libexec/languagetool-commandline.jar")
 
 (global-flycheck-mode -1)
 (global-subword-mode +1)
+(mouse-avoidance-mode 'jump)
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
@@ -86,4 +95,7 @@
 (load! "my-hydras.el" my-lisp)
 (load! "cool-moves.el" my-lisp)
 (load! "auto-capitalize.el" my-lisp)
-(load! "keybindings.el" my-lisp)
+(load! "/Users/davi/.doom.d/ml/kbd/evil_kbds.el")
+(load! "/Users/davi/.doom.d/ml/kbd/global_kbd.el")
+(load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")
+(load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")

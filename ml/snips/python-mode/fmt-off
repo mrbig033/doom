@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: fmt off - fix
-# uuid:
-# key: fmt
-# condition: t
-# --
-# fmt: off
-$0
-# fmt: on
