@@ -1071,6 +1071,7 @@
   (evil-visualstar/persistent t)
   (evil-respect-visual-line-mode nil)
   (+evil-want-o/O-to-continue-comments nil)
+
   :config
 
   (defun my-open-two-lines ()
@@ -1103,28 +1104,23 @@
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
   (remove-hook 'text-mode-hook 'hl-line-mode)
+
   :general
-  (:keymaps '(text-mode-map)
-   :states  '(normal)
+  (:keymaps   '(text-mode-map prog-mode-map global-map)
+   "M-s"      'my-last-buffer
+   "M-]"      'evil-window-prev
+   "M-["      'evil-window-next
+   "s-2"      'evil-execute-macro
+   "C-9"      'evilnc-comment-or-uncomment-lines
+   :states    '(normal)
    "<escape>" 'my-quiet-save-buffer
-   "C-k" 'evil-change-line
-   "ge"  'evil-end-of-visual-line
-   "0"   'evil-beginning-of-visual-line
-   "g3"  'evil-backward-word-end
-   "g#"  'evil-forward-word-end)
-
-  ;; :general
-  ;; (:keymaps '(prog-mode-map text-mode-map)
-  ;;  :states  '(insert)
-  ;;  "C-h" 'evil-delete-backward-char-and-join
-  ;;  :states  '(normal visual insert)
-  ;;  "M-s"    'my-last-buffer
-  ;;  "M-]"   'evil-window-prev
-  ;;  "M-["   'evil-window-next
-  ;;  "s-2"   'evil-execute-macro
-  ;;  "C-8"   'evilnc-comment-or-uncomment-lines
-  ;;  "C-9"   'evilnc-comment-or-uncomment-lines)
-
+   "C-k"      'evil-change-line
+   "ge"       'evil-end-of-visual-line
+   "0"        'evil-beginning-of-visual-line
+   "g3"       'evil-backward-word-end
+   "g#"       'evil-forward-word-end
+   :states    '(insert)
+   "C-h"      'evil-delete-backward-char-and-join)
 
   :config
   (defun my-text-mode-hooks ()
