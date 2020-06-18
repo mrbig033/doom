@@ -193,10 +193,6 @@
     :keymaps 'evil-org-mode-map
     "gr")
 
-  (general-unbind
-    :keymaps 'treemacs-mode-map
-    :with 'avy-goto-char-2-above
-    [remap evil-find-char-backward])
   ;; evil-org-mode-map <normal-state> g r
   ;; org-ctrl-c-ctrl-c
   ;; :general
