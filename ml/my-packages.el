@@ -133,7 +133,6 @@
     "SPC eq" "Eval & Quit"
     "SPC ek" "Eval & Kill"
 
-
     "SPC sW"  "Wordnut Search"
     "SPC sw"  "Wornut Word"
     "SPC te"  "HL Sentence"
@@ -536,7 +535,6 @@
      (my-recenter-window)
      (message nil))
 
-
   (defun my-deer-goto-python ()
     (interactive)
     (deer "~/Documents/Python/"))
@@ -668,7 +666,7 @@
    "C-c ç"  'my-python-shebang
    "C-ç"    'elpy-shell-switch-to-shell
    "M-a"    'python-nav-backward-statement
-   "M-e"    'python-nav-forward-statement
+   "M-e"    'python-nav-forward-statement)
   (:keymaps '(inferior-python-mode-map)
    "C-ç" 'my-elpy-switch-to-buffer
    :states '(insert)
@@ -710,7 +708,6 @@
     '(company-files :with company-yasnippet)
     '(company-dabbrev-code :with company-keywords company-dabbrev))
 
-
   (defun my-quickrun ()
     (interactive)
     (quickrun)
@@ -731,25 +728,25 @@
     (insert ":")
     (newline-and-indent)))
 
-  (use-package! elpy
-    :custom
-    (elpy-rpc-virtualenv-path 'current)
-    :general
-    (:keymaps '(elpy-mode-map)
-     "C-x m" 'elpy-multiedit-python-symbol-at-point
-     "C-x M" 'elpy-multiedit-stop)
+(use-package! elpy
+  :custom
+  (elpy-rpc-virtualenv-path 'current)
+  :general
+  (:keymaps '(elpy-mode-map)
+   "C-x m" 'elpy-multiedit-python-symbol-at-point
+   "C-x M" 'elpy-multiedit-stop)
 
-    :config
+  :config
 
-    (advice-add 'elpy-goto-definition :after #'my-recenter-window)
-    (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
+  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
+  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
 
-    (defun my-elpy-switch-to-buffer ()
-      (interactive)
-      (elpy-shell-switch-to-buffer)
-      (quit-windows-on "*Python*"))
+  (defun my-elpy-switch-to-buffer ()
+    (interactive)
+    (elpy-shell-switch-to-buffer)
+    (quit-windows-on "*Python*"))
 
-    (elpy-enable))
+  (elpy-enable))
 
 (use-package! evil-swap-keys
   :after evil
@@ -762,7 +759,7 @@
 (use-package! evil-god-state
   :after evil
   :general
-  ("."          'evil-execute-in-god-state
+  ("."          'evil-execute-in-god-state)
   (:keymaps '(god-local-mode-map)
    :states  '(normal insert global)
    "."        'evil-god-state-bail
@@ -1072,8 +1069,6 @@
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
-
-
 (use-package! projectile
   :general
   (:keymaps '(doom-leader-map)
@@ -1109,11 +1104,11 @@
   (require 'recursive-narrow))
 
 (use-package! windmove
-  :after-call (windmove-up windmove-down windmove-left windmove-right)
+  ;; :after-call (windmove-up windmove-down windmove-left windmove-right)
   :custom
   (windmove-wrap-around t)
   :general
-  (:keymaps 'override
+  (:states '(normal visual insert)
    "M-k"   'windmove-up
    "M-j"   'windmove-down
    "M-h"   'windmove-left
@@ -1203,7 +1198,6 @@
         :nvig "M-p"   'my-backward-paragraph-do-indentation
         :v "<insert>" 'markdown-insert-link)
 
-
   (defun my-mardown-hooks ()
     (interactive)
     (setq-local company-dabbrev-other-buffers nil
@@ -1271,7 +1265,6 @@
   (:keymaps   '(lisp-interaction-mode-map)
    :states    '(normal)
    "<escape>" 'ignore))
-
 
 (use-package! git-auto-commit-mode
   :custom
