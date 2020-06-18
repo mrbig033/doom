@@ -1257,3 +1257,12 @@
         :n "<escape>" 'my-quiet-save-buffer
         :map (lisp-interaction-mode-map)
         :n "<escape>" 'ignore))
+
+
+(use-package!
+  :init
+  :config
+  (map! :map (emacs-lisp-mode-map)
+        :n "<escape>" 'my-quiet-save-buffer
+        :map (lisp-interaction-mode-map)
+        :n "<escape>" 'ignore))
