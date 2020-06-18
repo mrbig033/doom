@@ -1267,4 +1267,4 @@
   :config
   (defun gac-process-sentinel (proc status)
     "Report PROC change to STATUS."
-    (message " auto commit"))
+    (message " auto commit")))
