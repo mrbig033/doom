@@ -190,7 +190,7 @@
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 (general-unbind 'normal
 :keymaps 'evil-org-mode-map
-  "C-v"
+  "gr"
   "C-k"
   "C-y"
   "C-e")
