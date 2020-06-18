@@ -1260,6 +1260,5 @@
 
 
 (use-package! git-auto-commit-mode
-  :init
   :custom
   (gac-debounce-interval 120))
