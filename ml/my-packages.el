@@ -1262,6 +1262,10 @@
 (use-package! git-auto-commit-mode
   :init
   :config
-gac-automatically-add-new-files-p
-
+  gac-automatically-add-new-files-p
+  gac-debounce-interval 120
+  gac-ask-for-summary-p
+  gac-add-additional-flag
+  gac-automatically-push-p
+  gac-automatically-add-new-files-p
   )
