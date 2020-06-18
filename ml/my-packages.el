@@ -731,24 +731,25 @@
     (insert ":")
     (newline-and-indent)))
 
-(use-package! elpy
-  :custom
-  (elpy-rpc-virtualenv-path 'current)
-  :config
+  (use-package! elpy
+    :custom
+    (elpy-rpc-virtualenv-path 'current)
+    :general
+    (:keymaps '(elpy-mode-map)
+     "C-x m" 'elpy-multiedit-python-symbol-at-point
+     "C-x M" 'elpy-multiedit-stop)
 
-  (map! :map elpy-mode-map
-        "C-x m" 'elpy-multiedit-python-symbol-at-point
-        "C-x M" 'elpy-multiedit-stop)
+    :config
 
-  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
-  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
+    (advice-add 'elpy-goto-definition :after #'my-recenter-window)
+    (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
 
-  (defun my-elpy-switch-to-buffer ()
-    (interactive)
-    (elpy-shell-switch-to-buffer)
-    (quit-windows-on "*Python*"))
+    (defun my-elpy-switch-to-buffer ()
+      (interactive)
+      (elpy-shell-switch-to-buffer)
+      (quit-windows-on "*Python*"))
 
-  (elpy-enable))
+    (elpy-enable))
 
 (use-package! evil-swap-keys
   :after evil
@@ -760,14 +761,14 @@
 
 (use-package! evil-god-state
   :after evil
-  :config
+  :general
+  ("."          'evil-execute-in-god-state
+  (:keymaps '(god-local-mode-map)
+   :states  '(normal insert global)
+   "."        'evil-god-state-bail
+   "<escape>" 'evil-god-state-bail)
 
-  (map! :v "."          'evil-exit-visual-state
-        :v "gr"         'eval-region
-        :n "."          'evil-execute-in-god-state
-        :map god-local-mode-map
-        :nig "<escape>" 'evil-god-state-bail
-        :nig "."        'evil-god-state-bail)
+  :config
 
   (defun evil-swap-keys-swap-dash-underscore ()
     "Swap the underscore and the dash."
@@ -933,30 +934,32 @@
   (company-selection-wrap-around t)
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
-  (company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode))
-  :config
+  (company-global-modes        '(not erc-mode message-mode help-mode gud-mode eshell-mode))
+  
+  :general
+  (:keymaps                    '(company-active-map)
+   "M-e"                       'my-company-yasnippet
+   "C-y"                       'company-yasnippet
+   "<return>"                  'company-complete-selection
+   "C-m"                       'company-complete-selection
+   "M-q"                       'company-complete-selection
+   "M-w"                       'my-company-comp-with-paren
+   "M-."                       'my-company-comp-with-dot
+   "M-j"                       'my-company-comp-space
+   "C-u"                       'my-backward-kill-line
+   "C-h"                       'delete-backward-char
+   "M-0"                       'company-complete-number
+   "M-1"                       'company-complete-number
+   "M-2"                       'company-complete-number
+   "M-3"                       'company-complete-number
+   "M-4"                       'company-complete-number
+   "M-5"                       'company-complete-number
+   "M-6"                       'company-complete-number
+   "M-7"                       'company-complete-number
+   "M-8"                       'company-complete-number
+   "M-9"                       'company-complete-number)
 
-  (map! :map company-active-map
-        "M-e"       'my-company-yasnippet
-        "C-y"       'company-yasnippet
-        "<return>"  'company-complete-selection
-        "C-m"  'company-complete-selection
-        "M-q"       'company-complete-selection
-        "M-w"       'my-company-comp-with-paren
-        "M-."       'my-company-comp-with-dot
-        "M-j"       'my-company-comp-space
-        "C-u"       'my-backward-kill-line
-        "C-h"       'delete-backward-char
-        "M-0"       'company-complete-number
-        "M-1"       'company-complete-number
-        "M-2"       'company-complete-number
-        "M-3"       'company-complete-number
-        "M-4"       'company-complete-number
-        "M-5"       'company-complete-number
-        "M-6"       'company-complete-number
-        "M-7"       'company-complete-number
-        "M-8"       'company-complete-number
-        "M-9"       'company-complete-number)
+  :config
 
   (defun my-company-yasnippet ()
     (interactive)
@@ -1109,11 +1112,12 @@
   :after-call (windmove-up windmove-down windmove-left windmove-right)
   :custom
   (windmove-wrap-around t)
-  :config
-  (map! :nvig "M-k"   'windmove-up
-        :nvig "M-j"   'windmove-down
-        :nvig "M-h"   'windmove-left
-        :nvig "M-l"   'windmove-right))
+  :general
+  (:keymaps 'override
+   "M-k"   'windmove-up
+   "M-j"   'windmove-down
+   "M-h"   'windmove-left
+   "M-l"   'windmove-right))
 
 (use-package! hl-sentence
   :config
@@ -1271,4 +1275,4 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 60 10)))
+  (gac-debounce-interval (* 60 15)))
