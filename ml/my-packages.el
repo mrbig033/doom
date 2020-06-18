@@ -1211,9 +1211,7 @@
   (:keymaps '(osx-dictionary-mode-map)
    :states  '(normal)
    "<escape>" 'quit-window
-   :states  '(normal visual)
-   "q" 'quit-window
-   "Q" 'kill-this-buffer))
+   "q" 'quit-window))
 
 (use-package! clipmon
   :init
