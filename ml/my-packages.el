@@ -188,6 +188,11 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+(general-unbind 'insert
+  "C-v"
+  "C-k"
+  "C-y"
+  "C-e")
 
   (general-unbind
     :keymaps 'treemacs-mode-map
