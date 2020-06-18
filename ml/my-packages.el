@@ -361,6 +361,15 @@
     (interactive)
     (org-roam-find-file "fallacy ")))
 
+(use-package! org-web-tools
+  :general
+  (:keymaps '(doom-leader-map)
+   "mwi"    'org-web-tools-insert-link-for-url
+   "mwe"    'org-web-tools-archive-view
+   "mwv"    'org-web-tools-archive-attach
+   "mwr"    'org-web-tools-read-url-as-org
+   "mwc"    'org-web-tools-convert-links-to-page-entries))
+
 (use-package! deft
   :after org
 
@@ -467,8 +476,8 @@
   (:keymaps 'doom-leader-map
    "r"      'deer
    "R"      'ranger
-   "SPC K"  'my-deer-goto-my-kdb
-   "SPC L"  'my-deer-goto-my-lisp
+   "SPC k"  'my-deer-goto-my-kdb
+   "SPC l"  'my-deer-goto-my-lisp
    )
 
   :config
@@ -942,7 +951,6 @@
   (company-dabbrev-ignore-case 'keep-prefix)
   (company-global-modes        '(not erc-mode message-mode help-mode gud-mode eshell-mode))
 
-
   :general
   (:keymaps                    '(company-active-map)
    "M-e"                       'my-company-yasnippet
@@ -1101,9 +1109,11 @@
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
   (remove-hook 'text-mode-hook 'hl-line-mode)
+  :general
+  (:keymaps '(text-mode-map)
+   :states  '(normal)
+   "<escape>" 'my-quiet-save-buffer)
   :config
-  (map! :map (text-mode-map)
-        :n "<escape>" 'my-quiet-save-buffer)
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)
     (abbrev-mode +1)
@@ -1140,15 +1150,16 @@
    :states '(normal)
    "<escape>" 'quit-window))
 
-
 (use-package! osx-dictionary
   :init
   (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
-  :config
-  (map! :map (osx-dictionary-mode-map)
-        :nv "q" 'quit-window
-        :nv "Q" 'kill-this-buffer
-        :n "<escape>" 'quit-window))
+  :general
+  (:keymaps '(ox-dictionary-mode-map)
+   :states  '(normal)
+   "<escape>" 'quit-window
+   :states  '(normal visual)
+   "q" 'quit-window
+   "Q" 'kill-this-buffer))
 
 (use-package! clipmon
   :init
@@ -1194,17 +1205,21 @@
   (markdown-hide-urls 't)
   (markdown-hide-markup nil)
   (markdown-enable-wiki-links t)
-  :config
+  :general
+  (:keymaps     '(markdown-mode-map evil-markdown-mode-map)
+   :states      '(insert)
+   "<tab>"      'tab-to-tab-stop
+   "C-h"        'markdown-outdent-or-delete
+   :states      '(visual)
+   "<insert>" 'markdown-insert-link
+   :states      '(normal visual insert global)
+   "M--"        'winner-undo
+   "M-="        'winner-redo
+   "<C-return>" 'my-open-two-lines
+   "M-n"        'my-forward-paragraph-do-indentation
+   "M-p"        'my-backward-paragraph-do-indentation)
 
-  (map! :map (markdown-mode-map evil-markdown-mode-map)
-        :i "C-h" 'markdown-outdent-or-delete
-        :i "<tab>" 'tab-to-tab-stop
-        :nvig "<C-return>"   'my-open-two-lines
-        :nvig "M--"   'winner-undo
-        :nvig "M-="   'winner-redo
-        :nvig "M-n"   'my-forward-paragraph-do-indentation
-        :nvig "M-p"   'my-backward-paragraph-do-indentation
-        :v "<insert>" 'markdown-insert-link)
+  :config
 
   (defun my-mardown-hooks ()
     (interactive)
@@ -1255,15 +1270,18 @@
 
 (use-package! prog-mode
   :init
-  (add-hook 'prog-mode-hook 'abbrev-mode)
-  :config
-  (map! :map (prog-mode-map)
-        :n "<escape>" 'my-quiet-save-buffer))
+  (add-hook   'prog-mode-hook 'abbrev-mode)
+  :general
+  (:keymaps   '(prog-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer))
 
 (use-package! conf-mode
   :config
-  (map! :map (conf-mode-map)
-        :n "<escape>" 'my-quiet-save-buffer))
+  :general
+  (:keymaps   '(conf-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer))
 
 (use-package! elisp-mode
   :general
