@@ -194,7 +194,7 @@
    :states    'normal
    "gr"       'my-evil-sel-to-end)
   (:keymaps   '(doom-leader-map)
-   "aa"    'org-agenda)
+   "a"        'org-agenda)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
