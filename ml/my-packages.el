@@ -188,6 +188,11 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-above
+    [remap evil-find-char-backward])
 ;; evil-org-mode-map <normal-state> g r
 ;; org-ctrl-c-ctrl-c
   ;; :general
