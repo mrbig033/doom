@@ -65,10 +65,6 @@
       "M-p"   'my-backward-paragraph-do-indentation
       "M-]"   'evil-window-prev
       "M-["   'evil-window-next
-      "M-k"   'windmove-up
-      "M-j"   'windmove-down
-      "M-h"   'windmove-left
-      "M-l"   'windmove-right
       "C-c h" 'previous-buffer
       "C-c y" 'kill-ring-save
       "C-c l" 'next-buffer
