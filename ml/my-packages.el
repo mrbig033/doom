@@ -445,7 +445,6 @@
                                 "docx"))
 
   :general
-
   (:keymaps     'ranger-mode-map
    "çm"         'dired-create-directory
    "r"          'ranger-refresh
@@ -467,14 +466,10 @@
 
   (:keymaps     'doom-leader-map
    "r"   'deer
+   "R"  'ranger
    "SPC k"  'my-deer-goto-my-kdb
    "SPC l"   'my-deer-goto-my-lisp)
 
-  (:keymaps     'doom-leader-map
-   "r"   'deer
-   "SPC r"  'ranger
-   "SPC k"  'my-deer-goto-my-kdb
-   "SPC l"   'my-deer-goto-my-lisp)
   :config
 
   (defun my-ranger-go (path)
@@ -1265,12 +1260,14 @@
         :n "<escape>" 'my-quiet-save-buffer))
 
 (use-package! elisp-mode
-  :init
-  :config
-  (map! :map (emacs-lisp-mode-map)
-        :n "<escape>" 'my-quiet-save-buffer
-        :map (lisp-interaction-mode-map)
-        :n "<escape>" 'ignore))
+  :general
+  (:keymaps   '(emacs-lisp-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer)
+  (:keymaps   '(lisp-interaction-mode-map)
+   :states    '(normal)
+   "<escape>" 'ignore))
+
 
 (use-package! git-auto-commit-mode
   :custom
