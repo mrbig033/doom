@@ -41,88 +41,91 @@
       )
 
 ;; VISUAL AND MIXED STATES ;;
-(map! :v "C-c a"  'align-regexp
-      :nv "M-o"   'better-jumper-jump-backward
-      :nv "M-i"   'better-jumper-jump-forward
-      :nv "C-h M" 'my-show-major-mode
-      :nv ";"     'link-hint-open-link
-      :nvg "C-S-j" 'cool-moves-line-forward
-      :nvg "C-S-k" 'cool-moves-line-backward)
+(map! :v "C-c a"      'align-regexp
+      :nv "M-o"       'better-jumper-jump-backward
+      :nv "M-i"       'better-jumper-jump-forward
+      :nv "C-h M"     'my-show-major-mode
+      :nv ";"         'link-hint-open-link
+      :nvg "C-S-j"    'cool-moves-line-forward
+      :nvg "C-S-k"    'cool-moves-line-backward
+      :nvg "C-S-n"    'cool-moves-word-forward
+      :nvg "C-S-p"    'cool-moves-word-backwards
+      )
 ;; GLOBALS
-(map! "M--"   'winner-undo
-      "M-'"   'winner-undo
-      "M-="   'winner-redo
-      "M-+"   'winner-redo
-      "M-/"   'hippie-expand
-      "C-x p" 'check-parens
-      "C-;"   'helpful-at-point
-      "M-RET" 'my-indent-buffer
-      "C-9"   'evilnc-comment-or-uncomment-lines
-      "C-c v" 'vlf
-      "M-9"   'delete-other-windows
-      "M-0"   'quit-window
-      "M-n"   'my-forward-paragraph-do-indentation
-      "M-p"   'my-backward-paragraph-do-indentation
-      "M-]"   'evil-window-prev
-      "M-["   'evil-window-next
-      "C-c h" 'previous-buffer
-      "C-c y" 'kill-ring-save
-      "C-c l" 'next-buffer
-      "C-c m" 'define-mode-abbrev
-      "C-c M" 'define-global-abbrev
-      "C-'"   'org-cycle-agenda-files
-      "C-c u" 'redraw-display
-      "C-c a" 'my-goto-agenda
-      "C-l"   'recenter-top-bottom
-      "C-c d" 'ispell-change-dictionary
-      "C-c o" 'my-org-force-open-other-window
-      "C-h e" 'describe-package
-      "C-h N" 'my-show-server-name
-      "C-c t" 'git-timemachine
-      "C-c -" 'insert-char
-      "C-c i" 'emacs-init-time)
+(map! "M--"           'winner-undo
+      "M-             '"   'winner-undo
+      "M-="           'winner-redo
+      "M-+"           'winner-redo
+      "M-/"           'hippie-expand
+      "C-x p"         'check-parens
+      "C-;"           'helpful-at-point
+      "M-RET"         'my-indent-buffer
+      "C-9"           'evilnc-comment-or-uncomment-lines
+      "C-c v"         'vlf
+      "M-9"           'delete-other-windows
+      "M-0"           'quit-window
+      "M-n"           'my-forward-paragraph-do-indentation
+      "M-p"           'my-backward-paragraph-do-indentation
+      "M-]"           'evil-window-prev
+      "M-["           'evil-window-next
+      "C-c h"         'previous-buffer
+      "C-c y"         'kill-ring-save
+      "C-c l"         'next-buffer
+      "C-c m"         'define-mode-abbrev
+      "C-c M"         'define-global-abbrev
+      "C-             '"   'org-cycle-agenda-files
+      "C-c u"         'redraw-display
+      "C-c a"         'my-goto-agenda
+      "C-l"           'recenter-top-bottom
+      "C-c d"         'ispell-change-dictionary
+      "C-c o"         'my-org-force-open-other-window
+      "C-h e"         'describe-package
+      "C-h N"         'my-show-server-name
+      "C-c t"         'git-timemachine
+      "C-c -"         'insert-char
+      "C-c i"         'emacs-init-time)
 ;; LEADER KEY
-(map! :leader "sw"  'wordnut-lookup-current-word
-      :leader "sW"  'wordnut-search
-      :leader "sg"  'counsel-ag
-      :leader "l"   'link-hint-open-link
-      :leader "br"  '+popup/raise
-      :leader "mgx" 'org-capture-goto-last-stored
-      :leader "z"   'org-capture
-      :leader "ww"  'doom/window-maximize-vertically
-      :leader "k"   'kill-current-buffer
-      :leader "x"   'eyebrowse-close-window-config
-      :leader "0"   'delete-window
-      :leader "nn"  'recursive-narrow-or-widen-dwim
-      :leader "nw"  'my-widen-to-center
-      :leader "to"  'olivetti-mode
-      :leader "cw"  'count-words
-      :leader "hdS" 'my-search-doom-help
+(map! :leader "sw"    'wordnut-lookup-current-word
+      :leader "sW"    'wordnut-search
+      :leader "sg"    'counsel-ag
+      :leader "l"     'link-hint-open-link
+      :leader "br"    '+popup/raise
+      :leader "mgx"   'org-capture-goto-last-stored
+      :leader "z"     'org-capture
+      :leader "ww"    'doom/window-maximize-vertically
+      :leader "k"     'kill-current-buffer
+      :leader "x"     'eyebrowse-close-window-config
+      :leader "0"     'delete-window
+      :leader "nn"    'recursive-narrow-or-widen-dwim
+      :leader "nw"    'my-widen-to-center
+      :leader "to"    'olivetti-mode
+      :leader "cw"    'count-words
+      :leader "hdS"   'my-search-doom-help
       :leader "SPC" nil
-      :leader "k"   'kill-current-buffer
+      :leader "k"     'kill-current-buffer
       :leader "SPC p" 'my-goto-my-packages
       :leader "SPC x" 'org-capture
       ;; TEXT ;;
-      :leader "tT"  'my-reload-file
-      :leader "tB"  'spelling-brasileiro
-      :leader "tE"  'spelling-english
-      :leader "td"  'my-dup-line
-      :leader "te"  'hl-sentence-mode
-      :leader "th"  'hl-line-mode
-      :leader "tD"  'ispell-change-dictionary
-      :leader "tc"  'xah-clean-empty-lines
-      :leader "ti"  'my-dup-par
-      :leader "tv"  'visible-mode
-      :leader "tS"  'my-sort-lines-by-length
-      :leader "ta"  'artbollocks-mode
-      :leader "tg"  'writegood-mode
-      :leader "tb"  'flyspell-buffer
-      :leader "tl"  'langtool-check-buffer
-      :leader "tL"  'langtool-check-done
-      :leader "tt"  'google-translate-smooth-translate
-      :leader "tC"  'company-mode
-      :leader "oo"  'hydra-org-mode/body
-      :leader "mm"  'lisp-interaction-mode
+      :leader "tT"    'my-reload-file
+      :leader "tB"    'spelling-brasileiro
+      :leader "tE"    'spelling-english
+      :leader "td"    'my-dup-line
+      :leader "te"    'hl-sentence-mode
+      :leader "th"    'hl-line-mode
+      :leader "tD"    'ispell-change-dictionary
+      :leader "tc"    'xah-clean-empty-lines
+      :leader "ti"    'my-dup-par
+      :leader "tv"    'visible-mode
+      :leader "tS"    'my-sort-lines-by-length
+      :leader "ta"    'artbollocks-mode
+      :leader "tg"    'writegood-mode
+      :leader "tb"    'flyspell-buffer
+      :leader "tl"    'langtool-check-buffer
+      :leader "tL"    'langtool-check-done
+      :leader "tt"    'google-translate-smooth-translate
+      :leader "tC"    'company-mode
+      :leader "oo"    'hydra-org-mode/body
+      :leader "mm"    'lisp-interaction-mode
 
       ;; COPY DIRECTORY PATH ;;
       :leader "fY" 'my-copy-directory
