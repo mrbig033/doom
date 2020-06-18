@@ -1067,8 +1067,6 @@
     (counsel-M-x "^pdf-view- ")))
 
 (use-package! evil
-  :init
-  (remove-hook 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
   :custom
   (evil-visualstar/persistent t)
   (evil-respect-visual-line-mode nil)
@@ -1081,15 +1079,6 @@
             "gr"  'my-evil-sel-to-end
             "<escape>" 'my-quiet-save-buffer)
 
-  (:keymaps '(evil-visual-state-map evil-normal-state-map)
-            "M-s"      'my-last-buffer
-            "M-]"      'evil-window-prev
-            "M-["      'evil-window-next
-            "s-2"      'evil-execute-macro
-            "C-9"      'evilnc-comment-or-uncomment-lines
-            "ge"       'evil-end-of-visual-line
-            "0"        'evil-beginning-of-visual-line)
-
   (:keymaps '(evil-insert-state-map)
             "C-h"      'evil-delete-backward-char-and-join
             "C-k"      'kill-line
@@ -1097,6 +1086,24 @@
             "C-n"      'next-line
             "M-d"      'kill-word
             "C-d"      'delete-char)
+
+  (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
+            "M-s"      'my-last-buffer
+            "M-]"      'evil-window-prev
+            "M-["      'evil-window-next
+            "s-2"      'evil-execute-macro
+            "ge"       'evil-end-of-visual-line
+            "0"        'evil-beginning-of-visual-line
+            "C-9"      'evilnc-comment-or-uncomment-lines)
+
+  (:keymaps '(evil-visual-state-map evil-normal-state-map)
+            "M-s"      'my-last-buffer
+            "M-]"      'evil-window-prev
+            "M-["      'evil-window-next
+            "s-2"      'evil-execute-macro
+            "C-9"      'evilnc-comment-or-uncomment-lines
+            "0"        'evil-beginning-of-visual-line
+            "ge"       'evil-end-of-visual-line)
 
   :config
 

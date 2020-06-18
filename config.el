@@ -18,7 +18,7 @@
        user-mail-address "mrbig033@protonmail.com"
        flycheck-global-modes '(not emacs-lisp-mode)
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
-       doom-theme 'doom-solarized-light
+       doom-theme 'doom-gruvbox
        doom-font (font-spec :family "Input Mono" :size 20)
        doom-big-font (font-spec :family "Input Mono" :size 20)
        doom-unicode-font (font-spec :family "Input Mono" :size 20)
@@ -32,7 +32,7 @@
 
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))
-
+;; initial-buffer-choice
 (global-flycheck-mode -1)
 (global-subword-mode +1)
 (mouse-avoidance-mode 'jump)
