@@ -95,7 +95,6 @@
       :leader "mgx"   'org-capture-goto-last-stored
       :leader "z"     'org-capture
       :leader "ww"    'doom/window-maximize-vertically
-      :leader "k"     'kill-current-buffer
       :leader "x"     'eyebrowse-close-window-config
       :leader "0"     'delete-window
       :leader "nn"    'recursive-narrow-or-widen-dwim
