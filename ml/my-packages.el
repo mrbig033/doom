@@ -1,8 +1,9 @@
 ;;; ~/.doom.d/use-package.el -*- lexical-binding: t; -*-
 
 (use-package! hydra
-  :config
-  (map! :leader "j" 'hydra-org-clock/body))
+  :general
+  (:keymaps '(doom-leader-map)
+   "j"     'hydra-org-clock/body))
 
 (use-package! treemacs
   :commands treemacs-select-window
@@ -561,17 +562,18 @@
                         "*org-src-fontification.\\*"))
 
   :general
-
   (:states '(normal visual insert)
    "C-s" 'counsel-grep-or-swiper
    "M-y" 'counsel-yank-pop
    "C-," 'ivy-switch-buffer
    "C-." 'counsel-M-x)
-
+  (:keymaps 'doom-leader-map
+   "sg"  'counsel-ag
+   "sç"  'counsel-ag
+   "sp"  'counsel-projectile-ag)
   (:keymaps 'counsel-describe-map
    "C-." 'ivy-next-line
    "C-," 'counsel-find-symbol)
-
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
    "M-y"      'ivy-next-line
    "M-r"      'ivy-next-line
@@ -588,9 +590,6 @@
    "<insert>" 'yank)
 
   :config
-
-  (map! :leader "sg"  'counsel-ag
-        :leader "sp"  'counsel-projectile-ag)
 
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
   (setq swiper-use-visual-line-p #'ignore)
@@ -640,9 +639,10 @@
 
 (use-package! evil-smartparens
   :after evil
-  :config
-  (map! :map evil-smartparens-mode-map
-        :v "o" 'exchange-point-and-mark))
+  :general
+  (:keymaps '(evil-smartparens-mode-map)
+   :states  '(visual)
+   "o"     'exchange-point-and-mark))
 
 (use-package! python
   :init
@@ -661,7 +661,35 @@
   (add-hook! 'python-mode-hook
              #'elpy-mode
              #'apheleia-mode)
-
+  :general
+  (:keymaps '(python-mode-map)
+   "M-p"    'my-backward-paragraph-do-indentation
+   "M-n"    'my-forward-paragraph-do-indentation
+   "C-c ç"  'my-python-shebang
+   "C-ç"    'elpy-shell-switch-to-shell
+   "M-a"    'python-nav-backward-statement
+   "M-e"    'python-nav-forward-statement
+   :states '(insert)
+   "C-c Ç" 'my-last-buffer)
+  (:keymaps '(inferior-python-mode-map)
+   "C-ç" 'my-elpy-switch-to-buffer
+   :states '(insert)
+   "C-l" 'comint-clear-buffer)
+  (:states '(normal)
+   "ç" 'hydra-python-mode/body)
+  (:states '(insert)
+   "C-=" 'my-python-colon-newline
+   "C-h"'python-indent-dedent-line-backspace)
+  (:states '(normal visual)
+   "zi" 'yafolding-show-all
+   "zm" 'yafolding-toggle-all
+   "TAB" 'yafolding-toggle-element
+   "<backtab>" 'yafolding-toggle-all
+   "<return>" 'hydra-python-mode/body
+   "<" 'python-indent-shift-left
+   ">" 'python-indent-shift-right)
+  (:states '(normal visual insert)
+   "<C-return>" 'my-quickrun)
   :custom
   (python-indent-guess-indent-offset-verbose nil)
   :config
@@ -684,32 +712,6 @@
     '(company-files :with company-yasnippet)
     '(company-dabbrev-code :with company-keywords company-dabbrev))
 
-  (map! :map python-mode-map
-        ;; "C-c y" 'engine/search-python-3
-        ;; "C-c g" 'engine/search-pygame-docs
-        ;; "C-c d" 'engine/search-python-3-docs
-        ;; "<M-backspace>"   'apheleia-format-buffer
-        "M-p" 'my-backward-paragraph-do-indentation
-        "M-n" 'my-forward-paragraph-do-indentation
-        "C-c ç" 'my-python-shebang
-        "C-ç" 'elpy-shell-switch-to-shell
-        "M-a"   'python-nav-backward-statement
-        "M-e"   'python-nav-forward-statement
-        :i "C-=" 'my-python-colon-newline
-        :i "C-h"'python-indent-dedent-line-backspace
-        :n "ç" 'hydra-python-mode/body
-        :nv "zi" 'yafolding-show-all
-        :nv "zm" 'yafolding-toggle-all
-        :nv "TAB" 'yafolding-toggle-element
-        :nv "<backtab>" 'yafolding-toggle-all
-        :nv "<return>" 'hydra-python-mode/body
-        :nv "<" 'python-indent-shift-left
-        :nv ">" 'python-indent-shift-right
-        :nvi "<C-return>" 'my-quickrun)
-
-  (map! :map inferior-python-mode-map
-        "C-ç" 'my-elpy-switch-to-buffer
-        :i "C-l" 'comint-clear-buffer)
 
   (defun my-quickrun ()
     (interactive)
