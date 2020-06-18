@@ -5,96 +5,96 @@
   (:keymaps '(doom-leader-map)
    "j"     'hydra-org-clock/body))
 
-(use-package! treemacs
-  :commands treemacs-select-window
-  :custom
-  (treemacs-width 25)
-  (treemacs-indentation '(5 px))
-  (treemacs-show-hidden-files nil)
-  (treemacs-is-never-other-window t)
-  (treemacs-no-delete-other-windows t)
-  (doom-themes-treemacs-enable-variable-pitch nil)
-  :custom-face
-  (treemacs-root-face ((t (:inherit font-lock-string-face
-                           :weight bold
-                           :height 1.0))))
+;; (use-package! treemacs
+;;   :commands treemacs-select-window
+;;   :custom
+;;   (treemacs-width 25)
+;;   (treemacs-indentation '(5 px))
+;;   (treemacs-show-hidden-files nil)
+;;   (treemacs-is-never-other-window t)
+;;   (treemacs-no-delete-other-windows t)
+;;   (doom-themes-treemacs-enable-variable-pitch nil)
+;;   :custom-face
+;;   (treemacs-root-face ((t (:inherit font-lock-string-face
+;;                            :weight bold
+;;                            :height 1.0))))
 
-  :general
+;;   :general
 
-  (:keymaps   '(global)
-   "C-0"      'my-treemacs-quit
-   "C-j"      'treemacs-select-window)
-  (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
-   "C-j"      'my-treemacs-visit-node-and-hide
-   "C-p"      'treemacs-previous-project
-   "C-n"      'treemacs-next-project
-   "C-c t"    'my-show-treemacs-commands
-   "C-c D"    'treemacs-delete
-   "C-c pa"   'treemacs-projectile
-   "C-c pd"   'treemacs-remove-project-from-workspace
-   "<escape>" 'treemacs-quit
-   "<insert>" 'treemacs-create-file
-   "tp"       'move-file-to-trash
-   "çm"       'treemacs-create-dir
-   "zm"       'treemacs-collapse-all-projects)
+;;   (:keymaps   '(global)
+;;    "C-0"      'my-treemacs-quit
+;;    "C-j"      'treemacs-select-window)
+;;   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
+;;    "C-j"      'my-treemacs-visit-node-and-hide
+;;    "C-p"      'treemacs-previous-project
+;;    "C-n"      'treemacs-next-project
+;;    "C-c t"    'my-show-treemacs-commands
+;;    "C-c D"    'treemacs-delete
+;;    "C-c pa"   'treemacs-projectile
+;;    "C-c pd"   'treemacs-remove-project-from-workspace
+;;    "<escape>" 'treemacs-quit
+;;    "<insert>" 'treemacs-create-file
+;;    "tp"       'move-file-to-trash
+;;    "çm"       'treemacs-create-dir
+;;    "zm"       'treemacs-collapse-all-projects)
 
-  (:states '(normal visual)
-   :prefix "SPC"
-   "pA" 'treemacs-add-and-display-current-project)
+;;   (:states '(normal visual)
+;;    :prefix "SPC"
+;;    "pA" 'treemacs-add-and-display-current-project)
 
-  :config
+;;   :config
 
-  (add-to-list 'treemacs-pre-file-insert-predicates
-               #'treemacs-is-file-git-ignored?)
+;;   (add-to-list 'treemacs-pre-file-insert-predicates
+;;                #'treemacs-is-file-git-ignored?)
 
-  (treemacs-follow-mode t)
-  (treemacs-git-mode 'deferred)
+;;   (treemacs-follow-mode t)
+;;   (treemacs-git-mode 'deferred)
 
-  (advice-add 'treemacs-TAB-action :after #'my-recenter-window)
-  (advice-add 'treemacs-RET-action :after #'my-recenter-window)
-  (advice-add 'my-treemacs-visit-node-and-hide :after #'my-recenter-window)
+;;   (advice-add 'treemacs-TAB-action :after #'my-recenter-window)
+;;   (advice-add 'treemacs-RET-action :after #'my-recenter-window)
+;;   (advice-add 'my-treemacs-visit-node-and-hide :after #'my-recenter-window)
 
-  (general-unbind
-    :keymaps 'treemacs-mode-map
-    :with 'my-treemacs-nswbuff
-    [remap nswbuff-switch-to-next-buffer]
-    [remap nswbuff-switch-to-previous-buffer])
+;;   (general-unbind
+;;     :keymaps 'treemacs-mode-map
+;;     :with 'my-treemacs-nswbuff
+;;     [remap nswbuff-switch-to-next-buffer]
+;;     [remap nswbuff-switch-to-previous-buffer])
 
-  (defun my-treemacs-quit ()
-    (interactive)
-    (treemacs-select-window)
-    (treemacs-quit))
+;;   (defun my-treemacs-quit ()
+;;     (interactive)
+;;     (treemacs-select-window)
+;;     (treemacs-quit))
 
-  (defun my-treemacs-nswbuff ()
-    (interactive)
-    (windmove-right)
-    (nswbuff-switch-to-next-buffer))
+;;   (defun my-treemacs-nswbuff ()
+;;     (interactive)
+;;     (windmove-right)
+;;     (nswbuff-switch-to-next-buffer))
 
-  (general-unbind
-    :keymaps 'treemacs-mode-map
-    :with 'windmove-down
-    [remap treemacs-next-neighbour])
+;;   (general-unbind
+;;     :keymaps 'treemacs-mode-map
+;;     :with 'windmove-down
+;;     [remap treemacs-next-neighbour])
 
-  (general-unbind
-    :keymaps 'treemacs-mode-map
-    :with 'windmove-up
-    [remap treemacs-previous-neighbour])
+;;   (general-unbind
+;;     :keymaps 'treemacs-mode-map
+;;     :with 'windmove-up
+;;     [remap treemacs-previous-neighbour])
 
-  (general-unbind
-    :keymaps 'treemacs-mode-map
-    :with 'avy-goto-char-2-above
-    [remap evil-find-char-backward])
+;;   (general-unbind
+;;     :keymaps 'treemacs-mode-map
+;;     :with 'avy-goto-char-2-above
+;;     [remap evil-find-char-backward])
 
-  (defun my-treemacs-commands ()
-    (interactive)
-    (counsel-M-x "^treemacs- "))
+;;   (defun my-treemacs-commands ()
+;;     (interactive)
+;;     (counsel-M-x "^treemacs- "))
 
-  (defun my-treemacs-visit-node-and-hide ()
-    (interactive)
-    (treemacs-RET-action)
-    (treemacs))
+;;   (defun my-treemacs-visit-node-and-hide ()
+;;     (interactive)
+;;     (treemacs-RET-action)
+;;     (treemacs))
 
-  (treemacs-resize-icons 15))
+;;   (treemacs-resize-icons 15))
 
 (use-package! which-key
   :custom
