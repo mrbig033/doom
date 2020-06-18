@@ -188,7 +188,7 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-evil-org-mode-map <normal-state> g r
+;; evil-org-mode-map <normal-state> g r
   ;; :general
   ;; (:keymaps   '(org-mode-map evil-org-mode-map)
   ;;  :states    'normal
