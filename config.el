@@ -83,20 +83,12 @@
 
 (global-flycheck-mode -1)
 (global-subword-mode +1)
-(mouse-avoidance-mode 'jump)
+(mouse-avoidance-mode 'animate)
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
 
 (set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
 
-(load! "functions.el" my-lisp)
-(load! "my-packages.el" my-lisp)
-(load! "my-hydras.el" my-lisp)
-(load! "cool-moves.el" my-lisp)
-(load! "auto-capitalize.el" my-lisp)
-(load! "/Users/davi/.doom.d/ml/kbd/evil_kbds.el")
-(load! "/Users/davi/.doom.d/ml/kbd/global_kbd.el")
-(load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")
-(load! "/Users/davi/.doom.d/ml/kbd/leader_kbd.el")
-(load! "/Users/davi/.doom.d/ml/kbd/trans_kbd.el")
+(mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
+(mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))

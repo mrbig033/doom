@@ -106,12 +106,12 @@
     (save-some-buffers t)
     (quit-window)))
 
-(defun my-eval-buffer-quit ()
+(defun my-eval-buffer-and-leave ()
   (interactive)
   (eval-buffer)
   (let ((inhibit-message t))
     (save-some-buffers t)
-    (quit-window)))
+    (my-last-buffer)))
 
 (defun my-eval-buffer-kill ()
   (interactive)
@@ -165,6 +165,10 @@
   (interactive)
   (helpful-variable 'major-mode))
 
+(defun my-show-server-name ()
+  (interactive)
+  (helpful-variable 'server-name))
+
 (defun my-recentf-empty ()
   (interactive)
   (setq recentf-list nil))
@@ -200,3 +204,7 @@
 (defun my-copy-directory ()
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
+
+(defun my-last-buffer ()
+  (interactive)
+  (switch-to-buffer nil))

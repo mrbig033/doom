@@ -97,7 +97,8 @@
 
 (use-package! which-key
   :custom
-  (which-key-idle-delay 0.4)
+  (which-key-allow-evil-operators nil)
+  (which-key-idle-delay 0.3)
   :config
   (which-key-add-key-based-replacements
 
@@ -106,6 +107,16 @@
     "SPC mwv"  "OW Attach"
     "SPC mwr"  "OW Read As Org"
     "SPC mwc"  "OW Links to Entries"
+
+    "SPC SPC k"  "Goto KBDs"
+    "SPC SPC l"  "Goto Lisp"
+    "SPC SPC p"  "Goto Packages"
+    "SPC SPC x"  "Org Capture"
+
+    "SPC ee" "Eval Buffer"
+    "SPC el" "Eval & Leave"
+    "SPC eq" "Eval & Quit"
+    "SPC ek" "Eval & Kill"
 
     "çf"  "Roam Find-File"
     "çj"  "Roam Index"
@@ -184,6 +195,11 @@
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
+  :general
+  (:keymaps   '(org-mode-map evil-org-mode-map)
+   :states    'normal
+   "gr"       'my-evil-sel-to-end)
+
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
   (+org-capture-notes-file "Agenda/notes.org")
@@ -256,11 +272,11 @@
   (org-capture-templates
    '(("t" "Todo" entry
       (file+headline org-agenda-file "Inbox")
-      "* TODO %? %i\n:DEADLINE: %^t")
+      "* TODO %^{Title} %i\n[%<%Y-%m-%d>]\n%?")
 
      ("n" "Notes" entry
       (file+headline org-agenda-file "Notes")
-      "* [%<%y-%m-%d>] %? %i" :prepend t)
+      "* %? %i\n[%<%Y-%m-%d>]" :prepend t)
      ("j" "Journal" entry
       (file+olp+datetree org-agenda-file)
       "* %? %i" :prepend t)))
@@ -501,10 +517,10 @@
     (interactive)
     (deer "~/.doom.d/ml/kbd/"))
 
-      '(lambda () (interactive)
-                          (find-file "~/.doom.d/ml/my-packages.el")
-                          (my-recenter-window)
-                          (message nil))
+  '(lambda () (interactive)
+     (find-file "~/.doom.d/ml/my-packages.el")
+     (my-recenter-window)
+     (message nil))
 
 
   (defun my-deer-goto-python ()
@@ -579,10 +595,6 @@
     (counsel-ag nil "~/.emacs.d/" "-G '.org'"))
 
   (defun my-search-packages ()
-    (interactive)
-    (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
-
-  (defun my-search-kbds ()
     (interactive)
     (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
 
@@ -1210,6 +1222,7 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! unkillable-scratch
+  :demand t
   :custom
   (unkillable-scratch-behavior 'bury)
   (unkillable-buffers '("^\\*scratch\\*$" "^agenda.org$"))
@@ -1217,6 +1230,8 @@
   (unkillable-scratch))
 
 (use-package! prog-mode
+  :init
+  (add-hook 'prog-mode-hook 'abbrev-mode)
   :config
   (map! :map (prog-mode-map)
         :n "<escape>" 'my-quiet-save-buffer))
