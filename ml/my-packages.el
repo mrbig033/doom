@@ -1262,6 +1262,4 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval nil)
-
-  )
+  (gac-debounce-interval nil))
