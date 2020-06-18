@@ -190,7 +190,7 @@
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
   :general
-  (:keymaps   'evil-org-mode-map
+  (:keymaps   '(org-mode-map evil-org-mode-map)
    :states    'normal
    "gç"       'my-evil-sel-to-end)
 
