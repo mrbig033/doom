@@ -152,6 +152,11 @@
     (widen)
     (recenter)))
 
+(defun my-widen-to-center-with-excursion ()
+  (interactive)
+  (widen)
+  (recenter))
+
 (defun my-recompile-doom ()
   (interactive)
   (let ((current-prefix-arg 4))
@@ -199,6 +204,11 @@
   (interactive)
   (find-file "~/.doom.d/ml/my-packages.el")
   (my-recenter-window)
+  (message nil))
+
+(defun my-goto-agenda ()
+  (interactive)
+  (find-file "~/org/Agenda/agenda.org")
   (message nil))
 
 (defun my-copy-directory ()
