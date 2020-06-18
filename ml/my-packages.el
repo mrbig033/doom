@@ -1075,7 +1075,7 @@
   (:keymaps   '(evil-emacs-state-map)
    "<escape>" 'evil-force-normal-state)
 
-  (:keymaps   '(evil-normal-state-map)
+  (:keymaps   '(evil-normal-state-map evil-org-mode-map)
    "C-z"      'ignore
    "C-c z"    'evil-emacs-state
    "g3"       'evil-backward-word-end
