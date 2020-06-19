@@ -201,8 +201,6 @@
    "a7"        'org-7-days-agenda
    "a0"        'org-30-days-agenda)
 
- 
-
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
   (+org-capture-notes-file "Agenda/notes.org")
