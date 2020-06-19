@@ -59,3 +59,27 @@
   (interactive)
   (org-todo "TODO")
   (org-clock-out))
+
+  (defun org-today-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 1)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-3-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 3)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-7-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 7)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-30-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 30)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
