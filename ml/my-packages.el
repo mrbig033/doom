@@ -192,6 +192,10 @@
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
+   "M-k"   'windmove-up
+   "M-j"   'windmove-down
+   "M-h"   'windmove-left
+   "M-l"   'windmove-right
    :states    'normal
    "gr"       'my-evil-sel-to-end)
   (:keymaps   '(doom-leader-map)
@@ -283,6 +287,13 @@
       "* %? %i" :prepend t)))
 
   :config
+
+  ;; (:map (evil-org-mode-map org-mode-map global-map)
+  ;;  :nvig "M-k"   'windmove-up
+  ;;  :nvig "M-j"   'windmove-down
+  ;;  :nvig "M-h"   'windmove-left
+  ;;  :nvig "M-l"   'windmove-right)
+
 
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
