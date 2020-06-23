@@ -3,7 +3,8 @@
        :i "C-l" 'pabbrev-expand-maybe)
 
       (:map helpful-mode-map
-       :nvig "C-r" 'helpful-update)
+       :nvig "C-r" 'helpful-update
+       :n "<escape>" 'quit-window)
 
       (:map (minibuffer-local-map
              minibuffer-local-ns-map
