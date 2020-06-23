@@ -591,7 +591,9 @@
    "C-s" 'counsel-grep-or-swiper
    "M-y" 'counsel-yank-pop
    "C-," 'ivy-switch-buffer
-   "C-." 'counsel-M-x)
+   "C-." 'counsel-M-x
+   "M-u" 'ivy-yasnippet)
+
   (:keymaps 'doom-leader-map
    "sg"  'counsel-ag
    "sç"  'counsel-ag
@@ -661,6 +663,14 @@
   (defun counsel-ag-thing-at-point ()
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
+
+(use-package! ivy-yasnippet
+  :after yasnippet)
+
+(use-package! yasnippet
+  :after-call after-find-file
+  :config
+  (yas-global-mode +1))
 
 (use-package! evil-smartparens
   :after evil
