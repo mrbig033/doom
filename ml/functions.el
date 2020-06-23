@@ -222,3 +222,26 @@
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
 (set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
+
+(define-derived-mode scratch-fundamental-mode
+  fundamental-mode "scratch-fundamental")
+
+(general-unbind 'scratch-fundamental-mode-map
+  :with 'evil-ex-nohighlight
+  [remap my-quiet-save-buffer]
+  [remap save-buffer])
+
+(define-derived-mode scratch-lisp-mode
+  lisp-interaction-mode "scratch-lisp")
+
+(general-unbind 'scratch-lisp-mode-map
+  :with 'evil-ex-nohighlight
+  [remap my-quiet-save-buffer]
+  [remap save-buffer])
+
+(defun my-doom/upgrade ()
+  "Run 'doom upgrade' then prompt to restart Emacs."
+  (interactive)
+  (doom--if-compile (format "%s -y -f upgrade" doom-bin)
+      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+        (doom/restart-and-restore))))
