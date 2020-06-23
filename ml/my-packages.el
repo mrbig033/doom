@@ -665,7 +665,10 @@
     (ivy-with-thing-at-point 'counsel-ag)))
 
 (use-package! ivy-yasnippet
-  :after yasnippet)
+  :after yasnippet
+  :custom
+  (ivy-yasnippet-expand-keys nil)
+  (ivy-yasnippet-create-snippet-if-not-matched t))
 
 (use-package! yasnippet
   :after-call after-find-file
