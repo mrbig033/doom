@@ -7,6 +7,7 @@
        :leader "SPC k"  'my-deer-goto-my-kdb
        :leader "SPC l"  'my-deer-goto-my-lisp
        :leader "SPC p" 'my-goto-my-packages
+       :leader "." 'counsel-describe-variable
        :leader "fk" 'my-search-packages
        :leader "fK" 'my-search-kbds
        :leader "fs" 'my-search-settings
