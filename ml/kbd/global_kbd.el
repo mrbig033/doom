@@ -24,4 +24,8 @@
       "C-h N" 'my-show-server-name
       "C-c t" 'git-timemachine
       "C-c -" 'insert-char
-      "C-c i" 'emacs-init-time)
+      "C-c i" 'emacs-init-time
+      :nvig "M-k"   'windmove-up
+      :nvig "M-j"   'windmove-down
+      :nvig "M-h"   'windmove-left
+      :nvig "M-l"   'windmove-right)
