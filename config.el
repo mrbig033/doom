@@ -12,6 +12,7 @@
        flyspell-correct-auto-delay 1
        display-line-numbers-type nil
        recentf-auto-cleanup "11:59pm"
+       initial-major-mode 'scratch-fundamental-mode
        +word-wrap-extra-indent 'single
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
@@ -32,7 +33,6 @@
 
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))
-;; initial-buffer-choice
 (global-flycheck-mode -1)
 (global-subword-mode +1)
 (mouse-avoidance-mode 'jump)
