@@ -81,8 +81,8 @@
 (package! badwolf-theme)
 (package! solarized-theme)
 (package! spacemacs-theme)
-
+(package! ivy-yasnippet)
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
-;; (package! treemacs :disable t)
 (package! evil-snipe :disable t)
+;; (package! treemacs :disable t)
