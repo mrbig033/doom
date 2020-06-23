@@ -698,9 +698,9 @@
    :states    '(normal)
    "ç"        'hydra-python-mode/body
    "<return>" 'hydra-python-mode/body
+
    :states '(insert)
-   "C-=" 'my-python-colon-newline
-   "C-h"'python-indent-dedent-line-backspace
+   "C-="   'my-python-colon-newline
    :states '(normal visual)
    "zi" 'yafolding-show-all
    "zm" 'yafolding-toggle-all
@@ -720,7 +720,13 @@
   (python-indent-guess-indent-offset-verbose nil)
   :config
 
+  (general-unbind
+    :keymaps 'python-mode-map
+    :with 'python-indent-dedent-line-backspace
+    [remap evil-delete-backward-char-and-join])
+
   ;; (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+
   (defun my-quickrun-shell ()
     (interactive)
     (quickrun-shell)
