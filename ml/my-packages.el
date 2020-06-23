@@ -1114,6 +1114,15 @@
    "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
 
+  (:keymaps   '(evil-normal-state-map
+                evil-insert-state-map
+                evil-visual-state-map
+                current-global-map)
+   "M-k"   'windmove-up
+   "M-j"   'windmove-down
+   "M-h"   'windmove-left
+   "M-l"   'windmove-right)
+
   (:keymaps '(evil-insert-state-map)
    "C-h"    'evil-delete-backward-char-and-join
    "M-e"    'yas-expand
