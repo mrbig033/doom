@@ -83,6 +83,7 @@
 (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p)))
 
 (global-subword-mode +1)
+(global-eldoc-mode -1)
 (mouse-avoidance-mode 'jump)
 
 (put 'narrow-to-region 'disabled nil)
