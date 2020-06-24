@@ -27,4 +27,8 @@
       "C-c -" 'insert-char
       "C-c i" 'emacs-init-time
       "M-s"   'my-last-buffer
+      "M-k"   'windmove-up
+      "M-j"   'windmove-down
+      "M-h"   'windmove-left
+      "M-l"   'windmove-right
       :n "gr"       'my-evil-sel-to-end)
