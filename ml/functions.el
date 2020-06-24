@@ -210,13 +210,21 @@
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
 
+;; (defun my-last-buffer ()
+;;   (interactive)
+;;   (switch-to-buffer nil))
+
 (defun my-last-buffer ()
   (interactive)
-  (switch-to-buffer nil))
+  (evil-switch-to-windows-last-buffer))
+
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
+
 (set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
+
+(setq frame-title-format '("%b"))
 
 (define-derived-mode scratch-fundamental-mode
   fundamental-mode "scratch-fundamental")
@@ -257,3 +265,7 @@
          (t
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
+
+(defun my-delete-frame ()
+  (interactive)
+  (delete-frame nil t))
