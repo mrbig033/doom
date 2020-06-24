@@ -1,0 +1,6 @@
+# key: clear
+# name: make for a cleaner output
+# --
+from os import system
+
+system("clear")

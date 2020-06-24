@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: while true
+# key: wt
+# --
+while True:
+    ${1:pass}$0

@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: names one
+# key: names1
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil)) 
+# --
+names = [
+    "Charlotte",
+    "Lily",
+    "John",
+    "Luke",
+    "Leah",
+    "Owen",
+    "Evelyn",
+    "Addison",
+    "Mia",
+    "Nora",
+]$0

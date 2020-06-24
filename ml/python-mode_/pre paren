@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pre paren
+# key: fp
+# --
+${1:function}($0)

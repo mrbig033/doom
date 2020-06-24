@@ -31,6 +31,7 @@
     ("ralias" "#+roam_alias:" nil :count 2)
     ("rkeys" "#+roam_key:" nil :count 2)
     ("rtags" "#+roam_tags:" nil :count 1)
+    ("todo" "TODO" nil :count 3)
    ))
 
 (define-abbrev-table 'snippet-mode-abbrev-table

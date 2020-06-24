@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: else
+# key: else
+# expand-env: ((yas-after-exit-snippet-hook 'newline-and-indent))  
+# --
+else:$0

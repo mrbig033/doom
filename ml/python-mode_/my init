@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: my init
+# key: ini
+# group : definitions
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))  
+# --
+def __init__(self${1:, ${2:args}}):
+    $0
+    pass

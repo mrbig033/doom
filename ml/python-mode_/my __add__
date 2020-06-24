@@ -1,0 +1,5 @@
+# key: add
+# name: my __add__
+# --
+def __add__(self, other):
+    return $0

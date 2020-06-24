@@ -1,0 +1,13 @@
+# key: py
+# name: my python header
+# binding: C-c y
+# --
+#!/usr/bin/env python3
+
+import sys
+from os import system
+
+system("clear")
+sys.tracebacklimit = 0
+
+$0

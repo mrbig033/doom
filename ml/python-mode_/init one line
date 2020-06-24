@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: meu init simples
+# key: is
+# --
+def __init__(self, $1):
+    self.$1 = $1
+    ${0:pass}

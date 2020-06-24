@@ -1,0 +1,6 @@
+# key: fmt
+# name: disable fmt
+# expand-env: ((yas-indent-line (quote fixed)) (yas-wrap-around-region (quote nil)))
+# --
+# fmt: off$0
+# fmt: on

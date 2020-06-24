@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: list comprehension simples
+# key: listc
+# --
+${1:variable} = [${2:i} for $2 in ${3:range(1, 11)}]

@@ -718,6 +718,12 @@
              #'apheleia-mode)
   :general
 
+  (:keymaps '(doom-leader-map)
+   "SPC f"  'my-search-python-function
+   "SPC s"  'my-search-python-classes
+   "pG"  'projectile-configure-project
+   "fp"  '+ivy/projectile-find-file)
+
   (:keymaps    '(python-mode-map)
    "M-p"       'my-backward-paragraph-do-indentation
    "M-n"       'my-forward-paragraph-do-indentation

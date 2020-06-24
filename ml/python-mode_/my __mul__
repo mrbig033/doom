@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: my __mul__
+# key: mul
+# --
+def __mul__(self, other):
+    return $0
