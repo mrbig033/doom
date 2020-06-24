@@ -17,5 +17,5 @@
        "C-y" 'kill-ring-save
        :nvig "<insert>" 'yank)
 
-      (:map custom-mode-map
+      (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'quit-window))
