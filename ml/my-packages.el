@@ -702,6 +702,7 @@
              #'evil-smartparens-mode
              #'smartparens-strict-mode
              #'yafolding-mode
+             #'hl-line-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
@@ -1382,7 +1383,7 @@
 (use-package! prog-mode
   :init
   (add-hook   'prog-mode-hook 'abbrev-mode)
-  (add-hook   'prog-mode-hook 'hl-line-mode)
+  (remove-hook   'prog-mode-hook 'hl-line-mode)
   :general
   (:keymaps   '(prog-mode-map)
    :states    '(normal)
