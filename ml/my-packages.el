@@ -1397,6 +1397,8 @@
    "<escape>" 'my-quiet-save-buffer))
 
 (use-package! elisp-mode
+  :init
+  (add-hook 'emacs-lisp-mode 'smartparens-strict-mode)
   :general
   (:keymaps   '(emacs-lisp-mode-map)
    :states    '(normal)
@@ -1408,3 +1410,7 @@
 (use-package! git-auto-commit-mode
   :custom
   (gac-debounce-interval (* 60 60)))
+
+;; (use-package! zoom
+;;   :custom
+;;   (zoom-size '(0.618 . 0.618)))
