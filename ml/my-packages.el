@@ -584,6 +584,7 @@
 
 (use-package! ivy
   :custom
+  (ivy-height 10)
   (counsel-grep-swiper-limit 300000)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
@@ -651,7 +652,7 @@
 
   (defun my-swiper-python-classes ()
     (interactive)
-    (swiper  "^class "))
+    (swiper  "class "))
 
   (defun my-swiper-python-functions ()
     (interactive)
@@ -680,11 +681,11 @@
   :config
   (yas-global-mode +1))
 
-; (use-package! ivy-yasnippet
-;   :after (ivy yasnippet)
-;   :custom
-;   (ivy-yasnippet-expand-keys nil)
-;   (ivy-yasnippet-create-snippet-if-not-matched t))
+                                        ; (use-package! ivy-yasnippet
+                                        ;   :after (ivy yasnippet)
+                                        ;   :custom
+                                        ;   (ivy-yasnippet-expand-keys nil)
+                                        ;   (ivy-yasnippet-create-snippet-if-not-matched t))
 
 (use-package! evil-smartparens
   :after evil
