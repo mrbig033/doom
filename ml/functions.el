@@ -182,6 +182,10 @@
   (interactive)
   (find-file "~/.doom.d/.tmp/md.md"))
 
+(defun my-goto-python-scratch ()
+  (interactive)
+  (find-file "~/.doom.d/.tmp/py.py"))
+
 (fset 'my-dup-par
       (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
 
