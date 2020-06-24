@@ -1054,7 +1054,7 @@
   :custom
   (auto-save-default nil)
   (super-save-idle-duration 5)
-  (super-save-auto-save-when-idle nil)
+  (super-save-auto-save-when-idle t)
   (super-save-triggers
    '(quickrun
      quit-window
