@@ -15,4 +15,7 @@
              evil-ex-completion-map
              evil-ex-search-keymap)
        "C-y" 'kill-ring-save
-       :nvig "<insert>" 'yank))
+       :nvig "<insert>" 'yank)
+
+      (:map custom-mode-map
+       :n "<escape>" 'quit-window))
