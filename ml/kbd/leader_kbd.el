@@ -2,31 +2,33 @@
   "SPC")
 
 ;; LEADER KEY
-(map!  :leader "SPC p" 'my-goto-my-packages
-       :leader "SPC x" 'org-capture
+(map!  :leader "SPC p"  'my-goto-my-packages
+       :leader "SPC x"  'org-capture
        :leader "SPC k"  'my-deer-goto-my-kdb
        :leader "SPC l"  'my-deer-goto-my-lisp
-       :leader "SPC p" 'my-goto-my-packages
-       :leader "." 'counsel-describe-variable
-       :leader "fk" 'my-search-packages
-       :leader "fK" 'my-search-kbds
-       :leader "fs" 'my-search-settings
-       :leader "g SPC" 'my-magit-stage-modified-and-commit
-       :leader "0"   'delete-window
-       :leader "br"  '+popup/raise
-       :leader "cw"  'count-words
-       :leader "hdS" 'my-search-doom-help
-       :leader "k"   'kill-current-buffer
-       :leader "bu"  'unkillable-scratch
-       :leader "l"   'link-hint-open-link
-       :leader "mgx" 'org-capture-goto-last-stored
-       :leader "nn"  'recursive-narrow-or-widen-dwim
-       :leader "nw"  'my-widen-to-center
-       :leader "sg"  'counsel-ag
-       :leader "to"  'olivetti-mode
-       :leader "ww"  'doom/window-maximize-vertically
-       :leader "x"   'eyebrowse-close-window-config
-       :leader "z"   'org-capture
+       :leader "SPC p"  'my-goto-my-packages
+       :leader "SPC a"  'my-goto-agenda
+       :leader ";"      'helpful-at-point
+       :leader "."      'counsel-describe-variable
+       :leader "fk"     'my-search-packages
+       :leader "fK"     'my-search-kbds
+       :leader "fs"     'my-search-settings
+       :leader "g SPC"  'my-magit-stage-modified-and-commit
+       :leader "0"      'delete-window
+       :leader "br"     '+popup/raise
+       :leader "cw"     'count-words
+       ;; :leader "hdS" 'my-search-doom-help
+       :leader "k"      'kill-current-buffer
+       :leader "bu"     'unkillable-scratch
+       :leader "l"      'link-hint-open-link
+       :leader "mgx"    'org-capture-goto-last-stored
+       :leader "nn"     'recursive-narrow-or-widen-dwim
+       :leader "nw"     'my-widen-to-center
+       :leader "sg"     'counsel-ag
+       :leader "to"     'olivetti-mode
+       :leader "ww"     'doom/window-maximize-vertically
+       :leader "x"      'eyebrowse-close-window-config
+       :leader "z"      'org-capture
 
        ;; TEXT ;;
        :leader "tT"  'my-reload-file
