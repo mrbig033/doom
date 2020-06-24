@@ -8,7 +8,7 @@
 (use-package! treemacs
   :commands treemacs-select-window
   :custom
-  (treemacs-width 25)
+  (treemacs-width 22)
   (treemacs-indentation '(5 px))
   (treemacs-show-hidden-files nil)
   (treemacs-is-never-other-window t)
