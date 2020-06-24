@@ -692,7 +692,7 @@
   (ivy-yasnippet-expand-keys nil))
 
 (use-package! evil-smartparens
-  :after evil
+  :demand t
   :general
   (:keymaps '(evil-smartparens-mode-map)
    :states  '(visual)
