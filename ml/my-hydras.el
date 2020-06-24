@@ -68,10 +68,10 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _d_: goto def    _s_: quickshell     _c_: classes ag
-    _a_: go at point _l_: clear errors   _f_: functions ag
-    _g_: goto dumb   _C_: classes swiper _e_: first error
-    _b_: go back     _F_: functions swip _s_: show error"
+    _d_: goto def    _s_: quickshell     _C_: classes ag
+    _a_: go at point _l_: clear errors   _F_: functions ag
+    _g_: goto dumb   _c_: classes swiper _e_: first error
+    _b_: go back     _f_: functions swip _s_: show error"
 
   ("<escape>" nil)
   ("q" nil)
@@ -88,11 +88,11 @@
   ("s" quickrun-shell)
   ("l" flycheck-clear)
 
-  ("C" my-swiper-python-classes)
-  ("F" my-swiper-python-functions)
+  ("c" my-swiper-python-classes)
+  ("f" my-swiper-python-functions)
 
-  ("c" my-search-python-classes)
-  ("f" my-search-python-function)
+  ("C" my-search-python-classes)
+  ("F" my-search-python-function)
   ("e" flycheck-first-error)
   ("s" flycheck-display-error-at-point))
 
