@@ -1152,7 +1152,7 @@
    ;; "C-S-n"    'cool-moves-word-forward
    "TAB"      '+fold/toggle
    "zi"       '+fold/open-all
-   "Q"        'delete-frame
+   "Q"        'my-delete-frame
    "-"        'insert-char
    "z0"       'endless/ispell-word-then-abbrev
    "z="       'flyspell-correct-previous
