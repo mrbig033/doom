@@ -5,6 +5,7 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
@@ -39,6 +40,7 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;(package! builtin-package :pin "1a2b3c4d5e")
 
+
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! pinned-package)
@@ -47,8 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! vlf)
-(package! typo)
+
 (package! elpy)
 (package! wordnut)
 (package! shut-up)
@@ -69,20 +70,24 @@
 (package! git-auto-commit-mode)
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
 
+(package! treemacs)
 (package! evil-swap-keys)
 (package! evil-god-state)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
-
-(package! poet-theme)
-(package! plan9-theme)
-(package! kaolin-themes)
-(package! dracula-theme)
-(package! badwolf-theme)
-(package! solarized-theme)
-(package! spacemacs-theme)
 (package! ivy-yasnippet)
+(package! zoom)
+
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
 (package! evil-snipe :disable t)
-;; (package! treemacs :disable t)
+(package! typo :disable t)
+
+;; (package! vlf)
+;; (package! poet-theme)
+;; (package! plan9-theme)
+;; (package! kaolin-themes)
+;; (package! dracula-theme)
+;; (package! badwolf-theme)
+;; (package! solarized-theme)
+;; (package! spacemacs-theme)
