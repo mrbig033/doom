@@ -703,11 +703,6 @@
 
   (add-hook! '(python-mode-hook inferior-python-mode-hook)
              #'rainbow-delimiters-mode
-             #'electric-operator-mode
-             #'evil-smartparens-mode
-             #'smartparens-strict-mode
-             ;; #'yafolding-mode
-             #'hl-line-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
@@ -1396,8 +1391,16 @@
 
 (use-package! prog-mode
   :init
-  (add-hook   'prog-mode-hook 'abbrev-mode)
+
+  (add-hook! '(prog-mode-hook)
+             #'evil-smartparens-mode
+             #'smartparens-strict-mode
+             #'electric-operator-mode
+             #'hl-line-mode
+             #'abbrev-mode)
+
   (remove-hook   'prog-mode-hook 'hl-line-mode)
+
   :general
   (:keymaps   '(prog-mode-map)
    :states    '(normal)
@@ -1412,8 +1415,7 @@
 
 (use-package! elisp-mode
   :init
-  (add-hook 'emacs-lisp-mode #'evil-smartparens-mode)
-  (add-hook 'emacs-lisp-mode 'smartparens-strict-mode)
+  (add-hook 'emacs-lisp-mode-hook '#'rainbow-delimiters-mode)
   :general
   (:keymaps   '(emacs-lisp-mode-map)
    :states    '(normal)
