@@ -453,6 +453,7 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
+  :after-call (deer ranger)
   :hook (ranger-mode . my-ranger-olivetti)
   :custom
   (ranger-max-tabs 0)
