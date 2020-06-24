@@ -21,9 +21,10 @@
 
   :general
 
-  (:keymaps   '(global)
+  (:keymaps   '(global )
    "C-0"      'my-treemacs-quit
    "C-j"      'treemacs-select-window)
+
   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
    "C-j"      'my-treemacs-visit-node-and-hide
    "C-p"      'treemacs-previous-project
@@ -126,6 +127,8 @@
     "SPC SPC k"  "Goto KBDs"
     "SPC SPC l"  "Goto Lisp"
     "SPC SPC p"  "Goto Packages"
+    "SPC SPC a"  "Goto Agenda"
+
     "SPC SPC x"  "Org Capture"
 
     "SPC ee" "Eval Buffer"
@@ -192,11 +195,14 @@
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
+   :states    '(normal insert visual)
    "M-k"   'windmove-up
    "M-j"   'windmove-down
    "M-h"   'windmove-left
    "M-l"   'windmove-right
-   :states    'normal
+   "C-j" 'treemacs-select-window)
+  (:keymaps   '(evil-org-mode-map)
+   :states    '(normal)
    "gr"       'my-evil-sel-to-end)
   (:keymaps   '(doom-leader-map)
    "aa"        'org-agenda
@@ -447,7 +453,7 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
-  :hook (ranger-mode . olivetti-mode)
+  :hook (ranger-mode . my-ranger-olivetti)
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -498,6 +504,11 @@
    "SPC l"  'my-deer-goto-my-lisp)
 
   :config
+
+  (defun my-ranger-olivetti ()
+    (interactive)
+    (setq-local olivetti-body-width '65)
+    (olivetti-mode +1))
 
   (defun my-ranger-go (path)
     "Go subroutine"
@@ -664,16 +675,16 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 
-(use-package! ivy-yasnippet
-  :after yasnippet
-  :custom
-  (ivy-yasnippet-expand-keys nil)
-  (ivy-yasnippet-create-snippet-if-not-matched t))
-
 (use-package! yasnippet
   :after-call after-find-file
   :config
   (yas-global-mode +1))
+
+; (use-package! ivy-yasnippet
+;   :after (ivy yasnippet)
+;   :custom
+;   (ivy-yasnippet-expand-keys nil)
+;   (ivy-yasnippet-create-snippet-if-not-matched t))
 
 (use-package! evil-smartparens
   :after evil
@@ -859,7 +870,7 @@
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-state-icon nil)
-  (doom-modeline-buffer-encoding t)
+  (doom-modeline-buffer-encoding nil)
   (doom-modeline-enable-word-count nil)
   (doom-modeline-env-enable-ruby nil)
   (doom-modeline-env-enable-perl nil)
@@ -879,9 +890,11 @@
   (setq-default doom-modeline--vcs-text nil))
 
 (use-package! delight
-  :after-call after-find-file
+  :after-call after-init-hook
   :config
   (delight '((org-mode "[o]")
+             (scratch-fundamental-mode "[scf]" "scratch-fundamental")
+             (scratch-lisp-mode "[scl]" "scratch-lisp")
              (markdown-mode "[md]" "markdown")
              (sh-mode "[sh]" "Shell-script[bash]")
              (special-mode "[spe]" "special")
@@ -1110,7 +1123,6 @@
   (:keymaps   '(evil-emacs-state-map)
    "<escape>" 'evil-force-normal-state)
 
-
   (:keymaps   '(evil-normal-state-map)
    "C-z"      'ignore
    "C-c z"    'evil-emacs-state
@@ -1167,7 +1179,6 @@
   (:keymaps '(evil-visual-state-map evil-normal-state-map)
    "M-s"      'my-last-buffer
    "M-]"      'evil-window-prev
-   ";"     'link-hint-open-link
    "çd" 'deft
    "M-o"   'better-jumper-jump-backward
    "M-i"   'better-jumper-jump-forward
@@ -1293,7 +1304,6 @@
   :init
 
   (add-hook! 'markdown-mode-hook
-             #'typo-mode
              #'artbollocks-mode
              #'abbrev-mode
              #'my-mardown-hooks)
