@@ -1134,8 +1134,8 @@
    "<escape>" 'evil-force-normal-state)
 
   (:keymaps   '(evil-normal-state-map)
-  "C-S-p" 'centaur-tabs-backward
-  "C-S-n" 'centaur-tabs-forward
+   "C-S-p" 'centaur-tabs-backward
+   "C-S-n" 'centaur-tabs-forward
    "C-z"      'ignore
    "M-d"      'evil-multiedit-match-and-next
    "C-c z"    'evil-emacs-state
@@ -1424,14 +1424,12 @@
   ;; (zoom-size '(0.618 . 0.618))
   (zoom-size '(0.550 . 0.550)))
 
-(use-package! centaur-tabs
-  :custom
-(centaur-tabs-style "slant")
-(centaur-tabs-height 22)
-(centaur-tabs-set-icons t)
-(centaur-tabs-plain-icons t)
-(centaur-tabs-gray-out-icons 'buffer)
-
-  ;; :config
-  ;; (centaur-tabs-mode t)
-  )
+;; (use-package! centaur-tabs
+;;   :custom
+;;   (centaur-tabs-style "slant")
+;;   (centaur-tabs-height 22)
+;;   (centaur-tabs-set-icons t)
+;;   (centaur-tabs-plain-icons t)
+;;   (centaur-tabs-gray-out-icons 'buffer)
+;;   :config
+;;   (centaur-tabs-mode t))
