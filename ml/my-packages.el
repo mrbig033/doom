@@ -1412,6 +1412,7 @@
 
 (use-package! elisp-mode
   :init
+  (add-hook 'emacs-lisp-mode #'evil-smartparens-mode)
   (add-hook 'emacs-lisp-mode 'smartparens-strict-mode)
   :general
   (:keymaps   '(emacs-lisp-mode-map)
