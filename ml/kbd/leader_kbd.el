@@ -34,10 +34,11 @@
        :leader "tT"  'my-reload-file
        :leader "tB"  'spelling-brasileiro
        :leader "tE"  'spelling-english
-       :leader "td"  'my-dup-line
+       :leader "tt"  'my-dup-line
+       :leader "tT"  'google-translate-smooth-translate
+       :leader "tD"  'ispell-change-dictionary
        :leader "te"  'hl-sentence-mode
        :leader "th"  'hl-line-mode
-       :leader "tD"  'ispell-change-dictionary
        :leader "tc"  'xah-clean-empty-lines
        :leader "ti"  'my-dup-par
        :leader "tv"  'visible-mode
@@ -47,7 +48,6 @@
        :leader "tb"  'flyspell-buffer
        :leader "tl"  'langtool-check-buffer
        :leader "tL"  'langtool-check-done
-       :leader "tt"  'google-translate-smooth-translate
        :leader "tC"  'company-mode
        :leader "oo"  'hydra-org-mode/body
        :leader "mm"  'lisp-interaction-mode
