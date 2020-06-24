@@ -11,7 +11,7 @@
   (treemacs-width 20)
   (treemacs-indentation '(5 px))
   (treemacs-show-hidden-files nil)
-  (treemacs-is-never-other-window t)
+  (treemacs-is-never-other-window nil)
   (treemacs-no-delete-other-windows t)
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
