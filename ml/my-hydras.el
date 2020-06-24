@@ -68,7 +68,7 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _d_: goto def    _s_: quickshell     _C_: classes ag
+    _d_: goto def    _s_: quickshell     _C_: classes ag    _p_: scratch
     _a_: go at point _l_: clear errors   _F_: functions ag
     _g_: goto dumb   _c_: classes swiper _e_: first error
     _b_: go back     _f_: functions swip _s_: show error"
@@ -94,7 +94,8 @@
   ("C" my-search-python-classes)
   ("F" my-search-python-function)
   ("e" flycheck-first-error)
-  ("S" flycheck-display-error-at-point))
+  ("S" flycheck-display-error-at-point)
+  ("p" my-goto-python-scratch))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "
