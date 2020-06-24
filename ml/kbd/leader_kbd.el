@@ -8,6 +8,7 @@
        :leader "SPC l"  'my-deer-goto-my-lisp
        :leader "SPC p"  'my-goto-my-packages
        :leader "SPC a"  'my-goto-agenda
+       :leader "SPC c"  '+popup/close-all
        :leader ";"      'helpful-at-point
        :leader "."      'counsel-describe-variable
        :leader "fk"     'my-search-packages
