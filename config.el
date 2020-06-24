@@ -80,7 +80,12 @@
 
 (setq-default recentf-max-saved-items 20)
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
-(add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p)))
+(add-hook 'after-save-hook 'my-after-save-hooks)
+
+(defun my-after-save-hooks ()
+  (interactive)
+  (executable-make-buffer-file-executable-if-script-p))
+
 
 (global-subword-mode +1)
 (global-eldoc-mode -1)
