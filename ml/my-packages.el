@@ -706,7 +706,7 @@
              #'electric-operator-mode
              #'evil-smartparens-mode
              #'smartparens-strict-mode
-             #'yafolding-mode
+             ;; #'yafolding-mode
              #'hl-line-mode
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
@@ -735,10 +735,10 @@
 
   (:keymaps    '(python-mode-map)
    :states '(normal visual)
-   "zi" 'yafolding-show-all
-   "zm" 'yafolding-toggle-all
-   "TAB" 'yafolding-toggle-element
-   "<backtab>" 'yafolding-toggle-all
+   ;; "zi" 'yafolding-show-all
+   ;; "zm" 'yafolding-toggle-all
+   ;; "TAB" 'yafolding-toggle-element
+   ;; "<backtab>" 'yafolding-toggle-all
    "<" 'python-indent-shift-left
    ">" 'python-indent-shift-right)
 
