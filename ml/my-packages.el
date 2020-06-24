@@ -169,8 +169,8 @@
   :general
   (:keymaps 'override
    :states '(normal visual insert)
-   "M-," 'nswbuff-switch-to-previous-buffer
-   "M-." 'nswbuff-switch-to-next-buffer)
+   "M-," 'nswbuff-switch-to-next-buffer
+   "M-." 'nswbuff-switch-to-previous-buffer)
 
   :custom
   (nswbuff-left "  ")
@@ -681,10 +681,10 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 
-;; (use-package! yasnippet
-;;   :after-call after-find-file
-;;   :config
-;;   (yas-global-mode +1))
+(use-package! yasnippet
+  :after-call after-find-file
+  :config
+  (yas-global-mode +1))
 
 (use-package! ivy-yasnippet
   :after (ivy yasnippet)
