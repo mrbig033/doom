@@ -722,17 +722,22 @@
    "M-e"       'python-nav-forward-statement
    :states    '(normal)
    "ç"        'hydra-python-mode/body
-   "<return>" 'hydra-python-mode/body
+   "<return>" 'hydra-python-mode/body)
 
+  (:keymaps    '(python-mode-map)
    :states '(insert)
-   "C-="   'my-python-colon-newline
+   "C-="   'my-python-colon-newline)
+
+  (:keymaps    '(python-mode-map)
    :states '(normal visual)
    "zi" 'yafolding-show-all
    "zm" 'yafolding-toggle-all
    "TAB" 'yafolding-toggle-element
    "<backtab>" 'yafolding-toggle-all
    "<" 'python-indent-shift-left
-   ">" 'python-indent-shift-right
+   ">" 'python-indent-shift-right)
+
+  (:keymaps    '(python-mode-map)
    :states '(normal visual insert)
    "<C-return>" 'my-quickrun)
 
