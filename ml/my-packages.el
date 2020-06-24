@@ -162,6 +162,10 @@
   (which-key-mode +1))
 
 (use-package! nswbuff
+  :custom
+  (nswbuff-status-window-at-top t)
+  (nswbuff-recent-buffers-first t)
+  (nswbuff-start-with-current-centered t)
   :general
   (:keymaps 'override
    :states '(normal visual insert)
@@ -1130,6 +1134,8 @@
    "<escape>" 'evil-force-normal-state)
 
   (:keymaps   '(evil-normal-state-map)
+  "C-S-p" 'centaur-tabs-backward
+  "C-S-n" 'centaur-tabs-forward
    "C-z"      'ignore
    "M-d"      'evil-multiedit-match-and-next
    "C-c z"    'evil-emacs-state
@@ -1142,11 +1148,11 @@
    "gO"       'cool-moves-open-line-above
    "gsP"      'cool-moves-paragraph-backward
    "gsp"      'cool-moves-paragraph-forward
-   "C-S-p"    'cool-moves-word-backwards
-   "C-S-n"    'cool-moves-word-forward
+   ;; "C-S-p"    'cool-moves-word-backwards
+   ;; "C-S-n"    'cool-moves-word-forward
    "TAB"      '+fold/toggle
    "zi"       '+fold/open-all
-   "Q"        'my-delete-frame
+   "Q"        'delete-frame
    "-"        'insert-char
    "z0"       'endless/ispell-word-then-abbrev
    "z="       'flyspell-correct-previous
@@ -1417,3 +1423,15 @@
   ;; golden ration:
   ;; (zoom-size '(0.618 . 0.618))
   (zoom-size '(0.550 . 0.550)))
+
+(use-package! centaur-tabs
+  :custom
+(centaur-tabs-style "slant")
+(centaur-tabs-height 22)
+(centaur-tabs-set-icons t)
+(centaur-tabs-plain-icons t)
+(centaur-tabs-gray-out-icons 'buffer)
+
+  ;; :config
+  ;; (centaur-tabs-mode t)
+  )
