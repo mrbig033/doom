@@ -16,6 +16,8 @@
       "C-'"   'org-cycle-agenda-files
       "C-c u" 'redraw-display
       "C-l"   'recenter-top-bottom
+      "M--"   'winner-undo
+      "M-="   'winner-redo
       "C-c q" 'quick-calc
       "C-c d" 'ispell-change-dictionary
       "C-c o" 'my-org-force-open-other-window
