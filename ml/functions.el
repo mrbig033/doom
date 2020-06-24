@@ -206,11 +206,6 @@
   (my-recenter-window)
   (message nil))
 
-(defun my-goto-agenda ()
-  (interactive)
-  (find-file "~/org/Agenda/agenda.org")
-  (message nil))
-
 (defun my-copy-directory ()
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
@@ -245,3 +240,7 @@
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
       (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
         (doom/restart-and-restore))))
+
+(defun my-goto-agenda ()
+  (interactive)
+  (find-file org-agenda-file))
