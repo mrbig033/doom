@@ -94,7 +94,7 @@
   ("C" my-search-python-classes)
   ("F" my-search-python-function)
   ("e" flycheck-first-error)
-  ("s" flycheck-display-error-at-point))
+  ("S" flycheck-display-error-at-point))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "
