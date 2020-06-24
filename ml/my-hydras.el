@@ -69,9 +69,10 @@
   "
 
     _d_: goto def    _s_: quickshell     _c_: classes ag
-    _a_: go at point _l_: clear errors   _f_: functions ager
-    _g_: goto dumb   _C_: classes swiper
-    _b_: go back     _F_: functions swip
+    _a_: go at point _l_: clear errors   _f_: functions ag
+    _g_: goto dumb   _C_: classes swiper _e_: first error
+    _b_: go back     _F_: functions swip _s_: show error
+
 "
 
   ("<escape>" nil)
@@ -93,7 +94,9 @@
   ("F" my-swiper-python-functions)
 
   ("c" my-search-python-classes)
-  ("f" my-search-python-function))
+  ("f" my-search-python-function)
+  ("e" flycheck-first-error)
+  ("s" flycheck-display-error-at-point))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "
