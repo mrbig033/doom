@@ -77,11 +77,11 @@
 (package! evil-better-visual-line)
 (package! ivy-yasnippet)
 (package! zoom)
+(package! typo)
 
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
 (package! evil-snipe :disable t)
-(package! typo :disable t)
 
 ;; (package! vlf)
 ;; (package! poet-theme)
