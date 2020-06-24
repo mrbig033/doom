@@ -1131,6 +1131,7 @@
 
   (:keymaps   '(evil-normal-state-map)
    "C-z"      'ignore
+   "M-d"      'evil-multiedit-match-and-next
    "C-c z"    'evil-emacs-state
    "g3"       'evil-backward-word-end
    "g#"       'evil-forward-word-end
