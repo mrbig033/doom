@@ -235,7 +235,6 @@
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("PROPERTIES" "LOGBOOK")))
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
