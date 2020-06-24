@@ -85,6 +85,7 @@
 (global-subword-mode +1)
 (global-eldoc-mode -1)
 (mouse-avoidance-mode 'jump)
+(yas-global-mode +1)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
