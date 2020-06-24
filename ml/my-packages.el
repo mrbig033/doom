@@ -1382,7 +1382,7 @@
 (use-package! prog-mode
   :init
   (add-hook   'prog-mode-hook 'abbrev-mode)
-  (remove-hook   'prog-mode-hook 'hl-line-mode)
+  (add-hook   'prog-mode-hook 'hl-line-mode)
   :general
   (:keymaps   '(prog-mode-map)
    :states    '(normal)
