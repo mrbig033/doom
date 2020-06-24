@@ -1412,5 +1412,6 @@
 
 (use-package! zoom
   :custom
-  ;; (zoom-size '(80 . 24))
-  (zoom-size '(0.618 . 0.618)))
+  ;; golden ration:
+  ;; (zoom-size '(0.618 . 0.618))
+  (zoom-size '(0.550 . 0.550)))
