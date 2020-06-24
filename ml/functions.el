@@ -244,3 +244,16 @@
 (defun my-goto-agenda ()
   (interactive)
   (find-file org-agenda-file))
+
+(defun my-rename-file-and-buffer ()
+  "rename the current buffer and file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (message "buffer is not visiting a file!")
+      (let ((new-name (read-file-name "new name: " filename)))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (set-visited-file-name new-name t t)))))))
