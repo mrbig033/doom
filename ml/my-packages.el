@@ -1401,4 +1401,4 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 60 30)))
+  (gac-debounce-interval (* 60 60)))
