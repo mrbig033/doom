@@ -15,7 +15,6 @@
       "C-c M" 'define-global-abbrev
       "C-'"   'org-cycle-agenda-files
       "C-c u" 'redraw-display
-      "C-c a" 'my-goto-agenda
       "C-l"   'recenter-top-bottom
       "C-c q" 'quick-calc
       "C-c d" 'ispell-change-dictionary
@@ -25,4 +24,5 @@
       "C-c t" 'git-timemachine
       "C-c -" 'insert-char
       "C-c i" 'emacs-init-time
-      "M-s"   'my-last-buffer)
+      "M-s"   'my-last-buffer
+      :n "gr"       'my-evil-sel-to-end)
