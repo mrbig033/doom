@@ -676,16 +676,15 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 
-(use-package! yasnippet
-  :after-call after-find-file
-  :config
-  (yas-global-mode +1))
+;; (use-package! yasnippet
+;;   :after-call after-find-file
+;;   :config
+;;   (yas-global-mode +1))
 
-                                        ; (use-package! ivy-yasnippet
-                                        ;   :after (ivy yasnippet)
-                                        ;   :custom
-                                        ;   (ivy-yasnippet-expand-keys nil)
-                                        ;   (ivy-yasnippet-create-snippet-if-not-matched t))
+(use-package! ivy-yasnippet
+  :after (ivy yasnippet)
+  :custom
+  (ivy-yasnippet-expand-keys nil))
 
 (use-package! evil-smartparens
   :after evil
@@ -1411,6 +1410,7 @@
   :custom
   (gac-debounce-interval (* 60 60)))
 
-;; (use-package! zoom
-;;   :custom
-;;   (zoom-size '(0.618 . 0.618)))
+(use-package! zoom
+  :custom
+  ;; (zoom-size '(80 . 24))
+  (zoom-size '(0.618 . 0.618)))
