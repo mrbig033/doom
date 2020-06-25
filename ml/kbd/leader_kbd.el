@@ -59,6 +59,7 @@
  :leader "tT"  'google-translate-smooth-translate
  :leader "tD"  'ispell-change-dictionary
  :leader "tc"  'xah-clean-empty-lines
+ :leader "tC"  'my-clean-all-empty-lines
  :leader "ti"  'my-dup-par
  :leader "tS"  'my-sort-lines-by-length
  :leader "tb"  'flyspell-buffer
