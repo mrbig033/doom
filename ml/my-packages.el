@@ -106,21 +106,27 @@
   :config
   (which-key-add-key-based-replacements
 
-    "SPC SPC mb" "Buffers"
-    "SPC SPC mbh" "Hide Mode Line"
+    "SPC SPC b" "Buffers"
+    "SPC SPC bh" "Hide Mode Line"
 
-    "SPC SPC m"    "Modes"
-    "SPC SPC ms"   "Scratch"
-    "SPC SPC mt"   "Text"
-    "SPC SPC mp"   "Programming"
+    "SPC SPC t"   "Text"
 
-    "SPC SPC mpc" "Company"
-    "SPC mpl"     "Lisp Interaction"
+    "SPC ty" "Typo-Mode"
+    "SPC th" "hl-line-mode"
+    "SPC to" "olivetti-mode"
+    "SPC tw" "writegood-mode"
+    "SPC ta" "artbollocks-mode"
+    "SPC ts" "hl-sentence-mode"
+    "SPC tv" "visible-mode"
 
-    "SPC SPC msu"  "Unkillabe Scratch "
+    "SPC SPC p"   "Programming"
+    "SPC SPC pc" "Company"
+    "SPC SPC pl" "Lisp Interaction"
 
-    "SPC SPC msl" "Scratch Lisp"
-    "SPC SPC msf"  "Scratch Fundamental"
+    "SPC SPC s"   "Scratch"
+    "SPC SPC sl" "Scratch Lisp"
+    "SPC SPC su"  "Unkillabe Scratch "
+    "SPC SPC sf"  "Scratch Fundamental"
 
     "SPC mty" "Typo"
     "SPC mth" "Hl Line"
@@ -153,8 +159,6 @@
 
     "SPC SPC k"  "Goto KBDs"
     "SPC SPC l"  "Goto Lisp"
-    "SPC SPC p"  "Goto Packages"
-    "SPC SPC a"  "Goto Agenda"
 
     "SPC SPC x"  "Org Capture"
 
@@ -1196,7 +1200,9 @@
    "C-d"    'delete-char)
 
   (:keymaps '(evil-visual-state-map)
-   "C-c a"  'align-regexp)
+   "gt"  'capitalize-region
+   "C-c a"  'align-regexp
+   )
 
   (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
    "M-s"      'my-last-buffer
