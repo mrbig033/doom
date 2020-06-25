@@ -30,6 +30,7 @@
        "E" 'my-erase-brain-history)
 
       (:map (org-brain-visualize-mode-map)
+       :e "SPC"      'push-button
        :e "gg"       'beginning-of-buffer
        :e "G"        'end-of-buffer
        :e ","        'avy-goto-word-or-subword-1
