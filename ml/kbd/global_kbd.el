@@ -26,7 +26,8 @@
       "C-c t" 'git-timemachine
       "C-c -" 'insert-char
       "C-c i" 'emacs-init-time
-      "M-s"   'my-last-buffer)
+
+      )
 
 (general-define-key
  :keymaps  'override
@@ -35,7 +36,8 @@
  "M-j"   'windmove-down
  "M-h"   'windmove-left
  "M-l"   'windmove-right
- "C-j"      'treemacs-select-window)
+ "C-j"   'treemacs-select-window
+ "M-s"   'my-last-buffer)
 
 (general-define-key
  :keymaps  'override
