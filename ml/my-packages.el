@@ -223,8 +223,7 @@
   (add-hook! 'org-cycle-hook
              #'org-cycle-hide-archived-subtrees
              #'org-cycle-hide-drawers
-             #'org-cycle-show-empty-lines
-             #'org-optimize-window-after-visibility-change)
+             #'org-cycle-show-empty-lines)
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
@@ -1443,6 +1442,9 @@
   :init
   (setq org-brain-path "~/org/Data/brain")
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
+  (add-hook! 'org-brain-visualize-follow-hook
+             #'my-clean-all-empty-lines
+             #'my-save-some-buffers)
   :custom
   (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
