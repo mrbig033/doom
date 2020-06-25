@@ -1119,6 +1119,8 @@
     (counsel-M-x "^pdf-view- ")))
 
 (use-package! evil
+  :init
+  (evil-set-initial-state 'deft-mode 'emacs)
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
