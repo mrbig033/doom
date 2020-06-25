@@ -23,8 +23,7 @@
       :leader "fL"   'counsel-locate
       :leader "fa"      'my-goto-agenda
       :leader "fp"   'my-goto-my-packages
-      :leader "bc"   '+popup/close-all
-      )
+      :leader "bc"   '+popup/close-all)
 
 ;; LEADER KEY
 (map!
