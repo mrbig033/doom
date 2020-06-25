@@ -16,11 +16,12 @@
              evil-ex-search-keymap)
 
        "C-y" 'kill-ring-save
-       :nvig "<insert>" 'yank
-       :nvig "C-k"      'kill-line
-       :nvig "C-d"      'delete-char
-       :nvig "C-h"      'delete-backward-char
-       :nvig "C-w"      'backward-kill-word)
+       :ig "<insert>" 'yank
+       :ig "C-k"      'kill-line
+       :ig "C-d"      'delete-char
+       :ig "C-h"      'delete-backward-char
+       :ig "C-w"      'backward-kill-word
+       )
 
        (:map (evil-org-mode-map org-mode-map)
         :i "<tab>" '+company/complete)
