@@ -421,26 +421,10 @@
    "mwc"    'org-web-tools-convert-links-to-page-entries))
 
 (use-package! deft
-  :after org
-
-  :general
-
-  (:keymaps   'deft-mode-map
-   :states    'normal
-   "q"        'quit-window
-   "<escape>" 'quit-window
-   "m"        'widget-button-press)
-
-  (:keymaps   'deft-mode-map
-   :states    'insert
-   "<escape>" 'quit-window
-   "C-h" 'deft-filter-decrement)
-
   :custom
   (deft-separator " - ")
   (deft-extensions '("org"))
   (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-directory org-brain-path))
 
@@ -1176,7 +1160,6 @@
   (:keymaps '(evil-insert-state-map)
    "C-h"    'evil-delete-backward-char-and-join
    "M-e"    'yas-expand
-   "C-ç d"  'deft
    "C-k"    'kill-line
    "C-p"    'previous-line
    "C-n"    'next-line
@@ -1201,7 +1184,6 @@
   (:keymaps '(evil-visual-state-map evil-normal-state-map)
    "M-s"      'my-last-buffer
    "M-]"      'evil-window-prev
-   ;; "çd"      'deft
    "M-o"   'better-jumper-jump-backward
    "M-i"   'better-jumper-jump-forward
    "C-h M" 'my-show-major-mode
