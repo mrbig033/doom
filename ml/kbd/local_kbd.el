@@ -27,7 +27,7 @@
 
       (:map (org-brain-prefix-map)
        "D" 'org-brain-add-entry
-       "E" 'my-erase-brain-history)
+       "E" 'my-brain-erase-history)
 
       (:map (deft-mode-map)
        :e "<escape>" 'quit-window
