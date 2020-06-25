@@ -8,6 +8,7 @@
 (defun my-quiet-save-buffer ()
   (interactive)
   (let ((inhibit-message t))
+    (+popup/close-all)
     (evil-ex-nohighlight)
     (save-buffer)))
 
@@ -250,8 +251,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-        (doom/restart-and-restore))))
+                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+                      (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
@@ -274,17 +275,17 @@
   (interactive)
   (delete-frame nil t))
 
-  (defun spelling-brasileiro ()
-    (interactive)
-    (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
-                company-dabbrev-ignore-case 'keep-prefix)
-    (ispell-change-dictionary "brasileiro")
-    (flyspell-mode +1)
-    (message " ispell brasileiro"))
+(defun spelling-brasileiro ()
+  (interactive)
+  (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
+              company-dabbrev-ignore-case 'keep-prefix)
+  (ispell-change-dictionary "brasileiro")
+  (flyspell-mode +1)
+  (message " ispell brasileiro"))
 
-  (defun spelling-english ()
-    (interactive)
-    (setq-local company-ispell-dictionary nil
-                ispell-local-dictionary "english")
-    (flyspell-mode +1)
-    (message " ispell english"))
+(defun spelling-english ()
+  (interactive)
+  (setq-local company-ispell-dictionary nil
+              ispell-local-dictionary "english")
+  (flyspell-mode +1)
+  (message " ispell english"))
