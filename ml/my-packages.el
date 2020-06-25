@@ -426,6 +426,7 @@
   (deft-extensions '("org"))
   (deft-recursive t)
   (deft-default-extension "org")
+  (deft-use-filter-string-for-filename t)
   (deft-directory org-brain-path))
 
 (use-package! avy
