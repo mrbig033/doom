@@ -1447,6 +1447,10 @@
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
 
+  (defun my-goto-brain ()
+    (interactive)
+    (switch-to-buffer "*org-brain*"))
+
   (defun my-forward-button-push ()
     (interactive)
     (forward-button 1)
