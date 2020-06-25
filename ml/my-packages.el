@@ -768,6 +768,7 @@
    "C-l" 'comint-clear-buffer)
 
   :custom
+  (python-shell-completion-native-enable nil)
   (python-indent-guess-indent-offset-verbose nil)
   :config
 
