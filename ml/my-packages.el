@@ -214,6 +214,7 @@
 
 (use-package! org
   :init
+  (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook 'org-agenda-mode-hook 'hl-line-mode)
@@ -312,6 +313,7 @@
       "* %? %i" :prepend t)))
 
   :config
+
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
