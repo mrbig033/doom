@@ -1,4 +1,4 @@
 (use-package! yasnippet
-  ;; :after-call after-find-file
+  :defer t
   :config
   (yas-global-mode +1))
