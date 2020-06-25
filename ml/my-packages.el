@@ -104,6 +104,29 @@
   :config
   (which-key-add-key-based-replacements
 
+    "SPC SPC m"    "Modes"
+    "SPC SPC ms"   "Scratch"
+    "SPC SPC mt"   "Text"
+    "SPC SPC mp"   "Programming"
+
+    "SPC SPC mpc" "Company"
+    "SPC mpl"     "Lisp Interaction"
+
+    "SPC SPC msu"  "Unkillabe Scratch "
+
+    "SPC SPC msl" "Scratch Lisp"
+    "SPC SPC s" "Python Classes"
+    "SPC SPC msf"  "Scratch Fundamental"
+
+    "SPC mty" "Typo"
+    "SPC mth" "Hl Line"
+    "SPC mto" "Olivetti"
+    "SPC mtw" "Writegood"
+    "SPC mta" "Artbollocks"
+    "SPC mts" "Hl Sentence"
+    "SPC mtv" "Visible"
+
+
     "SPC SPC rf"  "Roam Find File"
     "SPC SPC rl"  "Roam Find-File"
     "SPC SPC rj"  "Roam Index"
@@ -303,7 +326,6 @@
   ;;  :nvig "M-j"   'windmove-down
   ;;  :nvig "M-h"   'windmove-left
   ;;  :nvig "M-l"   'windmove-right)
-
 
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
@@ -691,12 +713,12 @@
   :custom
   (ivy-yasnippet-expand-keys nil))
 
-(use-package! evil-smartparens
+(use-package evil-smartparens
   :after evil
-  :general
-  (:keymaps '(evil-smartparens-mode-map)
-   :states  '(visual)
-   "o"     'exchange-point-and-mark))
+  :config
+  (general-unbind 'evil-smartparens-mode-map
+    :with 'exchange-point-and-mark
+    [remap evil-sp-override]))
 
 (use-package! python
   :init
@@ -706,6 +728,7 @@
              #'evil-swap-keys-swap-double-single-quotes
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
+             #'electric-operator-mode
              #'(lambda () (setq-local fill-column 57)))
 
   (add-hook! 'python-mode-hook
@@ -714,8 +737,6 @@
   :general
 
   (:keymaps '(doom-leader-map)
-   "SPC f"  'my-search-python-function
-   "SPC s"  'my-search-python-classes
    "pG"  'projectile-configure-project
    "fp"  '+ivy/projectile-find-file)
 
@@ -1391,15 +1412,13 @@
 
 (use-package! prog-mode
   :init
-
   (add-hook! '(prog-mode-hook)
              #'evil-smartparens-mode
              #'smartparens-strict-mode
-             #'electric-operator-mode
              #'hl-line-mode
              #'abbrev-mode)
 
-  (remove-hook   'prog-mode-hook 'hl-line-mode)
+  ;; (remove-hook   'prog-mode-hook 'hl-line-mode)
 
   :general
   (:keymaps   '(prog-mode-map)
@@ -1415,7 +1434,7 @@
 
 (use-package! elisp-mode
   :init
-  (add-hook 'emacs-lisp-mode-hook '#'rainbow-delimiters-mode)
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   :general
   (:keymaps   '(emacs-lisp-mode-map)
    :states    '(normal)
