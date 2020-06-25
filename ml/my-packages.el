@@ -642,7 +642,6 @@
    "C-/"      'ivy-next-line
    "C-j" 'ivy-immediate-done
    "M-q"      'ivy-done
-   "<insert>" 'yank
    "C-k"      'kill-line
    "C-d"      'delete-char
    "C-h"      'delete-backward-char
