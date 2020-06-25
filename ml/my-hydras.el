@@ -68,34 +68,31 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _ç_: goto def    _s_: quickshell     _C_: classes ag    _p_: scratch
-    _a_: go at point _l_: clear errors   _F_: functions ag
-    _g_: goto dumb   _c_: classes swiper _e_: first error
-    _l_: go back     _f_: functions swip _s_: show error"
+    _ç_: go def   _ag_: ag at point   _sc_: swiper classes    _fe_: first error
+    _Ç_: go dumb  _ac_: ag classes    _sf_: swiper functions  _fc_: clear errors
+    _l_: go back  _af_: ag functions  _p_: scratch            _fs_: show error
+                                                        ^^^^^^_s_: quickshell"
 
   ("<escape>" nil)
   ("q" nil)
 
   ("ç" elpy-goto-definition)
+  ("Ç" dumb-jump-go)
   ("<return>" elpy-goto-definition)
-
-  ("a" counsel-ag-thing-at-point)
-
-  ("g" dumb-jump-go)
   ("l" better-jumper-jump-backward)
- 
-  ("<C-return>" better-jumper-jump-backward)
-  ("s" quickrun-shell)
-  ("l" flycheck-clear)
 
-  ("c" my-swiper-python-classes)
-  ("f" my-swiper-python-functions)
+  ("ag" counsel-ag-thing-at-point)
+  ("ac" my-search-python-classes)
+  ("af" my-search-python-function)
 
-  ("C" my-search-python-classes)
-  ("F" my-search-python-function)
-  ("e" flycheck-first-error)
-  ("S" flycheck-display-error-at-point)
-  ("p" my-goto-python-scratch))
+  ("sc" my-swiper-python-classes)
+  ("sf" my-swiper-python-functions)
+  ("p" my-goto-python-scratch)
+
+  ("fe" flycheck-first-error)
+  ("fc" flycheck-clear)
+  ("fs" flycheck-display-error-at-point)
+  ("s" quickrun-shell))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "
