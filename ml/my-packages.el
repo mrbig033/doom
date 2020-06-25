@@ -119,6 +119,7 @@
     "SPC SPC ta" "Artbollocks Mode"
     "SPC SPC ts" "Hl Sentence Mode"
     "SPC SPC tv" "Visible Mode"
+    "SPC SPC tb" "Beacon Mode"
 
     "SPC SPC p"   "Programming"
     "SPC SPC pc" "Company"
@@ -1160,7 +1161,6 @@
    "C-S-p"    'cool-moves-word-backwards
    "C-S-n"    'cool-moves-word-forward
    "TAB"      '+fold/toggle
-   "zi"       '+fold/open-all
    "Q"        'my-delete-frame
    "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
@@ -1444,7 +1444,8 @@
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
   (add-hook! 'org-brain-visualize-follow-hook
              #'my-clean-all-empty-lines
-             #'my-save-some-buffers)
+             #'my-save-some-buffers
+             #'org-hide-drawer-all)
   :custom
   (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
@@ -1505,3 +1506,30 @@
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
+(use-package! beacon
+  :custom
+  (beacon-size 30)
+  (beacon-blink-delay 0.1)
+  (beacon-blink-duration 0.06)
+  (beacon-blink-when-focused nil)
+  (beacon-blink-when-window-scrolls t)
+  (beacon-blink-when-window-changes t)
+  (beacon-blink-when-point-moves-vertically nil)
+  (beacon-blink-when-point-moves-horizontally nil)
+
+  (beacon-dont-blink-commands '(evil-forward-word-begin
+                                evil-backward-word-begin
+                                evil-scroll-line-up
+                                evil-scroll-line-down
+                                evil-better-visual-line-next-line
+                                evil-better-visual-line-previous-line
+                                evil-forward-paragraph
+                                evil-backward-paragraph
+                                evil-next-visual-line
+                                evil-previous-visual-line
+                                evil-next-line
+                                evil-previous-line
+                                beginning-of-visual-line
+                                evil-indent
+                                helpful-at-point
+                                quit-window)))
