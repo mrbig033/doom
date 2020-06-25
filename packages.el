@@ -69,6 +69,7 @@
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 
+(package! org-brain :disable t)
 (package! zoom :disable t)
 (package! elmacro :disable t)
 (package! shut-up :disable t)
