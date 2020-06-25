@@ -72,7 +72,7 @@
        user-mail-address "mrbig033@protonmail.com"
        flycheck-global-modes '(not emacs-lisp-mode)
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
-       doom-theme 'doom-gruvbox
+       doom-theme 'doom-dracula
        doom-font (font-spec :family "Input Mono" :size 20)
        doom-big-font (font-spec :family "Input Mono" :size 20)
        doom-unicode-font (font-spec :family "Input Mono" :size 20)
