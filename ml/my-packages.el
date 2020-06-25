@@ -109,15 +109,16 @@
     "SPC SPC b" "Buffers"
     "SPC SPC bh" "Hide Mode Line"
 
-    "SPC SPC t"   "Text"
+    "SPC SPC r"   "Roam"
 
-    "SPC ty" "Typo-Mode"
-    "SPC th" "hl-line-mode"
-    "SPC to" "olivetti-mode"
-    "SPC tw" "writegood-mode"
-    "SPC ta" "artbollocks-mode"
-    "SPC ts" "hl-sentence-mode"
-    "SPC tv" "visible-mode"
+    "SPC SPC t"   "Text"
+    "SPC SPC ty" "Typo Mode"
+    "SPC SPC th" "Hl Line Mode"
+    "SPC SPC to" "Olivetti Mode"
+    "SPC SPC tw" "Writegood Mode"
+    "SPC SPC ta" "Artbollocks Mode"
+    "SPC SPC ts" "Hl Sentence Mode"
+    "SPC SPC tv" "Visible Mode"
 
     "SPC SPC p"   "Programming"
     "SPC SPC pc" "Company"
@@ -135,7 +136,6 @@
     "SPC mta" "Artbollocks"
     "SPC mts" "Hl Sentence"
     "SPC mtv" "Visible"
-
 
     "SPC SPC rf"  "Roam Find File"
     "SPC SPC rl"  "Roam Find-File"
@@ -156,9 +156,6 @@
     "SPC mwv"  "OW Attach"
     "SPC mwr"  "OW Read As Org"
     "SPC mwc"  "OW Links to Entries"
-
-    "SPC SPC k"  "Goto KBDs"
-    "SPC SPC l"  "Goto Lisp"
 
     "SPC SPC x"  "Org Capture"
 
@@ -216,7 +213,7 @@
   (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
 
 (use-package! org
-  :demand t
+  ;; :demand t
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -528,9 +525,7 @@
 
   (:keymaps 'doom-leader-map
    "r"      'deer
-   "R"      'ranger
-   "SPC k"  'my-deer-goto-my-kdb
-   "SPC l"  'my-deer-goto-my-lisp)
+   "R"      'ranger)
 
   :config
 
