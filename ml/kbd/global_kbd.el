@@ -25,12 +25,11 @@
       "C-h N" 'my-show-server-name
       "C-c t" 'git-timemachine
       "C-c -" 'insert-char
-      "C-c i" 'emacs-init-time
-
-      )
+      "C-c i" 'emacs-init-time)
 
 (general-define-key
  :keymaps 'override
+ :states '(normal visual insert)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
  "M-h"    'windmove-left
