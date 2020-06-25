@@ -472,7 +472,7 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
-  :after-call after-find-file
+  :demand t
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -1430,26 +1430,19 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
+  :after org
   :init
+  (setq org-brain-path "~/org/Data/brain")
   (with-eval-after-load 'evil
     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode)
   :custom
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
-  (org-brain-path "~/org/Data/brain")
   (org-brain-visualize-default-choices 'all)
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
-
-  (defun my-brain-commands ()
-    (interactive)
-    (counsel-M-x "^org-brain- "))
-
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
-
-(use-package! polymode
-  :config
-  (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode))
 
 (after! evil
   (evil-better-visual-line-on))
