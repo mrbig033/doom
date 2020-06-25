@@ -68,22 +68,22 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _d_: goto def    _s_: quickshell     _C_: classes ag    _p_: scratch
+    _ç_: goto def    _s_: quickshell     _C_: classes ag    _p_: scratch
     _a_: go at point _l_: clear errors   _F_: functions ag
     _g_: goto dumb   _c_: classes swiper _e_: first error
-    _b_: go back     _f_: functions swip _s_: show error"
+    _l_: go back     _f_: functions swip _s_: show error"
 
   ("<escape>" nil)
   ("q" nil)
 
-  ("d" elpy-goto-definition)
   ("ç" elpy-goto-definition)
   ("<return>" elpy-goto-definition)
+
   ("a" counsel-ag-thing-at-point)
 
   ("g" dumb-jump-go)
-  ("b" better-jumper-jump-backward)
-  ("C-ç" better-jumper-jump-backward)
+  ("l" better-jumper-jump-backward)
+ 
   ("<C-return>" better-jumper-jump-backward)
   ("s" quickrun-shell)
   ("l" flycheck-clear)
