@@ -314,12 +314,6 @@
 
   :config
 
-  ;; (set-company-backend!
-  ;;   'org-mode
-  ;;   'company-ispell
-  ;;   '(company-dabbrev  :with company-capf company-yasnippet)
-  ;;   '(company-dabbrev-code :with company-keywords))
-
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
@@ -1004,7 +998,7 @@
   (company-selection-wrap-around t)
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
-  (company-global-modes        '(not erc-mode message-mode help-mode gud-mode eshell-mode))
+  (company-global-modes '(not erc-mode text-mode org-mode message-mode help-mode gud-mode eshell-mode))
 
   :general
   (:keymaps                    '(company-active-map)
@@ -1246,6 +1240,7 @@
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)
     (abbrev-mode +1)
+    (pabbrev-mode +1)
     (auto-capitalize-mode +1)))
 
 (use-package! recursive-narrow
@@ -1322,10 +1317,7 @@
 
 (use-package! markdown-mode
   :init
-
-  (add-hook! 'markdown-mode-hook
-             #'abbrev-mode
-             #'my-mardown-hooks)
+  (add-hook! 'markdown-mode-hook #'abbrev-mode)
   :custom
   (markdown-hide-urls 't)
   (markdown-hide-markup nil)
@@ -1346,19 +1338,20 @@
 
   :config
 
-  (defun my-mardown-hooks ()
-    (interactive)
-    (setq-local company-dabbrev-other-buffers nil
-                company-minimum-prefix-length 1
-                company-tooltip-idle-delay 0.5
-                company-idle-delay 0.25))
+  ;; (defun my-mardown-hooks ()
+  ;;   (interactive)
+  ;;   (setq-local company-dabbrev-other-buffers nil
+  ;;               company-minimum-prefix-length 1
+  ;;               company-tooltip-idle-delay 0.5
+  ;;               company-idle-delay 0.25))
 
-  (set-company-backend!
-    'text-mode
-    'company-ispell
-    'company-dabbrev
-    '(company-dabbrev  :with company-capf company-yasnippet)
-    '(company-dabbrev-code :with company-keywords company-dabbrev)))
+  ;; (set-company-backend!
+  ;;   'text-mode
+  ;;   'company-ispell
+  ;;   'company-dabbrev
+  ;;   '(company-dabbrev  :with company-capf company-yasnippet)
+  ;;   '(company-dabbrev-code :with company-keywords company-dabbrev))
+  )
 
 ;; (after! shut-up-ignore
 ;;   (when noninteractive
@@ -1438,3 +1431,7 @@
   :custom
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
+
+(use-package! pabbrev
+  :custom
+  (pabbrev-idle-timer-verbose nil))
