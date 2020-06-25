@@ -1447,7 +1447,7 @@
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
 
-  (defun my-erase-brain-history ()
+  (defun my-brain-erase-history ()
     (interactive)
     (setq org-brain--vis-history nil))
 
