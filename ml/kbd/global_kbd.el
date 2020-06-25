@@ -29,7 +29,7 @@
 
 (general-define-key
  :keymaps 'override
- :states '(normal visual insert)
+ :states '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
  "M-h"    'windmove-left
