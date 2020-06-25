@@ -72,6 +72,7 @@
   (evil-next-line 1))
 
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
+
 (defun xah-clean-empty-lines ()
   "Replace repeated blank lines to just 1."
   (interactive)
@@ -86,6 +87,21 @@
           (goto-char (point-min))
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
+
+(defun my-clean-all-empty-lines ()
+  "Replace repeated blank lines to just 1."
+  (interactive)
+  (let ($begin $end)
+    (if (region-active-p)
+        (setq $begin (region-beginning) $end (region-end))
+      (setq $begin (point-min) $end (point-max)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (progn
+          (goto-char (point-min))
+          (while (re-search-forward "\n\n+" nil "move")
+            (replace-match "\n")))))))
 
 (defun my-magit-stage-modified-and-commit ()
   (interactive)
