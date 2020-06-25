@@ -22,11 +22,11 @@
        :ig "C-h"      'delete-backward-char
        :ig "C-w"      'backward-kill-word)
 
-      (:map (pabbrev-mode-map)
+      (:map (pabbrev-select-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
 
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
 
       (:map (custom-mode-map compilation-mode-map)
-       :n "<escape>" 'quit-window))
+       :n "<escape>" 'evil-force-normal-state))
