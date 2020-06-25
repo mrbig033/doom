@@ -1448,6 +1448,9 @@
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
+  (org-brain-headline-links-only-show-visible t)
+(org-brain-include-file-entries t)
+  (org-brain-show-full-entry t)
   (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
   (org-id-track-globally t)
