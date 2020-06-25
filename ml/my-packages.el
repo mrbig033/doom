@@ -229,9 +229,6 @@
    "M-h"   'windmove-left
    "M-l"   'windmove-right
    "C-j" 'treemacs-select-window)
-  (:keymaps   '(evil-org-mode-map)
-   :states    '(normal)
-   "gr"       'my-evil-sel-to-end)
   (:keymaps   '(doom-leader-map)
    "aa"        'org-agenda
    "at"        'org-today-agenda
@@ -1164,7 +1161,6 @@
    "C-c z"    'evil-emacs-state
    "g3"       'evil-backward-word-end
    "g#"       'evil-forward-word-end
-   "gr"       'my-evil-sel-to-end
    "go"       'cool-moves-open-line-below
    "g,"       'goto-last-change
    "g;"       'goto-last-change-reverse
