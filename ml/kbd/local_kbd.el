@@ -22,8 +22,8 @@
        :nvig "C-h"      'delete-backward-char
        :nvig "C-w"      'backward-kill-word)
 
-       (:map (evil-org-mode-map)
-        :i "C-h" 'evil-delete-backward-char-and-join)
+       (:map (evil-org-mode-map org-mode-map)
+        :i "<tab>" '+company/complete)
 
        (:map (custom-mode-map compilation-mode-map)
         :n "<escape>" 'quit-window))
