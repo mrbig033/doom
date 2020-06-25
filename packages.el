@@ -78,6 +78,8 @@
 (package! ivy-yasnippet)
 (package! zoom)
 (package! typo)
+(package! vimrc-mode)
+
 
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
