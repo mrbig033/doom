@@ -1435,10 +1435,7 @@
   :demand t
   :init
   (setq org-brain-path "~/org/Data/brain")
-
-  ;; (with-eval-after-load 'evil
-  ;;   (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-
+  (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
   :custom
   (org-brain-visualize-sort-function 'ignore)
   (org-id-track-globally t)
