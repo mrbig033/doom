@@ -320,6 +320,11 @@
 
   :config
 
+  (set-company-backend!
+    'org-mode
+    '(company-ispell :with company-dabbrev)
+    '(company-capf :with company-yasnippet))
+
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
 (use-package! org-roam
@@ -928,25 +933,6 @@
              (python-mode "[py]" " python")
              (emacs-lisp-mode "[el]" "emacs-lisp")
              (lisp-interaction-mode "[lin]" "lisp interaction"))))
-
-(use-package! flyspell
-  :config
-  (defun spelling-brasileiro ()
-    (interactive)
-
-    (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
-                company-dabbrev-ignore-case 'keep-prefix)
-
-    (ispell-change-dictionary "brasileiro")
-    (flyspell-mode +1)
-    (message " ispell brasileiro"))
-
-  (defun spelling-english ()
-    (interactive)
-    (setq-local company-ispell-dictionary nil
-                ispell-local-dictionary "english")
-    (flyspell-mode)
-    (message " ispell english")))
 
 (use-package! ispell
   :custom
