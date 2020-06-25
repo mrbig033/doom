@@ -47,7 +47,9 @@
        :e "C-l"      #'link-hint-open-link
        :e "."        #'push-button
        :e "C-x b"    'my-brain-commands
-       :e "<escape>" 'ignore)
+       :e "<escape>" 'org-brain-visualize-quit
+       :e "<f8>"     'org-brain-visualize-quit
+       :e "<M-f8>"     'org-brain-visualize-quit)
 
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
