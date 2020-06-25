@@ -289,3 +289,7 @@
               ispell-local-dictionary "english")
   (flyspell-mode +1)
   (message " ispell english"))
+
+(defun my-brain-commands ()
+  (interactive)
+  (counsel-M-x "^org-brain- "))
