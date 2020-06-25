@@ -34,6 +34,7 @@
        :e "gg"       'beginning-of-buffer
        :e "G"        'end-of-buffer
        :e ","        'avy-goto-word-or-subword-1
+       :e "C-."      'counsel-brain
        :e "ç"        'org-brain-prefix-map
        :e "C-r"      'org-brain-update-id-locations
        :e "o"        'my-brain-goto-current-maximize
