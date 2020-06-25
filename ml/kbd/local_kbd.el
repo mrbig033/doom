@@ -29,6 +29,11 @@
        "D" 'org-brain-add-entry
        "E" 'my-erase-brain-history)
 
+      (:map (deft-mode-map)
+       :e "<escape>" 'quit-window
+       :e "C-u"      'deft-filter-clear
+       :e "C-k"      'deft-filter-clear)
+
       (:map (org-brain-visualize-mode-map)
        :e "SPC"      'push-button
        :e "gg"       'beginning-of-buffer
