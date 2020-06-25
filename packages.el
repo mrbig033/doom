@@ -64,16 +64,17 @@
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
 
 (package! typo)
+(package! pabbrev)
 (package! evil-swap-keys)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 
 (package! zoom :disable t)
-(package! pabbrev :disable t)
 (package! elmacro :disable t)
 (package! shut-up :disable t)
 (package! nswbuff :disable t)
 (package! clipmon :disable t)
+(package! org-roam :disable t)
 (package! yafolding :disable t)
 (package! vimrc-mode :disable t)
 (package! evil-snipe :disable t)
