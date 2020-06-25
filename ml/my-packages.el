@@ -223,11 +223,8 @@
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
-   :states    '(normal insert visual)
-   "M-k"   'windmove-up
-   "M-j"   'windmove-down
-   "M-h"   'windmove-left
-   "M-l"   'windmove-right
+   "C-c j"   'org-metadown
+   "C-c k"   'org-metaup
    "C-j" 'treemacs-select-window)
   (:keymaps   '(doom-leader-map)
    "aa"        'org-agenda
