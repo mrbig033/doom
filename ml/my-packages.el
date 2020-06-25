@@ -512,7 +512,7 @@
    "çcm"        'dired-create-directory
    "C-c l"      'counsel-find-file
    "d"          'dired-do-flagged-delete
-   "x"          'diredp-delete-this-file
+   "x"          'dired-do-flagged-delete
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
 
