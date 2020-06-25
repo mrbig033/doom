@@ -1417,7 +1417,7 @@
    "<escape>" 'my-quiet-save-buffer)
   (:keymaps   '(lisp-interaction-mode-map)
    :states    '(normal)
-   "<escape>" 'ignore))
+   "<escape>" 'evil-force-normal-state))
 
 (use-package! git-auto-commit-mode
   :custom
