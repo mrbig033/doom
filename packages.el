@@ -65,13 +65,13 @@
 
 (package! typo)
 (package! pabbrev)
-(package! polymode)
+(package! org-brain)
 (package! evil-swap-keys)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 
-(package! org-brain :disable t)
 (package! zoom :disable t)
+(package! polymode :disable t)
 (package! elmacro :disable t)
 (package! shut-up :disable t)
 (package! nswbuff :disable t)
