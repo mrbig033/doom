@@ -273,3 +273,18 @@
 (defun my-delete-frame ()
   (interactive)
   (delete-frame nil t))
+
+  (defun spelling-brasileiro ()
+    (interactive)
+    (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
+                company-dabbrev-ignore-case 'keep-prefix)
+    (ispell-change-dictionary "brasileiro")
+    (flyspell-mode +1)
+    (message " ispell brasileiro"))
+
+  (defun spelling-english ()
+    (interactive)
+    (setq-local company-ispell-dictionary nil
+                ispell-local-dictionary "english")
+    (flyspell-mode +1)
+    (message " ispell english"))
