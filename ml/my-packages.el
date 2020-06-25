@@ -213,7 +213,6 @@
   (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
 
 (use-package! org
-  ;; :demand t
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
@@ -477,9 +476,7 @@
                          (number-sequence ?0 ?9))))
 
 (use-package! ranger
-  :demand t
-  ;; :init
-  ;; (add-hook 'ranger-mode-hook 'my-ranger-olivetti)
+  :after-call after-find-file
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -1088,363 +1085,351 @@
 
     (super-save-mode t)))
 
-  (use-package! pdf-view
-    :init
+(use-package! pdf-view
+  :init
 
-    (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
+  (add-hook 'pdf-outline-buffer-mode-hook (lambda () (toggle-truncate-lines +1)))
 
-    :general
+  :general
 
-    (:keymaps   'pdf-view-mode-map
-     :states '(normal visual)
-     "H"        'pdf-history-backward
-     "L"        'pdf-history-forward
-     "C-s"      'pdf-occur
-     "<escape>" 'ignore
-     "TAB"      'pdf-outline
-     "o"      'pdf-outline
-     "q"        'quit-window
-     "w"        'pdf-view-fit-width-to-window
-     "h"        'pdf-view-scroll-up-or-next-page
-     "l"        'pdf-view-scroll-down-or-previous-page
-     "j"        'pdf-view-next-page
-     "k"        'pdf-view-previous-page
-     "p"        'pdf-view-previous-line-or-previous-page
-     "n"        'pdf-view-next-line-or-next-page
-     "K"        'pdf-view-previous-line-or-previous-page
-     "J"        'pdf-view-next-line-or-next-page
-     "C-l"      'my-show-pdf-view-commands)
+  (:keymaps   'pdf-view-mode-map
+   :states '(normal visual)
+   "H"        'pdf-history-backward
+   "L"        'pdf-history-forward
+   "C-s"      'pdf-occur
+   "<escape>" 'ignore
+   "TAB"      'pdf-outline
+   "o"      'pdf-outline
+   "q"        'quit-window
+   "w"        'pdf-view-fit-width-to-window
+   "h"        'pdf-view-scroll-up-or-next-page
+   "l"        'pdf-view-scroll-down-or-previous-page
+   "j"        'pdf-view-next-page
+   "k"        'pdf-view-previous-page
+   "p"        'pdf-view-previous-line-or-previous-page
+   "n"        'pdf-view-next-line-or-next-page
+   "K"        'pdf-view-previous-line-or-previous-page
+   "J"        'pdf-view-next-line-or-next-page
+   "C-l"      'my-show-pdf-view-commands)
 
-    (:keymaps   'pdf-outline-buffer-mode-map
-     :states '(normal visual)
-     "<escape>"  'quit-window)
+  (:keymaps   'pdf-outline-buffer-mode-map
+   :states '(normal visual)
+   "<escape>"  'quit-window)
 
-    :custom
+  :custom
 
-    (pdf-view-continuous t)
-    (pdf-view-resize-factor 1.15)
-    (pdf-misc-size-indication-minor-mode t)
+  (pdf-view-continuous t)
+  (pdf-view-resize-factor 1.15)
+  (pdf-misc-size-indication-minor-mode t)
 
-    :config
+  :config
 
-    (defun my-show-pdf-view-commands ()
-      (interactive)
-      (counsel-M-x "^pdf-view- ")))
+  (defun my-show-pdf-view-commands ()
+    (interactive)
+    (counsel-M-x "^pdf-view- ")))
 
-  (use-package! evil
-    :custom
-    (evil-jumps-cross-buffers t)
-    (evil-visualstar/persistent t)
-    (evil-respect-visual-line-mode nil)
-    (+evil-want-o/O-to-continue-comments nil)
+(use-package! evil
+  :custom
+  (evil-jumps-cross-buffers t)
+  (evil-visualstar/persistent t)
+  (evil-respect-visual-line-mode nil)
+  (+evil-want-o/O-to-continue-comments nil)
 
-    :general
+  :general
 
-    (:keymaps   '(evil-emacs-state-map)
-     "<escape>" 'evil-force-normal-state)
+  (:keymaps   '(evil-emacs-state-map)
+   "<escape>" 'evil-force-normal-state)
 
-    (:keymaps   '(evil-normal-state-map)
-     "C-z"      'ignore
-     "M-d"      'evil-multiedit-match-and-next
-     "C-c z"    'evil-emacs-state
-     "g3"       'evil-backward-word-end
-     "g#"       'evil-forward-word-end
-     "go"       'cool-moves-open-line-below
-     "g,"       'goto-last-change
-     "g;"       'goto-last-change-reverse
-     "gO"       'cool-moves-open-line-above
-     "gsP"      'cool-moves-paragraph-backward
-     "gsp"      'cool-moves-paragraph-forward
-     "C-S-p"    'cool-moves-word-backwards
-     "C-S-n"    'cool-moves-word-forward
-     "TAB"      '+fold/toggle
-     "zi"       '+fold/open-all
-     "Q"        'my-delete-frame
-     "-"        'insert-char
-     "z0"       'endless/ispell-word-then-abbrev
-     "z="       'flyspell-correct-previous
-     "<escape>" 'my-quiet-save-buffer)
+  (:keymaps   '(evil-normal-state-map)
+   "C-z"      'ignore
+   "M-d"      'evil-multiedit-match-and-next
+   "C-c z"    'evil-emacs-state
+   "g3"       'evil-backward-word-end
+   "g#"       'evil-forward-word-end
+   "go"       'cool-moves-open-line-below
+   "g,"       'goto-last-change
+   "g;"       'goto-last-change-reverse
+   "gO"       'cool-moves-open-line-above
+   "gsP"      'cool-moves-paragraph-backward
+   "gsp"      'cool-moves-paragraph-forward
+   "C-S-p"    'cool-moves-word-backwards
+   "C-S-n"    'cool-moves-word-forward
+   "TAB"      '+fold/toggle
+   "zi"       '+fold/open-all
+   "Q"        'my-delete-frame
+   "-"        'insert-char
+   "z0"       'endless/ispell-word-then-abbrev
+   "z="       'flyspell-correct-previous
+   "<escape>" 'my-quiet-save-buffer)
 
-    (:keymaps   '(evil-normal-state-map
-                  evil-insert-state-map
-                  evil-visual-state-map)
-     "M-k"   'windmove-up
-     "M-j"   'windmove-down
-     "M-h"   'windmove-left
-     "M-l"   'windmove-right)
+  (:keymaps   '(evil-normal-state-map
+                evil-insert-state-map
+                evil-visual-state-map)
+   "M-k"   'windmove-up
+   "M-j"   'windmove-down
+   "M-h"   'windmove-left
+   "M-l"   'windmove-right)
 
-    (:keymaps '(evil-insert-state-map)
-     "C-h"    'evil-delete-backward-char-and-join
-     "M-e"    'yas-expand
-     "C-ç d"  'deft
-     "C-k"    'kill-line
-     "C-p"    'previous-line
-     "C-n"    'next-line
-     "M-d"    'kill-word
-     "C-d"    'delete-char)
+  (:keymaps '(evil-insert-state-map)
+   "C-h"    'evil-delete-backward-char-and-join
+   "M-e"    'yas-expand
+   "C-ç d"  'deft
+   "C-k"    'kill-line
+   "C-p"    'previous-line
+   "C-n"    'next-line
+   "M-d"    'kill-word
+   "C-d"    'delete-char)
 
-    (:keymaps '(evil-visual-state-map)
-     "gt"  'capitalize-region
-     "C-c a"  'align-regexp
-     )
+  (:keymaps '(evil-visual-state-map)
+   "gt"  'capitalize-region
+   "C-c a"  'align-regexp
+   )
 
-    (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
-     "M-s"      'my-last-buffer
-     "M-]"      'evil-window-prev
-     "M-["      'evil-window-next
-     "C-S-j" 'cool-moves-line-forward
-     "C-S-k" 'cool-moves-line-backward
-     "s-2"      'evil-execute-macro
-     "ge"       'evil-end-of-visual-line
-     "0"        'evil-beginning-of-visual-line
-     "C-9"      'evilnc-comment-or-uncomment-lines)
-    (:keymaps '(evil-visual-state-map evil-normal-state-map)
-     "M-s"      'my-last-buffer
-     "M-]"      'evil-window-prev
-     "çd" 'deft
-     "M-o"   'better-jumper-jump-backward
-     "M-i"   'better-jumper-jump-forward
-     "C-h M" 'my-show-major-mode
-     "M-["      'evil-window-next
-     "s-2"      'evil-execute-macro
-     "C-9"      'evilnc-comment-or-uncomment-lines
-     "0"        'evil-beginning-of-visual-line
-     "ge"       'evil-end-of-visual-line)
+  (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
+   "M-s"      'my-last-buffer
+   "M-]"      'evil-window-prev
+   "M-["      'evil-window-next
+   "C-S-j" 'cool-moves-line-forward
+   "C-S-k" 'cool-moves-line-backward
+   "s-2"      'evil-execute-macro
+   "ge"       'evil-end-of-visual-line
+   "0"        'evil-beginning-of-visual-line
+   "C-9"      'evilnc-comment-or-uncomment-lines)
+  (:keymaps '(evil-visual-state-map evil-normal-state-map)
+   "M-s"      'my-last-buffer
+   "M-]"      'evil-window-prev
+   "çd" 'deft
+   "M-o"   'better-jumper-jump-backward
+   "M-i"   'better-jumper-jump-forward
+   "C-h M" 'my-show-major-mode
+   "M-["      'evil-window-next
+   "s-2"      'evil-execute-macro
+   "C-9"      'evilnc-comment-or-uncomment-lines
+   "0"        'evil-beginning-of-visual-line
+   "ge"       'evil-end-of-visual-line)
 
-    :config
+  :config
 
-    (defun my-open-two-lines ()
-      (interactive)
-      (end-of-line)
-      (newline-and-indent 2)
-      (evil-insert-state))
+  (defun my-open-two-lines ()
+    (interactive)
+    (end-of-line)
+    (newline-and-indent 2)
+    (evil-insert-state))
 
-    (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
+  (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
-  (use-package! projectile
-    :general
-    (:keymaps '(doom-leader-map)
-     "sp"  'counsel-projectile-ag
-     "pG"  'projectile-configure-project
-     "fp"  '+ivy/projectile-find-file)
-    (:states '(normal visual)
-     "H"   'projectile-previous-project-buffer
-     "L"   'projectile-next-project-buffer)
-    :custom
-    (projectile-track-known-projects-automatically nil))
+(use-package! projectile
+  :general
+  (:keymaps '(doom-leader-map)
+   "sp"  'counsel-projectile-ag
+   "pG"  'projectile-configure-project
+   "fp"  '+ivy/projectile-find-file)
+  (:states '(normal visual)
+   "H"   'projectile-previous-project-buffer
+   "L"   'projectile-next-project-buffer)
+  :custom
+  (projectile-track-known-projects-automatically nil))
 
-  (after! evil
-    (evil-better-visual-line-on))
+(after! evil
+  (evil-better-visual-line-on))
 
-  (after! apheleia
-    (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
 
-  (use-package! text-mode
-    :init
-    (add-hook! 'text-mode-hook 'my-text-mode-hooks)
-    (remove-hook 'text-mode-hook 'hl-line-mode)
+(use-package! text-mode
+  :init
+  (add-hook! 'text-mode-hook 'my-text-mode-hooks)
+  (remove-hook 'text-mode-hook 'hl-line-mode)
 
-    :config
-    (defun my-text-mode-hooks ()
-      (electric-operator-mode +1)
-      (abbrev-mode +1)
-      (auto-capitalize-mode +1)))
+  :config
+  (defun my-text-mode-hooks ()
+    (electric-operator-mode +1)
+    (abbrev-mode +1)
+    (auto-capitalize-mode +1)))
 
-  (use-package! recursive-narrow
-    :init
-    (require 'recursive-narrow))
+(use-package! recursive-narrow
+  :init
+  (require 'recursive-narrow))
 
-  (use-package! windmove
-    ;; :after-call (windmove-up windmove-down windmove-left windmove-right)
-    :custom
-    (windmove-wrap-around t))
+(use-package! windmove
+  ;; :after-call (windmove-up windmove-down windmove-left windmove-right)
+  :custom
+  (windmove-wrap-around t))
 
-  (use-package! hl-sentence
-    :config
+(use-package! hl-sentence
+  :config
 
-    (custom-set-faces
-     '(hl-sentence ((t (:inherit hl-line))))))
+  (custom-set-faces
+   '(hl-sentence ((t (:inherit hl-line))))))
 
-  ;; osx-dictionary
+;; osx-dictionary
 
-  (use-package! wordnut
-    :init
-    (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
-    :general
-    (:keymaps '(doom-leader-map)
-     "sW"  'wordnut-search
-     "sw"  'wordnut-lookup-current-word)
-    (:keymaps '(wordnut-mode-map)
-     :states '(normal visual)
-     "q" 'quit-window
-     "Q" 'kill-this-buffer
-     :states '(normal)
-     "<escape>" 'quit-window))
+(use-package! wordnut
+  :init
+  (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
+  :general
+  (:keymaps '(doom-leader-map)
+   "sW"  'wordnut-search
+   "sw"  'wordnut-lookup-current-word)
+  (:keymaps '(wordnut-mode-map)
+   :states '(normal visual)
+   "q" 'quit-window
+   "Q" 'kill-this-buffer
+   :states '(normal)
+   "<escape>" 'quit-window))
 
-  (use-package! osx-dictionary
-    :init
-    (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
-    :general
-    (:keymaps '(osx-dictionary-mode-map)
-     :states  '(normal)
-     "<escape>" 'quit-window
-     "q" 'quit-window))
+(use-package! osx-dictionary
+  :init
+  (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
+  :general
+  (:keymaps '(osx-dictionary-mode-map)
+   :states  '(normal)
+   "<escape>" 'quit-window
+   "q" 'quit-window))
 
-  (use-package! clipmon
-    :init
-    (clipmon-mode-start))
+(use-package! clipmon
+  :init
+  (clipmon-mode-start))
 
-  (use-package! olivetti
-    :init
-    (setq-default olivetti-body-width 85))
+(use-package! olivetti
+  :init
+  (setq-default olivetti-body-width 85))
 
-  (use-package! typo
-    :config
+(use-package! typo
+  :config
 
-    (define-typo-cycle typo-cycle-right-single-quotation-mark
-      "Cycle through the right quotation mark and the typewriter apostrophe."
-      ( "'" "’"))
+  (define-typo-cycle typo-cycle-right-single-quotation-mark
+    "Cycle through the right quotation mark and the typewriter apostrophe."
+    ( "'" "’"))
 
-    (define-typo-cycle typo-cycle-dashes
-      "Cycle through various dashes."
-      ("—"   ; em dash
-       "‐"   ; hyphen
-       "-"   ; hyphen-minus
-       "−"   ; minus sign
-       "–"   ; en dash
-       "‑"   ; non-breaking hyphen
-       )))
+  (define-typo-cycle typo-cycle-dashes
+    "Cycle through various dashes."
+    ("—"   ; em dash
+     "‐"   ; hyphen
+     "-"   ; hyphen-minus
+     "−"   ; minus sign
+     "–"   ; en dash
+     "‑"   ; non-breaking hyphen
+     )))
 
-  (use-package! google-translate
-    :custom
-    (google-translate-pop-up-buffer-set-focus t)
-    (google-translate-default-source-language "pt")
-    (google-translate-default-target-language "en")
-    (google-translate-translation-directions-alist '(("pt" . "en") ("en" . "pt"))))
+(use-package! google-translate
+  :custom
+  (google-translate-pop-up-buffer-set-focus t)
+  (google-translate-default-source-language "pt")
+  (google-translate-default-target-language "en")
+  (google-translate-translation-directions-alist '(("pt" . "en") ("en" . "pt"))))
 
-  (use-package! markdown-mode
-    :init
+(use-package! markdown-mode
+  :init
 
-    (add-hook! 'markdown-mode-hook
-               #'artbollocks-mode
-               #'abbrev-mode
-               #'my-mardown-hooks)
-    :custom
-    (markdown-hide-urls 't)
-    (markdown-hide-markup nil)
-    (markdown-enable-wiki-links t)
-    :general
-    (:keymaps     '(markdown-mode-map evil-markdown-mode-map)
-     :states      '(insert)
-     "<tab>"      'tab-to-tab-stop
-     "C-h"        'markdown-outdent-or-delete
-     :states      '(visual)
-     "<insert>" 'markdown-insert-link
-     :states      '(normal visual insert global)
-     "M--"        'winner-undo
-     "M-="        'winner-redo
-     "<C-return>" 'my-open-two-lines
-     "M-n"        'my-forward-paragraph-do-indentation
-     "M-p"        'my-backward-paragraph-do-indentation)
+  (add-hook! 'markdown-mode-hook
+             #'artbollocks-mode
+             #'abbrev-mode
+             #'my-mardown-hooks)
+  :custom
+  (markdown-hide-urls 't)
+  (markdown-hide-markup nil)
+  (markdown-enable-wiki-links t)
+  :general
+  (:keymaps     '(markdown-mode-map evil-markdown-mode-map)
+   :states      '(insert)
+   "<tab>"      'tab-to-tab-stop
+   "C-h"        'markdown-outdent-or-delete
+   :states      '(visual)
+   "<insert>" 'markdown-insert-link
+   :states      '(normal visual insert global)
+   "M--"        'winner-undo
+   "M-="        'winner-redo
+   "<C-return>" 'my-open-two-lines
+   "M-n"        'my-forward-paragraph-do-indentation
+   "M-p"        'my-backward-paragraph-do-indentation)
 
-    :config
+  :config
 
-    (defun my-mardown-hooks ()
-      (interactive)
-      (setq-local company-dabbrev-other-buffers nil
-                  company-minimum-prefix-length 1
-                  company-tooltip-idle-delay 0.5
-                  company-idle-delay 0.25))
+  (defun my-mardown-hooks ()
+    (interactive)
+    (setq-local company-dabbrev-other-buffers nil
+                company-minimum-prefix-length 1
+                company-tooltip-idle-delay 0.5
+                company-idle-delay 0.25))
 
-    (set-company-backend!
-      'text-mode
-      'company-ispell
-      'company-dabbrev
-      '(company-dabbrev  :with company-capf company-yasnippet)
-      '(company-dabbrev-code :with company-keywords company-dabbrev)))
+  (set-company-backend!
+    'text-mode
+    'company-ispell
+    'company-dabbrev
+    '(company-dabbrev  :with company-capf company-yasnippet)
+    '(company-dabbrev-code :with company-keywords company-dabbrev)))
 
-  (after! shut-up-ignore
-    (when noninteractive
-      (shut-up-silence-emacs)))
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))
 
-  (use-package! org-pomodoro
-    :after org
-    :config
-    (setq org-pomodoro-offset 1
-          org-pomodoro-start-sound-args t
-          org-pomodoro-length (* 25 org-pomodoro-offset)
-          org-pomodoro-short-break-length (/ org-pomodoro-length 5)
-          org-pomodoro-long-break-length (* org-pomodoro-length 0.8)
-          org-pomodoro-long-break-frequency 4
-          org-pomodoro-ask-upon-killing nil
-          org-pomodoro-manual-break t
-          org-pomodoro-keep-killed-pomodoro-time t
-          org-pomodoro-time-format "%.2m"
-          org-pomodoro-short-break-format "short: %s"
-          org-pomodoro-long-break-format "long: %s"
-          org-pomodoro-format "p: %s"))
+(use-package! org-pomodoro
+  :after org
+  :config
+  (setq org-pomodoro-offset 1
+        org-pomodoro-start-sound-args t
+        org-pomodoro-length (* 25 org-pomodoro-offset)
+        org-pomodoro-short-break-length (/ org-pomodoro-length 5)
+        org-pomodoro-long-break-length (* org-pomodoro-length 0.8)
+        org-pomodoro-long-break-frequency 4
+        org-pomodoro-ask-upon-killing nil
+        org-pomodoro-manual-break t
+        org-pomodoro-keep-killed-pomodoro-time t
+        org-pomodoro-time-format "%.2m"
+        org-pomodoro-short-break-format "short: %s"
+        org-pomodoro-long-break-format "long: %s"
+        org-pomodoro-format "p: %s"))
 
-  (use-package pabbrev
-    :custom
-    (pabbrev-idle-timer-verbose nil))
+(use-package pabbrev
+  :custom
+  (pabbrev-idle-timer-verbose nil))
 
-  (use-package! unkillable-scratch
-    :demand t
-    :custom
-    (unkillable-scratch-behavior 'bury)
-    (unkillable-buffers '("^\\*scratch\\*$" "^agenda.org$"))
-    :config
-    (unkillable-scratch))
+(use-package! unkillable-scratch
+  :after-call after-find-file
+  :custom
+  (unkillable-scratch-behavior 'bury)
+  (unkillable-buffers '("^\\*scratch\\*$" "^agenda.org$"))
+  :config
+  (unkillable-scratch))
 
-  (use-package! prog-mode
-    :init
-    (add-hook! '(prog-mode-hook)
-               #'evil-smartparens-mode
-               #'smartparens-strict-mode
-               #'hl-line-mode
-               #'abbrev-mode)
+(use-package! prog-mode
+  :init
+  (add-hook! '(prog-mode-hook)
+             #'evil-smartparens-mode
+             #'smartparens-strict-mode
+             #'hl-line-mode
+             #'abbrev-mode)
 
-    ;; (remove-hook   'prog-mode-hook 'hl-line-mode)
+  ;; (remove-hook   'prog-mode-hook 'hl-line-mode)
 
-    :general
-    (:keymaps   '(prog-mode-map)
-     :states    '(normal)
-     "<escape>" 'my-quiet-save-buffer))
+  :general
+  (:keymaps   '(prog-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer))
 
-  (use-package! conf-mode
-    :config
-    :general
-    (:keymaps   '(conf-mode-map)
-     :states    '(normal)
-     "<escape>" 'my-quiet-save-buffer))
+(use-package! conf-mode
+  :config
+  :general
+  (:keymaps   '(conf-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer))
 
-  (use-package! elisp-mode
-    :init
-    (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-    :general
-    (:keymaps   '(emacs-lisp-mode-map)
-     :states    '(normal)
-     "<escape>" 'my-quiet-save-buffer)
-    (:keymaps   '(lisp-interaction-mode-map)
-     :states    '(normal)
-     "<escape>" 'ignore))
+(use-package! elisp-mode
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  :general
+  (:keymaps   '(emacs-lisp-mode-map)
+   :states    '(normal)
+   "<escape>" 'my-quiet-save-buffer)
+  (:keymaps   '(lisp-interaction-mode-map)
+   :states    '(normal)
+   "<escape>" 'ignore))
 
-  (use-package! git-auto-commit-mode
+(use-package! git-auto-commit-mode
   :custom
   (gac-debounce-interval (* 60 60)))
 
 (use-package! zoom
   :custom
-  ;; golden ration:
-  ;; (zoom-size '(0.618 . 0.618))
   (zoom-size '(0.550 . 0.550)))
-
-;; (use-package! centaur-tabs
-;;   :custom
-;;   (centaur-tabs-style "slant")
-;;   (centaur-tabs-height 22)
-;;   (centaur-tabs-set-icons t)
-;;   (centaur-tabs-plain-icons t)
-;;   (centaur-tabs-gray-out-icons 'buffer)
-;;   :config
-;;   (centaur-tabs-mode t))
