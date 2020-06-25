@@ -214,16 +214,10 @@
 
 (use-package! org
   :init
-  (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook 'org-agenda-mode-hook 'hl-line-mode)
   (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
-  (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
-  (advice-add 'org-edit-special :after #'my-indent-buffer)
-  (advice-add 'org-edit-special :after #'my-recenter-window)
-  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
-  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
@@ -318,95 +312,95 @@
       "* %? %i" :prepend t)))
 
   :config
-
-  (set-company-backend!
-    'org-mode
-    '(company-ispell :with company-dabbrev)
-    '(company-capf :with company-yasnippet))
+  (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
+  (advice-add 'org-edit-special :after #'my-indent-buffer)
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
+  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
-(use-package! org-roam
-  ;; :after org
-  :init
-  (require 'org-roam-protocol)
-  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
-  (add-hook 'org-roam-mode-hook 'abbrev-mode)
-  :custom
+; (use-package! org-roam
+;   ;; :after org
+;   :init
+;   (require 'org-roam-protocol)
+;   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
+;   (add-hook 'org-roam-mode-hook 'abbrev-mode)
+;   :custom
 
-  (org-roam-buffer-window-parameters '((no-other-window . t)))
+;   (org-roam-buffer-window-parameters '((no-other-window . t)))
 
-  (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
-                                      ("arrowtail" . "normal")
-                                      ("dir" . "back")))
+;   (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
+;                                       ("arrowtail" . "normal")
+;                                       ("dir" . "back")))
 
-  (org-roam-graph-extra-config '(("rankdir" . "RL")))
+;   (org-roam-graph-extra-config '(("rankdir" . "RL")))
 
-  (org-roam-graph-node-extra-config '(("shape" . "underline")
-                                      ("style" . "rounded,filled")
-                                      ("fillcolor" . "#FFFFD7")
-                                      ("color" . "#C9C9C9")
+;   (org-roam-graph-node-extra-config '(("shape" . "underline")
+;                                       ("style" . "rounded,filled")
+;                                       ("fillcolor" . "#FFFFD7")
+;                                       ("color" . "#C9C9C9")
 
-                                      ("fontcolor" . "#111111")))
+;                                       ("fontcolor" . "#111111")))
 
-  (org-roam-capture-templates '(("d" "default" plain
-                                 #'org-roam-capture--get-point "%?"
-                                 :file-name "${slug}-%<%C%m>"
-                                 :head "#+title: ${title}"
-                                 :unnarrowed t)))
-  (org-roam-graph-exclude-matcher '("index.org"
-                                    "afc_bboba-2006.org"
-                                    "phil-2006.org"
-                                    "ethics-2006.org"
-                                    "logic_org-2006"
-                                    "animalw-2006.org"
-                                    "petitio_principii-2006.org"
-                                    "conseq-2006.org"))
+;   (org-roam-capture-templates '(("d" "default" plain
+;                                  #'org-roam-capture--get-point "%?"
+;                                  :file-name "${slug}-%<%C%m>"
+;                                  :head "#+title: ${title}"
+;                                  :unnarrowed t)))
+;   (org-roam-graph-exclude-matcher '("index.org"
+;                                     "afc_bboba-2006.org"
+;                                     "phil-2006.org"
+;                                     "ethics-2006.org"
+;                                     "logic_org-2006"
+;                                     "animalw-2006.org"
+;                                     "petitio_principii-2006.org"
+;                                     "conseq-2006.org"))
 
-  ;; possible values: dot (default) neato fdp sfdp twopi circles circo
-  (org-roam-graph-executable "dot")
-  (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+;   ;; possible values: dot (default) neato fdp sfdp twopi circles circo
+;   (org-roam-graph-executable "dot")
+;   (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 
-  (org-roam-directory "~/org/Data/roam")
-  (org-roam-buffer-width 0.25)
-  (org-roam-index-file "~/org/Data/roam/index.org")
-  :general
-  (:keymaps '(doom-leader-map)
-   "SPC rf" 'org-roam-find-file
-   "SPC rl" 'org-roam-find-file
-   "SPC rj" 'org-roam-jump-to-index
-   "SPC rb" 'org-roam-switch-to-buffer
-   "SPC rg" 'org-roam-graph
-   "SPC ri" 'org-roam-insert
-   "SPC rç" 'org-roam
-   "SPC rc" 'org-roam-db-build-cache
-   "SPC rx" 'my-roam-indexes
-   "SPC ro" 'my-roam-logic
-   "SPC ra" 'my-roam-fallacies
-   "SPC rs" 'my-show-org-roam-commands)
+;   (org-roam-directory "~/org/Data/roam")
+;   (org-roam-buffer-width 0.25)
+;   (org-roam-index-file "~/org/Data/roam/index.org")
+;   :general
+;   (:keymaps '(doom-leader-map)
+;    "SPC rf" 'org-roam-find-file
+;    "SPC rl" 'org-roam-find-file
+;    "SPC rj" 'org-roam-jump-to-index
+;    "SPC rb" 'org-roam-switch-to-buffer
+;    "SPC rg" 'org-roam-graph
+;    "SPC ri" 'org-roam-insert
+;    "SPC rç" 'org-roam
+;    "SPC rc" 'org-roam-db-build-cache
+;    "SPC rx" 'my-roam-indexes
+;    "SPC ro" 'my-roam-logic
+;    "SPC ra" 'my-roam-fallacies
+;    "SPC rs" 'my-show-org-roam-commands)
 
-  :config
+;   :config
 
-  (defun my-org-roam-open-link ()
-    (interactive)
-    (my-org-force-open-other-window)
-    (delete-other-windows))
+;   (defun my-org-roam-open-link ()
+;     (interactive)
+;     (my-org-force-open-other-window)
+;     (delete-other-windows))
 
-  (defun my-show-org-roam-commands ()
-    (interactive)
-    (counsel-M-x "^org-roam- "))
+;   (defun my-show-org-roam-commands ()
+;     (interactive)
+;     (counsel-M-x "^org-roam- "))
 
-  (defun my-roam-indexes ()
-    (interactive)
-    (org-roam-find-file "index "))
+;   (defun my-roam-indexes ()
+;     (interactive)
+;     (org-roam-find-file "index "))
 
-  (defun my-roam-logic ()
-    (interactive)
-    (org-roam-find-file "logic "))
+;   (defun my-roam-logic ()
+;     (interactive)
+;     (org-roam-find-file "logic "))
 
-  (defun my-roam-fallacies ()
-    (interactive)
-    (org-roam-find-file "fallacy ")))
+;   (defun my-roam-fallacies ()
+;     (interactive)
+;     (org-roam-find-file "fallacy ")))
 
 (use-package! org-web-tools
   :general
@@ -1081,9 +1075,10 @@
                (file-writable-p buffer-file-name)
                (if (file-remote-p buffer-file-name) super-save-remote-files t)
                (super-save-include-p buffer-file-name))
-      (shut-up (save-buffer)))
+      (let ((inhibit-message t))
+        (save-buffer))))
 
-    (super-save-mode t)))
+    (super-save-mode t))
 
 (use-package! pdf-view
   :init
@@ -1360,9 +1355,9 @@
     '(company-dabbrev  :with company-capf company-yasnippet)
     '(company-dabbrev-code :with company-keywords company-dabbrev)))
 
-(after! shut-up-ignore
-  (when noninteractive
-    (shut-up-silence-emacs)))
+;; (after! shut-up-ignore
+;;   (when noninteractive
+;;     (shut-up-silence-emacs)))
 
 (use-package! org-pomodoro
   :after org
