@@ -29,6 +29,7 @@
 ;; LEADER KEY
 (map!
 
+ :leader "-"      'insert-char
  :leader ";"      'helpful-at-point
  :leader "."      'counsel-describe-variable
  :leader "fk"     'my-search-packages

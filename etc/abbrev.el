@@ -26,8 +26,13 @@
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
+    ("cenario" "cenário" nil :count 1)
+    ("dah" "dá" nil :count 0)
+    ("descricao" "descrição" nil :count 0)
     ("exl" "* External Links" nil :count 1)
     ("inl" "* Internal Links" nil :count 1)
+    ("opcoes" "opções" nil :count 0)
+    ("proxima" "próxima" nil :count 0)
     ("ralias" "#+roam_alias:" nil :count 2)
     ("rkeys" "#+roam_key:" nil :count 2)
     ("rtags" "#+roam_tags:" nil :count 1)

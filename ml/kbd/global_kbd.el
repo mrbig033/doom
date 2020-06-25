@@ -24,7 +24,6 @@
       "C-h e" 'describe-package
       "C-h N" 'my-show-server-name
       "C-c t" 'git-timemachine
-      "C-c -" 'insert-char
       "C-c i" 'emacs-init-time)
 
 (general-define-key
