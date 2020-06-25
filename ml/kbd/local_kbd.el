@@ -22,8 +22,11 @@
        :ig "C-h"      'delete-backward-char
        :ig "C-w"      'backward-kill-word)
 
-       (:map (evil-org-mode-map org-mode-map)
-        :i "<tab>" '+company/complete)
+       ;; (:map (evil-org-mode-map org-mode-map)
+       ;;  :i "<tab>" nil)
+
+       (:map (flyspell-mode-map)
+        :n "-" 'endless/ispell-word-then-abbrev)
 
        (:map (custom-mode-map compilation-mode-map)
         :n "<escape>" 'quit-window))
