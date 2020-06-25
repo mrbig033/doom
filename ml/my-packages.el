@@ -725,6 +725,8 @@
              #'electric-operator-mode
              #'(lambda () (setq-local fill-column 57)))
 
+  (add-hook 'inferior-python-mode #'hide-mode-line-mode)
+
   (add-hook! 'python-mode-hook
              #'elpy-mode
              #'apheleia-mode)
