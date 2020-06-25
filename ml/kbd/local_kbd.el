@@ -35,6 +35,7 @@
        :e "C-k"      'deft-filter-clear)
 
       (:map (org-brain-visualize-mode-map)
+       :e "D"        'org-brain-add-entry
        :e "m"        'push-button
        :e "SPC"      'push-button
        :e "C-."      'counsel-brain
