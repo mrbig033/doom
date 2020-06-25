@@ -30,7 +30,9 @@
        "E" 'my-erase-brain-history)
 
       (:map (org-brain-visualize-mode-map)
-       :e "ç" 'org-brain-prefix-map
+       :e ","        'avy-goto-word-or-subword-1
+       :e "ç"        'org-brain-prefix-map
+       :e "C-r"      'org-brain-update-id-locations
        :e "<escape>" 'ignore)
 
       (:map (flyspell-mode-map)
