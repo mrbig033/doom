@@ -65,6 +65,7 @@
 
 (package! typo)
 (package! pabbrev)
+(package! polymode)
 (package! evil-swap-keys)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
