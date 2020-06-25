@@ -38,12 +38,14 @@
 
 (general-define-key
  :keymaps 'override
- :states '(insert normal)
+ :states '(insert)
  "C-k"      'kill-line
+ "C-d"      'delete-char
  "C-h"      'delete-backward-char
  "C-w"      'backward-kill-word)
 
 (general-define-key
  :keymaps  'override
  :states '(normal)
+ "C-k"      'kill-line
  "gr"       'my-evil-sel-to-end)
