@@ -38,7 +38,7 @@
 
 (general-define-key
  :keymaps 'override
- :states '(insert)
+ :states '(insert normal)
  "C-k"      'kill-line
  "C-d"      'delete-char
  "C-h"      'delete-backward-char
