@@ -16,11 +16,11 @@
              evil-ex-search-keymap)
 
        "C-y" 'kill-ring-save
-       :ig "<insert>" 'yank
-       :ig "C-k"      'kill-line
-       :ig "C-d"      'delete-char
-       :ig "C-h"      'delete-backward-char
-       :ig "C-w"      'backward-kill-word)
+       :nig "<insert>" 'yank
+       :nig "C-k"      'kill-line
+       :nig "C-d"      'delete-char
+       :nig "C-h"      'delete-backward-char
+       :nig "C-w"      'backward-kill-word)
 
       (:map (pabbrev-select-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
