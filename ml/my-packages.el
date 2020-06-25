@@ -314,11 +314,11 @@
 
   :config
 
-  (set-company-backend!
-    'org-mode
-    'company-ispell
-    '(company-dabbrev  :with company-capf company-yasnippet)
-    '(company-dabbrev-code :with company-keywords))
+  ;; (set-company-backend!
+  ;;   'org-mode
+  ;;   'company-ispell
+  ;;   '(company-dabbrev  :with company-capf company-yasnippet)
+  ;;   '(company-dabbrev-code :with company-keywords))
 
   (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
