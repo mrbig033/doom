@@ -216,9 +216,15 @@
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (remove-hook 'org-cycle-hook 'org-cycle-hide-drawers)
+  ;; (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook 'org-agenda-mode-hook 'hl-line-mode)
   (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
+
+  (add-hook! 'org-cycle-hook
+             #'org-cycle-hide-archived-subtrees
+             #'org-cycle-hide-drawers
+             #'org-cycle-show-empty-lines
+             #'org-optimize-window-after-visibility-change)
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
@@ -254,7 +260,7 @@
   (org-outline-path-complete-in-steps nil)
   (org-enforce-todo-checkbox-dependencies t)
   (org-allow-promoting-top-level-subtree nil)
-  (org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+  (org-drawers (quote ("properties" "logbook")))
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
   (org-id-link-to-org-use-id t)
