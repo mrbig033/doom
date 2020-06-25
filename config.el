@@ -70,7 +70,7 @@
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
        user-mail-address "mrbig033@protonmail.com"
-       flycheck-global-modes '(not emacs-lisp-mode)
+       flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode)
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
        doom-theme 'doom-dracula
        doom-font (font-spec :family "Input Mono" :size 20)
