@@ -10,6 +10,7 @@
   :custom
   (treemacs-width 20)
   (treemacs-indentation '(5 px))
+  (treemacs-file-follow-delay 0.1)
   (treemacs-show-hidden-files nil)
   (treemacs-is-never-other-window nil)
   (treemacs-no-delete-other-windows t)
