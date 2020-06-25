@@ -1442,6 +1442,8 @@
   :custom
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
+  (org-brain-mind-map-parent-level 3)
+  (org-brain-mind-map-child-level 3)
   (org-brain-visualize-default-choices 'all)
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
