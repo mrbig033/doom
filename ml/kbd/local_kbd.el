@@ -25,15 +25,12 @@
       (:map (pabbrev-select-mode-map evil-org-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
 
-      (:map (org-mode-map)
-       "C-c b" 'org-brain-prefix-map)
-
       (:map (org-brain-prefix-map)
        "D" 'org-brain-add-entry)
 
       (:map (org-brain-visualize-mode-map)
-       "ç" 'org-brain-prefix-map)
-
+       :e "ç" 'org-brain-prefix-map
+       :e "<escape>" 'ignore)
 
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
