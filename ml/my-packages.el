@@ -917,6 +917,8 @@
   (delight '((org-mode "[o]")
              (vimrc-mode "[vim]" "Vimrc")
              (scratch-fundamental-mode "[scf]" "scratch-fundamental")
+             (org-brain-visualize-mode "[brain]" "Org-brain Visualize")
+
              (scratch-lisp-mode "[scl]" "scratch-lisp")
              (markdown-mode "[md]" "markdown")
              (sh-mode "[sh]" "Shell-script[bash]")
@@ -1430,12 +1432,13 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
-  :after org
+  :demand t
   :init
   (setq org-brain-path "~/org/Data/brain")
-  (with-eval-after-load 'evil
-    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-  (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode)
+
+  ;; (with-eval-after-load 'evil
+  ;;   (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+
   :custom
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
