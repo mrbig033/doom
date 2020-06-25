@@ -68,10 +68,12 @@
 (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
   "
 
-    _ç_: go def   _ag_: ag at point   _sc_: swiper classes    _fe_: first error
-    _Ç_: go dumb  _ac_: ag classes    _sf_: swiper functions  _fc_: clear errors
-    _l_: go back  _af_: ag functions  _p_: scratch            _fs_: show error
-                                                        ^^^^^^_s_: quickshell"
+    _ç_: go def   _a_: ag         _p_: scratch
+    _Ç_: go dumb  _s_: swiper     _s_: quickshell
+    _l_: go back  _f_: flycheck"
+
+
+
 
   ("<escape>" nil)
   ("q" nil)
@@ -81,18 +83,65 @@
   ("<return>" elpy-goto-definition)
   ("l" better-jumper-jump-backward)
 
-  ("ag" counsel-ag-thing-at-point)
-  ("ac" my-search-python-classes)
-  ("af" my-search-python-function)
+  ("a" hydra-python-ag/body)
+  ("s" hydra-python-swiper/body)
+  ("f" hydra-flycheck/body)
 
-  ("sc" my-swiper-python-classes)
-  ("sf" my-swiper-python-functions)
   ("p" my-goto-python-scratch)
 
-  ("fe" flycheck-first-error)
-  ("fc" flycheck-clear)
-  ("fs" flycheck-display-error-at-point)
   ("s" quickrun-shell))
+
+
+(defhydra hydra-python-ag (:color blue :hint nil :foreign-keys run)
+
+  "
+    Python Ag
+    -----------------
+    _g_: ag at point
+    _c_: ag classes
+    _f_: ag functions"
+
+  ("<escape>" hydra-python-mode/body)
+  ("q" nil)
+
+  ("g" counsel-ag-thing-at-point)
+  ("c" my-search-python-classes)
+  ("f" my-search-python-function))
+
+
+(defhydra hydra-python-swiper (:color blue :hint nil :foreign-keys run)
+
+  "
+
+    Python Swiper
+    ^---------------------
+    _s_: swiper at point
+    _c_: swiper classes
+    _f_: swiper functions"
+
+  ("<escape>" hydra-python-mode/body)
+  ("q" nil)
+
+  ("s" swiper-thing-at-point)
+  ("c" my-swiper-python-classes)
+  ("f" my-swiper-python-functions))
+
+(defhydra hydra-flycheck (:color blue :hint nil :foreign-keys run)
+
+  "
+
+    Flycheck
+    ^^----------------
+    _f_: first error
+    _c_: clear errors
+    _s_: show error"
+
+  ("<escape>" hydra-python-mode/body)
+  ("q" nil)
+
+  ("f" flycheck-first-error)
+  ("c" flycheck-clear)
+  ("s" flycheck-display-error-at-point))
 
 (defhydra hydra-org-clock (:color blue :hint nil :exit nil :foreign-keys nil)
   "
