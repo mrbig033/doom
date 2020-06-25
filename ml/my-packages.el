@@ -998,7 +998,7 @@
   (company-selection-wrap-around t)
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
-  (company-global-modes '(not erc-mode text-mode org-mode message-mode help-mode gud-mode eshell-mode))
+  (company-global-modes '(not erc-mode text-mode org-mode markdown-mode message-mode help-mode gud-mode eshell-mode))
 
   :general
   (:keymaps                    '(company-active-map)
