@@ -32,7 +32,7 @@
        "D" 'org-brain-add-entry)
 
       (:map (org-brain-visualize-mode-map)
-       :e "<escape>" 'ignore)
+       "ç" 'org-brain-prefix-map)
 
 
       (:map (flyspell-mode-map)
