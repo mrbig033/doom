@@ -64,6 +64,7 @@
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
 
 (package! typo)
+(package! beacon)
 (package! pabbrev)
 (package! org-brain)
 (package! evil-swap-keys)
