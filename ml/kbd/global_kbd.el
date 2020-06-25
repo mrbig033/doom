@@ -30,14 +30,13 @@
       )
 
 (general-define-key
- :keymaps  'override
- :states '(normal visual insert)
- "M-k"   'windmove-up
- "M-j"   'windmove-down
- "M-h"   'windmove-left
- "M-l"   'windmove-right
- "C-j"   'treemacs-select-window
- "M-s"   'my-last-buffer)
+ :keymaps 'override
+ "M-k"    'windmove-up
+ "M-j"    'windmove-down
+ "M-h"    'windmove-left
+ "M-l"    'windmove-right
+ "C-j"    'treemacs-select-window
+ "M-s"    'my-last-buffer)
 
 (general-define-key
  :keymaps  'override
