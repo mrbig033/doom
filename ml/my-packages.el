@@ -421,6 +421,9 @@
    "mwc"    'org-web-tools-convert-links-to-page-entries))
 
 (use-package! deft
+  :after (org-brain evil)
+  :init
+  (evil-set-initial-state 'deft-mode 'emacs)
   :custom
   (deft-separator " - ")
   (deft-extensions '("org"))
@@ -1121,8 +1124,6 @@
     (counsel-M-x "^pdf-view- ")))
 
 (use-package! evil
-  :init
-  (evil-set-initial-state 'deft-mode 'emacs)
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
