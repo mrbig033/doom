@@ -602,7 +602,7 @@
 
 (use-package! ivy
   :custom
-  (ivy-height 10)
+  (ivy-height 15)
   (counsel-grep-swiper-limit 300000)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
