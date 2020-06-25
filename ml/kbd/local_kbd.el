@@ -20,8 +20,7 @@
        :ig "C-k"      'kill-line
        :ig "C-d"      'delete-char
        :ig "C-h"      'delete-backward-char
-       :ig "C-w"      'backward-kill-word
-       )
+       :ig "C-w"      'backward-kill-word)
 
        (:map (evil-org-mode-map org-mode-map)
         :i "<tab>" '+company/complete)
