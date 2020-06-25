@@ -34,7 +34,8 @@
  "M-k"   'windmove-up
  "M-j"   'windmove-down
  "M-h"   'windmove-left
- "M-l"   'windmove-right)
+ "M-l"   'windmove-right
+ "C-j"      'treemacs-select-window)
 
 (general-define-key
  :keymaps  'override
