@@ -425,6 +425,7 @@
   (deft-separator " - ")
   (deft-extensions '("org"))
   (deft-recursive t)
+  (deft-use-filename-as-title t)
   (deft-default-extension "org")
   (deft-use-filter-string-for-filename t)
   (deft-directory org-brain-path))
