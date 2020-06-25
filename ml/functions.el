@@ -309,3 +309,7 @@
 (defun my-brain-commands ()
   (interactive)
   (counsel-M-x "^org-brain- "))
+
+(defun my-erase-kill-ring ()
+  (interactive)
+  (setq kill-ring nil))
