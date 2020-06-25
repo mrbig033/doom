@@ -1447,6 +1447,10 @@
 
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
+(use-package! polymode
+  :config
+  (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode))
+
 (after! evil
   (evil-better-visual-line-on))
 
