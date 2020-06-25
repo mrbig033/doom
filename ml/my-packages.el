@@ -1434,4 +1434,6 @@
 
 (use-package! pabbrev
   :custom
+  (pabbrev-scavenge-some-chunk-size 120)
+  (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
