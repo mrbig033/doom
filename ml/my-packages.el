@@ -1430,6 +1430,9 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
+  :init
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
   :custom
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
