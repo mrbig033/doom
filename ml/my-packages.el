@@ -323,7 +323,7 @@
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
 (use-package! org-roam
-  :after org
+  ;; :after org
   :init
   (require 'org-roam-protocol)
   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
