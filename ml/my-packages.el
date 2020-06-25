@@ -687,11 +687,6 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 
-;; (use-package! yasnippet
-;;   :after-call after-find-file
-;;   :config
-;;   (yas-global-mode +1))
-
 (use-package! ivy-yasnippet
   :after (ivy yasnippet)
   :custom
@@ -1491,6 +1486,7 @@
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
+
 (use-package! beacon
   :custom
   (beacon-size 30)
@@ -1518,3 +1514,14 @@
                                 evil-indent
                                 helpful-at-point
                                 quit-window)))
+
+(use-package! benchmark-init
+  :demand t
+  :config
+  ;; Disable after init.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+(use-package! yasnippet
+  :disabled
+  :config
+  (yas-global-mode +1))
