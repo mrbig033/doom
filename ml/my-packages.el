@@ -1440,7 +1440,7 @@
   ;;   (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
 
   :custom
-
+  (org-brain-visualize-sort-function 'ignore)
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
   (org-brain-mind-map-parent-level 5)
@@ -1452,6 +1452,11 @@
   (defun my-erase-brain-history ()
     (interactive)
     (setq org-brain--vis-history nil))
+
+  (defun my-brain-goto-current-maximize ()
+    (interactive)
+    (org-brain-goto-current)
+    (doom/window-maximize-vertically))
 
 
   (defun org-brain--vis-text (entry)
