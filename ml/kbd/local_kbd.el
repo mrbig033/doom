@@ -38,6 +38,7 @@
        :e "ç"        'org-brain-prefix-map
        :e "C-r"      'org-brain-update-id-locations
        :e "o"        'my-brain-goto-current-maximize
+       :e "C-l"      #'link-hint-open-link
        :e "<escape>" 'ignore)
 
       (:map (flyspell-mode-map)
