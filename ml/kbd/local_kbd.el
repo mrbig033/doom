@@ -22,7 +22,7 @@
        :nig "C-h"      'delete-backward-char
        :nig "C-w"      'backward-kill-word)
 
-      (:map (pabbrev-mode-map)
+      (:map (pabbrev-select-mode-map evil-org-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
 
       (:map (flyspell-mode-map)
