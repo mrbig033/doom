@@ -473,7 +473,8 @@
 
 (use-package! ranger
   :demand t
-  :hook (ranger-mode . my-ranger-olivetti)
+  ;; :init
+  ;; (add-hook 'ranger-mode-hook 'my-ranger-olivetti)
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -534,24 +535,23 @@
      (list
       (read-char-choice
        "
-    d: dotfiles  n : downloads  s : scripts   m: doom
-    e/E: emacs   o : org        f: config     q: quit
-    h: home      p/a: py/alien  c: documents
+    d: doom   n : downloads  s : scripts   D: dotfiles
+    e: emacs  o : org        f: config     q: quit
+    h: home   p: python      c: documents
   > "
-       '(?a ?d ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
+       '(?a ?d ?D ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
     (let* ((c (char-to-string path))
            (new-path
             (cl-case (intern c)
-              ('d "~/dotfiles")
+              ('D "~/dotfiles")
               ('e "~/.emacs.d")
-              ('E "~/emacs/.emacs.d.back")
-              ('m "~/.doom.d")
+              ('E "~/.backup/.emacs.back/vanilla/2020_26_05/init.el")
+              ('d "~/.doom.d")
               ('h "~")
               ('n "~/Downloads")
               ('o "~/org")
               ('p "~/Documents/Python")
-              ('a "~/Documents/Python/proj/alien")
               ('s "~/scripts")
               ('f "~/.config")
               ('c "~/Documents")
@@ -917,6 +917,7 @@
   :after-call after-init-hook
   :config
   (delight '((org-mode "[o]")
+             (vimrc-mode "[vim]" "Vimrc")
              (scratch-fundamental-mode "[scf]" "scratch-fundamental")
              (scratch-lisp-mode "[scl]" "scratch-lisp")
              (markdown-mode "[md]" "markdown")
