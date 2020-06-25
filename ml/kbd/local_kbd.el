@@ -35,21 +35,22 @@
        :e "C-k"      'deft-filter-clear)
 
       (:map (org-brain-visualize-mode-map)
+       :e "m"        'push-button
        :e "SPC"      'push-button
-       :e "gg"       'beginning-of-buffer
-       :e "G"        'end-of-buffer
-       :e ","        'avy-goto-word-or-subword-1
        :e "C-."      'counsel-brain
-       :e "ç"        'org-brain-prefix-map
-       :e "C-r"      'org-brain-update-id-locations
-       :e "o"        'my-brain-goto-current-maximize
-       :e "O"        'org-brain-goto-current
-       :e "C-l"      #'link-hint-open-link
-       :e "."        #'push-button
+       :e "G"        'end-of-buffer
        :e "C-x b"    'my-brain-commands
-       :e "<escape>" 'org-brain-visualize-quit
+       :e "C-l"      'link-hint-open-link
+       :e "gg"       'beginning-of-buffer
+       :e "ç"        'org-brain-prefix-map
+       :e "O"        'org-brain-goto-current
        :e "<f8>"     'org-brain-visualize-quit
-       :e "<M-f8>"     'org-brain-visualize-quit)
+       :e "<M-f8>"   'org-brain-visualize-quit
+       :e "<escape>" 'org-brain-visualize-quit
+       :e ","        'avy-goto-char-2
+       :e "."        'org-brain-visualize-mind-map
+       :e "C-r"      'org-brain-update-id-locations
+       :e "o"        'my-brain-goto-current-maximize)
 
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
