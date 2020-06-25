@@ -1,26 +1,30 @@
 (general-unbind '(doom-leader-map)
   "SPC")
 
-(map! :leader "SPC msl" 'scratch-lisp-mode
-      :leader "SPC msu" 'unkillable-scratch
-      :leader "SPC msf" 'scratch-fundamental-mode
-      :leader "SPC mpl" 'lisp-interaction-mode
-      :leader "SPC mty" 'typo-mode
-      :leader "SPC mth" 'hl-line-mode
-      :leader "SPC mto" 'olivetti-mode
-      :leader "SPC mtw" 'writegood-mode
-      :leader "SPC mta" 'artbollocks-mode
-      :leader "SPC mts" 'hl-sentence-mode
-      :leader "SPC mtv" 'visible-mode
-      :leader "SPC mpc" 'company-mode
-      :leader "SPC mbh" 'hide-mode-line-mode
-      :leader "SPC p"   'my-goto-my-packages
-      :leader "SPC x"   'org-capture
-      :leader "SPC k"   'my-deer-goto-my-kdb
-      :leader "SPC l"   'my-deer-goto-my-lisp
-      :leader "SPC p"   'my-goto-my-packages
-      :leader "SPC a"   'my-goto-agenda
-      :leader "SPC c"   '+popup/close-all)
+(map! :leader "SPC sl" 'scratch-lisp-mode
+      :leader "SPC su" 'unkillable-scratch
+      :leader "SPC sf" 'scratch-fundamental-mode
+
+      :leader "SPC ty" 'typo-mode
+      :leader "SPC th" 'hl-line-mode
+      :leader "SPC to" 'olivetti-mode
+      :leader "SPC tw" 'writegood-mode
+      :leader "SPC ta" 'artbollocks-mode
+      :leader "SPC ts" 'hl-sentence-mode
+      :leader "SPC tv" 'visible-mode
+
+      :leader "SPC pc" 'company-mode
+      :leader "SPC pl" 'lisp-interaction-mode
+
+      :leader "SPC bh" 'hide-mode-line-mode
+
+      :leader "fl"   'my-deer-goto-my-lisp
+      :leader "fc"   'org-capture
+      :leader "fL"   'counsel-locate
+      :leader "fa"      'my-goto-agenda
+      :leader "fp"   'my-goto-my-packages
+      :leader "bc"   '+popup/close-all
+      )
 
 ;; LEADER KEY
 (map!

@@ -328,87 +328,87 @@
 
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
-; (use-package! org-roam
-;   ;; :after org
-;   :init
-;   (require 'org-roam-protocol)
-;   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
-;   (add-hook 'org-roam-mode-hook 'abbrev-mode)
-;   :custom
+(use-package! org-roam
+  ;; :after org
+  :init
+  (require 'org-roam-protocol)
+  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
+  (add-hook 'org-roam-mode-hook 'abbrev-mode)
+  :custom
 
-;   (org-roam-buffer-window-parameters '((no-other-window . t)))
+  (org-roam-buffer-window-parameters '((no-other-window . t)))
 
-;   (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
-;                                       ("arrowtail" . "normal")
-;                                       ("dir" . "back")))
+  (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
+                                      ("arrowtail" . "normal")
+                                      ("dir" . "back")))
 
-;   (org-roam-graph-extra-config '(("rankdir" . "RL")))
+  (org-roam-graph-extra-config '(("rankdir" . "RL")))
 
-;   (org-roam-graph-node-extra-config '(("shape" . "underline")
-;                                       ("style" . "rounded,filled")
-;                                       ("fillcolor" . "#FFFFD7")
-;                                       ("color" . "#C9C9C9")
+  (org-roam-graph-node-extra-config '(("shape" . "underline")
+                                      ("style" . "rounded,filled")
+                                      ("fillcolor" . "#FFFFD7")
+                                      ("color" . "#C9C9C9")
 
-;                                       ("fontcolor" . "#111111")))
+                                      ("fontcolor" . "#111111")))
 
-;   (org-roam-capture-templates '(("d" "default" plain
-;                                  #'org-roam-capture--get-point "%?"
-;                                  :file-name "${slug}-%<%C%m>"
-;                                  :head "#+title: ${title}"
-;                                  :unnarrowed t)))
-;   (org-roam-graph-exclude-matcher '("index.org"
-;                                     "afc_bboba-2006.org"
-;                                     "phil-2006.org"
-;                                     "ethics-2006.org"
-;                                     "logic_org-2006"
-;                                     "animalw-2006.org"
-;                                     "petitio_principii-2006.org"
-;                                     "conseq-2006.org"))
+  (org-roam-capture-templates '(("d" "default" plain
+                                 #'org-roam-capture--get-point "%?"
+                                 :file-name "${slug}-%<%C%m>"
+                                 :head "#+title: ${title}"
+                                 :unnarrowed t)))
+  (org-roam-graph-exclude-matcher '("index.org"
+                                    "afc_bboba-2006.org"
+                                    "phil-2006.org"
+                                    "ethics-2006.org"
+                                    "logic_org-2006"
+                                    "animalw-2006.org"
+                                    "petitio_principii-2006.org"
+                                    "conseq-2006.org"))
 
-;   ;; possible values: dot (default) neato fdp sfdp twopi circles circo
-;   (org-roam-graph-executable "dot")
-;   (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+  ;; possible values: dot (default) neato fdp sfdp twopi circles circo
+  (org-roam-graph-executable "dot")
+  (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 
-;   (org-roam-directory "~/org/Data/roam")
-;   (org-roam-buffer-width 0.25)
-;   (org-roam-index-file "~/org/Data/roam/index.org")
-;   :general
-;   (:keymaps '(doom-leader-map)
-;    "SPC rf" 'org-roam-find-file
-;    "SPC rl" 'org-roam-find-file
-;    "SPC rj" 'org-roam-jump-to-index
-;    "SPC rb" 'org-roam-switch-to-buffer
-;    "SPC rg" 'org-roam-graph
-;    "SPC ri" 'org-roam-insert
-;    "SPC rç" 'org-roam
-;    "SPC rc" 'org-roam-db-build-cache
-;    "SPC rx" 'my-roam-indexes
-;    "SPC ro" 'my-roam-logic
-;    "SPC ra" 'my-roam-fallacies
-;    "SPC rs" 'my-show-org-roam-commands)
+  (org-roam-directory "~/org/Data/roam")
+  (org-roam-buffer-width 0.25)
+  (org-roam-index-file "~/org/Data/roam/index.org")
+  :general
+  (:keymaps '(doom-leader-map)
+   "SPC rf" 'org-roam-find-file
+   "SPC rl" 'org-roam-find-file
+   "SPC rj" 'org-roam-jump-to-index
+   "SPC rb" 'org-roam-switch-to-buffer
+   "SPC rg" 'org-roam-graph
+   "SPC ri" 'org-roam-insert
+   "SPC rç" 'org-roam
+   "SPC rc" 'org-roam-db-build-cache
+   "SPC rx" 'my-roam-indexes
+   "SPC ro" 'my-roam-logic
+   "SPC ra" 'my-roam-fallacies
+   "SPC rs" 'my-show-org-roam-commands)
 
-;   :config
+  :config
 
-;   (defun my-org-roam-open-link ()
-;     (interactive)
-;     (my-org-force-open-other-window)
-;     (delete-other-windows))
+  (defun my-org-roam-open-link ()
+    (interactive)
+    (my-org-force-open-other-window)
+    (delete-other-windows))
 
-;   (defun my-show-org-roam-commands ()
-;     (interactive)
-;     (counsel-M-x "^org-roam- "))
+  (defun my-show-org-roam-commands ()
+    (interactive)
+    (counsel-M-x "^org-roam- "))
 
-;   (defun my-roam-indexes ()
-;     (interactive)
-;     (org-roam-find-file "index "))
+  (defun my-roam-indexes ()
+    (interactive)
+    (org-roam-find-file "index "))
 
-;   (defun my-roam-logic ()
-;     (interactive)
-;     (org-roam-find-file "logic "))
+  (defun my-roam-logic ()
+    (interactive)
+    (org-roam-find-file "logic "))
 
-;   (defun my-roam-fallacies ()
-;     (interactive)
-;     (org-roam-find-file "fallacy ")))
+  (defun my-roam-fallacies ()
+    (interactive)
+    (org-roam-find-file "fallacy ")))
 
 (use-package! org-web-tools
   :general
@@ -1086,7 +1086,7 @@
       (let ((inhibit-message t))
         (save-buffer))))
 
-    (super-save-mode t))
+  (super-save-mode t))
 
 (use-package! pdf-view
   :init
@@ -1435,3 +1435,8 @@
 (use-package! zoom
   :custom
   (zoom-size '(0.550 . 0.550)))
+
+(use-package! flyspell
+  :custom
+  (flyspell-correct-auto-delay 0.2)
+  (flyspell-delay 0.2))
