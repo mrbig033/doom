@@ -47,5 +47,6 @@
 (general-define-key
  :keymaps  'override
  :states '(normal)
+ "C-h"    'evil-delete-backward-char-and-join
  "gr"       'my-evil-sel-to-end)
 
