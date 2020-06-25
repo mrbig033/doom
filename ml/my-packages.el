@@ -1163,8 +1163,8 @@
    "gO"       'cool-moves-open-line-above
    "gsP"      'cool-moves-paragraph-backward
    "gsp"      'cool-moves-paragraph-forward
-   ;; "C-S-p"    'cool-moves-word-backwards
-   ;; "C-S-n"    'cool-moves-word-forward
+   "C-S-p"    'cool-moves-word-backwards
+   "C-S-n"    'cool-moves-word-forward
    "TAB"      '+fold/toggle
    "zi"       '+fold/open-all
    "Q"        'my-delete-frame
