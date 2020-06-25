@@ -13,6 +13,7 @@
       :leader "SPC mts" 'hl-sentence-mode
       :leader "SPC mtv" 'visible-mode
       :leader "SPC mpc" 'company-mode
+      :leader "SPC mbh" 'hide-mode-line-mode
       :leader "SPC p"   'my-goto-my-packages
       :leader "SPC x"   'org-capture
       :leader "SPC k"   'my-deer-goto-my-kdb
