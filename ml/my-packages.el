@@ -320,12 +320,6 @@
 
   :config
 
-  ;; (:map (evil-org-mode-map org-mode-map global-map)
-  ;;  :nvig "M-k"   'windmove-up
-  ;;  :nvig "M-j"   'windmove-down
-  ;;  :nvig "M-h"   'windmove-left
-  ;;  :nvig "M-l"   'windmove-right)
-
   (load! "~/.doom.d/ml/extras/org_defun.el"))
 
 (use-package! org-roam
