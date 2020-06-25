@@ -25,6 +25,9 @@
       (:map (pabbrev-select-mode-map evil-org-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
 
+      (:map (org-mode-map)
+       :leader "C-c b" 'org-brain-prefix-map)
+
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
 
