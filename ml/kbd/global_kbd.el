@@ -3,6 +3,7 @@
       "C-x p" 'check-parens
       "C-;"   'helpful-at-point
       "M-RET" 'my-indent-buffer
+      "C-c B" 'my-brain-commands
       "C-c v" 'vlf
       "M-9"   'delete-other-windows
       "M-0"   'quit-window
