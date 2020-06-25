@@ -1123,7 +1123,6 @@
 (use-package! evil
   :init
   (evil-set-initial-state 'deft-mode 'emacs)
-  (evil-set-initial-state 'org-brain-visualize-mode 'normal)
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
@@ -1435,6 +1434,7 @@
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
+  (org-brain-show-history nil)
   (org-brain-headline-links-only-show-visible t)
   (org-brain-include-file-entries t)
   (org-brain-show-full-entry nil)
@@ -1445,7 +1445,7 @@
   (org-brain-mind-map-parent-level 5)
   (org-brain-mind-map-child-level 5)
   (org-brain-visualize-default-choices 'all)
-  (org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (org-id-locations-file "~/org/Data/brain/.org-id-locations")
   :config
 
   (defun my-goto-brain ()
