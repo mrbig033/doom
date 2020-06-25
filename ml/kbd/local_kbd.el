@@ -26,7 +26,14 @@
        :i "C-l" 'pabbrev-expand-maybe)
 
       (:map (org-mode-map)
-       :leader "C-c b" 'org-brain-prefix-map)
+       "C-c b" 'org-brain-prefix-map)
+
+      (:map (org-brain-prefix-map)
+       "D" 'org-brain-add-entry)
+
+      (:map (org-brain-visualize-mode-map)
+       :e "<escape>" 'ignore)
+
 
       (:map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev)
