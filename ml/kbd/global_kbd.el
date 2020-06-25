@@ -4,8 +4,8 @@
       "C-;"    'helpful-at-point
       "M-RET"  'my-indent-buffer
       "C-c B"  'my-brain-commands
-      "<f8>"   'my-goto-brain
-      "<M-f8>" 'my-goto-brain-same-window
+      "<M-f8>"   'my-goto-brain
+      "<f8>" 'my-goto-brain-same-window
       "C-c v"  'vlf
       "M-9"    'delete-other-windows
       "M-0"    'quit-window
