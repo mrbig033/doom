@@ -1152,8 +1152,6 @@
    "<escape>" 'evil-force-normal-state)
 
   (:keymaps   '(evil-normal-state-map)
-   "C-S-p" 'centaur-tabs-backward
-   "C-S-n" 'centaur-tabs-forward
    "C-z"      'ignore
    "M-d"      'evil-multiedit-match-and-next
    "C-c z"    'evil-emacs-state
