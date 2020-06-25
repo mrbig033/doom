@@ -14,11 +14,16 @@
              read-expression-map
              evil-ex-completion-map
              evil-ex-search-keymap)
+
        "C-y" 'kill-ring-save
-       :nvig "<insert>" 'yank)
+       :nvig "<insert>" 'yank
+       :nvig "C-k"      'kill-line
+       :nvig "C-d"      'delete-char
+       :nvig "C-h"      'delete-backward-char
+       :nvig "C-w"      'backward-kill-word)
 
-      (:map (evil-org-mode-map)
-       :i "C-h" 'evil-delete-backward-char-and-join)
+       (:map (evil-org-mode-map)
+        :i "C-h" 'evil-delete-backward-char-and-join)
 
-      (:map (custom-mode-map compilation-mode-map)
-       :n "<escape>" 'quit-window))
+       (:map (custom-mode-map compilation-mode-map)
+        :n "<escape>" 'quit-window))
