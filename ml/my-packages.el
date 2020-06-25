@@ -106,6 +106,9 @@
   :config
   (which-key-add-key-based-replacements
 
+    "SPC SPC mb" "Buffers"
+    "SPC SPC mbh" "Hide Mode Line"
+
     "SPC SPC m"    "Modes"
     "SPC SPC ms"   "Scratch"
     "SPC SPC mt"   "Text"
@@ -724,8 +727,6 @@
              #'evil-swap-keys-swap-colon-semicolon
              #'electric-operator-mode
              #'(lambda () (setq-local fill-column 57)))
-
-  (add-hook 'inferior-python-mode #'hide-mode-line-mode)
 
   (add-hook! 'python-mode-hook
              #'elpy-mode
