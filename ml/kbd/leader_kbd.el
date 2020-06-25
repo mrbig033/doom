@@ -12,6 +12,7 @@
       :leader "SPC ta" 'artbollocks-mode
       :leader "SPC ts" 'hl-sentence-mode
       :leader "SPC tv" 'visible-mode
+      :leader "SPC tb" 'beacon-mode
 
       :leader "SPC pc" 'company-mode
       :leader "SPC pl" 'lisp-interaction-mode
