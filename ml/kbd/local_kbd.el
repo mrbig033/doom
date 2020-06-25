@@ -17,5 +17,8 @@
        "C-y" 'kill-ring-save
        :nvig "<insert>" 'yank)
 
+      (:map (evil-org-mode-map)
+       :i "C-h" 'evil-delete-backward-char-and-join)
+
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'quit-window))
