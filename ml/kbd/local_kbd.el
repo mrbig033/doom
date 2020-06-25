@@ -30,9 +30,12 @@
        "E" 'my-erase-brain-history)
 
       (:map (org-brain-visualize-mode-map)
+       :e "gg"       'beginning-of-buffer
+       :e "G"        'end-of-buffer
        :e ","        'avy-goto-word-or-subword-1
        :e "ç"        'org-brain-prefix-map
        :e "C-r"      'org-brain-update-id-locations
+       :e "o"        'my-brain-goto-current-maximize
        :e "<escape>" 'ignore)
 
       (:map (flyspell-mode-map)
