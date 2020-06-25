@@ -1447,6 +1447,16 @@
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
 
+  (defun my-forward-button-push ()
+    (interactive)
+    (forward-button 1)
+    (my-brain-goto-current-maximize))
+
+  (defun my-backward-button-push ()
+    (interactive)
+    (forward-button -1)
+    (my-brain-goto-current-maximize))
+
   (defun my-brain-erase-history ()
     (interactive)
     (setq org-brain--vis-history nil))
@@ -1455,31 +1465,6 @@
     (interactive)
     (org-brain-goto-current)
     (doom/window-maximize-vertically))
-
-
-  ;; (defun org-brain--vis-text (entry)
-  ;;   "Insert text of ENTRY. Helper function for `org-brain-visualize'."
-  ;;   (if-let ((text (org-brain-text entry)))
-  ;;       (progn
-  ;;         (setq text (string-trim text))
-  ;;         (if (or (boundp 'org-brain-polymode)
-  ;;                 org-brain-show-full-entry
-  ;;                 (> (length text) 0))
-  ;;             (progn
-  ;;               (insert "\n\n")
-  ;;               (setq org-brain--vis-entry-text-marker (point-marker))
-  ;;               (insert "--- \n\n")
-  ;;               (run-hooks 'org-brain-after-visualize-hook)
-  ;;               (insert (with-temp-buffer
-  ;;                         (insert text)
-  ;;                         (delay-mode-hooks
-  ;;                           (org-mode)
-  ;;                           (setq-local org-pretty-entities t)
-  ;;                           (font-lock-ensure (point-min) (point-max))
-  ;;                           (buffer-string))))
-  ;;               (run-hooks 'org-brain-visualize-text-hook))
-  ;;           (run-hooks 'org-brain-after-visualize-hook)))
-  ;;     (run-hooks 'org-brain-after-visualize-hook)))
 
 
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
