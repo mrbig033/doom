@@ -1123,6 +1123,7 @@
 (use-package! evil
   :init
   (evil-set-initial-state 'deft-mode 'emacs)
+  (evil-set-initial-state 'org-brain-visualize-mode 'normal)
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
@@ -1453,7 +1454,7 @@
 
   (defun my-goto-brain-same-window ()
     (interactive)
-    (switch-to-buffer-other-window "*org-brain*"))
+    (switch-to-buffer "*org-brain*"))
 
   (defun my-forward-button-push ()
     (interactive)
