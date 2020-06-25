@@ -1445,6 +1445,11 @@
   (org-brain-visualize-default-choices 'all)
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
+
+  (defun my-erase-brain-history ()
+    (interactive)
+    ((setq org-brain--vis-history nil)))
+
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
 (after! evil
