@@ -691,10 +691,10 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 
-(use-package! yasnippet
-  :after-call after-find-file
-  :config
-  (yas-global-mode +1))
+;; (use-package! yasnippet
+;;   :after-call after-find-file
+;;   :config
+;;   (yas-global-mode +1))
 
 (use-package! ivy-yasnippet
   :after (ivy yasnippet)
@@ -1193,7 +1193,7 @@
   (:keymaps '(evil-visual-state-map evil-normal-state-map)
    "M-s"      'my-last-buffer
    "M-]"      'evil-window-prev
-   "çd" 'deft
+   ;; "çd"      'deft
    "M-o"   'better-jumper-jump-backward
    "M-i"   'better-jumper-jump-forward
    "C-h M" 'my-show-major-mode
@@ -1429,8 +1429,7 @@
   (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
 
-
-(use-package! org-brain :ensure t
+(use-package! org-brain
   :custom
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
@@ -1438,9 +1437,12 @@
   (org-brain-visualize-default-choices 'all)
   (org-id-locations-file "~/.emacs.d/.org-id-locations")
   :config
-  (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer)
 
-  )
+  (defun my-brain-commands ()
+    (interactive)
+    (counsel-M-x "^org-brain- "))
+
+  (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
 (after! evil
   (evil-better-visual-line-on))
