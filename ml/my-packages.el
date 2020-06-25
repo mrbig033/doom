@@ -1449,7 +1449,11 @@
 
   (defun my-goto-brain ()
     (interactive)
-    (switch-to-buffer "*org-brain*"))
+    (switch-to-buffer-other-window "*org-brain*"))
+
+  (defun my-goto-brain-same-window ()
+    (interactive)
+    (switch-to-buffer-other-window "*org-brain*"))
 
   (defun my-forward-button-push ()
     (interactive)
