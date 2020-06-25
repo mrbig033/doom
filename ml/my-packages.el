@@ -1438,6 +1438,7 @@
   (setq org-brain-path "~/org/Data/brain")
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
   :custom
+  (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
   (org-id-track-globally t)
   (org-brain-title-max-length 12)
