@@ -1160,7 +1160,6 @@
    "TAB"      '+fold/toggle
    "zi"       '+fold/open-all
    "Q"        'my-delete-frame
-   "-"        'insert-char
    "z0"       'endless/ispell-word-then-abbrev
    "z="       'flyspell-correct-previous
    "<escape>" 'my-quiet-save-buffer)
