@@ -26,7 +26,8 @@
        :i "C-l" 'pabbrev-expand-maybe)
 
       (:map (org-brain-prefix-map)
-       "D" 'org-brain-add-entry)
+       "D" 'org-brain-add-entry
+       "E" 'my-erase-brain-history)
 
       (:map (org-brain-visualize-mode-map)
        :e "ç" 'org-brain-prefix-map
