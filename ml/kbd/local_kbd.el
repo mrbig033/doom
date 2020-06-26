@@ -55,8 +55,9 @@
        :e "C-r"      'org-brain-update-id-locations
        :e "o"        'my-brain-goto-current-maximize)
 
-      (:map (flyspell-mode-map)
-       :n "-" 'endless/ispell-word-then-abbrev)
+      (:map (messages-buffer-mode-map)
+       :nveg "q"        'quit-window
+       "<escape>" 'ignore)
 
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'evil-force-normal-state))
