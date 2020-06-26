@@ -57,9 +57,10 @@
       :leader "z"      'hydra-window/body
 
       ;; TEXT ;;
+      :leader "tb"  'spelling-brasileiro
+      :leader "te"  'spelling-english
+      :leader "tB"  'flyspell-buffer
       :leader "tT"  'my-reload-file
-      :leader "tB"  'spelling-brasileiro
-      :leader "tE"  'spelling-english
       :leader "tt"  'my-dup-line
       :leader "tT"  'google-translate-smooth-translate
       :leader "tD"  'ispell-change-dictionary
@@ -67,7 +68,6 @@
       :leader "tC"  'my-clean-all-empty-lines
       :leader "ti"  'my-dup-par
       :leader "tS"  'my-sort-lines-by-length
-      :leader "tb"  'flyspell-buffer
       :leader "tl"  'langtool-check-buffer
       :leader "tL"  'langtool-check-done
       :leader "oo"  'hydra-org-mode/body
