@@ -1108,6 +1108,8 @@
     (counsel-M-x "^pdf-view- ")))
 
 (use-package! evil
+  :init
+  (add-hook 'evil-insert-state-exit-hook 'expand-abbrev)
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
