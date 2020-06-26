@@ -68,6 +68,7 @@
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 
+;; (package! evil-goggles :disable t)
 (package! zoom :disable t)
 (package! beacon :disable t)
 (package! elmacro :disable t)
