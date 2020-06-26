@@ -910,7 +910,7 @@
              (vimrc-mode "[vim]" "Vimrc")
              (scratch-fundamental-mode "[scf]" "scratch-fundamental")
              (org-brain-visualize-mode "[brain]" "Org-brain Visualize")
-
+             (messages-buffer-mode "[msg]" "Messages")
              (scratch-lisp-mode "[scl]" "scratch-lisp")
              (markdown-mode "[md]" "markdown")
              (sh-mode "[sh]" "Shell-script[bash]")
