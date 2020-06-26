@@ -3,8 +3,8 @@
 (use-package! treemacs
   :after-call after-find-file
   :custom
-  (treemacs-width 20)
-  (treemacs-indentation '(5 px))
+  (treemacs-width 15)
+  (treemacs-indentation '(1 px))
   (treemacs-file-follow-delay 0.1)
   (treemacs-show-hidden-files nil)
   (treemacs-is-never-other-window nil)
