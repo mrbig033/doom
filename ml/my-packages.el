@@ -196,29 +196,6 @@
   (:keymaps '(doom-leader-map)
             "j"     'hydra-org-clock/body))
 
-(use-package! nswbuff
-  :custom
-  (nswbuff-status-window-at-top t)
-  (nswbuff-recent-buffers-first t)
-  (nswbuff-start-with-current-centered t)
-  :general
-  (:keymaps 'override
-            :states '(normal visual insert)
-            "M-," 'nswbuff-switch-to-next-buffer
-            "M-." 'nswbuff-switch-to-previous-buffer)
-
-  :custom
-  (nswbuff-left "  ")
-  (nswbuff-clear-delay 2)
-  (nswbuff-delay-switch nil)
-  (nswbuff-this-frame-only 't)
-  (nswbuff-recent-buffers-first t)
-  (nswbuff-start-with-current-centered t)
-  (nswbuff-display-intermediate-buffers t)
-  (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
-  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
-  (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
-
 (use-package! org
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
