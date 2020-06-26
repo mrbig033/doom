@@ -56,6 +56,7 @@
 
 (add-hook 'after-save-hook #'my-after-save-hooks)
 (add-hook 'after-init-hook #'toggle-frame-maximized)
+
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
 (setq! my-lisp "~/.doom.d/ml"
