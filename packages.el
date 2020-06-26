@@ -61,6 +61,7 @@
 
 (package! typo)
 (package! pabbrev)
+(package! wordnut)
 (package! which-key)
 (package! org-brain)
 (package! evil-swap-keys)
@@ -73,7 +74,6 @@
 (package! shut-up :disable t)
 (package! nswbuff :disable t)
 (package! clipmon :disable t)
-(package! wordnut :disable t)
 (package! polymode :disable t)
 (package! org-roam :disable t)
 (package! evil-lion :disable t)
