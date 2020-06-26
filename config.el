@@ -57,6 +57,9 @@
 (add-hook 'after-save-hook #'my-after-save-hooks)
 (add-hook 'after-init-hook #'toggle-frame-maximized)
 
+(setq flycheck-global-modes '(not lisp-interaction-mode
+                                  emacs-lisp-mode))
+
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
 (setq! my-lisp "~/.doom.d/ml"
@@ -90,5 +93,3 @@
 
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))
-
-(global-flycheck-mode -1)
