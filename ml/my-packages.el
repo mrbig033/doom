@@ -1458,8 +1458,7 @@
   (defun my-brain-goto-current-maximize ()
     (interactive)
     (org-brain-goto-current)
-    (doom/window-maximize-vertically)
-    (other-window -1))
+    (doom/window-maximize-vertically))
 
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
