@@ -1437,6 +1437,12 @@
   (org-id-locations-file "~/org/Data/brain/.org-id-locations")
   :config
 
+  (defun my-brain-push-and-open ()
+    (interactive)
+    (push-button)
+    (my-brain-goto-current-maximize)
+    (other-window -1))
+
   (defun my-goto-brain ()
     (interactive)
     (switch-to-buffer-other-window "*org-brain*"))
