@@ -183,6 +183,11 @@
   (interactive)
   (save-some-buffers t 0))
 
+(defun my-doom-init-time ()
+  (interactive)
+  (helpful-variable 'doom-init-time)
+  (forward-line 2))
+
 (defun my-show-major-mode ()
   (interactive)
   (helpful-variable 'major-mode))
