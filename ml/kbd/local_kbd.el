@@ -40,8 +40,8 @@
        :e "C-w"      'deft-filter-decrement-word
        :e "C-r"      'deft-refresh-filter)
 
-      (:map (text-mode-map)
-       :n "-" 'endless/ispell-word-then-abbrev)
+      (:map (flyspell-mode-map)
+       :n "." 'endless/ispell-word-then-abbrev)
 
       (:map (org-brain-visualize-mode-map)
        :e "<C-return>"  'my-brain-push-and-open
@@ -54,7 +54,8 @@
        :e "C-l"         'link-hint-open-link
        :e "gg"          'beginning-of-buffer
        :e "ç"           'org-brain-prefix-map
-       :e "O"           'org-brain-goto-current
+       :e "o"           'my-brain-goto-current-maximize
+       :e "O"           'my-brain-goto-current-maximize-and-go
        :e "r"           'org-brain-rename-file
        :e "R"           'org-brain-open-resource
        :e "<f9>"        'quit-window
@@ -65,8 +66,7 @@
        :e "."           'org-brain-visualize-mind-map
        :e "<backspace>" 'org-brain-visualize-mind-map
        :e "i"           'org-brain-switch-brain
-       :e "C-r"         'org-brain-update-id-locations
-       :e "o"           'my-brain-goto-current-maximize)
+       :e "C-r"         'org-brain-update-id-locations)
 
       (:map (messages-buffer-mode-map)
        :ng "<escape>" 'ignore
