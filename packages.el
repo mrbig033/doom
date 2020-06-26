@@ -67,6 +67,7 @@
 (package! evil-swap-keys)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
+(package! lorem-ipsum)
 
 ;; (package! evil-goggles :disable t)
 (package! zoom :disable t)
