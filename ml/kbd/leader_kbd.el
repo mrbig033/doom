@@ -43,6 +43,7 @@
  :leader "ba"     'my-goto-markdown
  :leader "br"     '+popup/raise
  :leader "bd"     'server-force-delete
+ :leader "bt"     'doom/kill-matching-buffers
 
  :leader "l"      'link-hint-open-link
  :leader "mgx"    'org-capture-goto-last-stored
