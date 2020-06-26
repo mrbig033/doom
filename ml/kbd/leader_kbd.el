@@ -50,7 +50,7 @@
       :leader "mgx"    'org-capture-goto-last-stored
       :leader "nn"     'my-narrow-or-widen-dwim
       :leader "nw"     'my-widen-to-center
-      :leader "sg"     'counsel-ag
+      :desc "Counsel Ag" :leader "sg"     'counsel-ag
       :leader "ww"     'doom/window-maximize-vertically
       :leader "x"      'eyebrowse-close-window-config
       :leader "z"      'org-capture
