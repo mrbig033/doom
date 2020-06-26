@@ -1393,7 +1393,23 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 30 60)))
+  ;; (gac-debounce-interval (* 30 60))
+  (gac-debounce-interval nil)
+
+  :config
+
+  (defun gac-commit (buffer)
+    "Commit the current buffer's file to git."
+    (let ((inhibit-message t))
+      (let* ((buffer-file (buffer-file-name buffer))
+             (filename (convert-standard-filename
+                        (file-name-nondirectory buffer-file)))
+             (commit-msg (gac--commit-msg buffer-file))
+             (default-directory (file-name-directory buffer-file)))
+        (shell-command
+         (concat "git add " gac-add-additional-flag " " (shell-quote-argument filename)
+                 gac-shell-and
+                 "git commit -m " (shell-quote-argument commit-msg)))))))
 
 (use-package! zoom
   :custom
