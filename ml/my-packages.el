@@ -1457,7 +1457,7 @@
 
   (defun my-goto-brain-main ()
     (interactive)
-    (org-brain-visualize "game"))
+    (org-brain-visualize "boogey"))
 
   (defun my-goto-brain ()
     (interactive)
