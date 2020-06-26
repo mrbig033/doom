@@ -1423,8 +1423,10 @@
   :init
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
   (add-hook  'org-brain-visualize-mode-hook 'hide-mode-line-mode)
+
   (add-hook! 'org-brain-visualize-follow-hook
              #'my-clean-all-empty-lines
+             #'xah-clean-empty-lines
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
