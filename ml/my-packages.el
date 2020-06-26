@@ -646,7 +646,6 @@
   ;; https://github.com/abo-abo/swiper/issues/2588#issuecomment-637042732
   (setq swiper-use-visual-line-p #'ignore)
 
-
   (defun my-search-ag-brain ()
     (interactive)
     (counsel-ag nil org-brain-path))
