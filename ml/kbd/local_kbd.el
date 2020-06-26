@@ -49,10 +49,10 @@
        :e "gg"       'beginning-of-buffer
        :e "ç"        'org-brain-prefix-map
        :e "O"        'org-brain-goto-current
-       :e "<f8>"     'org-brain-visualize-quit
        :e "r"        'org-brain-rename-file
        :e "R"        'org-brain-open-resource
-       :e "<M-f8>"   'org-brain-visualize-quit
+       :e "<f9>"     'org-brain-visualize-quit
+       :e "<f8>"   'org-brain-visualize-quit
        :e "<escape>" 'org-brain-visualize-quit
        :e ","        'avy-goto-char-2
        :e "."        'org-brain-visualize-mind-map
