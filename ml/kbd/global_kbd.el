@@ -56,6 +56,7 @@
 (general-define-key
  :keymaps  'override
  :states '(normal)
+ "çc"       '+popup/close-all
  "zi"       '+fold/open-all
  "C-k"      'kill-line
  "gr"       'my-evil-sel-to-end)
