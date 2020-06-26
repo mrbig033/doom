@@ -52,7 +52,8 @@
       :leader "nn"     'my-narrow-or-widen-dwim
       :leader "nw"     'my-widen-to-center
       :desc "Counsel Ag" :leader "sg"     'counsel-ag
-      :desc "Dic. Informal " :leader "si"     'engine/search-dic-informal
+      :desc "Dic. Informal" :leader "si"     'engine/search-dic-informal
+      :desc "Dic. Inf. Sinônimos" :leader "ss"     'engine/search-dic-informal-sinonimos
       :leader "ww"     'doom/window-maximize-vertically
       :leader "x"      'eyebrowse-close-window-config
       :leader "z"      'hydra-window/body
