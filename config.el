@@ -53,8 +53,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-(setq! eldoc-idle-delay 2
-       my-lisp "~/.doom.d/ml"
+
+(add-hook 'after-save-hook #'my-after-save-hooks)
+(add-hook 'after-init-hook #'toggle-frame-maximized)
+(setq-hook! 'eww-mode-hook display-buffer-alist nil)
+
+(setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        user-full-name "mrbig"
        confirm-kill-emacs nil
@@ -64,13 +68,11 @@
        use-package-always-defer t
        flyspell-correct-auto-delay 1
        display-line-numbers-type nil
-       recentf-auto-cleanup "11:59pm"
        initial-major-mode 'scratch-fundamental-mode
        +word-wrap-extra-indent 'single
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
        user-mail-address "mrbig033@protonmail.com"
-       flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode)
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
        doom-theme 'doom-dracula
        doom-font (font-spec :family "Input Mono" :size 19)
@@ -78,20 +80,9 @@
        doom-unicode-font (font-spec :family "Input Mono" :size 19)
        doom-variable-pitch-font (font-spec :family "Input Mono"))
 
-(setq-default recentf-max-saved-items 20)
-(setq-hook! 'eww-mode-hook display-buffer-alist nil)
-(add-hook! 'after-save-hook #'my-after-save-hooks)
-(add-hook 'after-init-hook 'toggle-frame-maximized)
-
 (defun my-after-save-hooks ()
   (interactive)
   (executable-make-buffer-file-executable-if-script-p))
-
-
-(global-subword-mode +1)
-(global-eldoc-mode -1)
-(mouse-avoidance-mode 'jump)
-(yas-global-mode +1)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
