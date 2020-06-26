@@ -38,7 +38,7 @@
        :e "C-r"      'deft-refresh-filter)
 
       (:map (org-brain-visualize-mode-map)
-
+       :e "<C-return>"    'my-brain-push-and-open
        :e "SPC d"    'my-search-ag-brain
        :e "D"        'org-brain-add-entry
        :e "m"        'push-button
