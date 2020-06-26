@@ -249,7 +249,8 @@
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
-  (org-tags-column -77)
+  ;; (org-tags-column -77)
+  (org-tags-column 0)
   (org-agenda-show-outline-path nil)
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-files '("~/org/Agenda"))
@@ -1453,6 +1454,10 @@
     (org-brain-goto-current)
     (org-hide-drawer-all)
     (doom/window-maximize-vertically))
+
+  (defun my-goto-brain-main ()
+    (interactive)
+    (org-brain-visualize "game"))
 
   (defun my-goto-brain ()
     (interactive)
