@@ -30,7 +30,7 @@
 
 ;; LEADER KEY
 (map! :leader "he"     'my-goto-messages-buffer
-      :leader "d"      'deft
+      :leader "d"      'my-ag-brain
       :leader ";"      'helpful-at-point
       :leader ";"      'helpful-at-point
       :leader "."      'counsel-describe-variable
@@ -48,7 +48,7 @@
 
       :leader "l"      'link-hint-open-link
       :leader "mgx"    'org-capture-goto-last-stored
-      :leader "nn"     'recursive-narrow-or-widen-dwim
+      ;; :leader "nn"     'recursive-narrow-or-widen-dwim
       :leader "nw"     'my-widen-to-center
       :leader "sg"     'counsel-ag
       :leader "ww"     'doom/window-maximize-vertically
