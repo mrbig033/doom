@@ -1539,6 +1539,7 @@
   (recentf-max-saved-items 20))
 
 (use-package! midnigt
+  :after-call after-find-file
   :custom
   (midnight-period (* 1 60 60))
   (clean-buffer-list-delay-general 1)
@@ -1548,6 +1549,7 @@
   (midnight-mode +1))
 
 (use-package! time
+  :after-call after-find-file
   :config
   (setq display-time-format "| %H:%M |"
         display-time-interval (* 1 60)
