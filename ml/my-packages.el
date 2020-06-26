@@ -1443,6 +1443,11 @@
     (my-brain-goto-current-maximize)
     (other-window -1))
 
+  (defun my-brain-goto-current-maximize ()
+    (interactive)
+    (org-brain-goto-current)
+    (doom/window-maximize-vertically))
+
   (defun my-goto-brain ()
     (interactive)
     (switch-to-buffer-other-window "*org-brain*"))
@@ -1454,11 +1459,6 @@
   (defun my-brain-erase-history ()
     (interactive)
     (setq org-brain--vis-history nil))
-
-  (defun my-brain-goto-current-maximize ()
-    (interactive)
-    (org-brain-goto-current)
-    (doom/window-maximize-vertically))
 
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
