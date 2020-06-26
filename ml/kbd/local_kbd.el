@@ -58,8 +58,8 @@
        :e "O"           'my-brain-goto-current-maximize-and-go
        :e "r"           'org-brain-rename-file
        :e "R"           'org-brain-open-resource
-       :e "<f9>"        'org-brain-visualize-quit
-       :e "<f8>"        'org-brain-visualize-quit
+       :e "<f9>"        'quit-window
+       :e "<f8>"        'quit-window
        :e "<escape>"    'ignore
        :e "q"           'ignore
        :e ","           'avy-goto-char-2
