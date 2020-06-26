@@ -255,7 +255,7 @@
 
 (set-frame-parameter nil 'buffer-predicate 'my-buffer-predicate)
 
-(setq frame-title-format '("%b"))
+(setq frame-title-format '("%n"))
 
 (define-derived-mode scratch-fundamental-mode
   fundamental-mode "scratch-fundamental")
