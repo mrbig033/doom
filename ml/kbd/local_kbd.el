@@ -30,9 +30,12 @@
        "E" 'my-brain-erase-history)
 
       (:map (deft-mode-map)
-       :n "<escape>" 'quit-window
-       :i "C-u"      'deft-filter-clear
-       :i "C-k"      'deft-filter-clear)
+       :e "<escape>" 'quit-window
+       :e "C-u"      'deft-filter-clear
+       :e "C-k"      'deft-filter-clear
+       :e "C-h"      'deft-filter-decrement
+       :e "C-w"      'deft-filter-decrement-word
+       :e "C-r"      'deft-refresh-filter)
 
       (:map (org-brain-visualize-mode-map)
        :e "D"        'org-brain-add-entry
