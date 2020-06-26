@@ -70,7 +70,9 @@
 
     _Ç_: go def   _a_: ag         _p_: scratch
     _ç_: go dumb  _s_: swiper     _s_: quickshell
-    _l_: go back  _f_: flycheck"
+    _l_: go back  _f_: flycheck
+    _k_: look
+"
 
   ("<escape>" nil)
   ("q" nil)
@@ -79,6 +81,7 @@
   ("ç" dumb-jump-go)
   ("<return>" elpy-goto-definition)
   ("l" dumb-jump-back)
+  ("k" dumb-jump-quick-look)
   ;; ("l" better-jumper-jump-backward)
 
   ("a" hydra-python-ag/body)
