@@ -41,7 +41,8 @@
        :e "C-r"      'deft-refresh-filter)
 
       (:map (flyspell-mode-map)
-       :n "." 'endless/ispell-word-then-abbrev)
+            :n "z=" 'endless/ispell-word-then-abbrev
+            :n "z-" 'flyspell-auto-correct-previous-word)
 
       (:map (org-brain-visualize-mode-map)
        :e "<C-return>"  'my-brain-push-and-open
@@ -59,6 +60,7 @@
        :e "r"           'org-brain-rename-file
        :e "R"           'org-brain-open-resource
        :e "<f9>"        'quit-window
+       :e "go"          'org-brain-goto
        :e "<f8>"        'quit-window
        :e "<f12>"       'my-brain-olivetti
        :e "<escape>"    'ignore
