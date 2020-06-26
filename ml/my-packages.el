@@ -249,6 +249,7 @@
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
+  (org-tags-column -77)
   (org-agenda-show-outline-path nil)
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-files '("~/org/Agenda"))
@@ -1420,6 +1421,7 @@
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
+  (org-brain-show-text nil)
   (org-brain-path "~/org/Data/brain/boogey")
   (org-brain-show-history nil)
   (org-brain-headline-links-only-show-visible t)
@@ -1441,8 +1443,16 @@
     (interactive)
     (push-button)
     (org-brain-goto-current)
+    (org-hide-drawer-all)
     (doom/window-maximize-vertically)
     (windmove-right))
+
+  (defun my-brain-goto-current-maximize-and-go ()
+    (interactive)
+    (push-button)
+    (org-brain-goto-current)
+    (org-hide-drawer-all)
+    (doom/window-maximize-vertically))
 
   (defun my-goto-brain ()
     (interactive)
