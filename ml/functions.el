@@ -186,15 +186,20 @@
 (defun my-doom-init-time ()
   (interactive)
   (helpful-variable 'doom-init-time)
-  (forward-line 2))
+  (beginning-of-buffer)
+  (forward-line 3))
 
 (defun my-show-major-mode ()
   (interactive)
-  (helpful-variable 'major-mode))
+  (helpful-variable 'major-mode)
+  (beginning-of-buffer)
+  (forward-line 3))
 
 (defun my-show-server-name ()
   (interactive)
-  (helpful-variable 'server-name))
+  (helpful-variable 'server-name)
+  (beginning-of-buffer)
+  (forward-line 3))
 
 (defun my-recentf-empty ()
   (interactive)
@@ -318,3 +323,7 @@
 (defun my-erase-kill-ring ()
   (interactive)
   (setq kill-ring nil))
+
+(defun my-goto-messages-buffer ()
+  (interactive)
+  (switch-to-buffer "*Messages*"))
