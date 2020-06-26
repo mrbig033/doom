@@ -693,7 +693,6 @@
   (ivy-yasnippet-expand-keys nil))
 
 (use-package evil-smartparens
-  :after evil
   :config
   (general-unbind 'evil-smartparens-mode-map
     :with 'exchange-point-and-mark
@@ -822,7 +821,6 @@
   (elpy-enable))
 
 (use-package! evil-swap-keys
-  :after evil
   :config
   (defun evil-swap-keys-swap-dash-underscore ()
     "Swap the underscore and the dash."
@@ -1232,17 +1230,13 @@
   (require 'recursive-narrow))
 
 (use-package! windmove
-  ;; :after-call (windmove-up windmove-down windmove-left windmove-right)
   :custom
   (windmove-wrap-around t))
 
 (use-package! hl-sentence
   :config
-
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
-
-;; osx-dictionary
 
 (use-package! wordnut
   :init
@@ -1420,7 +1414,7 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
-  :demand t
+  :after org
   :init
   (setq org-brain-path "~/org/Data/brain")
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
@@ -1516,12 +1510,10 @@
                                 quit-window)))
 
 (use-package! benchmark-init
-  :demand t
   :config
   ;; Disable after init.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (use-package! yasnippet
-  :disabled
   :config
-  (yas-global-mode +1))
+  (yas-global-mode -1))
