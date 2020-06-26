@@ -277,8 +277,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-                      (doom/restart-and-restore))))
+      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+        (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
@@ -327,3 +327,4 @@
 (defun my-goto-messages-buffer ()
   (interactive)
   (switch-to-buffer "*Messages*"))
+
