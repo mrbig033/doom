@@ -1371,8 +1371,6 @@
              #'hl-line-mode
              #'abbrev-mode)
 
-  ;; (remove-hook   'prog-mode-hook 'hl-line-mode)
-
   :general
   (:keymaps   '(prog-mode-map)
    :states    '(normal)
@@ -1421,17 +1419,17 @@
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
-  :after org
+  :after-call after-find-file
   :init
-  (setq org-brain-path "~/org/Data/brain")
   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
-  (add-hook 'org-brain-visualize-mode-hook 'hide-mode-line-mode)
+  (add-hook  'org-brain-visualize-mode-hook 'hide-mode-line-mode)
   (add-hook! 'org-brain-visualize-follow-hook
              #'my-clean-all-empty-lines
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
   (org-brain-show-history nil)
+  (org-brain-path "~/org/Data/brain")
   (org-brain-headline-links-only-show-visible t)
   (org-brain-include-file-entries t)
   (org-brain-show-full-entry nil)
@@ -1523,6 +1521,7 @@
   (global-eldoc-mode -1))
 
 (use-package! avoid
+  :after-call after-find-file
   :config
   (mouse-avoidance-mode 'jump))
 
