@@ -307,6 +307,7 @@
               company-dabbrev-ignore-case 'keep-prefix)
   (ispell-change-dictionary "brasileiro")
   (flyspell-mode +1)
+  (flyspell-buffer)
   (message " ispell brasileiro"))
 
 (defun spelling-english ()
@@ -314,6 +315,7 @@
   (setq-local company-ispell-dictionary nil
               ispell-local-dictionary "english")
   (flyspell-mode +1)
+  (flyspell-buffer)
   (message " ispell english"))
 
 (defun my-brain-commands ()
