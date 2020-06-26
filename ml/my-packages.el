@@ -593,6 +593,8 @@
                         "magit"
                         "*org-src-fontification.\\*"))
 
+  ;; (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.elc' %s")
+
   :general
   (:states '(normal visual insert)
            "C-s" 'counsel-grep-or-swiper
@@ -629,7 +631,7 @@
 
   (defun my-search-ag-brain ()
     (interactive)
-    (counsel-ag nil org-brain-path))
+    (counsel-ag nil org-brain-path "--heading --filename --follow --smart-case --org"))
 
   (defun my-search-settings ()
     (interactive)
