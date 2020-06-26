@@ -356,15 +356,3 @@ is already narrowed."
 (defun my-goto-brain-game ()
   (interactive)
   (org-brain-visualize "game"))
-
-(defun my-poetry-flush ()
-  (interactive)
-  (poetry--setup-windows)
-  (remove-overlays (point-min) (point-max) 'poetry t)
-  (run-with-timer 0 nil
-                  (lambda (buf)
-                    (with-current-buffer buf
-                      (with-silent-modifications
-                        (remove-text-properties
-                         (point-min) (point-max) '(fontified)))))
-                  (current-buffer)))
