@@ -1201,6 +1201,12 @@
     (newline-and-indent 2)
     (evil-insert-state))
 
+  (evil-define-operator my-eval-region (beg end)
+    "Evaluate selection or sends it to the open REPL, if available."
+    :move-point nil
+    (interactive "<r>")
+    (eval-region beg end))
+
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
 (use-package! projectile
