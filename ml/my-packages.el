@@ -1351,7 +1351,8 @@
   :after-call after-find-file
   :custom
   (unkillable-scratch-behavior 'bury)
-  (unkillable-buffers '("^\\*scratch\\*$" "^agenda.org$" "*Messages*"))
+  (unkillable-buffers '("^\\*scratch\\*$" ;; "^agenda.org$"
+                        "*Messages*"))
   :config
   (unkillable-scratch))
 
