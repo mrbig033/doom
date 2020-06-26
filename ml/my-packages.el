@@ -1576,3 +1576,12 @@
 (use-package lorem-ipsum
   :custom
   (lorem-ipsum-paragraph-separator "\n\n"))
+
+(use-package! engine-mode
+  :config
+
+  (defengine dic-informal "https://www.dicionarioinformal.com.br/sinonimos/%s")
+  (defengine dic-informal-rimas "https://www.dicionarioinformal.com.br/rimas/%s")
+  (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
+
+  (engine-mode t))
