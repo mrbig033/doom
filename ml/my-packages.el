@@ -1580,6 +1580,14 @@
 (use-package! engine-mode
   :config
 
+  (defun my-engine-dic-informal-rimas ()
+    (interactive)
+    (engine/search-dic-informal-rimas (current-word)))
+
+  (defun my-engine-rhymit-pt ()
+    (interactive)
+    (engine/search-rhymit-pt (current-word)))
+
   (defengine dic-informal "https://www.dicionarioinformal.com.br/sinonimos/%s")
   (defengine dic-informal-rimas "https://www.dicionarioinformal.com.br/rimas/%s")
   (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
