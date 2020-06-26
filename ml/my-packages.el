@@ -745,6 +745,7 @@
     [remap evil-delete-backward-char-and-join])
 
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode)
 
   (defun my-quickrun-shell ()
     (interactive)
