@@ -73,14 +73,15 @@
        flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode)
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
        doom-theme 'doom-dracula
-       doom-font (font-spec :family "Input Mono" :size 20)
-       doom-big-font (font-spec :family "Input Mono" :size 20)
-       doom-unicode-font (font-spec :family "Input Mono" :size 20)
+       doom-font (font-spec :family "Input Mono" :size 19)
+       doom-big-font (font-spec :family "Input Mono" :size 19)
+       doom-unicode-font (font-spec :family "Input Mono" :size 19)
        doom-variable-pitch-font (font-spec :family "Input Mono"))
 
 (setq-default recentf-max-saved-items 20)
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
-(add-hook 'after-save-hook 'my-after-save-hooks)
+(add-hook! 'after-save-hook #'my-after-save-hooks)
+(add-hook 'after-init-hook 'toggle-frame-maximized)
 
 (defun my-after-save-hooks ()
   (interactive)
