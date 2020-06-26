@@ -880,6 +880,7 @@
 
 (use-package! doom-modeline
   :custom
+  (doom-modeline-vcs-max-length 12)
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
   (doom-modeline-major-mode-icon nil)
@@ -899,9 +900,7 @@
   (doom-modeline-checker-simple-format t)
   (doom-modeline-bar-width 2)
   (doom-modeline-percent-position '(-3 "%p"))
-  (doom-modeline-buffer-file-name-style 'buffer-name)
-  :config
-  (setq-default doom-modeline--vcs-text nil))
+  (doom-modeline-buffer-file-name-style 'buffer-name))
 
 (use-package! delight
   :after-call after-init-hook
@@ -1368,6 +1367,7 @@
   :init
   (add-hook! '(prog-mode-hook)
              #'evil-smartparens-mode
+             #'yas-global-mode
              #'hl-line-mode
              #'abbrev-mode)
 
@@ -1539,6 +1539,13 @@
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
+
+(use-package! time
+  :config
+  (setq display-time-format "| %H:%M |"
+        display-time-interval (* 1 60)
+        display-time-default-load-average nil)
+  (display-time-mode +1))
 
 (after! evil
   (evil-better-visual-line-on))
