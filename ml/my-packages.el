@@ -1430,7 +1430,7 @@
   (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
   (org-id-track-globally t)
-  (org-brain-title-max-length 12)
+  (org-brain-title-max-length 0)
   (org-brain-mind-map-parent-level 5)
   (org-brain-mind-map-child-level 5)
   (org-brain-visualize-default-choices 'all)
