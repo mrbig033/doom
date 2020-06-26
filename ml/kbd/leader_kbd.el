@@ -19,13 +19,14 @@
 
       :leader "SPC bh" 'hide-mode-line-mode
 
-      :leader "fl"   'my-deer-goto-my-lisp
-      :leader "fc"   'org-capture
-      :leader "fL"   'counsel-locate
-      :leader "fa"      'my-goto-agenda
-      :leader "fb"      'my-goto-brain
-      :leader "fp"   'my-goto-my-packages
-      :leader "bc"   '+popup/close-all)
+      :leader "fl" 'my-deer-goto-my-lisp
+      :leader "fc" 'org-capture
+      :leader "fL" 'counsel-locate
+      :leader "fa" 'my-goto-agenda
+      :leader "fb" 'my-goto-brain
+      :leader "fv" 'org-brain-visualize
+      :leader "fp" 'my-goto-my-packages
+      :leader "bc" '+popup/close-all)
 
 ;; LEADER KEY
 (map!
