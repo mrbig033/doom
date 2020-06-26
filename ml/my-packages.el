@@ -646,7 +646,7 @@
 
   (defun my-search-settings ()
     (interactive)
-    (counsel-ag nil "~/.doom.d/ml/"))
+    (counsel-ag nil "~/.doom.d/"))
 
   (defun my-search-kbds ()
     (interactive)
