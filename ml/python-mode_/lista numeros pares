@@ -1,4 +1,0 @@
-# key: pares
-# name: lista numeros pares
-# --
-nums = [2, 4, 6, 8, 10]$0

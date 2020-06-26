@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: file operations
-# key: fi
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil) (yas-after-exit-snippet-hook 'company-complete))  
-# --
-file.$0

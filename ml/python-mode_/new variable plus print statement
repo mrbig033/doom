@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: new variable plus print statement
-# key: vp
-# --
-${1:variable} = $0
-print($1)

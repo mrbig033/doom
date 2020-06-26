@@ -1,6 +1,0 @@
-# key: deff
-# name: function with parameters
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
-# --
-def $1($2):
-    $0${3:pass}
