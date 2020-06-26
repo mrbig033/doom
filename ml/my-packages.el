@@ -1133,7 +1133,6 @@
               "C-S-n"    'cool-moves-word-forward
               "TAB"      '+fold/toggle
               "Q"        'my-delete-frame
-              "z="       'flyspell-correct-previous
               "<escape>" 'my-quiet-save-buffer)
 
   (:keymaps   '(evil-normal-state-map
