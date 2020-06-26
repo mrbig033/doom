@@ -40,6 +40,9 @@
        :e "C-w"      'deft-filter-decrement-word
        :e "C-r"      'deft-refresh-filter)
 
+      (:map (text-mode-map)
+       :n "-" 'endless/ispell-word-then-abbrev)
+
       (:map (org-brain-visualize-mode-map)
        :e "<C-return>"  'my-brain-push-and-open
        :e "SPC d"       'my-search-ag-brain
