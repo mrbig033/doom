@@ -90,3 +90,5 @@
 
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))
+
+(global-flycheck-mode -1)
