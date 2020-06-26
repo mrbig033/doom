@@ -1417,9 +1417,10 @@
   (flyspell-delay 0.2))
 
 (use-package! flycheck
-  :custom
-  (flycheck-global-modes '(not emacs-lisp-mode
-                               lisp-interaction-mode)))
+  ;; :custom
+  ;; (flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode))
+  :config
+  (global-flycheck-mode -1))
 
 (use-package! pabbrev
   :custom
@@ -1551,13 +1552,13 @@
   :config
   (midnight-mode +1))
 
-(use-package! time
-  :after-call after-find-file
-  :config
-  (setq display-time-format "| %H:%M |"
-        display-time-interval (* 1 60)
-        display-time-default-load-average nil)
-  (display-time-mode +1))
+;; (use-package! time
+;;   :after-call after-find-file
+;;   :config
+;;   (setq display-time-format "| %H:%M |"
+;;         display-time-interval (* 1 60)
+;;         display-time-default-load-average nil)
+;;   (display-time-mode +1))
 
 (after! evil
   (evil-better-visual-line-on))
