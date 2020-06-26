@@ -11,9 +11,7 @@
       "M-0"    'quit-window
       "M-n"    'my-forward-paragraph-do-indentation
       "M-p"    'my-backward-paragraph-do-indentation
-      "C-c h"  'previous-buffer
       "C-c y"  'kill-ring-save
-      "C-c l"  'next-buffer
       "C-c m"  'define-mode-abbrev
       "C-c M"  'define-global-abbrev
       "C-'"    'org-cycle-agenda-files
@@ -36,6 +34,8 @@
  "M-j"    'windmove-down
  "M-h"    'windmove-left
  "M-l"    'windmove-right
+ "M-,"    'next-buffer
+ "M-."    'previous-buffer
  "C-j"    'treemacs-select-window
  "C-c b" 'org-brain-prefix-map
  "M-s"    'my-last-buffer)
