@@ -5,99 +5,7 @@
   (:keymaps '(doom-leader-map)
             "j"     'hydra-org-clock/body))
 
-(use-package! which-key
-  :custom
-  (which-key-allow-evil-operators nil)
-  (which-key-idle-delay 0.4)
-  (which-key-idle-secondary-delay 0.1)
-  :config
-  (which-key-add-key-based-replacements
 
-   "SPC bt" "Kill Matching Buffers"
-
-   "SPC SPC b" "Buffers"
-   "SPC SPC bh" "Hide Mode Line"
-
-   "SPC SPC r"   "Roam"
-
-   "SPC SPC t"   "Text"
-   "SPC SPC ty" "Typo Mode"
-   "SPC SPC th" "Hl Line Mode"
-   "SPC SPC to" "Olivetti Mode"
-   "SPC SPC tw" "Writegood Mode"
-   "SPC SPC ta" "Artbollocks Mode"
-   "SPC SPC ts" "Hl Sentence Mode"
-   "SPC SPC tv" "Visible Mode"
-   "SPC SPC tb" "Beacon Mode"
-
-   "SPC SPC p"   "Programming"
-   "SPC SPC pc" "Company"
-   "SPC SPC pl" "Lisp Interaction"
-
-   "SPC SPC s"   "Scratch"
-   "SPC SPC sl" "Scratch Lisp"
-   "SPC SPC su"  "Unkillabe Scratch "
-   "SPC SPC sf"  "Scratch Fundamental"
-
-   "SPC mty" "Typo"
-   "SPC mth" "Hl Line"
-   "SPC mto" "Olivetti"
-   "SPC mtw" "Writegood"
-   "SPC mta" "Artbollocks"
-   "SPC mts" "Hl Sentence"
-   "SPC mtv" "Visible"
-
-   "SPC SPC rf"  "Roam Find File"
-   "SPC SPC rl"  "Roam Find-File"
-   "SPC SPC rj"  "Roam Index"
-   "SPC SPC rb"  "Roam Switch Buffer"
-   "SPC SPC rg"  "Roam Graph"
-   "SPC SPC ri"  "Roam Insert"
-   "SPC SPC rd"  "Roam Deft"
-   "SPC SPC rc"  "Roam Re-Cache"
-   "SPC SPC rx"  "Roam Indexes"
-   "SPC SPC ro"  "Roam Logic"
-   "SPC SPC ra"  "Roam Fallacies"
-   "SPC SPC rs"  "Roam Commands"
-   "SPC SPC rç"  "Roam"
-
-   "SPC mwi"  "OW Insert"
-   "SPC mwe"  "OW Archive"
-   "SPC mwv"  "OW Attach"
-   "SPC mwr"  "OW Read As Org"
-   "SPC mwc"  "OW Links to Entries"
-
-   "SPC SPC x"  "Org Capture"
-
-   "SPC ee" "Eval Buffer"
-   "SPC el" "Eval & Leave"
-   "SPC eq" "Eval & Quit"
-   "SPC ek" "Eval & Kill"
-
-   "SPC sW"  "Wordnut Search"
-   "SPC sw"  "Wornut Word"
-   "SPC te"  "HL Sentence"
-   "SPC br"  "Popup Raise"
-   "SPC mgx" "Org Last"
-   "SPC nrn" "Index"
-   "SPC nrc" "Capture"
-   "SPC nrb" "Switch Buffer"
-   "SPC tc"  "Clean Lines"
-   "SPC td"  "Dup Lines"
-   "SPC tv"  "Visible Mode"
-   "SPC to"  "Olivetti Mode"
-   "SPC ti"  "Dup Par"
-   "SPC tS"  "Sort by Len"
-   "SPC bY"  "Yank Dir"
-   "SPC fk"  "Search Pkgs"
-   "SPC cw"  "Count Words"
-   "SPC nn"  "Narrow Dwin"
-   "SPC nw"  "Widen"
-   "SPC ba"  "Goto Markdown"
-   "SPC meb" "Eval Buffer"
-   "SPC med" "Eval Defun"
-   "SPC mer" "Eval Region")
-  (which-key-mode +1))
 
 (use-package! nswbuff
   :custom
@@ -1116,7 +1024,8 @@
     "Evaluate selection or sends it to the open REPL, if available."
     :move-point nil
     (interactive "<r>")
-    (eval-region beg end))
+    (eval-region beg end)
+    (message "region evaluated"))
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
@@ -1455,14 +1364,6 @@
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
-
-;; (use-package! time
-;;   :after-call after-find-file
-;;   :config
-;;   (setq display-time-format "| %H:%M |"
-;;         display-time-interval (* 1 60)
-;;         display-time-default-load-average nil)
-;;   (display-time-mode +1))
 
 (after! evil
   (evil-better-visual-line-on))
