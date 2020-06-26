@@ -27,7 +27,8 @@
       "C-h e"  'describe-package
       "C-h N"  'my-show-server-name
       "C-c t"  'git-timemachine
-      "C-c i"  'emacs-init-time)
+      "C-c i"  'emacs-init-time
+      "C-c I"  'my-doom-init-time)
 
 (general-define-key
  :keymaps 'override
