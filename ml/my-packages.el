@@ -423,7 +423,7 @@
    "mwc"    'org-web-tools-convert-links-to-page-entries))
 
 (use-package! deft
-  :after (org-brain evil)
+  :after org-brain
   :init
   (evil-set-initial-state 'deft-mode 'emacs)
   :custom
@@ -729,7 +729,6 @@
    "M-a"       'python-nav-backward-statement
    "M-e"       'python-nav-forward-statement
    :states    '(normal)
-   "ç"        'hydra-python-mode/body
    "<return>" 'hydra-python-mode/body)
 
   (:keymaps    '(python-mode-map)
@@ -738,10 +737,6 @@
 
   (:keymaps    '(python-mode-map)
    :states '(normal visual)
-   ;; "zi" 'yafolding-show-all
-   ;; "zm" 'yafolding-toggle-all
-   ;; "TAB" 'yafolding-toggle-element
-   ;; "<backtab>" 'yafolding-toggle-all
    "<" 'python-indent-shift-left
    ">" 'python-indent-shift-right)
 
@@ -822,6 +817,10 @@
     (quit-windows-on "*Python*"))
 
   (elpy-enable))
+
+(use-package! dumb-jump
+  :custom
+  (dumb-jump-aggressive t))
 
 (use-package! evil-swap-keys
   :config
@@ -1380,6 +1379,10 @@
   :general
   (:keymaps   '(prog-mode-map)
    :states    '(normal)
+   "çç"        'dumb-jump-go
+   "çb"        'dumb-jump-back
+   "çl"        'dumb-jump-quick-look
+   "çe"        'dumb-jump-go-prefer-external
    "<escape>" 'my-quiet-save-buffer))
 
 (use-package! conf-mode
@@ -1436,8 +1439,8 @@
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
-  (org-brain-show-history nil)
   (org-brain-path "~/org/Data/brain")
+  (org-brain-show-history nil)
   (org-brain-headline-links-only-show-visible t)
   (org-brain-include-file-entries t)
   (org-brain-show-full-entry nil)
@@ -1538,7 +1541,7 @@
   (recentf-auto-cleanup "11:59pm")
   (recentf-max-saved-items 20))
 
-(use-package! midnigt
+(use-package! midnight
   :after-call after-find-file
   :custom
   (midnight-period (* 1 60 60))
