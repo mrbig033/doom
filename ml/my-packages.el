@@ -1426,6 +1426,7 @@
   (org-brain-show-history nil)
   (org-brain-headline-links-only-show-visible t)
   (org-brain-include-file-entries t)
+  ;; (org-brain-scan-for-header-entries nil)
   (org-brain-show-full-entry nil)
   (org-brain-refile-max-level 5)
   (org-brain-visualize-sort-function 'ignore)
@@ -1438,16 +1439,12 @@
   (org-id-locations-file "~/org/Data/brain/.org-id-locations")
   :config
 
-  (defun my-brain-push-and-open ()
-    (interactive)
-    (push-button)
-    (my-brain-goto-current-maximize)
-    (other-window -1))
-
   (defun my-brain-goto-current-maximize ()
     (interactive)
+    (push-button)
     (org-brain-goto-current)
-    (doom/window-maximize-vertically))
+    (doom/window-maximize-vertically)
+    (windmove-right))
 
   (defun my-goto-brain ()
     (interactive)
