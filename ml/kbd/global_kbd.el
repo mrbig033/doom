@@ -50,6 +50,11 @@
  "C-w"      'backward-kill-word)
 
 (general-define-key
+ :keymaps 'override
+ :states '(visual)
+ "gr"    'my-eval-region)
+
+(general-define-key
  :keymaps  'override
  :states '(normal)
  "zi"       '+fold/open-all
