@@ -4,6 +4,6 @@
 # key: defi
 # condition: t
 # --
-(defun $1 ()
+(defun my-$1 ()
   (interactive)
   ($0))
