@@ -1124,8 +1124,6 @@
               "g3"       'evil-backward-word-end
               "g#"       'evil-forward-word-end
               "go"       'cool-moves-open-line-below
-              "g,"       'goto-last-change
-              "g;"       'goto-last-change-reverse
               "gO"       'cool-moves-open-line-above
               "gsP"      'cool-moves-paragraph-backward
               "gsp"      'cool-moves-paragraph-forward
