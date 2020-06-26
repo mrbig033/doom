@@ -78,7 +78,8 @@
   ("Ç" elpy-goto-definition)
   ("ç" dumb-jump-go)
   ("<return>" elpy-goto-definition)
-  ("l" better-jumper-jump-backward)
+  ("l" dumb-jump-back)
+  ;; ("l" better-jumper-jump-backward)
 
   ("a" hydra-python-ag/body)
   ("s" hydra-python-swiper/body)
