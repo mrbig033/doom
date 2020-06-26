@@ -1290,7 +1290,7 @@
 
 (use-package! markdown-mode
   :init
-  (add-hook! 'markdown-mode-hook #'abbrev-mode)
+  (add-hook! 'markdown-mode-hook #'abbrev-mode #'typo-mode)
   :custom
   (markdown-hide-urls 't)
   (markdown-hide-markup nil)
