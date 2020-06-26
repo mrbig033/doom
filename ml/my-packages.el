@@ -1440,6 +1440,11 @@
   (org-id-locations-file "~/org/Data/brain/.org-id-locations")
   :config
 
+  (defun my-brain-olivetti ()
+    (interactive)
+    (setq-local olivetti-body-width '65)
+    (olivetti-mode))
+
   (defun my-brain-goto-current-maximize ()
     (interactive)
     (push-button)
