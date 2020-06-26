@@ -38,9 +38,10 @@
        :e "C-r"      'deft-refresh-filter)
 
       (:map (org-brain-visualize-mode-map)
+
+       :e "SPC d"    'my-search-ag-brain
        :e "D"        'org-brain-add-entry
        :e "m"        'push-button
-       :e "SPC"      'push-button
        :e "C-."      'counsel-brain
        :e "G"        'end-of-buffer
        :e "C-x b"    'my-brain-commands
