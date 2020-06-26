@@ -54,7 +54,7 @@
       :desc "Counsel Ag" :leader "sg"     'counsel-ag
       :leader "ww"     'doom/window-maximize-vertically
       :leader "x"      'eyebrowse-close-window-config
-      :leader "z"      'org-capture
+      :leader "z"      'hydra-window/body
 
       ;; TEXT ;;
       :leader "tT"  'my-reload-file
