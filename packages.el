@@ -61,10 +61,9 @@
 
 (package! typo)
 (package! pabbrev)
+(package! which-key)
 (package! org-brain)
-(package! gitignore-mode)
 (package! evil-swap-keys)
-(package! git-timemachine)
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 
@@ -79,7 +78,6 @@
 (package! org-roam :disable t)
 (package! evil-lion :disable t)
 (package! yafolding :disable t)
-(package! which-key :disable t)
 (package! vimrc-mode :disable t)
 (package! evil-snipe :disable t)
 (package! bug-hunter :disable t)
