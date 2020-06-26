@@ -1558,3 +1558,7 @@
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
+
+(use-package lorem-ipsum
+  :custom
+  (lorem-ipsum-paragraph-separator "\n\n"))
