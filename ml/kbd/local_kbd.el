@@ -56,6 +56,7 @@
        :e "<escape>" 'org-brain-visualize-quit
        :e ","        'avy-goto-char-2
        :e "."        'org-brain-visualize-mind-map
+       :e "i"        'org-brain-switch-brain
        :e "C-r"      'org-brain-update-id-locations
        :e "o"        'my-brain-goto-current-maximize)
 
