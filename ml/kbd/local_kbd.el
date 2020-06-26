@@ -28,9 +28,6 @@
       (:map (org-mode-map evil-org-mode-map)
        :nvig "C-c C-s" 'org-emphasize)
 
-      (:map (markdown-mode-map)
-       :n ";" 'my-poetry-flush)
-
       (:map (org-brain-prefix-map)
        "D" 'org-brain-add-entry
        "E" 'my-brain-erase-history)
