@@ -24,8 +24,8 @@
       "C-c q"  'quick-calc
       "C-c d"  'ispell-change-dictionary
       "C-c o"  'my-org-force-open-other-window
-      "C-h e"  'describe-package
-      "C-h N"  'my-show-server-name
+      :nvg "C-h e"  'describe-package
+      :nvg "C-h N"  'my-show-server-name
       "C-c t"  'git-timemachine
       "C-c i"  'emacs-init-time
       "C-c I"  'my-doom-init-time)
