@@ -28,6 +28,10 @@
       (:map (org-mode-map evil-org-mode-map)
        :nvig "C-c C-s" 'org-emphasize)
 
+      (:map (markdown-mode-map)
+            "C-c ," 'my-engine-rhymit-pt
+            "C-c ." 'my-engine-dic-informal-rimas)
+
       (:map (org-brain-prefix-map)
        "D" 'org-brain-add-entry
        "E" 'my-brain-erase-history)
