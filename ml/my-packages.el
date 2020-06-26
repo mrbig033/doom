@@ -106,6 +106,8 @@
   :config
   (which-key-add-key-based-replacements
 
+    "SPC bt" "Kill Matching Buffers"
+
     "SPC SPC b" "Buffers"
     "SPC SPC bh" "Hide Mode Line"
 
@@ -707,6 +709,7 @@
              #'evil-swap-keys-swap-underscore-dash
              #'evil-swap-keys-swap-colon-semicolon
              #'electric-operator-mode
+             #'smartparens-strict-mode
              #'(lambda () (setq-local fill-column 57)))
 
   (add-hook! 'python-mode-hook
@@ -1365,7 +1368,6 @@
   :init
   (add-hook! '(prog-mode-hook)
              #'evil-smartparens-mode
-             #'smartparens-strict-mode
              #'hl-line-mode
              #'abbrev-mode)
 
@@ -1406,6 +1408,11 @@
   :custom
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
+
+(use-package! flycheck
+  :custom
+  (flycheck-global-modes '(not emacs-lisp-mode
+                               lisp-interaction-mode)))
 
 (use-package! pabbrev
   :custom
@@ -1468,19 +1475,6 @@
 
   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
-(after! evil
-  (evil-better-visual-line-on))
-
-(after! evil-org
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
-(after! apheleia
-  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
-
-(after! shut-up-ignore
-  (when noninteractive
-    (shut-up-silence-emacs)))
-
 (use-package! beacon
   :custom
   (beacon-size 30)
@@ -1517,3 +1511,44 @@
 (use-package! yasnippet
   :config
   (yas-global-mode -1))
+
+(use-package! subword
+  :config
+  (global-subword-mode +1))
+
+(use-package! eldoc
+  :custom
+  (eldoc-idle-delay 2)
+  :config
+  (global-eldoc-mode -1))
+
+(use-package! avoid
+  :config
+  (mouse-avoidance-mode 'jump))
+
+(use-package! recentf
+  :custom
+  (recentf-auto-cleanup "11:59pm")
+  (recentf-max-saved-items 20))
+
+(use-package! midnigt
+  :custom
+  (midnight-period (* 1 60 60))
+  (clean-buffer-list-delay-general 1)
+  (clean-buffer-list-delay-special 1800)
+  (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
+  :config
+  (midnight-mode +1))
+
+(after! evil
+  (evil-better-visual-line-on))
+
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))
