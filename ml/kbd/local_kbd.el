@@ -56,8 +56,8 @@
        :e "o"        'my-brain-goto-current-maximize)
 
       (:map (messages-buffer-mode-map)
-       :nveg "q"        'quit-window
-       "<escape>" 'ignore)
+       :ng "<escape>" 'ignore
+       :nveg "q"      'quit-window)
 
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'evil-force-normal-state))
