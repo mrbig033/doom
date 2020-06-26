@@ -1422,6 +1422,7 @@
              #'my-save-some-buffers
              #'org-hide-drawer-all)
   :custom
+  (org-brain-open-same-window t)
   (org-brain-show-text nil)
   (org-brain-path "~/org/Data/brain/boogey")
   (org-brain-show-history nil)
