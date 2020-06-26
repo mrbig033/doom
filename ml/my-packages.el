@@ -1393,7 +1393,8 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 60 60)))
+  ;; (gac-debounce-interval (* 60 60))
+  )
 
 (use-package! zoom
   :custom
