@@ -48,7 +48,7 @@
 
       :leader "l"      'link-hint-open-link
       :leader "mgx"    'org-capture-goto-last-stored
-      :leader "nn"     'recursive-narrow-or-widen-dwim
+      :leader "nn"     'my-narrow-or-widen-dwim
       :leader "nw"     'my-widen-to-center
       :leader "sg"     'counsel-ag
       :leader "ww"     'doom/window-maximize-vertically
@@ -97,5 +97,4 @@
       :leader "el"    'my-eval-buffer-and-leave
       :leader "eq"    'my-eval-buffer-quit
       :leader "ek"    'my-eval-buffer-kill
-      :leader "ek"    'my-eval-buffer-kill
-      )
+      :leader "ek"    'my-eval-buffer-kill)
