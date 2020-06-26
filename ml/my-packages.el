@@ -1422,7 +1422,7 @@
   (flyspell-delay 0.2))
 
 (use-package! flycheck
-  :after prog-moe
+  :after prog-mode
   ;; :custom
   ;; (flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode))
   :config
