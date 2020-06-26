@@ -30,6 +30,7 @@
 ;; LEADER KEY
 (map!
 
+ :leader "he"     'my-goto-messages-buffer
  :leader "-"      'insert-char
  :leader ";"      'helpful-at-point
  :leader "."      'counsel-describe-variable
