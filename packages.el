@@ -68,6 +68,7 @@
 (package! evil-smartparens)
 (package! evil-better-visual-line)
 (package! lorem-ipsum)
+(package! engine-mode)
 
 ;; (package! evil-goggles :disable t)
 (package! zoom :disable t)
