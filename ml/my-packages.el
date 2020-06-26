@@ -1,5 +1,102 @@
 ;;; ~/.doom.d/use-package.el -*- lexical-binding: t; -*-
 
+(use-package! treemacs
+  :after-call after-find-file
+  :custom
+  (treemacs-width 20)
+  (treemacs-indentation '(5 px))
+  (treemacs-file-follow-delay 0.1)
+  (treemacs-show-hidden-files nil)
+  (treemacs-is-never-other-window nil)
+  (treemacs-no-delete-other-windows t)
+  (doom-themes-treemacs-enable-variable-pitch nil)
+  :custom-face
+  (treemacs-root-face ((t (:inherit font-lock-string-face
+                                    :weight bold
+                                    :height 1.0))))
+
+  :general
+
+  (:keymaps   '(global )
+              "C-0"      'my-treemacs-quit
+              "C-j"      'treemacs-select-window)
+
+  (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
+              "M-k"    'windmove-up
+              "M-j"    'windmove-down
+              "M-h"    'windmove-left
+              "M-l"    'windmove-right
+              "C-j"      'my-treemacs-visit-node-and-hide
+              "C-p"      'treemacs-previous-project
+              "C-n"      'treemacs-next-project
+              "C-c t"    'my-show-treemacs-commands
+              "C-c D"    'treemacs-delete
+              "C-c pa"   'treemacs-projectile
+              "C-c pd"   'treemacs-remove-project-from-workspace
+              "<escape>" 'treemacs-quit
+              "<insert>" 'treemacs-create-file
+              "tp"       'move-file-to-trash
+              "çm"       'treemacs-create-dir
+              "zm"       'treemacs-collapse-all-projects)
+
+  (:states '(normal visual)
+           :prefix "SPC"
+           "pA" 'treemacs-add-and-display-current-project)
+
+  :config
+
+  (add-to-list 'treemacs-pre-file-insert-predicates
+               #'treemacs-is-file-git-ignored?)
+
+  (treemacs-follow-mode t)
+  (treemacs-git-mode 'deferred)
+
+  (advice-add 'treemacs-TAB-action :after #'my-recenter-window)
+  (advice-add 'treemacs-RET-action :after #'my-recenter-window)
+  (advice-add 'my-treemacs-visit-node-and-hide :after #'my-recenter-window)
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'my-treemacs-nswbuff
+    [remap nswbuff-switch-to-next-buffer]
+    [remap nswbuff-switch-to-previous-buffer])
+
+  (defun my-treemacs-quit ()
+    (interactive)
+    (treemacs-select-window)
+    (treemacs-quit))
+
+  (defun my-treemacs-nswbuff ()
+    (interactive)
+    (windmove-right)
+    (nswbuff-switch-to-next-buffer))
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'windmove-down
+    [remap treemacs-next-neighbour])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'windmove-up
+    [remap treemacs-previous-neighbour])
+
+  (general-unbind
+    :keymaps 'treemacs-mode-map
+    :with 'avy-goto-char-2-above
+    [remap evil-find-char-backward])
+
+  (defun my-treemacs-commands ()
+    (interactive)
+    (counsel-M-x "^treemacs- "))
+
+  (defun my-treemacs-visit-node-and-hide ()
+    (interactive)
+    (treemacs-RET-action)
+    (treemacs))
+
+  (treemacs-resize-icons 15))
+
 (use-package! which-key
   :custom
   (which-key-allow-evil-operators nil)
@@ -8,90 +105,90 @@
   :config
   (which-key-add-key-based-replacements
 
-   "SPC bt" "Kill Matching Buffers"
+    "SPC bt" "Kill Matching Buffers"
 
-   "SPC SPC b" "Buffers"
-   "SPC SPC bh" "Hide Mode Line"
+    "SPC SPC b" "Buffers"
+    "SPC SPC bh" "Hide Mode Line"
 
-   "SPC SPC r"   "Roam"
+    "SPC SPC r"   "Roam"
 
-   "SPC SPC t"   "Text"
-   "SPC SPC ty" "Typo Mode"
-   "SPC SPC th" "Hl Line Mode"
-   "SPC SPC to" "Olivetti Mode"
-   "SPC SPC tw" "Writegood Mode"
-   "SPC SPC ta" "Artbollocks Mode"
-   "SPC SPC ts" "Hl Sentence Mode"
-   "SPC SPC tv" "Visible Mode"
-   "SPC SPC tb" "Beacon Mode"
+    "SPC SPC t"   "Text"
+    "SPC SPC ty" "Typo Mode"
+    "SPC SPC th" "Hl Line Mode"
+    "SPC SPC to" "Olivetti Mode"
+    "SPC SPC tw" "Writegood Mode"
+    "SPC SPC ta" "Artbollocks Mode"
+    "SPC SPC ts" "Hl Sentence Mode"
+    "SPC SPC tv" "Visible Mode"
+    "SPC SPC tb" "Beacon Mode"
 
-   "SPC SPC p"   "Programming"
-   "SPC SPC pc" "Company"
-   "SPC SPC pl" "Lisp Interaction"
+    "SPC SPC p"   "Programming"
+    "SPC SPC pc" "Company"
+    "SPC SPC pl" "Lisp Interaction"
 
-   "SPC SPC s"   "Scratch"
-   "SPC SPC sl" "Scratch Lisp"
-   "SPC SPC su"  "Unkillabe Scratch "
-   "SPC SPC sf"  "Scratch Fundamental"
+    "SPC SPC s"   "Scratch"
+    "SPC SPC sl" "Scratch Lisp"
+    "SPC SPC su"  "Unkillabe Scratch "
+    "SPC SPC sf"  "Scratch Fundamental"
 
-   "SPC mty" "Typo"
-   "SPC mth" "Hl Line"
-   "SPC mto" "Olivetti"
-   "SPC mtw" "Writegood"
-   "SPC mta" "Artbollocks"
-   "SPC mts" "Hl Sentence"
-   "SPC mtv" "Visible"
+    "SPC mty" "Typo"
+    "SPC mth" "Hl Line"
+    "SPC mto" "Olivetti"
+    "SPC mtw" "Writegood"
+    "SPC mta" "Artbollocks"
+    "SPC mts" "Hl Sentence"
+    "SPC mtv" "Visible"
 
-   "SPC SPC rf"  "Roam Find File"
-   "SPC SPC rl"  "Roam Find-File"
-   "SPC SPC rj"  "Roam Index"
-   "SPC SPC rb"  "Roam Switch Buffer"
-   "SPC SPC rg"  "Roam Graph"
-   "SPC SPC ri"  "Roam Insert"
-   "SPC SPC rd"  "Roam Deft"
-   "SPC SPC rc"  "Roam Re-Cache"
-   "SPC SPC rx"  "Roam Indexes"
-   "SPC SPC ro"  "Roam Logic"
-   "SPC SPC ra"  "Roam Fallacies"
-   "SPC SPC rs"  "Roam Commands"
-   "SPC SPC rç"  "Roam"
+    "SPC SPC rf"  "Roam Find File"
+    "SPC SPC rl"  "Roam Find-File"
+    "SPC SPC rj"  "Roam Index"
+    "SPC SPC rb"  "Roam Switch Buffer"
+    "SPC SPC rg"  "Roam Graph"
+    "SPC SPC ri"  "Roam Insert"
+    "SPC SPC rd"  "Roam Deft"
+    "SPC SPC rc"  "Roam Re-Cache"
+    "SPC SPC rx"  "Roam Indexes"
+    "SPC SPC ro"  "Roam Logic"
+    "SPC SPC ra"  "Roam Fallacies"
+    "SPC SPC rs"  "Roam Commands"
+    "SPC SPC rç"  "Roam"
 
-   "SPC mwi"  "OW Insert"
-   "SPC mwe"  "OW Archive"
-   "SPC mwv"  "OW Attach"
-   "SPC mwr"  "OW Read As Org"
-   "SPC mwc"  "OW Links to Entries"
+    "SPC mwi"  "OW Insert"
+    "SPC mwe"  "OW Archive"
+    "SPC mwv"  "OW Attach"
+    "SPC mwr"  "OW Read As Org"
+    "SPC mwc"  "OW Links to Entries"
 
-   "SPC SPC x"  "Org Capture"
+    "SPC SPC x"  "Org Capture"
 
-   "SPC ee" "Eval Buffer"
-   "SPC el" "Eval & Leave"
-   "SPC eq" "Eval & Quit"
-   "SPC ek" "Eval & Kill"
+    "SPC ee" "Eval Buffer"
+    "SPC el" "Eval & Leave"
+    "SPC eq" "Eval & Quit"
+    "SPC ek" "Eval & Kill"
 
-   "SPC sW"  "Wordnut Search"
-   "SPC sw"  "Wornut Word"
-   "SPC te"  "HL Sentence"
-   "SPC br"  "Popup Raise"
-   "SPC mgx" "Org Last"
-   "SPC nrn" "Index"
-   "SPC nrc" "Capture"
-   "SPC nrb" "Switch Buffer"
-   "SPC tc"  "Clean Lines"
-   "SPC td"  "Dup Lines"
-   "SPC tv"  "Visible Mode"
-   "SPC to"  "Olivetti Mode"
-   "SPC ti"  "Dup Par"
-   "SPC tS"  "Sort by Len"
-   "SPC bY"  "Yank Dir"
-   "SPC fk"  "Search Pkgs"
-   "SPC cw"  "Count Words"
-   "SPC nn"  "Narrow Dwin"
-   "SPC nw"  "Widen"
-   "SPC ba"  "Goto Markdown"
-   "SPC meb" "Eval Buffer"
-   "SPC med" "Eval Defun"
-   "SPC mer" "Eval Region")
+    "SPC sW"  "Wordnut Search"
+    "SPC sw"  "Wornut Word"
+    "SPC te"  "HL Sentence"
+    "SPC br"  "Popup Raise"
+    "SPC mgx" "Org Last"
+    "SPC nrn" "Index"
+    "SPC nrc" "Capture"
+    "SPC nrb" "Switch Buffer"
+    "SPC tc"  "Clean Lines"
+    "SPC td"  "Dup Lines"
+    "SPC tv"  "Visible Mode"
+    "SPC to"  "Olivetti Mode"
+    "SPC ti"  "Dup Par"
+    "SPC tS"  "Sort by Len"
+    "SPC bY"  "Yank Dir"
+    "SPC fk"  "Search Pkgs"
+    "SPC cw"  "Count Words"
+    "SPC nn"  "Narrow Dwin"
+    "SPC nw"  "Widen"
+    "SPC ba"  "Goto Markdown"
+    "SPC meb" "Eval Buffer"
+    "SPC med" "Eval Defun"
+    "SPC mer" "Eval Region")
   (which-key-mode +1))
 
 (use-package! hydra
@@ -139,8 +236,7 @@
   (:keymaps   '(evil-org-mode-map org-mode-map)
               "C-c j"   'org-metadown
               "C-c k"   'org-metaup
-              ;; "C-j" 'treemacs-select-window
-              )
+              "C-j" 'treemacs-select-window)
   (:keymaps   '(doom-leader-map)
               "aa"        'org-agenda
               "at"        'org-today-agenda
