@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: o bicho papao
+# uuid: bicho-papao
+# key: papp
+# condition: t
+# --
+/O Bicho Papão/ $0
