@@ -1528,7 +1528,7 @@
 (use-package! avoid
   :after-call after-find-file
   :config
-  (mouse-avoidance-mode 'jump))
+  (mouse-avoidance-mode 'banish))
 
 (use-package! recentf
   :custom
