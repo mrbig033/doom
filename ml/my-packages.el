@@ -1530,6 +1530,7 @@
 
 (use-package! fountain-mode
   :init
+  (add-hook 'fountain-mode-hook (lambda () (+word-wrap-mode -1)))
   (add-hook! 'fountain-mode-hook
              #'auto-capitalize-mode
              #'electric-operator-mode
