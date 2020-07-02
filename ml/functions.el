@@ -317,8 +317,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-                      (doom/restart-and-restore))))
+      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+        (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
@@ -388,6 +388,7 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
+  (writegood-mode -1)
   (ispell-change-dictionary "brasileiro")
   (flyspell-mode +1)
   (flyspell-buffer)
@@ -401,6 +402,7 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
+  (artbollocks-mode +1)
   (ispell-change-dictionary "english")
   (flyspell-mode +1)
   (flyspell-buffer)
@@ -414,5 +416,6 @@ is already narrowed."
   (pabbrev-mode -1)
   (olivetti-mode -1)
   (typo-mode -1)
+  (artbollocks-mode -1)
   (flyspell-mode -1)
   (message "prose disabled"))
