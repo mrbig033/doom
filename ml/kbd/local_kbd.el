@@ -1,5 +1,5 @@
 ;; LOCAL KEYBINDINGS
-(map! (:map pabbrev-mode-map
+(map! (:map pabbrev-select-mode-map
             :i "C-l" 'pabbrev-expand-maybe)
 
       (:map helpful-mode-map
