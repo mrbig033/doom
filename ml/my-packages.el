@@ -121,7 +121,6 @@
     "SPC SPC ta" "Artbollocks Mode"
     "SPC SPC ts" "Hl Sentence Mode"
     "SPC SPC tv" "Visible Mode"
-    "SPC SPC tb" "Beacon Mode"
 
     "SPC SPC p"   "Programming"
     "SPC SPC pc" "Company"
