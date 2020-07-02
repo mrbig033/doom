@@ -40,6 +40,8 @@
       :desc "Narrow Dwin"          :leader "nn"    'my-narrow-or-widen-dwim
       :desc "Org Goto Last"        :leader "mgx"   'org-capture-goto-last-stored
       :desc "Widen to Center"      :leader "nw"    'my-widen-to-center
+      :desc "Default Brwoser"      :leader "oB"    'browse-url-of-file
+      :desc "org2blog"             :leader "ob"    'org2blog--hydra-main/body
       :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
 
 ;; BUFFERS
