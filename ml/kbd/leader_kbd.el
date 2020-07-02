@@ -2,7 +2,7 @@
   "SPC")
 
 ;; DOUBLE SPACES
-(map! :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode
+(map! ;; :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode
       :desc "Beacon"              :leader "SPC tB" 'beacon-mode
       :desc "Company"             :leader "SPC pc" 'company-mode
       :desc "Hide Modeline"       :leader "SPC bh" 'hide-mode-line-mode
