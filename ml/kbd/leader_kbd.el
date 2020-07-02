@@ -43,14 +43,15 @@
       :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
 
 ;; BUFFERS
-(map! :desc "Goto Scratch"    :leader "bx" 'my-goto-scratch-buffer
-      :desc "Pop-Up Scratch"  :leader "bX" 'doom/open-scratch-buffer
-      :desc "Close Popups"    :leader "bc" '+popup/close-all
-      :desc "Kill All"        :leader "bK" 'my-doom-kill-all-buffers
-      :desc "Delete Server"   :leader "bd" 'server-force-delete
-      :desc "Git Timemachine" :leader "bg" 'git-timemachine
-      :desc "Raise Popup"     :leader "br" '+popup/raise
-      :desc "Kill Matching"   :leader "bt" 'doom/kill-matching-buffers)
+(map! :desc "Goto Scratch"    :leader "bx"  'my-goto-scratch-buffer
+      :desc "Pop-Up Scratch"  :leader "bX"  'doom/open-scratch-buffer
+      :desc "Close Popups"    :leader "bc"  '+popup/close-all
+      :desc "Kill All"        :leader "bK"  'my-doom-kill-all-buffers
+      :desc "Delete Server"   :leader "bd"  'server-force-delete
+      :desc "Git Timemachine" :leader "bg"  'git-timemachine
+      :desc "Raise Popup"     :leader "br"  '+popup/raise
+      :desc "Kill Matching"   :leader "bt"  'doom/kill-matching-buffers
+      :desc "Show Major Mode" :leader "h M" 'my-show-major-mode)
 
 ;; FILES
 (map! :desc "Brain Visualize"      :leader "fv" 'org-brain-visualize
