@@ -38,7 +38,8 @@
  "M-."    'bs-cycle-previous
  "C-j"    'treemacs-select-window
  "C-c b" 'org-brain-prefix-map
- "M-s"    'my-last-buffer)
+ "M-s"    'my-last-buffer
+ "C-S-s"    'evil-switch-to-windows-last-buffer)
 
 (general-define-key
  :keymaps 'override
