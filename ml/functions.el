@@ -203,13 +203,19 @@
   (interactive)
   (save-some-buffers t 0))
 
+(defun my-show-init-times ()
+  (interactive)
+  (message "Emacs: %s | Doom: %ss" (my-emacs-init-time) doom-init-time))
+
 (defun my-emacs-init-time ()
   (interactive)
-  (message "Emacs Init Time: %s" (emacs-init-time)))
-
-(defun my-doom-init-time ()
-  (interactive)
-  (message "Doom Init Time: %s seconds" doom-init-time))
+  (let ((str
+         (format "%ss"
+                 (float-time
+                  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+        (message "%s" str)
+      str)))
 
 (defun my-show-major-mode ()
   (interactive)
@@ -315,8 +321,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-        (doom/restart-and-restore))))
+                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+                      (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
