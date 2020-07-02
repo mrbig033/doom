@@ -86,6 +86,7 @@
       :desc "Duplicate Paragraph"  :leader "ti" 'my-dup-par
       :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
       :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
+      :desc "Zen Mode"             :leader "tz" 'my-zen-mode
       :desc "Langtool Done"        :leader "tL" 'langtool-check-done
       :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body)
 
