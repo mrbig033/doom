@@ -235,7 +235,7 @@
 
 (defun my-goto-scratch-buffer ()
   (interactive)
-  (switch-to-buffer-other-window "*scratch*"))
+  (switch-to-buffer "*scratch*"))
 
 (defun my-goto-python-scratch ()
   (interactive)
@@ -280,6 +280,14 @@
 
 (setq frame-title-format '("%n"))
 
+(define-derived-mode scratch-lisp-mode
+  lisp-interaction-mode "scratch-lisp")
+
+(general-unbind 'scratch-lisp-mode-map
+  :with 'evil-ex-nohighlight
+  [remap my-quiet-save-buffer]
+  [remap save-buffer])
+
 (define-derived-mode scratch-fundamental-mode
   fundamental-mode "scratch-fundamental")
 
@@ -292,9 +300,10 @@
   :with 'quit-window
   [remap kill-current-buffer])
 
-(general-unbind 'scratch-fundamental-mode-map
-  :with 'my-silent-winner-undo
-  [remap my-goto-scratch-buffer])
+(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
+  :with 'quit-window
+  [remap my-goto-scratch-buffer]
+  [remap doom/open-scratch-buffer])
 
 (defun my-silent-winner-undo ()
   (interactive)
@@ -311,15 +320,6 @@
       (cl-incf winner-undo-counter)	; starting at 1
       (when (and (winner-undo-this)
                  (not (window-minibuffer-p)))))))
-
-
-(define-derived-mode scratch-lisp-mode
-  lisp-interaction-mode "scratch-lisp")
-
-(general-unbind 'scratch-lisp-mode-map
-  :with 'evil-ex-nohighlight
-  [remap my-quiet-save-buffer]
-  [remap save-buffer])
 
 (defun my-doom/upgrade ()
   "Run 'doom upgrade' then prompt to restart Emacs."
