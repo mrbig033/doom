@@ -1553,9 +1553,8 @@
 (use-package! recentf
   :custom
   (recentf-auto-cleanup 'mode)
-  (recentf-max-saved-items 30)
+  (recentf-max-saved-items 20)
   :config
-  (recentf-cleanup)
   (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
 
 (use-package! midnight
