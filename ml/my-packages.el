@@ -1505,19 +1505,31 @@
 (use-package! engine-mode
   :config
 
-  (defun my-engine-dic-informal-rimas ()
+  (defun my-engine-search-michaealis-at-point ()
     (interactive)
-    (engine/search-dic-informal-rimas (current-word)))
+    (engine/search-michaelis (current-word)))
+  (defengine michaelis "https://michaelis.uol.com.br/moderno-portugues/busca/portugues-brasileiro/%s")
 
-  (defun my-engine-rhymit-pt ()
+  (defun my-engine-dic-infor-rimas-at-point ()
+    (interactive)
+    (engine/search-dic-infor-rimas (current-word)))
+  (defengine dic-infor-rimas "https://www.dicionarioinformal.com.br/rimas/%s")
+
+  (defun my-engine-rhymit-pt-at-point ()
+    (interactive)
+    (engine/search-rhymit-pt (current-word)))
+  (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
+
+
+
+  (defun my-engine-dic-infor-sinonimos-at-point ()
     (interactive)
     (engine/search-rhymit-pt (current-word)))
 
-  (defengine dic-informal "https://www.dicionarioinformal.com.br/%s")
-  (defengine dic-informal-sinonimos "https://www.dicionarioinformal.com.br/sinonimos/%s")
+  (defengine dic-infor "https://www.dicionarioinformal.com.br/%s")
 
-  (defengine dic-informal-rimas "https://www.dicionarioinformal.com.br/rimas/%s")
-  (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
+  (defengine dic-infor-sinonimos "https://www.dicionarioinformal.com.br/sinonimos/%s")
+
 
   (engine-mode t))
 
