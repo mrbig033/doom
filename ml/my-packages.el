@@ -1552,8 +1552,11 @@
 
 (use-package! recentf
   :custom
-  (recentf-auto-cleanup "11:59pm")
-  (recentf-max-saved-items 20))
+  (recentf-auto-cleanup 'mode)
+  (recentf-max-saved-items 30)
+  :config
+  (recentf-cleanup)
+  (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
 
 (use-package! midnight
   :after-call after-find-file
