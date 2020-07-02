@@ -24,28 +24,23 @@
       :desc "Doom Init Time"      :leader "SPC bd" 'my-doom-init-time)
 
 ;; LEADER KEY
-(map! :desc "Insert " :leader "-"      'insert-char
-      :desc "" :leader "."      'counsel-describe-variable
-      :desc "" :leader "0"      'delete-window
-      :desc "" :leader ";"      'helpful-at-point
-      :desc "" :leader "cw"     'count-words
-      :desc "" :leader "d"      'my-search-ag-brain
-      :desc "" :leader "fK"     'my-search-kbds
-      :desc "" :leader "fk"     'my-search-packages
-      :desc "" :leader "fs"     'my-search-settings
-      :desc "" :leader "g SPC"  'my-magit-stage-modified-and-commit
-      :desc "" :leader "k"      'kill-current-buffer
-      :desc "" :leader "mgx"    'org-capture-goto-last-stored
-      :desc "" :leader "nn"     'my-narrow-or-widen-dwim
-      :desc "" :leader "nw"     'my-widen-to-center
-      :desc "" :leader "ww"     'doom/window-maximize-vertically
-      :desc "" :leader "x"      'eyebrowse-close-window-config
-      :desc "" :leader "z"      'hydra-window/body
-
-      :desc "Counsel Ag" :leader "sg"     'counsel-ag
-
-      :desc "Dic. Informal" :leader "si"     'engine/search-dic-informal
-      :desc "Dic. Inf. Sinônimos" :leader "ss"     'engine/search-dic-informal-sinonimos
+(map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
+      :desc "Counsel Ag"           :leader "sg"    'counsel-ag
+      :desc "Count Words"          :leader "cw"    'count-words
+      :desc "Delete Window"        :leader "0"     'delete-window
+      :desc "Describe Variable"    :leader "."     'counsel-describe-variable
+      :desc "Dic. Inf. Sinônimos"  :leader "ss"    'engine/search-dic-informal-sinonimos
+      :desc "Dic. Informal"        :leader "si"    'engine/search-dic-informal
+      :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
+      :desc "Helpful at Point"     :leader ";"     'helpful-at-point
+      :desc "Insert Char"          :leader "-"     'insert-char
+      :desc "Kill Buffer"          :leader "k"     'kill-current-buffer
+      :desc "Magit Stage & Commit" :leader "g SPC" 'my-magit-stage-modified-and-commit
+      :desc "Maximize Vertically"  :leader "ww"    'doom/window-maximize-vertically
+      :desc "Narrow Dwin"          :leader "nn"    'my-narrow-or-widen-dwim
+      :desc "Org Goto Last"        :leader "mgx"   'org-capture-goto-last-stored
+      :desc "Widen to Center"      :leader "nw"    'my-widen-to-center
+      :desc "Windows Hydra"        :leader "z"     'hydra-window/body
 
       ;; BUFFERS
 
@@ -73,6 +68,9 @@
       :desc "Recent Files"         :leader "F"  'counsel-recentf
       :desc "Recent Files"         :leader "fr" 'counsel-recentf
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
+      :desc "Search Keys"          :leader "fK"    'my-search-kbds
+      :desc "Search Pkgs"          :leader "fk"    'my-search-packages
+      :desc "Search Setts"         :leader "fs"    'my-search-settings
 
       ;; TEXT ;;
 
@@ -91,13 +89,13 @@
 
 
       ;; EVIL SUBSTITUTE ;;
-      :leader "su" (lambda () (interactive)
+      :desc "Evil Substitute" :leader "su" (lambda () (interactive)
                      (evil-ex "%s/"))
 
       ;; WINDOWS ;;
-      :leader "wl" (lambda () (interactive)
+      :desc "Split Right" :leader "wl" (lambda () (interactive)
                      (+evil-window-vsplit-a) (other-window 1))
-      :leader "wj" (lambda () (interactive)
+      :desc "Split Down" :leader "wj" (lambda () (interactive)
                      (+evil-window-split-a) (other-window 1))
       :leader "wk"    '+evil-window-split-a
       :leader "wh"    '+evil-window-vsplit-a
