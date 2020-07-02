@@ -58,6 +58,7 @@
 (package! unkillable-scratch)
 (package! git-auto-commit-mode)
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
+(package! evil-god-state)
 
 (package! typo)
 (package! pabbrev)
@@ -87,6 +88,5 @@
 (package! org-web-tools :disable t)
 (package! ivy-yasnippet :disable t)
 (package! benchmark-init :disable t)
-(package! evil-god-state :disable t)
 (package! artbollocks-mode :disable t)
 (package! recursive-narrow :disable t)
