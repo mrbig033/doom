@@ -360,7 +360,7 @@
 (use-package! avy
 
   :general
-  (:states '(normal visual operator)
+  (:states '(normal)
            "g9"      'my-avy-goto-open-paren
            "g0"      'my-avy-goto-close-paren
            ","       'avy-goto-subword-1
@@ -1340,6 +1340,7 @@
 
 (use-package! flyspell
   :custom
+  (flyspell-delayed-commands nil)
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
 
