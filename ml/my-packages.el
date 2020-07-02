@@ -1612,9 +1612,6 @@
 
 (use-package! buffers
   :config
-  ;; (advice-add 'doom/kill-all-buffers :before #'my-save-some-buffers)
-  (advice-remove 'doom/kill-all-buffers 'my-save-some-buffers)
-
   (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
     (interactive
      (list (if current-prefix-arg
