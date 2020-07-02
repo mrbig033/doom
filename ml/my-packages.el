@@ -1052,7 +1052,7 @@
   :custom
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
-  (evil-respect-visual-line-mode nil)
+  (evil-respect-visual-line-mode t)
   (+evil-want-o/O-to-continue-comments nil)
 
   :general
