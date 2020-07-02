@@ -1553,4 +1553,6 @@
       :username "daviramos"
       :default-title "hello world"
       :default-categories ("sci-fi")
-      :tags-as-categories nil))))
+      :tags-as-categories nil)))
+  :config
+  (advice-add 'org2blog-buffer-post-publish :after #'winner-undo))
