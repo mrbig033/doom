@@ -12,11 +12,11 @@
       :leader "SPC ta" 'artbollocks-mode
       :leader "SPC ts" 'hl-sentence-mode
       :leader "SPC tv" 'visible-mode
-      :leader "SPC tb" 'beacon-mode
+      :desc "Beacon" :leader "SPC tB" 'beacon-mode
       :desc "Poetry" :leader "SPC tP" 'poetry-mode
-      :desc "Prose Brasil" :leader "SPC tpb" 'my-prose-enable-br
-      :desc "Prose English" :leader "SPC tpe" 'my-prose-enable-en
-      :desc "Prose Disable" :leader "SPC tpd" 'my-prose-disable
+      :desc "Prose Brasil" :leader "SPC tb" 'my-prose-enable-br
+      :desc "Prose English" :leader "SPC te" 'my-prose-enable-en
+      :desc "Prose Disable" :leader "SPC td" 'my-prose-disable
       :leader "SPC pc" 'company-mode
       :leader "SPC pl" 'lisp-interaction-mode
 
