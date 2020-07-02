@@ -1213,10 +1213,10 @@
 
   (define-typo-cycle typo-cycle-dashes
     "Cycle through various dashes."
-    ("—"   ; em dash
-     "‐"   ; hyphen
-     "-"   ; hyphen-minus
+    ("-"   ; hyphen-minus
+     "—"   ; em dash
      "−"   ; minus sign
+     "‐"   ; hyphen
      "–"   ; en dash
      "‑"   ; non-breaking hyphen
      )))
