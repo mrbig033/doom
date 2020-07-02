@@ -1539,7 +1539,7 @@
 
 (use-package! org2blog
   :custom
-  (org2blog/wp-show-post-in-browser 'show)
+  (org2blog/wp-show-post-in-browser 'ask)
 
   (org2blog/wp-blog-alist
    '(("daviramos-en"
