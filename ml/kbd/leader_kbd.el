@@ -43,8 +43,8 @@
       :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
 
 ;; BUFFERS
-(map! :desc "Goto Scratch"    :leader "bx"  'my-goto-scratch-buffer
-      :desc "Pop-Up Scratch"  :leader "bX"  'doom/open-scratch-buffer
+(map! :desc "Goto Scratch"    :leader "bX"  'my-goto-scratch-buffer
+      :desc "Pop-Up Scratch"  :leader "bx"  'doom/open-scratch-buffer
       :desc "Close Popups"    :leader "bc"  '+popup/close-all
       :desc "Kill All"        :leader "bK"  'my-doom-kill-all-buffers
       :desc "Delete Server"   :leader "bd"  'server-force-delete
