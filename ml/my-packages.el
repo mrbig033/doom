@@ -1251,19 +1251,8 @@
 
   :config
 
-  ;; (defun my-mardown-hooks ()
-  ;;   (interactive)
-  ;;   (setq-local company-dabbrev-other-buffers nil
-  ;;               company-minimum-prefix-length 1
-  ;;               company-tooltip-idle-delay 0.5
-  ;;               company-idle-delay 0.25))
-
-  ;; (set-company-backend!
-  ;;   'text-mode
-  ;;   'company-ispell
-  ;;   'company-dabbrev
-  ;;   '(company-dabbrev  :with company-capf company-yasnippet)
-  ;;   '(company-dabbrev-code :with company-keywords company-dabbrev))
+  (map! :map markdown-mode-map
+        :desc "Markdown Leader Test" :localleader "SPC ta" 'artbollocks-mode)
   )
 
 (use-package! org-pomodoro
