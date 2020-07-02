@@ -23,7 +23,7 @@
       :desc "Emacs Init Time"     :leader "SPC be" 'emacs-init-time
       :desc "Doom Init Time"      :leader "SPC bd" 'my-doom-init-time)
 
-;; LEADER KEY
+;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
       :desc "Count Words"          :leader "cw"    'count-words
@@ -40,41 +40,40 @@
       :desc "Narrow Dwin"          :leader "nn"    'my-narrow-or-widen-dwim
       :desc "Org Goto Last"        :leader "mgx"   'org-capture-goto-last-stored
       :desc "Widen to Center"      :leader "nw"    'my-widen-to-center
-      :desc "Windows Hydra"        :leader "z"     'hydra-window/body
+      :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
 
-      ;; BUFFERS
-
-      :desc "Goto Scratch"    :leader "bx" 'my-goto-scratch-buffer
+;; BUFFERS
+(map! :desc "Goto Scratch"    :leader "bx" 'my-goto-scratch-buffer
       :desc "Pop-Up Scratch"  :leader "bX" 'doom/open-scratch-buffer
       :desc "Close Popups"    :leader "bc" '+popup/close-all
       :desc "Kill All"        :leader "bK" 'my-doom-kill-all-buffers
       :desc "Delete Server"   :leader "bd" 'server-force-delete
       :desc "Git Timemachine" :leader "bg" 'git-timemachine
       :desc "Raise Popup"     :leader "br" '+popup/raise
-      :desc "Kill Matching"   :leader "bt" 'doom/kill-matching-buffers
+      :desc "Kill Matching"   :leader "bt" 'doom/kill-matching-buffers)
 
-      ;; FILES
-      :desc "Org Capture"          :leader "fc" 'org-capture
-      :desc "Goto Brain"           :leader "fB" 'my-goto-brain
-      :desc "Goto Agenda"          :leader "fa" 'my-goto-agenda
+;; FILES
+(map! :desc "Brain Visualize"      :leader "fv" 'org-brain-visualize
+      :desc "Cleanup Recent Files" :leader "fc" 'recentf-cleanup
       :desc "Copy Directory"       :leader "fY" 'my-copy-directory
-      :desc "Locate"               :leader "fL" 'counsel-locate
+      :desc "Goto Agenda"          :leader "fa" 'my-goto-agenda
+      :desc "Goto Brain"           :leader "fB" 'my-goto-brain
+      :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
       :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
       :desc "Goto My Packages"     :leader "fp" 'my-goto-my-packages
-      :desc "Brain Visualize"      :leader "fv" 'org-brain-visualize
-      :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
-      :desc "Cleanup Recent Files" :leader "fc" 'recentf-cleanup
-      :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
+      :desc "Locate"               :leader "fL" 'counsel-locate
+      :desc "Org Capture"          :leader "fc" 'org-capture
       :desc "Recent Files"         :leader "F"  'counsel-recentf
       :desc "Recent Files"         :leader "fr" 'counsel-recentf
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
-      :desc "Search Keys"          :leader "fK"    'my-search-kbds
-      :desc "Search Pkgs"          :leader "fk"    'my-search-packages
-      :desc "Search Setts"         :leader "fs"    'my-search-settings
+      :desc "Reopen File"          :leader "T"  'my-reopen-killed-file
+      :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
+      :desc "Search Keys"          :leader "fK" 'my-search-kbds
+      :desc "Search Pkgs"          :leader "fk" 'my-search-packages
+      :desc "Search Setts"         :leader "fs" 'my-search-settings)
 
-      ;; TEXT ;;
-
-      :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
+;; TEXT ;;
+(map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
       :desc "Reload File"          :leader "tT" 'my-reload-file
       :desc "Duplicate Line"       :leader "tt" 'my-dup-line
       :desc "Google Translate"     :leader "tT" 'google-translate-smooth-translate
@@ -85,27 +84,27 @@
       :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
       :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
       :desc "Langtool Done"        :leader "tL" 'langtool-check-done
-      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body
+      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body)
 
+;; EVIL SUBSTITUTE ;;
+(map! :desc "Evil Substitute" :leader "su" (lambda ()
+                                             (interactive)
+                                             (evil-ex "%s/")))
 
-      ;; EVIL SUBSTITUTE ;;
-      :desc "Evil Substitute" :leader "su" (lambda () (interactive)
-                     (evil-ex "%s/"))
+;; WINDOWS ;;
+(map! :desc "Split Right" :leader "wl" (lambda ()
+                                         (interactive)
+                                         (+evil-window-vsplit-a)
+                                         (other-window 1))
+      :desc "Split Down"  :leader "wj" (lambda ()
+                                         (interactive)
+                                         (+evil-window-split-a)
+                                         (other-window 1))
+      :desc "Split Up"    :leader "wk"    '+evil-window-split-a
+      :desc "Split Left"  :leader "wh"    '+evil-window-vsplit-a)
 
-      ;; WINDOWS ;;
-      :desc "Split Right" :leader "wl" (lambda () (interactive)
-                     (+evil-window-vsplit-a) (other-window 1))
-      :desc "Split Down" :leader "wj" (lambda () (interactive)
-                     (+evil-window-split-a) (other-window 1))
-      :leader "wk"    '+evil-window-split-a
-      :leader "wh"    '+evil-window-vsplit-a
-      :leader "T"     'my-reopen-killed-file
-      :leader "meb"   'my-eval-buffer
-
-      ;; EVAL
-
-
-      :desc "Eval Buffer" :leader "ee"    'my-eval-buffer
-      :desc "Eval & Leave" :leader "el"    'my-eval-buffer-and-leave
-      :desc "Eval & Quit" :leader "eq"    'my-eval-buffer-quit
-      :desc "Eval & Kill" :leader "ek"    'my-eval-buffer-kill)
+;; EVAL
+(map! :desc "Eval Buffer"  :leader "ee" 'my-eval-buffer
+      :desc "Eval & Leave" :leader "el" 'my-eval-buffer-and-leave
+      :desc "Eval & Quit"  :leader "eq" 'my-eval-buffer-quit
+      :desc "Eval & Kill"  :leader "ek" 'my-eval-buffer-kill)
