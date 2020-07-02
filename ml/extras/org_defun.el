@@ -57,9 +57,8 @@
 
 (defun my-org-todo ()
   (interactive)
-  (let ((inhibit-message t))
-    (org-todo "TODO")
-    (org-clock-out)))
+  (org-todo "TODO")
+  (org-clock-out))
 
 (defun org-today-agenda ()
   (interactive)
