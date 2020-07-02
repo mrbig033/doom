@@ -313,7 +313,9 @@
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  (load! "~/.doom.d/ml/extras/org_defun.el"))
+  (load! "~/.doom.d/ml/extras/org_defun.el")
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines)))
 
 (use-package! org-roam
   ;; :after org
