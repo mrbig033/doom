@@ -24,8 +24,7 @@
       "C-c o"  'my-org-force-open-other-window
       :nvg "C-h e"  'describe-package
       :nvg "C-h N"  'my-show-server-name
-      "C-c i"  'emacs-init-time
-      "C-c I"  'my-doom-init-time)
+      "C-c c"  'evil-record-macro)
 
 (general-define-key
  :keymaps 'override
