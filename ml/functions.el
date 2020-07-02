@@ -203,17 +203,21 @@
   (interactive)
   (save-some-buffers t 0))
 
+(defun my-emacs-init-time ()
+  (interactive)
+  (message "Emacs Init Time: %s" (emacs-init-time)))
+
 (defun my-doom-init-time ()
   (interactive)
-  (message "%s" doom-init-time))
+  (message "Doom Init Time: %s seconds" doom-init-time))
 
 (defun my-show-major-mode ()
   (interactive)
-  (message "%s" major-mode))
+  (message "Major Mode: %s" major-mode))
 
 (defun my-show-server-name ()
   (interactive)
-  (message "%s" server-name))
+  (message "Server Name: %s" server-name))
 
 (defun my-recentf-empty ()
   (interactive)
