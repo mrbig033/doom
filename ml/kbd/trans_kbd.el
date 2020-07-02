@@ -3,3 +3,4 @@
 (define-key key-translation-map (kbd "s-9") (kbd"]"))
 (define-key key-translation-map (kbd "s-(") (kbd"{"))
 (define-key key-translation-map (kbd "s-)") (kbd"}"))
+(define-key key-translation-map (kbd "<help>") (kbd"<insert>"))
