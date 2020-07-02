@@ -53,7 +53,6 @@
 ;; https://stackoverflow.com/a/998472
 (defun my-dup-line (arg)
   (interactive "*p")
-  (evil-set-marker 65)
   (setq buffer-undo-list (cons (point) buffer-undo-list))
   (let ((bol (save-excursion (beginning-of-line) (point)))
         eol)
@@ -68,7 +67,28 @@
           (insert line)
           (setq count (1- count))))
       (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
-  (evil-goto-mark 65)
+  (evil-next-line 1))
+
+;; https://stackoverflow.com/a/998472
+(defun my-comm-dup-line (arg)
+  (interactive "*p")
+  (setq buffer-undo-list (cons (point) buffer-undo-list))
+  (let ((bol (save-excursion (beginning-of-line) (point)))
+        eol)
+    (save-excursion
+      (end-of-line)
+      (setq eol (point))
+      (let ((line (buffer-substring bol eol))
+            (buffer-undo-list t)
+            (count arg))
+        (while (> count 0)
+          (newline)
+          (insert line)
+          (setq count (1- count))))
+      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
+  (save-excursion
+    (comment-line 1))
+  (backward-char 3)
   (evil-next-line 1))
 
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
