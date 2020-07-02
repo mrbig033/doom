@@ -1600,3 +1600,10 @@
   (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
 
   (engine-mode t))
+
+(use-package! fountain-mode
+  :init
+  (add-hook! 'fountain-mode-hook
+             #'auto-capitalize-mode
+             #'electric-operator-mode
+             #'olivetti-mode))
