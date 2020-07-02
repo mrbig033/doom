@@ -361,7 +361,7 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
-  (ispell-local-dictionary "english")
+  (ispell-change-dictionary "english")
   (flyspell-mode +1)
   (flyspell-buffer)
   (message "prose en"))
