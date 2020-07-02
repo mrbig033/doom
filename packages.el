@@ -67,6 +67,7 @@
 (package! org-brain)
 (package! evil-swap-keys)
 (package! evil-smartparens)
+(package! fountain-mode)
 (package! evil-better-visual-line)
 (package! lorem-ipsum)
 (package! engine-mode)
