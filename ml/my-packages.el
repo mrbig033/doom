@@ -114,44 +114,10 @@
     "SPC SPC r"   "Roam"
 
     "SPC SPC t"   "Text"
-    "SPC SPC ty" "Typo Mode"
-    "SPC SPC th" "Hl Line Mode"
-    "SPC SPC to" "Olivetti Mode"
-    "SPC SPC tw" "Writegood Mode"
-    "SPC SPC ta" "Artbollocks Mode"
-    "SPC SPC ts" "Hl Sentence Mode"
-    "SPC SPC tv" "Visible Mode"
 
     "SPC SPC p"   "Programming"
-    "SPC SPC pc" "Company"
-    "SPC SPC pl" "Lisp Interaction"
 
     "SPC SPC s"   "Scratch"
-    "SPC SPC sl" "Scratch Lisp"
-    "SPC SPC su"  "Unkillabe Scratch "
-    "SPC SPC sf"  "Scratch Fundamental"
-
-    "SPC mty" "Typo"
-    "SPC mth" "Hl Line"
-    "SPC mto" "Olivetti"
-    "SPC mtw" "Writegood"
-    "SPC mta" "Artbollocks"
-    "SPC mts" "Hl Sentence"
-    "SPC mtv" "Visible"
-
-    "SPC SPC rf"  "Roam Find File"
-    "SPC SPC rl"  "Roam Find-File"
-    "SPC SPC rj"  "Roam Index"
-    "SPC SPC rb"  "Roam Switch Buffer"
-    "SPC SPC rg"  "Roam Graph"
-    "SPC SPC ri"  "Roam Insert"
-    "SPC SPC rd"  "Roam Deft"
-    "SPC SPC rc"  "Roam Re-Cache"
-    "SPC SPC rx"  "Roam Indexes"
-    "SPC SPC ro"  "Roam Logic"
-    "SPC SPC ra"  "Roam Fallacies"
-    "SPC SPC rs"  "Roam Commands"
-    "SPC SPC rç"  "Roam"
 
     "SPC mwi"  "OW Insert"
     "SPC mwe"  "OW Archive"
@@ -361,7 +327,6 @@
   (org-roam-directory "~/org/Data/roam")
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
-  :general
   (:keymaps '(doom-leader-map)
             "SPC rf" 'org-roam-find-file
             "SPC rl" 'org-roam-find-file
