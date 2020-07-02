@@ -24,95 +24,90 @@
       :desc "Doom Init Time"      :leader "SPC bd" 'my-doom-init-time)
 
 ;; LEADER KEY
-(map!
+(map! :desc "Insert " :leader "-"      'insert-char
+      :desc "" :leader "."      'counsel-describe-variable
+      :desc "" :leader "0"      'delete-window
+      :desc "" :leader ";"      'helpful-at-point
+      :desc "" :leader "cw"     'count-words
+      :desc "" :leader "d"      'my-search-ag-brain
+      :desc "" :leader "fK"     'my-search-kbds
+      :desc "" :leader "fk"     'my-search-packages
+      :desc "" :leader "fs"     'my-search-settings
+      :desc "" :leader "g SPC"  'my-magit-stage-modified-and-commit
+      :desc "" :leader "k"      'kill-current-buffer
+      :desc "" :leader "mgx"    'org-capture-goto-last-stored
+      :desc "" :leader "nn"     'my-narrow-or-widen-dwim
+      :desc "" :leader "nw"     'my-widen-to-center
+      :desc "" :leader "ww"     'doom/window-maximize-vertically
+      :desc "" :leader "x"      'eyebrowse-close-window-config
+      :desc "" :leader "z"      'hydra-window/body
 
- :leader "-"      'insert-char
- :leader "."      'counsel-describe-variable
- :leader "0"      'delete-window
- :leader ";"      'helpful-at-point
- :leader "cw"     'count-words
- :leader "d"      'my-search-ag-brain
- :leader "fK"     'my-search-kbds
- :leader "fk"     'my-search-packages
- :leader "fs"     'my-search-settings
- :leader "g SPC"  'my-magit-stage-modified-and-commit
- :leader "k"      'kill-current-buffer
+      :desc "Counsel Ag" :leader "sg"     'counsel-ag
 
- :leader "mgx"    'org-capture-goto-last-stored
- :leader "nn"     'my-narrow-or-widen-dwim
- :leader "nw"     'my-widen-to-center
- :leader "ww"     'doom/window-maximize-vertically
- :leader "x"      'eyebrowse-close-window-config
- :leader "z"      'hydra-window/body
+      :desc "Dic. Informal" :leader "si"     'engine/search-dic-informal
+      :desc "Dic. Inf. Sinônimos" :leader "ss"     'engine/search-dic-informal-sinonimos
 
- :desc "Counsel Ag" :leader "sg"     'counsel-ag
+      ;; BUFFERS
 
- :desc "Dic. Informal" :leader "si"     'engine/search-dic-informal
- :desc "Dic. Inf. Sinônimos" :leader "ss"     'engine/search-dic-informal-sinonimos
+      :desc "Goto Scratch"    :leader "bx" 'my-goto-scratch-buffer
+      :desc "Pop-Up Scratch"  :leader "bX" 'doom/open-scratch-buffer
+      :desc "Close Popups"    :leader "bc" '+popup/close-all
+      :desc "Kill All"        :leader "bK" 'my-doom-kill-all-buffers
+      :desc "Delete Server"   :leader "bd" 'server-force-delete
+      :desc "Git Timemachine" :leader "bg" 'git-timemachine
+      :desc "Raise Popup"     :leader "br" '+popup/raise
+      :desc "Kill Matching"   :leader "bt" 'doom/kill-matching-buffers
 
- ;; BUFFERS
+      ;; FILES
+      :desc "Org Capture"          :leader "fc" 'org-capture
+      :desc "Goto Brain"           :leader "fB" 'my-goto-brain
+      :desc "Goto Agenda"          :leader "fa" 'my-goto-agenda
+      :desc "Copy Directory"       :leader "fY" 'my-copy-directory
+      :desc "Locate"               :leader "fL" 'counsel-locate
+      :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
+      :desc "Goto My Packages"     :leader "fp" 'my-goto-my-packages
+      :desc "Brain Visualize"      :leader "fv" 'org-brain-visualize
+      :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
+      :desc "Cleanup Recent Files" :leader "fc" 'recentf-cleanup
+      :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
+      :desc "Recent Files"         :leader "F"  'counsel-recentf
+      :desc "Recent Files"         :leader "fr" 'counsel-recentf
+      :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
 
- :desc "Goto Scratch"    :leader "bx" 'my-goto-scratch-buffer
- :desc "Pop-Up Scratch"  :leader "bX" 'doom/open-scratch-buffer
- :desc "Close Popups"    :leader "bc" '+popup/close-all
- :desc "Kill All"        :leader "bK" 'my-doom-kill-all-buffers
- :desc "Delete Server"   :leader "bd" 'server-force-delete
- :desc "Git Timemachine" :leader "bg" 'git-timemachine
- :desc "Raise Popup"     :leader "br" '+popup/raise
- :desc "Kill Matching"   :leader "bt" 'doom/kill-matching-buffers
+      ;; TEXT ;;
 
- ;; FILES
- :desc "Org Capture"          :leader "fc" 'org-capture
- :desc "Goto Brain"           :leader "fB" 'my-goto-brain
- :desc "Goto Agenda"          :leader "fa" 'my-goto-agenda
- :desc "Locate"               :leader "fL" 'counsel-locate
- :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
- :desc "Goto My Packages"     :leader "fp" 'my-goto-my-packages
- :desc "Brain Visualize"      :leader "fv" 'org-brain-visualize
- :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
- :desc "Cleanup Recent Files" :leader "fc" 'recentf-cleanup
- :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
- :desc "Recent Files"         :leader "F"  'counsel-recentf
- :desc "Recent Files"         :leader "fr" 'counsel-recentf
- :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
+      :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
+      :desc "Reload File"          :leader "tT" 'my-reload-file
+      :desc "Duplicate Line"       :leader "tt" 'my-dup-line
+      :desc "Google Translate"     :leader "tT" 'google-translate-smooth-translate
+      :desc "Change Dictionary"    :leader "tD" 'ispell-change-dictionary
+      :desc "Clean Lines"          :leader "tc" 'xah-clean-empty-lines
+      :desc "Clean All Lines"      :leader "tC" 'my-clean-all-empty-lines
+      :desc "Duplicate Paragraph"  :leader "ti" 'my-dup-par
+      :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
+      :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
+      :desc "Langtool Done"        :leader "tL" 'langtool-check-done
+      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body
 
- ;; TEXT ;;
- :leader "tB"  'flyspell-buffer
- :leader "tT"  'my-reload-file
- :leader "tt"  'my-dup-line
- :leader "tT"  'google-translate-smooth-translate
- :leader "tD"  'ispell-change-dictionary
- :leader "tc"  'xah-clean-empty-lines
- :leader "tC"  'my-clean-all-empty-lines
- :leader "ti"  'my-dup-par
- :leader "tS"  'my-sort-lines-by-length
- :leader "tl"  'langtool-check-buffer
- :leader "tL"  'langtool-check-done
- :leader "oo"  'hydra-org-mode/body
 
- ;; COPY DIRECTORY PATH ;;
- :leader "fY" 'my-copy-directory
+      ;; EVIL SUBSTITUTE ;;
+      :leader "su" (lambda () (interactive)
+                     (evil-ex "%s/"))
 
- ;; SEARCH SETTINGS ;;
-                                        ; :leader "fs" 'my-search-settings
-                                        ; :leader "fk" 'my-search-packages
-                                        ; :leader "fK" 'my-search-kbds
+      ;; WINDOWS ;;
+      :leader "wl" (lambda () (interactive)
+                     (+evil-window-vsplit-a) (other-window 1))
+      :leader "wj" (lambda () (interactive)
+                     (+evil-window-split-a) (other-window 1))
+      :leader "wk"    '+evil-window-split-a
+      :leader "wh"    '+evil-window-vsplit-a
+      :leader "T"     'my-reopen-killed-file
+      :leader "meb"   'my-eval-buffer
 
- ;; EVIL SUBSTITUTE ;;
- :leader "su" (lambda () (interactive)
-                (evil-ex "%s/"))
+      ;; EVAL
 
- ;; WINDOWS ;;
- :leader "wl" (lambda () (interactive)
-                (+evil-window-vsplit-a) (other-window 1))
- :leader "wj" (lambda () (interactive)
-                (+evil-window-split-a) (other-window 1))
- :leader "wk"    '+evil-window-split-a
- :leader "wh"    '+evil-window-vsplit-a
- :leader "T"     'my-reopen-killed-file
- :leader "meb"   'my-eval-buffer
- :leader "ee"    'my-eval-buffer
- :leader "el"    'my-eval-buffer-and-leave
- :leader "eq"    'my-eval-buffer-quit
- :leader "ek"    'my-eval-buffer-kill
- :leader "ek"    'my-eval-buffer-kill)
+
+      :desc "Eval Buffer" :leader "ee"    'my-eval-buffer
+      :desc "Eval & Leave" :leader "el"    'my-eval-buffer-and-leave
+      :desc "Eval & Quit" :leader "eq"    'my-eval-buffer-quit
+      :desc "Eval & Kill" :leader "ek"    'my-eval-buffer-kill)
