@@ -68,6 +68,7 @@
 (package! evil-swap-keys)
 (package! evil-smartparens)
 (package! fountain-mode)
+;; org-plus-contrib
 (package! evil-better-visual-line)
 (package! lorem-ipsum)
 (package! engine-mode)
