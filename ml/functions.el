@@ -205,15 +205,15 @@
 
 (defun my-doom-init-time ()
   (interactive)
-  (doom-init-time))
+  (message "%s" doom-init-time))
 
 (defun my-show-major-mode ()
   (interactive)
-  (describe-variable 'major-mode))
+  (message "%s" major-mode))
 
 (defun my-show-server-name ()
   (interactive)
-  (describe-variable 'server-name))
+  (message "%s" server-name))
 
 (defun my-recentf-empty ()
   (interactive)
