@@ -20,8 +20,7 @@
       :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
       :desc "Visible"             :leader "SPC tv" 'visible-mode
       :desc "Writegood"           :leader "SPC tw" 'writegood-mode
-      :desc "Emacs Init Time"     :leader "SPC be" 'emacs-init-time
-      :desc "Doom Init Time"      :leader "SPC bd" 'my-doom-init-time)
+      :desc "Show Init Times"     :leader "SPC be" 'my-show-init-times)
 
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
@@ -49,6 +48,8 @@
       :desc "Kill All"        :leader "bK"  'my-doom-kill-all-buffers
       :desc "Delete Server"   :leader "bd"  'server-force-delete
       :desc "Git Timemachine" :leader "bg"  'git-timemachine
+      :desc "Ibuffer"         :leader "bI"  'ibuffer
+      :desc "Ibuffer"         :leader "bi"  'my-show-init-times
       :desc "Raise Popup"     :leader "br"  '+popup/raise
       :desc "Kill Matching"   :leader "bt"  'doom/kill-matching-buffers
       :desc "Show Major Mode" :leader "h M" 'my-show-major-mode)
