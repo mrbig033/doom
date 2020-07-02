@@ -1247,13 +1247,7 @@
                 "M-="        'winner-redo
                 "<C-return>" 'my-open-two-lines
                 "M-n"        'my-forward-paragraph-do-indentation
-                "M-p"        'my-backward-paragraph-do-indentation)
-
-  :config
-
-  (map! :map markdown-mode-map
-        :desc "Markdown Leader Test" :localleader "SPC ta" 'artbollocks-mode)
-  )
+                "M-p"        'my-backward-paragraph-do-indentation))
 
 (use-package! org-pomodoro
   :after org
