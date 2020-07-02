@@ -124,10 +124,8 @@
     "SPC mwr"  "OW Read As Org"
     "SPC mwc"  "OW Links to Entries"
 
-    "SPC SPC x"  "Org Capture"
+    "SPC SPC x"  "Org Capture")
 
-
-    )
   (which-key-mode +1))
 
 (use-package! hydra
