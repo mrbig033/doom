@@ -1536,3 +1536,21 @@
              #'auto-capitalize-mode
              #'electric-operator-mode
              #'olivetti-mode))
+
+(use-package! org2blog
+  :custom
+  (org2blog/wp-show-post-in-browser 'show)
+
+  (org2blog/wp-blog-alist
+   '(("daviramos-en"
+      :url "http://daviramos.com/en/xmlrpc.php"
+      :username "daviramos"
+      :default-title "hello world"
+      :default-categories ("sci-fi")
+      :tags-as-categories nil)
+     ("daviramos-br"
+      :url "http://daviramos.com/br/xmlrpc.php"
+      :username "daviramos"
+      :default-title "hello world"
+      :default-categories ("sci-fi")
+      :tags-as-categories nil))))
