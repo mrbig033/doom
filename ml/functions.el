@@ -363,7 +363,8 @@ is already narrowed."
   (electric-operator-mode +1)
   (pabbrev-mode +1)
   (olivetti-mode +1)
-  (typo-mode +1))
+  (typo-mode +1)
+  (message "prose enabled"))
 
 (defun my-prose-disable ()
   (interactive)
@@ -371,4 +372,5 @@ is already narrowed."
   (electric-operator-mode -1)
   (pabbrev-mode -1)
   (olivetti-mode -1)
-  (typo-mode -1))
+  (typo-mode -1)
+  (message "prose disabled"))
