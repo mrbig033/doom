@@ -1527,23 +1527,3 @@
              #'auto-capitalize-mode
              #'electric-operator-mode
              #'olivetti-mode))
-
-(use-package! buffers
-  :config
-  (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
-    (interactive
-     (list (if current-prefix-arg
-               (doom-project-buffer-list)
-             (doom-buffer-list))
-           t))
-    (if (null buffer-list)
-        (message "No buffers to kill")
-      (my-save-some-buffers)
-      (delete-other-windows)
-      (when (memq (current-buffer) buffer-list)
-        (switch-to-buffer (doom-fallback-buffer)))
-      (mapc #'kill-buffer buffer-list)
-      (doom--message-or-count
-       interactive "Killed %d buffers"
-       (- (length buffer-list)
-          (length (cl-remove-if-not #'buffer-live-p buffer-list)))))))
