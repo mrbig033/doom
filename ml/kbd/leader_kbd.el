@@ -22,6 +22,7 @@
 
       :leader "SPC bh" 'hide-mode-line-mode
 
+      :desc "Rename File" :leader "fR" 'my-rename-file-and-buffer
       :leader "fl" 'my-deer-goto-my-lisp
       :leader "fc" 'org-capture
       :leader "fL" 'counsel-locate
