@@ -365,7 +365,7 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
-  (ispell-change-dictionary)
+  (ispell-change-dictionary "brasileiro")
   (flyspell-mode +1)
   (flyspell-buffer)
   (message "prose enabled"))
