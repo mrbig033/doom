@@ -26,6 +26,7 @@
       :leader "fl" 'my-deer-goto-my-lisp
       :desc "Recent Files" :leader "F" 'counsel-recentf
       :desc "Recent Files" :leader "fr" 'counsel-recentf
+      :desc "Scratch Markdown" :leader "fm" 'my-goto-markdown
       :desc "Cleanup Recent Files" :leader "bC" 'recentf-cleanup
       :leader "fc" 'org-capture
       :leader "fL" 'counsel-locate
@@ -49,7 +50,6 @@
       :leader "0"      'delete-window
       :leader "cw"     'count-words
       :leader "k"      'kill-current-buffer
-      :leader "ba"     'my-goto-markdown
       :leader "br"     '+popup/raise
       :leader "bd"     'server-force-delete
       :leader "bt"     'doom/kill-matching-buffers
@@ -66,8 +66,6 @@
       :leader "z"      'hydra-window/body
 
       ;; TEXT ;;
-      :leader "tb"  'spelling-brasileiro
-      :leader "te"  'spelling-english
       :leader "tB"  'flyspell-buffer
       :leader "tT"  'my-reload-file
       :leader "tt"  'my-dup-line
