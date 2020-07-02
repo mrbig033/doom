@@ -107,7 +107,7 @@
 
     "SPC bt" "Kill Matching Buffers"
 
-    "SPC SPC tP" "Prose"
+    "SPC SPC tp" "Prose"
     "SPC SPC b" "Buffers"
     "SPC SPC bh" "Hide Mode Line"
 
