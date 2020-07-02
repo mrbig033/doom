@@ -205,21 +205,15 @@
 
 (defun my-doom-init-time ()
   (interactive)
-  (helpful-variable 'doom-init-time)
-  (beginning-of-buffer)
-  (forward-line 3))
+  (doom-init-time))
 
 (defun my-show-major-mode ()
   (interactive)
-  (helpful-variable 'major-mode)
-  (beginning-of-buffer)
-  (forward-line 3))
+  (describe-variable 'major-mode))
 
 (defun my-show-server-name ()
   (interactive)
-  (helpful-variable 'server-name)
-  (beginning-of-buffer)
-  (forward-line 3))
+  (describe-variable 'server-name))
 
 (defun my-recentf-empty ()
   (interactive)
