@@ -90,7 +90,8 @@
             :nv "gl"   'fountain-backward-scene
             :nv "m-n"  'fountain-forward-scene
             :nv "m-p"  'fountain-backward-scene
-            :nv "zi"   'fountain-outline-show-all)
+            :nv "zi"   'fountain-outline-show-all
+            :nv "zm"   'fountain-outline-cycle-global)
 
       (:map (custom-mode-map compilation-mode-map)
             :n "<escape>" 'evil-force-normal-state))
