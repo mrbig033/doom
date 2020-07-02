@@ -148,7 +148,7 @@
   "
 
     _i_: in      _d_: done  _p_: pomo
-    _o_: out     _l_: last
+    _o_: out     _l_: last  _t_: todo
     _c_: cancel  _g_: goto
     _s_: start   _h_: show"
 
