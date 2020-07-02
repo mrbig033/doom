@@ -72,7 +72,7 @@
        use-package-always-defer t
        flyspell-correct-auto-delay 1
        display-line-numbers-type nil
-       initial-major-mode 'scratch-fundamental-mode
+       initial-major-mode 'scratch-lisp-mode
        +word-wrap-extra-indent 'single
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
