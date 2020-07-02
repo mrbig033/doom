@@ -231,7 +231,7 @@
 
 (defun my-goto-scratch-buffer ()
   (interactive)
-  (switch-to-buffer "*scratch*"))
+  (switch-to-buffer-other-window "*scratch*"))
 
 (defun my-goto-python-scratch ()
   (interactive)
@@ -283,6 +283,27 @@
   :with 'evil-ex-nohighlight
   [remap my-quiet-save-buffer]
   [remap save-buffer])
+
+(general-unbind 'scratch-fundamental-mode-map
+  :with 'my-silent-winner-undo
+  [remap my-goto-scratch-buffer])
+
+(defun my-silent-winner-undo ()
+  (interactive)
+  (cond
+   ((not winner-mode) (error "Winner mode is turned off"))
+   (t (unless (and (eq last-command 'winner-undo)
+                   (eq winner-undo-frame (selected-frame)))
+        (winner-save-conditionally)     ; current configuration->stack
+        (setq winner-undo-frame (selected-frame))
+        (setq winner-point-alist (winner-make-point-alist))
+        (setq winner-pending-undo-ring (winner-ring (selected-frame)))
+        (setq winner-undo-counter 0)
+        (setq winner-undone-data (list (winner-win-data))))
+      (cl-incf winner-undo-counter)	; starting at 1
+      (when (and (winner-undo-this)
+                 (not (window-minibuffer-p)))))))
+
 
 (define-derived-mode scratch-lisp-mode
   lisp-interaction-mode "scratch-lisp")
