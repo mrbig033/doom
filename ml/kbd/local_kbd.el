@@ -26,7 +26,8 @@
             :i "C-l" 'pabbrev-expand-maybe)
 
       (:map (org-mode-map evil-org-mode-map)
-            :nvig "C-c C-s" 'org-emphasize)
+            :nvig "C-c C-s" 'org-emphasize
+            :v "<insert>" 'org-insert-link)
 
       (:map (markdown-mode-map)
             "C-c ," 'my-engine-rhymit-pt
