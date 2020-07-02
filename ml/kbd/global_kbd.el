@@ -24,7 +24,8 @@
       "C-c o"  'my-org-force-open-other-window
       :nvg "C-h e"  'describe-package
       :nvg "C-h N"  'my-show-server-name
-      "C-c c"  'evil-record-macro)
+      "C-c c"  'evil-record-macro
+      :i "C-2"  'evil-execute-macro)
 
 (general-define-key
  :keymaps 'override
