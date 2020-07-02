@@ -459,3 +459,13 @@ is already narrowed."
      interactive "Killed %d buffers"
      (- (length buffer-list)
         (length (cl-remove-if-not #'buffer-live-p buffer-list))))))
+
+(defun my-bash-shebang ()
+  (interactive)
+  (erase-buffer)
+  (insert "#!/usr/bin/env bash\n\n")
+  (sh-mode)
+  (sh-set-shell "bash")
+  (xah-clean-empty-lines)
+  (forward-to-indentation)
+  (evil-insert-state))
