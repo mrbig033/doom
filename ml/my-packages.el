@@ -1609,3 +1609,9 @@
              #'auto-capitalize-mode
              #'electric-operator-mode
              #'olivetti-mode))
+
+(use-package! buffers
+  :config
+  ;; (advice-add 'doom/kill-all-buffers :before #'my-save-some-buffers)
+  (advice-remove 'doom/kill-all-buffers 'my-save-some-buffers)
+  )
