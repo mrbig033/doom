@@ -27,8 +27,8 @@
       :desc "Count Words"          :leader "cw"    'count-words
       :desc "Delete Window"        :leader "0"     'delete-window
       :desc "Describe Variable"    :leader "."     'counsel-describe-variable
-      :desc "Dic. Inf. Sinônimos"  :leader "ss"    'engine/search-dic-informal-sinonimos
-      :desc "Dic. Informal"        :leader "si"    'engine/search-dic-informal
+      :desc "Dic. Inf. Sinônimos"  :leader "ss"    'engine/search-dic-infor-sinonimos-at-point
+      :desc "Dic. Informal"        :leader "si"    'engine/search-dic-infor-at-point
       :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
