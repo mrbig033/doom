@@ -303,18 +303,13 @@
 
 (defun spelling-brasileiro ()
   (interactive)
-  (setq-local company-ispell-dictionary "/Users/davi/.doom.d/etc/iv_sorted.txt"
-              company-dabbrev-ignore-case 'keep-prefix)
   (ispell-change-dictionary "brasileiro")
-  (flyspell-mode +1)
   (flyspell-buffer)
   (message " ispell brasileiro"))
 
 (defun spelling-english ()
   (interactive)
-  (setq-local company-ispell-dictionary nil
-              ispell-local-dictionary "english")
-  (flyspell-mode +1)
+  (ispell-local-dictionary "english")
   (flyspell-buffer)
   (message " ispell english"))
 
@@ -365,7 +360,6 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
-  (ispell-change-dictionary "brasileiro")
   (flyspell-mode +1)
   (flyspell-buffer)
   (message "prose enabled"))

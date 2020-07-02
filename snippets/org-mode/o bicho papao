@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: o bicho papao
-# uuid: bicho-papao
-# key: papp
+# name: horizontal-rule
+# uuid: horizontal-rule
+# key: ---
 # condition: t
 # --
-/O Bicho Papão/ $0
+-----
