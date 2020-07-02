@@ -100,7 +100,7 @@
 (use-package! which-key
   :custom
   (which-key-allow-evil-operators nil)
-  (which-key-idle-delay 0.4)
+  (which-key-idle-delay 0.3)
   (which-key-idle-secondary-delay 0.1)
   :config
   (which-key-add-key-based-replacements
@@ -109,7 +109,6 @@
 
     "SPC SPC tp" "Prose"
     "SPC SPC b" "Buffers"
-    "SPC SPC bh" "Hide Mode Line"
 
     "SPC SPC r"   "Roam"
 
@@ -127,34 +126,8 @@
 
     "SPC SPC x"  "Org Capture"
 
-    "SPC ee" "Eval Buffer"
-    "SPC el" "Eval & Leave"
-    "SPC eq" "Eval & Quit"
-    "SPC ek" "Eval & Kill"
 
-    "SPC sW"  "Wordnut Search"
-    "SPC sw"  "Wornut Word"
-    "SPC te"  "HL Sentence"
-    "SPC br"  "Popup Raise"
-    "SPC mgx" "Org Last"
-    "SPC nrn" "Index"
-    "SPC nrc" "Capture"
-    "SPC nrb" "Switch Buffer"
-    "SPC tc"  "Clean Lines"
-    "SPC td"  "Dup Lines"
-    "SPC tv"  "Visible Mode"
-    "SPC to"  "Olivetti Mode"
-    "SPC ti"  "Dup Par"
-    "SPC tS"  "Sort by Len"
-    "SPC bY"  "Yank Dir"
-    "SPC fk"  "Search Pkgs"
-    "SPC cw"  "Count Words"
-    "SPC nn"  "Narrow Dwin"
-    "SPC nw"  "Widen"
-    "SPC ba"  "Goto Markdown"
-    "SPC meb" "Eval Buffer"
-    "SPC med" "Eval Defun"
-    "SPC mer" "Eval Region")
+    )
   (which-key-mode +1))
 
 (use-package! hydra
@@ -1133,7 +1106,6 @@
             "M-["      'evil-window-next
             "C-S-j" 'cool-moves-line-forward
             "C-S-k" 'cool-moves-line-backward
-            "s-2"      'evil-execute-macro
             "ge"       'evil-end-of-visual-line
             "0"        'evil-beginning-of-visual-line
             "C-9"      'evilnc-comment-or-uncomment-lines)
