@@ -54,6 +54,7 @@
       :leader "bd"     'server-force-delete
       :leader "bt"     'doom/kill-matching-buffers
       :leader "bg"     'git-timemachine
+      :leader "bK"     'my-doom-kill-all-buffers
       :leader "l"      'link-hint-open-link
       :leader "mgx"    'org-capture-goto-last-stored
       :leader "nn"     'my-narrow-or-widen-dwim
