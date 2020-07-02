@@ -209,6 +209,10 @@
   (interactive)
   (find-file "~/.doom.d/.tmp/md.md"))
 
+(defun my-goto-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
 (defun my-goto-python-scratch ()
   (interactive)
   (find-file "~/.doom.d/.tmp/py.py"))
@@ -241,14 +245,9 @@
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
 
-;; (defun my-last-buffer ()
-;;   (interactive)
-;;   (switch-to-buffer nil))
-
 (defun my-last-buffer ()
   (interactive)
-  (evil-switch-to-windows-last-buffer))
-
+  (switch-to-buffer nil))
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
@@ -277,8 +276,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-        (doom/restart-and-restore))))
+                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+                      (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
