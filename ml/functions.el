@@ -424,6 +424,33 @@ is already narrowed."
   (flyspell-mode -1)
   (message "prose disabled"))
 
+(defun my-zen-mode ()
+  (interactive)
+  (if (get 'my-zen-mode 'state)
+      (progn
+        (olivetti-mode -1)
+        (hide-mode-line-mode -1)
+        (put 'my-zen-mode 'state nil))
+    (progn
+      (olivetti-mode +1)
+      (hide-mode-line-mode +1)
+      (put 'my-zen-mode 'state t))))
+
+
+(defun xah-toggle-background-color ()
+  "Toggle background color between seashell and honeydew.
+URL `http://ergoemacs.org/emacs/elisp_toggle_command.html'
+Version 2015-12-17"
+  (interactive)
+  ;; use a property “state”. Value is t or nil
+  (if (get 'xah-toggle-background-color 'state)
+      (progn
+        (set-background-color "seashell")
+        (put 'xah-toggle-background-color 'state nil))
+    (progn
+      (set-background-color "honeydew")
+      (put 'xah-toggle-background-color 'state t))))
+
 (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
   (interactive
    (list (if current-prefix-arg
