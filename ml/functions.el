@@ -365,6 +365,9 @@ is already narrowed."
   (pabbrev-mode +1)
   (olivetti-mode +1)
   (typo-mode +1)
+  (ispell-change-dictionary)
+  (flyspell-mode +1)
+  (flyspell-buffer)
   (message "prose enabled"))
 
 (defun my-prose-disable ()
@@ -375,4 +378,5 @@ is already narrowed."
   (pabbrev-mode -1)
   (olivetti-mode -1)
   (typo-mode -1)
+  (flyspell-mode -1)
   (message "prose disabled"))
