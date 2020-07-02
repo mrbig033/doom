@@ -1348,7 +1348,7 @@
         org-pomodoro-long-break-format "long: %s"
         org-pomodoro-format "p: %s"))
 
-(use-package pabbrev
+(use-package! pabbrev
   :custom
   (pabbrev-idle-timer-verbose nil))
 
