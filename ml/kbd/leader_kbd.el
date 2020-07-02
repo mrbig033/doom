@@ -19,8 +19,7 @@
       :desc "Typo"                :leader "SPC ty" 'typo-mode
       :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
       :desc "Visible"             :leader "SPC tv" 'visible-mode
-      :desc "Writegood"           :leader "SPC tw" 'writegood-mode
-      :desc "Show Init Times"     :leader "SPC be" 'my-show-init-times)
+      :desc "Writegood"           :leader "SPC tw" 'writegood-mode)
 
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
@@ -49,7 +48,7 @@
       :desc "Delete Server"   :leader "bd"  'server-force-delete
       :desc "Git Timemachine" :leader "bg"  'git-timemachine
       :desc "Ibuffer"         :leader "bI"  'ibuffer
-      :desc "Ibuffer"         :leader "bi"  'my-show-init-times
+      :desc "Show Init Times" :leader "bi"  'my-show-init-times
       :desc "Raise Popup"     :leader "br"  '+popup/raise
       :desc "Kill Matching"   :leader "bt"  'doom/kill-matching-buffers
       :desc "Show Major Mode" :leader "h M" 'my-show-major-mode)
