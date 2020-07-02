@@ -25,6 +25,7 @@
       :desc "Rename File" :leader "fR" 'my-rename-file-and-buffer
       :leader "fl" 'my-deer-goto-my-lisp
       :desc "Recent Files" :leader "F" 'counsel-recentf
+      :desc "Recent Files" :leader "fr" 'counsel-recentf
       :desc "Cleanup Recent Files" :leader "bC" 'recentf-cleanup
       :leader "fc" 'org-capture
       :leader "fL" 'counsel-locate
