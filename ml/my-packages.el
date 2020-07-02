@@ -232,7 +232,7 @@
   (org-timer-format "%s ")
   (org-return-follows-link t)
   (org-hide-emphasis-markers t)
-  (org-footnote-auto-adjust 't)
+  (org-footnote-auto-adjust t)
   (calendar-date-style 'european)
   (org-confirm-babel-evaluate nil)
   (org-show-notification-handler nil)
