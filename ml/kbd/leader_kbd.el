@@ -1,41 +1,25 @@
 (general-unbind '(doom-leader-map)
   "SPC")
 
-(map! :leader "SPC sl" 'scratch-lisp-mode
-      :leader "SPC su" 'unkillable-scratch
-      :leader "SPC sf" 'scratch-fundamental-mode
-
-      :leader "SPC ty" 'typo-mode
-      :leader "SPC th" 'hl-line-mode
-      :leader "SPC to" 'olivetti-mode
-      :leader "SPC tw" 'writegood-mode
-      :leader "SPC ta" 'artbollocks-mode
-      :leader "SPC ts" 'hl-sentence-mode
-      :leader "SPC tv" 'visible-mode
-      :desc "Beacon" :leader "SPC tB" 'beacon-mode
-      :desc "Poetry" :leader "SPC tP" 'poetry-mode
-      :desc "Prose Brasil" :leader "SPC tb" 'my-prose-enable-br
-      :desc "Prose English" :leader "SPC te" 'my-prose-enable-en
-      :desc "Prose Disable" :leader "SPC td" 'my-prose-disable
-      :leader "SPC pc" 'company-mode
-      :leader "SPC pl" 'lisp-interaction-mode
-
-      :leader "SPC bh" 'hide-mode-line-mode
-
-      :desc "Rename File" :leader "fR" 'my-rename-file-and-buffer
-      :leader "fl" 'my-deer-goto-my-lisp
-      :desc "Recent Files" :leader "F" 'counsel-recentf
-      :desc "Recent Files" :leader "fr" 'counsel-recentf
-      :desc "Scratch Markdown" :leader "fm" 'my-goto-markdown
-      :desc "Cleanup Recent Files" :leader "bC" 'recentf-cleanup
-      :leader "fc" 'org-capture
-      :leader "fL" 'counsel-locate
-      :leader "fa" 'my-goto-agenda
-      :leader "fB" 'my-goto-brain
-      :leader "fb" 'my-goto-brain-main
-      :leader "fv" 'org-brain-visualize
-      :leader "fp" 'my-goto-my-packages
-      :leader "bc" '+popup/close-all)
+;; DOUBLE SPACES
+(map! :desc "Artbollocka"          :leader "SPC ta" 'artbollocks-mode
+      :desc "Beacon"               :leader "SPC tB" 'beacon-mode
+      :desc "Company"              :leader "SPC pc" 'company-mode
+      :desc "Hide Modeline"        :leader "SPC bh" 'hide-mode-line-mode
+      :desc "Hl-Line"              :leader "SPC th" 'hl-line-mode
+      :desc "Hl-Sentence"          :leader "SPC ts" 'hl-sentence-mode
+      :desc "Lisp Interaction"     :leader "SPC pl" 'lisp-interaction-mode
+      :desc "Olivetti"             :leader "SPC to" 'olivetti-mode
+      :desc "Poetry"               :leader "SPC tP" 'poetry-mode
+      :desc "Prose Brasil"         :leader "SPC tb" 'my-prose-enable-br
+      :desc "Prose Disable"        :leader "SPC td" 'my-prose-disable
+      :desc "Prose English"        :leader "SPC te" 'my-prose-enable-en
+      :desc "Scratch Fundamental"  :leader "SPC sf" 'scratch-fundamental-mode
+      :desc "Scratch Lisp"         :leader "SPC sl" 'scratch-lisp-mode
+      :desc "Typo"                 :leader "SPC ty" 'typo-mode
+      :desc "Unkillable Scratch"   :leader "SPC su" 'unkillable-scratch
+      :desc "Visible"              :leader "SPC tv" 'visible-mode
+      :desc "Writegood"            :leader "SPC tw" 'writegood-mode)
 
 ;; LEADER KEY
 (map! :leader "he"     'my-goto-messages-buffer
@@ -68,6 +52,23 @@
       :leader "x"      'eyebrowse-close-window-config
       :leader "z"      'hydra-window/body
 
+
+      ;; FILES
+      :leader "fc" 'org-capture
+      :leader "fB" 'my-goto-brain
+      :leader "fa" 'my-goto-agenda
+      :leader "fL" 'counsel-locate
+      :leader "bc" '+popup/close-all
+      :leader "fb" 'my-goto-brain-main
+      :leader "fp" 'my-goto-my-packages
+      :leader "fv" 'org-brain-visualize
+      :leader "fl" 'my-deer-goto-my-lisp
+      :desc "Cleanup Recent Files" :leader "fc"     'recentf-cleanup
+      :desc "Scratch Markdown"     :leader "fm"     'my-goto-markdown
+      :desc "Recent Files"         :leader "F"      'counsel-recentf
+      :desc "Recent Files"         :leader "fr"     'counsel-recentf
+      :desc "Rename File"          :leader "fR"     'my-rename-file-and-buffer
+
       ;; TEXT ;;
       :leader "tB"  'flyspell-buffer
       :leader "tT"  'my-reload-file
@@ -81,7 +82,6 @@
       :leader "tl"  'langtool-check-buffer
       :leader "tL"  'langtool-check-done
       :leader "oo"  'hydra-org-mode/body
-
 
       ;; COPY DIRECTORY PATH ;;
       :leader "fY" 'my-copy-directory
