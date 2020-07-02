@@ -283,10 +283,14 @@
 (define-derived-mode scratch-fundamental-mode
   fundamental-mode "scratch-fundamental")
 
-(general-unbind 'scratch-fundamental-mode-map
+(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
   :with 'evil-ex-nohighlight
   [remap my-quiet-save-buffer]
   [remap save-buffer])
+
+(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
+  :with 'quit-window
+  [remap kill-current-buffer])
 
 (general-unbind 'scratch-fundamental-mode-map
   :with 'my-silent-winner-undo
@@ -430,26 +434,13 @@ is already narrowed."
       (progn
         (olivetti-mode -1)
         (hide-mode-line-mode -1)
-        (put 'my-zen-mode 'state nil))
+        (put 'my-zen-mode 'state nil)
+        (message "zen mode off"))
     (progn
       (olivetti-mode +1)
       (hide-mode-line-mode +1)
-      (put 'my-zen-mode 'state t))))
-
-
-(defun xah-toggle-background-color ()
-  "Toggle background color between seashell and honeydew.
-URL `http://ergoemacs.org/emacs/elisp_toggle_command.html'
-Version 2015-12-17"
-  (interactive)
-  ;; use a property “state”. Value is t or nil
-  (if (get 'xah-toggle-background-color 'state)
-      (progn
-        (set-background-color "seashell")
-        (put 'xah-toggle-background-color 'state nil))
-    (progn
-      (set-background-color "honeydew")
-      (put 'xah-toggle-background-color 'state t))))
+      (put 'my-zen-mode 'state t)
+      (message "zen mode on"))))
 
 (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
   (interactive
