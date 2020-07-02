@@ -22,6 +22,8 @@
     ("diferenca" "diferença" nil :count 0)
     ("dowloading" "downloading" nil :count 0)
     ("eh" "é" nil :count 4)
+    ("imho" "imho" nil :count 1)
+    ("intuitite" "intuitive" nil :count 0)
     ("julio" "júlio" nil :count 0)
     ("nao" "não" nil :count 7)
     ("nivel" "nível" nil :count 0)
