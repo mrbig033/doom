@@ -186,4 +186,5 @@
   ("d" org-deadline "deadline")
   ("l" org-store-link "link")
   ("g" counsel-org-tag "tags")
-  ("t" org-todo "todos"))
+  ("t" org-todo "todos")
+  ("b" org2blog--hydra-main/body "blogging"))
