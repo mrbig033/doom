@@ -14,6 +14,8 @@
       :leader "SPC tv" 'visible-mode
       :leader "SPC tb" 'beacon-mode
       :desc "Poetry" :leader "SPC tp" 'poetry-mode
+      :desc "Prose Enable" :leader "SPC tPe" 'my-prose-enable
+      :desc "Prose Disable" :leader "SPC tPd" 'my-prose-disable
       :leader "SPC pc" 'company-mode
       :leader "SPC pl" 'lisp-interaction-mode
 
