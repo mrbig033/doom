@@ -1268,6 +1268,8 @@
 
 (use-package! pabbrev
   :custom
+  (pabbrev-scavenge-some-chunk-size 120)
+  (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
 
 (use-package! unkillable-scratch
@@ -1340,12 +1342,6 @@
   :custom
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
-
-(use-package! pabbrev
-  :custom
-  (pabbrev-scavenge-some-chunk-size 120)
-  (pabbrev-marker-distance-before-scavenge 1000)
-  (pabbrev-idle-timer-verbose nil))
 
 (use-package! org-brain
   :after-call after-find-file
