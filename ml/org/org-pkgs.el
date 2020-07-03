@@ -200,6 +200,75 @@
     (interactive)
     (org-roam-find-file "fallacy ")))
 
+(use-package! org-brain
+  :after-call after-find-file
+  :init
+  (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
+  (add-hook  'org-brain-visualize-mode-hook 'hide-mode-line-mode)
+
+  (add-hook! 'org-brain-visualize-follow-hook
+             #'my-clean-all-empty-lines
+             #'xah-clean-empty-lines
+             #'my-save-some-buffers
+             #'org-hide-drawer-all)
+  :custom
+  (org-brain-open-same-window t)
+  (org-brain-show-text nil)
+  (org-brain-path "~/org/Data/brain/boogey")
+  (org-brain-show-history nil)
+  (org-brain-headline-links-only-show-visible t)
+  (org-brain-include-file-entries t)
+  ;; (org-brain-scan-for-header-entries nil)
+  (org-brain-show-full-entry nil)
+  (org-brain-refile-max-level 5)
+  (org-brain-visualize-sort-function 'ignore)
+  (org-id-track-globally t)
+  (org-brain-title-max-length 0)
+  (org-brain-file-entries-use-title t)
+  (org-brain-mind-map-parent-level 5)
+  (org-brain-mind-map-child-level 5)
+  (org-brain-visualize-default-choices 'all)
+  (org-id-locations-file "~/org/Data/brain/.org-id-locations")
+  :config
+
+  (defun my-brain-olivetti ()
+    (interactive)
+    (setq-local olivetti-body-width '65)
+    (olivetti-mode))
+
+  (defun my-brain-goto-current-maximize ()
+    (interactive)
+    (push-button)
+    (org-brain-goto-current)
+    (org-hide-drawer-all)
+    (doom/window-maximize-vertically)
+    (windmove-right))
+
+  (defun my-brain-goto-current-maximize-and-go ()
+    (interactive)
+    (push-button)
+    (org-brain-goto-current)
+    (org-hide-drawer-all)
+    (doom/window-maximize-vertically))
+
+  (defun my-goto-brain-main ()
+    (interactive)
+    (org-brain-visualize "boogey"))
+
+  (defun my-goto-brain ()
+    (interactive)
+    (switch-to-buffer-other-window "*org-brain*"))
+
+  (defun my-goto-brain-same-window ()
+    (interactive)
+    (switch-to-buffer "*org-brain*"))
+
+  (defun my-brain-erase-history ()
+    (interactive)
+    (setq org-brain--vis-history nil))
+
+  (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
+
 (use-package! org-web-tools
   :general
   (:keymaps '(doom-leader-map)
