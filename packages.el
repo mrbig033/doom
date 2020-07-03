@@ -90,6 +90,5 @@
 (package! bug-hunter :disable t)
 (package! ivy-yasnippet :disable t)
 (package! org-web-tools :disable t)
-(package! benchmark-init :disable t)
 (package! recursive-narrow :disable t)
 (package! unkillable-scratch :disable t)
