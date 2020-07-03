@@ -1,3 +1,4 @@
+(define-key key-translation-map (kbd "ˆ") (kbd"^"))
 (define-key key-translation-map (kbd "º") (kbd"-"))
 (define-key key-translation-map (kbd "s-8") (kbd"["))
 (define-key key-translation-map (kbd "s-9") (kbd"]"))
