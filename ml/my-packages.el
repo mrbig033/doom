@@ -12,36 +12,36 @@
   (doom-themes-treemacs-enable-variable-pitch nil)
   :custom-face
   (treemacs-root-face ((t (:inherit font-lock-string-face
-                                    :weight bold
-                                    :height 1.0))))
+                           :weight bold
+                           :height 1.0))))
 
   :general
 
   (:keymaps   '(global )
-              "C-0"      'my-treemacs-quit
-              "C-j"      'treemacs-select-window)
+   "C-0"      'my-treemacs-quit
+   "C-j"      'treemacs-select-window)
 
   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
-              "M-k"    'windmove-up
-              "M-j"    'windmove-down
-              "M-h"    'windmove-left
-              "M-l"    'windmove-right
-              "C-j"      'my-treemacs-visit-node-and-hide
-              "C-p"      'treemacs-previous-project
-              "C-n"      'treemacs-next-project
-              "C-c t"    'my-show-treemacs-commands
-              "C-c D"    'treemacs-delete
-              "C-c pa"   'treemacs-projectile
-              "C-c pd"   'treemacs-remove-project-from-workspace
-              "<escape>" 'treemacs-quit
-              "<insert>" 'treemacs-create-file
-              "tp"       'move-file-to-trash
-              "çm"       'treemacs-create-dir
-              "zm"       'treemacs-collapse-all-projects)
+   "M-k"    'windmove-up
+   "M-j"    'windmove-down
+   "M-h"    'windmove-left
+   "M-l"    'windmove-right
+   "C-j"      'my-treemacs-visit-node-and-hide
+   "C-p"      'treemacs-previous-project
+   "C-n"      'treemacs-next-project
+   "C-c t"    'my-show-treemacs-commands
+   "C-c D"    'treemacs-delete
+   "C-c pa"   'treemacs-projectile
+   "C-c pd"   'treemacs-remove-project-from-workspace
+   "<escape>" 'treemacs-quit
+   "<insert>" 'treemacs-create-file
+   "tp"       'move-file-to-trash
+   "çm"       'treemacs-create-dir
+   "zm"       'treemacs-collapse-all-projects)
 
   (:states '(normal visual)
-           :prefix "SPC"
-           "pA" 'treemacs-add-and-display-current-project)
+   :prefix "SPC"
+   "pA" 'treemacs-add-and-display-current-project)
 
   :config
 
@@ -131,7 +131,7 @@
 (use-package! hydra
   :general
   (:keymaps '(doom-leader-map)
-            "j"     'hydra-org-clock/body))
+   "j"     'hydra-org-clock/body))
 
 (use-package! org
   :init
@@ -148,15 +148,15 @@
 
   :general
   (:keymaps   '(evil-org-mode-map org-mode-map)
-              "C-c j"   'org-metadown
-              "C-c k"   'org-metaup
-              "C-j" 'treemacs-select-window)
+   "C-c j"   'org-metadown
+   "C-c k"   'org-metaup
+   "C-j" 'treemacs-select-window)
   (:keymaps   '(doom-leader-map)
-              "aa"        'org-agenda
-              "at"        'org-today-agenda
-              "a3"        'org-3-days-agenda
-              "a7"        'org-7-days-agenda
-              "a0"        'org-30-days-agenda)
+   "aa"        'org-agenda
+   "at"        'org-today-agenda
+   "a3"        'org-3-days-agenda
+   "a7"        'org-7-days-agenda
+   "a0"        'org-30-days-agenda)
 
   :custom
   (+org-capture-todo-file "Agenda/todo.org")
@@ -299,18 +299,18 @@
   (org-roam-buffer-width 0.25)
   (org-roam-index-file "~/org/Data/roam/index.org")
   (:keymaps '(doom-leader-map)
-            "SPC rf" 'org-roam-find-file
-            "SPC rl" 'org-roam-find-file
-            "SPC rj" 'org-roam-jump-to-index
-            "SPC rb" 'org-roam-switch-to-buffer
-            "SPC rg" 'org-roam-graph
-            "SPC ri" 'org-roam-insert
-            "SPC rç" 'org-roam
-            "SPC rc" 'org-roam-db-build-cache
-            "SPC rx" 'my-roam-indexes
-            "SPC ro" 'my-roam-logic
-            "SPC ra" 'my-roam-fallacies
-            "SPC rs" 'my-show-org-roam-commands)
+   "SPC rf" 'org-roam-find-file
+   "SPC rl" 'org-roam-find-file
+   "SPC rj" 'org-roam-jump-to-index
+   "SPC rb" 'org-roam-switch-to-buffer
+   "SPC rg" 'org-roam-graph
+   "SPC ri" 'org-roam-insert
+   "SPC rç" 'org-roam
+   "SPC rc" 'org-roam-db-build-cache
+   "SPC rx" 'my-roam-indexes
+   "SPC ro" 'my-roam-logic
+   "SPC ra" 'my-roam-fallacies
+   "SPC rs" 'my-show-org-roam-commands)
 
   :config
 
@@ -338,11 +338,11 @@
 (use-package! org-web-tools
   :general
   (:keymaps '(doom-leader-map)
-            "mwi"    'org-web-tools-insert-link-for-url
-            "mwe"    'org-web-tools-archive-view
-            "mwv"    'org-web-tools-archive-attach
-            "mwr"    'org-web-tools-read-url-as-org
-            "mwc"    'org-web-tools-convert-links-to-page-entries))
+   "mwi"    'org-web-tools-insert-link-for-url
+   "mwe"    'org-web-tools-archive-view
+   "mwv"    'org-web-tools-archive-attach
+   "mwr"    'org-web-tools-read-url-as-org
+   "mwc"    'org-web-tools-convert-links-to-page-entries))
 
 (use-package! deft
   :after org-brain
@@ -361,11 +361,11 @@
 
   :general
   (:states '(normal)
-           "g9"      'my-avy-goto-open-paren
-           "g0"      'my-avy-goto-close-paren
-           ","       'avy-goto-subword-1
-           "F"       'evil-avy-goto-char-2-above
-           "f"       'evil-avy-goto-char-2-below)
+   "g9"      'my-avy-goto-open-paren
+   "g0"      'my-avy-goto-close-paren
+   ","       'avy-goto-subword-1
+   "F"       'evil-avy-goto-char-2-above
+   "f"       'evil-avy-goto-char-2-below)
 
   :custom
   (avy-case-fold-search 't)
@@ -418,27 +418,27 @@
 
   :general
   (:keymaps     'ranger-mode-map
-                "çm"         'dired-create-directory
-                "r"          'ranger-refresh
-                "<insert>"   'dired-create-empty-file
-                "i"          'my-ranger-go
-                "M-9"        'delete-other-windows
-                "tp"         'move-file-to-trash
-                "C-c 0"      'move-file-to-trash
-                "<escape>"   'ranger-close
-                "m"          'my-ranger-toggle-mark-and-advance
-                "gg"         'ranger-goto-top
-                "zp"         'ranger-preview-toggle
-                "çcm"        'dired-create-directory
-                "C-c l"      'counsel-find-file
-                "d"          'dired-do-flagged-delete
-                "x"          'dired-do-flagged-delete
-                "d"          'dired-flag-file-deletion
-                "<c-return>" 'dired-do-find-marked-files)
+   "çm"         'dired-create-directory
+   "r"          'ranger-refresh
+   "<insert>"   'dired-create-empty-file
+   "i"          'my-ranger-go
+   "M-9"        'delete-other-windows
+   "tp"         'move-file-to-trash
+   "C-c 0"      'move-file-to-trash
+   "<escape>"   'ranger-close
+   "m"          'my-ranger-toggle-mark-and-advance
+   "gg"         'ranger-goto-top
+   "zp"         'ranger-preview-toggle
+   "çcm"        'dired-create-directory
+   "C-c l"      'counsel-find-file
+   "d"          'dired-do-flagged-delete
+   "x"          'dired-do-flagged-delete
+   "d"          'dired-flag-file-deletion
+   "<c-return>" 'dired-do-find-marked-files)
 
   (:keymaps 'doom-leader-map
-            "r"      'deer
-            "R"      'ranger)
+   "r"      'deer
+   "R"      'ranger)
 
   :config
 
@@ -538,31 +538,31 @@
 
   :general
   (:states '(normal visual insert)
-           "C-s" 'counsel-grep-or-swiper
-           "M-y" 'counsel-yank-pop
-           "C-," 'ivy-switch-buffer
-           "C-." 'counsel-M-x
-           "M-u" 'ivy-yasnippet)
+   "C-s" 'counsel-grep-or-swiper
+   "M-y" 'counsel-yank-pop
+   "C-," 'ivy-switch-buffer
+   "C-." 'counsel-M-x
+   "M-u" 'ivy-yasnippet)
 
   (:keymaps 'doom-leader-map
-            "sg"  'counsel-ag
-            "sp"  'counsel-projectile-ag)
+   "sg"  'counsel-ag
+   "sp"  'counsel-projectile-ag)
   (:keymaps 'counsel-describe-map
-            "C-." 'ivy-next-line
-            "C-," 'counsel-find-symbol)
+   "C-." 'ivy-next-line
+   "C-," 'counsel-find-symbol)
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
-            "M-y"      'ivy-next-line
-            "M-r"      'ivy-next-line
-            "C-,"      'ivy-next-line
-            "C-."      'ivy-next-line
-            "C-/"      'ivy-next-line
-            "C-j" 'ivy-immediate-done
-            "M-q"      'ivy-done
-            "C-k"      'kill-line
-            "C-d"      'delete-char
-            "C-h"      'delete-backward-char
-            "C-w"      'backward-kill-word
-            "<insert>" 'yank)
+   "M-y"      'ivy-next-line
+   "M-r"      'ivy-next-line
+   "C-,"      'ivy-next-line
+   "C-."      'ivy-next-line
+   "C-/"      'ivy-next-line
+   "C-j" 'ivy-immediate-done
+   "M-q"      'ivy-done
+   "C-k"      'kill-line
+   "C-d"      'delete-char
+   "C-h"      'delete-backward-char
+   "C-w"      'backward-kill-word
+   "<insert>" 'yank)
 
   :config
 
@@ -698,8 +698,8 @@
   (elpy-rpc-virtualenv-path 'current)
   :general
   (:keymaps '(elpy-mode-map)
-            "C-x m" 'elpy-multiedit-python-symbol-at-point
-            "C-x M" 'elpy-multiedit-stop)
+   "C-x m" 'elpy-multiedit-python-symbol-at-point
+   "C-x M" 'elpy-multiedit-stop)
 
   :config
 
@@ -729,12 +729,12 @@
   :general
 
   (:keymaps '(god-local-mode-map)
-            :states  '(normal insert global)
-            "."        'evil-god-state-bail
-            "<escape>" 'evil-god-state-bail)
+   :states  '(normal insert global)
+   "."        'evil-god-state-bail
+   "<escape>" 'evil-god-state-bail)
 
   (:keymaps '(evil-normal-state-map)
-            "."        'evil-execute-in-god-state)
+   "."        'evil-execute-in-god-state)
 
   :config
 
@@ -759,13 +759,13 @@
   ("M-q" 'eyebrowse-prev-window-config
    "M-w" 'eyebrowse-next-window-config)
   (:states '(normal visual)
-           :prefix "SPC"
-           "1" 'eyebrowse-switch-to-window-config-1
-           "2" 'eyebrowse-switch-to-window-config-2
-           "3" 'eyebrowse-switch-to-window-config-3
-           "4" 'eyebrowse-switch-to-window-config-4
-           "v" 'eyebrowse-create-window-config
-           "x" 'eyebrowse-close-window-config)
+   :prefix "SPC"
+   "1" 'eyebrowse-switch-to-window-config-1
+   "2" 'eyebrowse-switch-to-window-config-2
+   "3" 'eyebrowse-switch-to-window-config-3
+   "4" 'eyebrowse-switch-to-window-config-4
+   "v" 'eyebrowse-create-window-config
+   "x" 'eyebrowse-close-window-config)
 
   :config
 
@@ -897,26 +897,26 @@
 
   :general
   (:keymaps                    '(company-active-map)
-                               "M-e"                       'my-company-yasnippet
-                               "C-y"                       'company-yasnippet
-                               "<return>"                  'company-complete-selection
-                               "C-m"                       'company-complete-selection
-                               "M-q"                       'company-complete-selection
-                               "M-w"                       'my-company-comp-with-paren
-                               "M-."                       'my-company-comp-with-dot
-                               "M-j"                       'my-company-comp-space
-                               "C-u"                       'my-backward-kill-line
-                               "C-h"                       'delete-backward-char
-                               "M-0"                       'company-complete-number
-                               "M-1"                       'company-complete-number
-                               "M-2"                       'company-complete-number
-                               "M-3"                       'company-complete-number
-                               "M-4"                       'company-complete-number
-                               "M-5"                       'company-complete-number
-                               "M-6"                       'company-complete-number
-                               "M-7"                       'company-complete-number
-                               "M-8"                       'company-complete-number
-                               "M-9"                       'company-complete-number)
+   "M-e"                       'my-company-yasnippet
+   "C-y"                       'company-yasnippet
+   "<return>"                  'company-complete-selection
+   "C-m"                       'company-complete-selection
+   "M-q"                       'company-complete-selection
+   "M-w"                       'my-company-comp-with-paren
+   "M-."                       'my-company-comp-with-dot
+   "M-j"                       'my-company-comp-space
+   "C-u"                       'my-backward-kill-line
+   "C-h"                       'delete-backward-char
+   "M-0"                       'company-complete-number
+   "M-1"                       'company-complete-number
+   "M-2"                       'company-complete-number
+   "M-3"                       'company-complete-number
+   "M-4"                       'company-complete-number
+   "M-5"                       'company-complete-number
+   "M-6"                       'company-complete-number
+   "M-7"                       'company-complete-number
+   "M-8"                       'company-complete-number
+   "M-9"                       'company-complete-number)
 
   :config
 
@@ -987,28 +987,28 @@
   :general
 
   (:keymaps   'pdf-view-mode-map
-              :states '(normal visual)
-              "H"        'pdf-history-backward
-              "L"        'pdf-history-forward
-              "C-s"      'pdf-occur
-              "<escape>" 'ignore
-              "TAB"      'pdf-outline
-              "o"      'pdf-outline
-              "q"        'quit-window
-              "w"        'pdf-view-fit-width-to-window
-              "h"        'pdf-view-scroll-up-or-next-page
-              "l"        'pdf-view-scroll-down-or-previous-page
-              "j"        'pdf-view-next-page
-              "k"        'pdf-view-previous-page
-              "p"        'pdf-view-previous-line-or-previous-page
-              "n"        'pdf-view-next-line-or-next-page
-              "K"        'pdf-view-previous-line-or-previous-page
-              "J"        'pdf-view-next-line-or-next-page
-              "C-l"      'my-show-pdf-view-commands)
+   :states '(normal visual)
+   "H"        'pdf-history-backward
+   "L"        'pdf-history-forward
+   "C-s"      'pdf-occur
+   "<escape>" 'ignore
+   "TAB"      'pdf-outline
+   "o"      'pdf-outline
+   "q"        'quit-window
+   "w"        'pdf-view-fit-width-to-window
+   "h"        'pdf-view-scroll-up-or-next-page
+   "l"        'pdf-view-scroll-down-or-previous-page
+   "j"        'pdf-view-next-page
+   "k"        'pdf-view-previous-page
+   "p"        'pdf-view-previous-line-or-previous-page
+   "n"        'pdf-view-next-line-or-next-page
+   "K"        'pdf-view-previous-line-or-previous-page
+   "J"        'pdf-view-next-line-or-next-page
+   "C-l"      'my-show-pdf-view-commands)
 
   (:keymaps   'pdf-outline-buffer-mode-map
-              :states '(normal visual)
-              "<escape>"  'quit-window)
+   :states '(normal visual)
+   "<escape>"  'quit-window)
 
   :custom
 
@@ -1081,23 +1081,23 @@
   (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
   :general
   (:keymaps '(doom-leader-map)
-            "sW"  'wordnut-search
-            "sw"  'wordnut-lookup-current-word)
+   "sW"  'wordnut-search
+   "sw"  'wordnut-lookup-current-word)
   (:keymaps '(wordnut-mode-map)
-            :states '(normal visual)
-            "q" 'quit-window
-            "Q" 'kill-this-buffer
-            :states '(normal)
-            "<escape>" 'quit-window))
+   :states '(normal visual)
+   "q" 'quit-window
+   "Q" 'kill-this-buffer
+   :states '(normal)
+   "<escape>" 'quit-window))
 
 (use-package! osx-dictionary
   :init
   (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
   :general
   (:keymaps '(osx-dictionary-mode-map)
-            :states  '(normal)
-            "<escape>" 'quit-window
-            "q" 'quit-window))
+   :states  '(normal)
+   "<escape>" 'quit-window
+   "q" 'quit-window))
 
 (use-package! clipmon
   :init
@@ -1140,17 +1140,17 @@
   (markdown-enable-wiki-links t)
   :general
   (:keymaps     '(markdown-mode-map evil-markdown-mode-map)
-                :states      '(insert)
-                "<tab>"      'tab-to-tab-stop
-                "C-h"        'markdown-outdent-or-delete
-                :states      '(visual)
-                "<insert>" 'markdown-insert-link
-                :states      '(normal visual insert global)
-                "M--"        'winner-undo
-                "M-="        'winner-redo
-                "<C-return>" 'my-open-two-lines
-                "M-n"        'my-forward-paragraph-do-indentation
-                "M-p"        'my-backward-paragraph-do-indentation))
+   :states      '(insert)
+   "<tab>"      'tab-to-tab-stop
+   "C-h"        'markdown-outdent-or-delete
+   :states      '(visual)
+   "<insert>" 'markdown-insert-link
+   :states      '(normal visual insert global)
+   "M--"        'winner-undo
+   "M-="        'winner-redo
+   "<C-return>" 'my-open-two-lines
+   "M-n"        'my-forward-paragraph-do-indentation
+   "M-p"        'my-backward-paragraph-do-indentation))
 
 (use-package! org-pomodoro
   :after org
@@ -1194,25 +1194,25 @@
 
   :general
   (:keymaps   '(prog-mode-map)
-              :states    '(normal)
-              "çç"        'dumb-jump-go
-              "çb"        'dumb-jump-back
-              "çl"        'dumb-jump-quick-look
-              "çe"        'dumb-jump-go-prefer-external))
+   :states    '(normal)
+   "çç"        'dumb-jump-go
+   "çb"        'dumb-jump-back
+   "çl"        'dumb-jump-quick-look
+   "çe"        'dumb-jump-go-prefer-external))
 
 (use-package! conf-mode
   :config
   :general
   (:keymaps   '(conf-mode-map)
-              :states    '(normal)))
+   :states    '(normal)))
 
 (use-package! elisp-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   :general
   (:keymaps   '(lisp-interaction-mode-map)
-              :states    '(normal)
-              "<escape>" 'evil-ex-nohighlight))
+   :states    '(normal)
+   "<escape>" 'evil-ex-nohighlight))
 
 (use-package! git-auto-commit-mode
   :custom
@@ -1462,6 +1462,7 @@
       :tags-as-categories nil)))
   :config
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
+
 
 (after! evil
   (evil-better-visual-line-on))
