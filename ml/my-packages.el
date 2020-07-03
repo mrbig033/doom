@@ -1545,6 +1545,10 @@
              #'electric-operator-mode
              #'olivetti-mode))
 
+(use-package! url-shortener
+  :custom
+  (bitly-access-token "3026d7e8b1a0f89da10740c69fd77b4b3293151e"))
+
 (use-package! org2blog
   :custom
   (org2blog/wp-show-post-in-browser 'dont)
