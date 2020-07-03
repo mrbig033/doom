@@ -546,7 +546,7 @@
 
   (:keymaps 'doom-leader-map
             "sg"  'counsel-ag
-            "sç"  'counsel-ag
+            "sa"  'counsel-ag
             "sp"  'counsel-projectile-ag)
   (:keymaps 'counsel-describe-map
             "C-." 'ivy-next-line
