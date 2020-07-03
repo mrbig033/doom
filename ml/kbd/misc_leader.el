@@ -118,15 +118,3 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro)
-
-;; PROJECTILE
-
-;; (:keymaps '(doom-leader-map)
-;;           "pG"  'projectile-configure-project
-;;           "fp"  '+ivy/projectile-find-file)
-
-;; :general
-;; (:keymaps '(doom-leader-map)
-;;           "sp"  'counsel-projectile-ag
-;;           "pG"  'projectile-configure-project
-;;           "fp"  '+ivy/projectile-find-file)
