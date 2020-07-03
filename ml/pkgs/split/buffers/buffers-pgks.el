@@ -319,7 +319,7 @@
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
 
-(after! (:or markdown-mode text-mode prog-mode)
+(after! (:or text-mode prog-mode)
   ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
   (defun xah-clean-empty-lines ()
     "Replace repeated blank lines to just 1."
