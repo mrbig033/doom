@@ -1043,9 +1043,7 @@
               "gsp"      'cool-moves-paragraph-forward
               "C-S-p"    'cool-moves-word-backwards
               "C-S-n"    'cool-moves-word-forward
-              "TAB"      '+fold/toggle
-              "Q"        'my-delete-frame
-              "<escape>" 'my-quiet-save-buffer)
+              "TAB"      '+fold/toggle)
 
   (:keymaps   '(evil-normal-state-map
                 evil-insert-state-map
@@ -1266,23 +1264,18 @@
               "çç"        'dumb-jump-go
               "çb"        'dumb-jump-back
               "çl"        'dumb-jump-quick-look
-              "çe"        'dumb-jump-go-prefer-external
-              "<escape>" 'my-quiet-save-buffer))
+              "çe"        'dumb-jump-go-prefer-external))
 
 (use-package! conf-mode
   :config
   :general
   (:keymaps   '(conf-mode-map)
-              :states    '(normal)
-              "<escape>" 'my-quiet-save-buffer))
+              :states    '(normal)))
 
 (use-package! elisp-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   :general
-  (:keymaps   '(emacs-lisp-mode-map)
-              :states    '(normal)
-              "<escape>" 'my-quiet-save-buffer)
   (:keymaps   '(lisp-interaction-mode-map)
               :states    '(normal)
               "<escape>" 'evil-force-normal-state))
