@@ -92,7 +92,6 @@
 
   ("s" quickrun-shell))
 
-
 (defhydra hydra-python-ag (:color blue :hint nil :foreign-keys run)
 
   "
@@ -108,7 +107,6 @@
   ("g" counsel-ag-thing-at-point)
   ("c" my-search-python-classes)
   ("f" my-search-python-function))
-
 
 (defhydra hydra-python-swiper (:color blue :hint nil :foreign-keys run)
 
@@ -188,3 +186,21 @@
   ("g" counsel-org-tag "tags")
   ("t" org-todo "todos")
   ("b" org2blog--hydra-main/body "blogging"))
+
+(defhydra hydra-yasnippet (:color blue :hint nil :exit nil :foreign-keys nil)
+  "
+^
+    ^Yasnippet^
+    ^^^^--------------------
+    _n_: new    _l_: load
+    _v_: visit  _c_: commit
+    _r_: reload
+
+"
+
+  ("n" yas-new-snippet)
+  ("v" yas-visit-snippet-file)
+  ("r" yas-reload-all)
+
+  ("l" yas-load-snippet-buffer)
+  ("c" yas-load-snippet-buffer-and-close))
