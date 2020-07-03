@@ -28,7 +28,7 @@
 
       (:map (flyspell-mode-map)
             :n "z=" 'endless/ispell-word-then-abbrev
-            :n "z-" 'flyspell-auto-correct-previous-word)
+            :n "z-" 'flyspell-correct-word)
 
       (:map (messages-buffer-mode-map)
             :ng "<escape>" 'ignore
