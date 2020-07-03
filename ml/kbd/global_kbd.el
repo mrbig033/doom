@@ -27,7 +27,8 @@
       "C-c c"      'evil-record-macro
       "C-c e"      'my-force-evil-mode
       :desc "Caps Lock" "C-c SPC" 'caps-lock-mode
-      :i "C-2"     'evil-execute-macro
+      :nvig "M-2"     'evil-execute-macro
+      :nvig "C-2"     'evil-record-macro
       :nvg "C-h e" 'describe-package
       :nvg "C-h N" 'my-show-server-name)
 
