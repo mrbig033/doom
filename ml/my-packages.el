@@ -1278,7 +1278,7 @@
   :general
   (:keymaps   '(lisp-interaction-mode-map)
               :states    '(normal)
-              "<escape>" 'evil-force-normal-state))
+              "<escape>" 'evil-ex-nohighlight))
 
 (use-package! git-auto-commit-mode
   :custom
