@@ -828,6 +828,7 @@
   (doom-modeline-checker-simple-format t)
   (doom-modeline-bar-width 2)
   (doom-modeline-percent-position '(-3 "%p"))
+  (doom-modeline-enable-word-count t)
   (doom-modeline-buffer-file-name-style 'buffer-name))
 
 (use-package! delight
