@@ -24,6 +24,7 @@
       :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
       :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
       :desc "Typo"                :leader "SPC ty" 'typo-mode
+      :desc "Insert Only"         :leader "SPC ti" 'insert-only-mode
       :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
       :desc "Visible"             :leader "SPC tv" 'visible-mode
       :desc "Writegood"           :leader "SPC tw" 'writegood-mode
