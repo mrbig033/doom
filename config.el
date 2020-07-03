@@ -70,6 +70,8 @@
        my-kbd "~/.doom.d/ml/kbd"
        trash-directory "~/.Trash"
        use-package-always-defer t
+       ns-option-modifier 'meta
+       ns-right-option-modifier 'meta
        flyspell-correct-auto-delay 1
        display-line-numbers-type nil
        initial-major-mode 'scratch-lisp-mode
