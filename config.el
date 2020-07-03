@@ -27,9 +27,9 @@
 
 ;;; * DOOM DASHBOARD
 (defun name ()
- (define-key! +doom-dashboard-mode-map
-  [remap forward-button]  nil
-  [remap backward-button] nil))
+  (define-key! +doom-dashboard-mode-map
+    [remap forward-button]  nil
+    [remap backward-button] nil))
 
 (map! (:map (+doom-dashboard-mode-map)
        :nge "<escape>"    'quit-window
@@ -79,12 +79,15 @@
        user-mail-address "mrbig033@protonmail.com"
        langtool-language-tool-jar "~/maps/langtool/langtooljar"
        doom-theme 'doom-dracula
-       doom-font (font-spec :family "Input Mono" :size 19)
-       doom-big-font (font-spec :family "Input Mono" :size 19)
-       doom-unicode-font (font-spec :family "Input Mono" :size 19)
+       ;; doom-font (font-spec :family "Input Mono" :size 19)
+       ;; doom-big-font (font-spec :family "Input Mono" :size 19)
+       ;; doom-unicode-font (font-spec :family "Input Mono" :size 19)
        doom-localleader-key "m"
        +workspaces-main "#0"
        doom-variable-pitch-font (font-spec :family "Input Mono"))
+
+;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
