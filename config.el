@@ -56,6 +56,7 @@
 
 (add-hook 'after-save-hook #'my-after-save-hooks)
 (add-hook 'after-init-hook #'toggle-frame-maximized)
+(add-hook '+doom-dashboard-mode-hook (lambda () (hl-line-mode -1)))
 
 (setq flycheck-global-modes '(not lisp-interaction-mode
                                   emacs-lisp-mode))
