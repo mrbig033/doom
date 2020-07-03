@@ -182,7 +182,7 @@
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("properties" "logbook")))
   ;; (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
-  (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
+  (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
@@ -643,40 +643,6 @@
   (add-hook! 'python-mode-hook
              #'elpy-mode
              #'apheleia-mode)
-  :general
-
-  (:keymaps '(doom-leader-map)
-            "pG"  'projectile-configure-project
-            "fp"  '+ivy/projectile-find-file)
-
-  (:keymaps    '(python-mode-map)
-               "M-p"       'my-backward-paragraph-do-indentation
-               "M-n"       'my-forward-paragraph-do-indentation
-               "C-c ç"     'my-python-shebang
-               "C-ç"       'elpy-shell-switch-to-shell
-               "M-a"       'python-nav-backward-statement
-               "M-e"       'python-nav-forward-statement
-               :states    '(normal)
-               "<return>" 'hydra-python-mode/body)
-
-  (:keymaps    '(python-mode-map)
-               :states '(insert)
-               "C-="   'my-python-colon-newline)
-
-  (:keymaps    '(python-mode-map)
-               :states '(normal visual)
-               "<" 'python-indent-shift-left
-               ">" 'python-indent-shift-right)
-
-  (:keymaps    '(python-mode-map)
-               :states '(normal visual insert)
-               "<C-return>" 'my-quickrun)
-
-  (:keymaps '(inferior-python-mode-map)
-            "C-ç" 'my-elpy-switch-to-buffer
-            :states '(insert)
-            "C-l" 'comint-clear-buffer)
-
   :custom
   (python-shell-completion-native-enable nil)
   (python-indent-guess-indent-offset-verbose nil)
@@ -710,10 +676,7 @@
   (defun my-quickrun ()
     (interactive)
     (quickrun)
-    ;; (sit-for 0.5)
-    (windmove-down)
-    ;; (compilation-next-error 1)
-    )
+    (windmove-down))
 
   (defun my-python-shebang ()
     (interactive)
@@ -1490,19 +1453,6 @@
   :config
   (midnight-mode +1))
 
-(after! evil
-  (evil-better-visual-line-on))
-
-(after! evil-org
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
-(after! apheleia
-  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
-
-(after! shut-up-ignore
-  (when noninteractive
-    (shut-up-silence-emacs)))
-
 (use-package lorem-ipsum
   :custom
   (lorem-ipsum-paragraph-separator "\n\n"))
@@ -1568,3 +1518,16 @@
       :tags-as-categories nil)))
   :config
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
+
+(after! evil
+  (evil-better-visual-line-on))
+
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(after! shut-up-ignore
+  (when noninteractive
+    (shut-up-silence-emacs)))
