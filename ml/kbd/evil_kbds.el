@@ -12,6 +12,7 @@
       :desc "Forw Word End"   :n "g#"    'evil-forward-word-end
       :desc "Ignore"          :n "C-z"   'ignore
       :desc "Delete Frame"    :n "Q"     'my-delete-frame
+      :desc "Cool Moves"      :n "gh"     'hydra-cool-moves/body
       :desc "Match & Next"    :n "M-d"   'evil-multiedit-match-and-next)
 
 ;; INSERT STATE

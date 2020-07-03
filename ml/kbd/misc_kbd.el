@@ -11,9 +11,6 @@
             :nvig "C-r" 'helpful-update
             :n "<escape>" 'quit-window)
 
-      (:map (pabbrev-select-mode-map evil-org-mode-map)
-            :i "C-l" 'pabbrev-expand-maybe)
-
       (:map (org-mode-map evil-org-mode-map)
             :nvig "C-c C-s" 'org-emphasize
             :v "<insert>" 'org-insert-link)
@@ -27,7 +24,7 @@
             "E" 'my-brain-erase-history)
 
       (:map (flyspell-mode-map)
-            :n "z=" 'endless/ispell-word-then-abbrev
+            :n "-" 'endless/ispell-word-then-abbrev
             :n "z-" 'flyspell-correct-word)
 
       (:map (messages-buffer-mode-map)
