@@ -433,11 +433,13 @@ is already narrowed."
       (progn
         (olivetti-mode -1)
         (hide-mode-line-mode -1)
+        (line-number-mode -1)
         (put 'my-zen-mode 'state nil)
         (message "zen mode off"))
     (progn
       (olivetti-mode +1)
       (hide-mode-line-mode +1)
+      (line-number-mode +1)
       (put 'my-zen-mode 'state t)
       (message "zen mode on"))))
 
