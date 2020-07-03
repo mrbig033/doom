@@ -184,3 +184,7 @@
   (eldoc-idle-delay 2)
   :config
   (global-eldoc-mode -1))
+
+(use-package! projectile
+  :custom
+  (projectile-track-known-projects-automatically nil))
