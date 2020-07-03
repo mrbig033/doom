@@ -1,5 +1,9 @@
 ;; LOCAL KEYBINDINGS
-(map! (:map helpful-mode-map
+
+(map! (:map (pabbrev-mode-map pabbrev-select-mode-map)
+            :i "C-l" 'my-pabbrev-expand-maybe)
+
+      (:map helpful-mode-map
             :nvig "C-r" 'helpful-update
             :n "<escape>" 'quit-window)
 
