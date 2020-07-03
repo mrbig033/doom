@@ -168,7 +168,7 @@
   ;; (org-tab-follows-link 't)
   (org-timer-format "%s ")
   (org-return-follows-link t)
-  (org-hide-emphasis-markers t)
+  (org-hide-emphasis-markers nil)
   (org-footnote-auto-adjust t)
   (calendar-date-style 'european)
   (org-confirm-babel-evaluate nil)
@@ -535,7 +535,7 @@
   (:states '(normal visual insert)
    "C-s" 'counsel-grep-or-swiper
    "M-y" 'counsel-yank-pop
-   "C-," 'ivy-switch-buffer
+   "C-," 'persp-switch-to-buffer
    "C-." 'counsel-M-x
    "M-u" 'ivy-yasnippet)
 
