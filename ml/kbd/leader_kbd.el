@@ -40,7 +40,7 @@
 ;;           "pG"  'projectile-configure-project
 ;;           "fp"  '+ivy/projectile-find-file)
 
-;; MISC
+;; MISC LEADERS
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
       :desc "Count Words"          :leader "cw"    'my-artbollocks-count-words
@@ -75,7 +75,9 @@
       :desc "org2blog"             :leader "ob"    'org2blog--hydra-main/body
       :desc "Def. Yank Pop"        :leader "iY"    '+default/yank-pop
       :desc "Yasnippet Hydra"      :leader "iy"    'hydra-yasnippet/body
-      :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
+      :desc "Windows Hydra"        :leader "z"     'hydra-window/body
+      :desc "New Workspace"        :leader "v"     '+workspace/new
+      :desc "Close Workspace"      :leader "x"     '+workspace/close-window-or-workspace)
 
 ;; BUFFERS
 (map! :desc "Goto Scratch"    :leader "bX"  'my-goto-scratch-buffer
