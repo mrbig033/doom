@@ -794,6 +794,7 @@
   (doom-modeline-enable-word-count t)
   (doom-modeline-buffer-file-name-style 'buffer-name)
   :config
+  (column-number-mode -1)
   (size-indication-mode -1))
 
 (use-package! delight
