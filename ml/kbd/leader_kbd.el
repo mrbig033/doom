@@ -27,10 +27,14 @@
       :desc "Count Words"          :leader "cw"    'count-words
       :desc "Delete Window"        :leader "0"     'delete-window
       :desc "Describe Variable"    :leader "."     'counsel-describe-variable
+
       :desc "Dic. Info. AP"        :leader "si"    'engine/search-dic-infor-ap
       :desc "Dic. Info. Sin. AP"   :leader "ss"    'engine/search-dic-infor-sin-ap
       :desc "Dic. Info."           :leader "sI"    'engine/search-dic-infor
       :desc "Dic. Inf. Sin."       :leader "sS"    'engine/search-dic-infor-sin
+      :desc "Michaelis"            :leader "sC"    'engine/search-michaelis
+      :desc "Michaelis AP"         :leader "sc"    'my-engine-search-michaealis-ap
+
       :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
