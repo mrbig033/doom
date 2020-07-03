@@ -580,7 +580,7 @@
 
   (defun my-search-kbds ()
     (interactive)
-    (counsel-ag nil "~/.doom.d/ml/kbd/" "-G '.el'"))
+    (counsel-ag "(map\\! " "~/.doom.d/ml/kbd/" "-G '.el'"))
 
   (defun my-search-doom-help ()
     (interactive)
