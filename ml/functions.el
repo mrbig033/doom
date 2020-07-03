@@ -474,3 +474,9 @@ is already narrowed."
   (interactive)
   (evil-mode +1)
   (evil-force-normal-state))
+
+(fset 'my-eval-paren-macro
+   (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
+
+(fset 'my-eval-paragraph-macro
+   (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
