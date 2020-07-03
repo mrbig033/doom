@@ -46,7 +46,6 @@
       :desc "Count Words"          :leader "cw"    'my-artbollocks-count-words
       :desc "Delete Window"        :leader "0"     'delete-window
       :desc "Describe Variable"    :leader "."     'counsel-describe-variable
-
       :desc "Dic. Info. AP"        :leader "si"    'engine/search-dic-infor-ap
       :desc "Dic. Info. Sin. AP"   :leader "ss"    'engine/search-dic-infor-sin-ap
       :desc "Dic. Info."           :leader "sI"    'engine/search-dic-infor
@@ -57,12 +56,9 @@
       :desc "Free Dict Pt AP"      :leader "sf"    'engine/free-dic-pt-ap
       :desc "Aurélio"              :leader "sA"    'engine/search-aurelio
       :desc "Aurélio AP"           :leader "sa"    'engine/search-aurelio-ap
-
       :desc "Counsel Bookmark"     :leader "sM"    'counsel-bookmark
       :desc "Counsel Marks"        :leader "sm"    'counsel-evil-marks
-
-      :desc "Doom Package Configs"        :leader "hdpc"    'my-search-doom-package-config
-
+      :desc "Doom Package Configs" :leader "hdpc"  'my-search-doom-package-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
       :desc "Kill Buffer"          :leader "k"     'kill-current-buffer
