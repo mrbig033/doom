@@ -72,7 +72,7 @@
        use-package-always-defer t
        ns-option-modifier 'meta
        ns-right-option-modifier 'meta
-       flyspell-correct-auto-delay 1
+       flyspell-correct-auto-delay 2
        iedit-toggle-key-default "C-x ;"
        display-line-numbers-type nil
        initial-major-mode 'scratch-lisp-mode
