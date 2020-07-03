@@ -76,21 +76,27 @@
       (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
                            ?\n)))))
 
+
+
+
+(define-key! +doom-dashboard-mode-map
+  [remap forward-button]  nil
+  [remap backward-button] nil)
+
 (map! (:map (+doom-dashboard-mode-map)
-       :nge    "<escape>" 'quit-window
-       :nvige  "q"        'quit-window
-       :nvige  "m"        'push-button
-       :nvige  "p"        'counsel-projectile-switch-project
-       :nvige  "F"        'counsel-recentf
-       :nvige  "a"        'org-agenda
-       :nvige  "L"        'doom/quickload-session
-       :nvige  "M"        'counsel-bookmark
-       :nvige  "P"        'doom/open-private-config
-       :nvige  "h"        'doom/help
-
-
-       :nvige  "k"        'backward-button
-       :nvige  "j"        'forward-button))
+       :nge "<escape>"    'quit-window
+       :n "q"             'quit-window
+       :n "m"             'push-button
+       :n "k"             'backward-button
+       :n "j"             'forward-button
+       :n "l"             'doom/quickload-session
+       :n "A"             'org-agenda
+       :n "F"             'counsel-recentf
+       :n "p"             'counsel-projectile-switch-project
+       :n "M"             'counsel-bookmark
+       :n "P"             'doom/open-private-config
+       :n "h"             'doom/help
+       :leader "k"        'quit-window))
 
 
 
@@ -103,8 +109,8 @@
                                        (hl-line-mode -1)))
 
 (add-hook 'doom-first-buffer-hook (lambda ()
-                                  (mapc 'load (file-expand-wildcards
-                                               "/Users/davi/.doom.d/ml/kbd/*.el"))))
+                                    (mapc 'load (file-expand-wildcards
+                                                 "/Users/davi/.doom.d/ml/kbd/*.el"))))
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
 (setq! my-lisp "~/.doom.d/ml"
