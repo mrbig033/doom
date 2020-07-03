@@ -1276,14 +1276,7 @@
   :custom
   (pabbrev-scavenge-some-chunk-size 120)
   (pabbrev-marker-distance-before-scavenge 1000)
-  (pabbrev-idle-timer-verbose nil)
-  :config
-  (defun my-pabbrev-expand-maybe(uarg)
-    (interactive "p")
-    (if pabbrev-minimal-expansion-p
-        (pabbrev-expand-maybe-minimal uarg)
-      (pabbrev-expand-maybe-full uarg)
-      (insert " "))))
+  (pabbrev-idle-timer-verbose nil))
 
 (use-package! unkillable-scratch
   :after-call after-find-file
