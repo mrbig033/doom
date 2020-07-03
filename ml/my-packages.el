@@ -1042,6 +1042,7 @@
     :move-point nil
     (interactive "<r>")
     (eval-region beg end)
+    (my-quiet-save-buffer)
     (message "region evaluated"))
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
