@@ -576,11 +576,11 @@
 
   (defun my-search-settings ()
     (interactive)
-    (counsel-ag nil "~/.doom.d/"))
+    (counsel-ag nil "~/.doom.d/" "-G '.el'"))
 
   (defun my-search-kbds ()
     (interactive)
-    (counsel-ag nil "~/.doom.d/ml/kbd/"))
+    (counsel-ag nil "~/.doom.d/ml/kbd/" "-G '.el'"))
 
   (defun my-search-doom-help ()
     (interactive)
@@ -589,7 +589,7 @@
   (defun my-search-packages ()
     (interactive)
     (my-widen-to-center-with-excursion)
-    (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/"))
+    (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/" "-G '.el'"))
 
   (defun my-swiper-python-classes ()
     (interactive)
@@ -829,7 +829,9 @@
   (doom-modeline-bar-width 2)
   (doom-modeline-percent-position '(-3 "%p"))
   (doom-modeline-enable-word-count t)
-  (doom-modeline-buffer-file-name-style 'buffer-name))
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  :config
+  (size-indication-mode -1))
 
 (use-package! delight
   :after-call after-init-hook
