@@ -1,4 +1,4 @@
-;; LOCAL KEYBINDINGS
+;; MISC LOCAL KEYBINDINGS
 ;; Add "after!" to "map!" blocks like so:
 ;; Source: https://bit.ly/2VJWrlf
 ;; (map! :after org-agenda
@@ -38,6 +38,10 @@
        :n "<escape>" 'my-quiet-save-buffer)
 
       (:map (snippet-mode-map)
+       :n "<escape>" 'ignore
+       :n "q" 'quit-window)
+
+      (:map (+doom-dashboard-mode-map)
        :n "<escape>" 'ignore
        :n "q" 'quit-window)
 
