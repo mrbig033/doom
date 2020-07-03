@@ -496,7 +496,7 @@ is already narrowed."
 
 (defun my-artbollocks-count-words (&optional start end)
   "Count the number of words between START and END."
-  (interactive-optional-region)
+  (interactive)
   (let* ((s (or start (point-min)))
          (e (or end (point-max)))
          (result
