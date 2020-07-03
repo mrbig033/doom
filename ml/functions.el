@@ -487,7 +487,7 @@ is already narrowed."
   (let ((inhibit-read-only t))
     (call-interactively 'self-insert-command)))
 
-(define-minor-mode insert-only-mode
+(define-minor-mode only-insert-mode
   "Allow only char insertion to edit buffer."
   :keymap (let ((map (make-sparse-keymap)))
             (define-key map [remap self-insert-command] 'only-insert-self-insert)
