@@ -4,6 +4,19 @@
 ;; (map! :after org-agenda
 ;;       :map org-agenda-mode-map)
 
+(define-key! +doom-dashboard-mode-map
+  [remap forward-button]  nil
+  [remap backward-button] nil)
+
+(map! (:map (+doom-dashboard-mode-map)
+       :nge    "<escape>" 'quit-window
+       :nvige  "q"        'quit-window
+       :nvige  "m"        'push-button
+       :nvige  "l"        'push-button
+       :nvige  "h"        'ignore
+       :nvige  "k"        'backward-button
+       :nvige  "j"        'forward-button))
+
 (map! (:map (pabbrev-mode-map pabbrev-select-mode-map)
        :i "C-l" 'pabbrev-expand-maybe)
 
@@ -40,14 +53,6 @@
       (:map (snippet-mode-map)
        :n "<escape>" 'ignore
        :n "q" 'quit-window)
-
-      (:map (+doom-dashboard-mode-map)
-       :nvige "q" 'quit-window
-       :nge "<escape>" 'quit-window
-       :nvige "m" 'push-button
-       :nvige "l" 'push-button
-       :nvige "j" '+doom-dashboard/forward-button
-       :nvige "k" '+doom-dashboard/backward-button)
 
       (:after projectile
        :map (projectile-mode-map)
