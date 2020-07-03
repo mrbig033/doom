@@ -768,6 +768,9 @@
 
 (use-package! doom-modeline
   :custom
+  (doom-modeline-persp-icon t)
+  (doom-modeline-persp-name t)
+  (doom-modeline-display-default-persp-name t)
   (doom-modeline-vcs-max-length 12)
   (doom-modeline-env-version nil)
   (doom-modeline-env-enable-go nil)
@@ -804,7 +807,7 @@
              (messages-buffer-mode "[msg]" "Messages")
              (scratch-lisp-mode "[scl]" "scratch-lisp")
              (markdown-mode "[md]" "markdown")
-             (sh-mode "[sh]" "Shell-script[bash]")
+             (sh-mode "" "Shell-script [bash]")
              (special-mode "[spe]" "special")
              (message-mode "[msg]" "messages")
              (fundamental-mode "[fun]" "fundamental")
