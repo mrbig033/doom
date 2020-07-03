@@ -843,8 +843,8 @@
             '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:")
             '("#\\+BEGIN_SRC" . "#\\+END_SRC")
             '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
-  ;; Save corrections to abbrev
 
+  ;; SAVE CORRECTIONS TO ABBREV
   (defun endless/simple-get-word ()
     (car-safe (save-excursion (ispell-get-word nil))))
 
