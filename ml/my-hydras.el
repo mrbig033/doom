@@ -204,3 +204,28 @@
 
   ("l" yas-load-snippet-buffer)
   ("c" yas-load-snippet-buffer-and-close))
+
+(defhydra hydra-cool-moves (:color amaranth :hint nil)
+  "
+^
+    ^Cool Moves^
+    ^^^----------------------
+    _w_: word  _p_: paragraph
+    _c_: char  _s_: setence
+    _l_: line
+"
+
+  ("W" cool-moves-word-backwards)
+  ("w" cool-moves-word-forward)
+
+  ("C" cool-moves-character-backward)
+  ("c" cool-moves-character-forward)
+
+  ("L" cool-moves-line-backward)
+  ("l" cool-moves-line-forward)
+
+  ("P" cool-moves-paragraph-backward)
+  ("p" cool-moves-paragraph-forward)
+
+  ("S" cool-moves-sentence-backward)
+  ("s" cool-moves-sentence-forward))
