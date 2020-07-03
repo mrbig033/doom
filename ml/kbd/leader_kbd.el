@@ -29,6 +29,13 @@
       :desc "Writegood"           :leader "SPC tw" 'writegood-mode
       :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode)
 
+;; PROJECTILE
+
+
+;; (:keymaps '(doom-leader-map)
+;;           "pG"  'projectile-configure-project
+;;           "fp"  '+ivy/projectile-find-file)
+
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
@@ -47,6 +54,7 @@
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
       :desc "Kill Buffer"          :leader "k"     'kill-current-buffer
+      :desc "Kill Both"            :leader "K"     'kill-buffer-and-window
       :desc "Magit Stage & Commit" :leader "g SPC" 'my-magit-stage-modified-and-commit
       :desc "Maximize Vertically"  :leader "ww"    'doom/window-maximize-vertically
       :desc "Narrow Dwin"          :leader "nn"    'my-narrow-or-widen-dwim
