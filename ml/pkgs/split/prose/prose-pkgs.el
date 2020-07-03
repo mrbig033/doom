@@ -226,6 +226,7 @@
    "q" 'quit-window))
 
 (use-package! clipmon
+  :defer 5
   :init
   (clipmon-mode-start))
 
