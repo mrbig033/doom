@@ -87,7 +87,6 @@
 (package! shut-up :disable t)
 (package! org-roam :disable t)
 (package! polymode :disable t)
-(package! eyebrowse :disable t)
 (package! yafolding :disable t)
 (package! bug-hunter :disable t)
 (package! ivy-yasnippet :disable t)
