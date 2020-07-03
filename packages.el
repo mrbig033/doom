@@ -81,8 +81,6 @@
 (package! evil-vimish-fold :disable t)
 (package! evil-smartparens :disable t)
 
-(package! zoom :disable t)
-(package! beacon :disable t)
 (package! nswbuff :disable t)
 (package! org-roam :disable t)
 (package! polymode :disable t)
