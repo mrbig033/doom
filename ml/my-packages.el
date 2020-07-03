@@ -100,7 +100,7 @@
 (use-package! which-key
   :custom
   (which-key-allow-evil-operators nil)
-  (which-key-idle-delay 0.3)
+  (which-key-idle-delay 0.2)
   (which-key-idle-secondary-delay 0.1)
   :config
   (which-key-add-key-based-replacements
