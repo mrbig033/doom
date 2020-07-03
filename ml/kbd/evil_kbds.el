@@ -1,19 +1,21 @@
 ;; NORMAL STATE
 (map! :after evil
-      :desc "Back Word End"   :n "g3"    'evil-backward-word-end
-      :desc "Cool Open Above" :n "gO"    'cool-moves-open-line-above
-      :desc "Cool Open Below" :n "go"    'cool-moves-open-line-below
-      :desc "Cool Par Backw"  :n "gsP"   'cool-moves-paragraph-backward
-      :desc "Cool Par Forw"   :n "gsp"   'cool-moves-paragraph-forward
-      :desc "Cool Word Backw" :n "C-S-p" 'cool-moves-word-backwards
-      :desc "Cool Word Forw"  :n "C-S-n" 'cool-moves-word-forward
-      :desc "Emacs State"     :n "C-c z" 'evil-emacs-state
-      :desc "Fold Toggle"     :n "TAB"   '+fold/toggle
-      :desc "Forw Word End"   :n "g#"    'evil-forward-word-end
-      :desc "Ignore"          :n "C-z"   'ignore
-      :desc "Delete Frame"    :n "Q"     'my-delete-frame
-      :desc "Cool Moves"      :n "gh"     'hydra-cool-moves/body
-      :desc "Match & Next"    :n "M-d"   'evil-multiedit-match-and-next)
+      :desc "Back Word End"     :n "g3"    'evil-backward-word-end
+      :desc "Cool Open Above"   :n "gO"    'cool-moves-open-line-above
+      :desc "Cool Open Below"   :n "go"    'cool-moves-open-line-below
+      :desc "Cool Par Backw"    :n "gsP"   'cool-moves-paragraph-backward
+      :desc "Cool Par Forw"     :n "gsp"   'cool-moves-paragraph-forward
+      :desc "Cool Word Backw"   :n "C-S-p" 'cool-moves-word-backwards
+      :desc "Cool Word Forw"    :n "C-S-n" 'cool-moves-word-forward
+      :desc "Emacs State"       :n "C-c z" 'evil-emacs-state
+      :desc "Fold Toggle"       :n "TAB"   '+fold/toggle
+      :desc "Forw Word End"     :n "g#"    'evil-forward-word-end
+      :desc "Ignore"            :n "C-z"   'ignore
+      :desc "Delete Frame"      :n "Q"     'my-delete-frame
+      :desc "Cool Moves"        :n "gh"    'hydra-cool-moves/body
+      :desc "Delete Char"       :n "x"     'delete-char
+      :desc "Delete Char Backw" :n "X"     'delete-backward-char
+      :desc "Match & Next"      :n "M-d"   'evil-multiedit-match-and-next)
 
 ;; INSERT STATE
 (map! :after evil
