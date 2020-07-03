@@ -62,6 +62,7 @@
 (package! vimrc-mode)
 (package! super-save)
 (package! lorem-ipsum)
+(package! engine-mode :pin "e0910f1")
 (package! hl-sentence)
 (package! fountain-mode)
 (package! url-shortener)
@@ -73,7 +74,6 @@
 (package! electric-operator)
 (package! git-auto-commit-mode)
 (package! evil-better-visual-line)
-(package! engine-mode :pin "e0910f1")
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
 
 (package! zoom :disable t)
