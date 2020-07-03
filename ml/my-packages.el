@@ -621,7 +621,7 @@
   :custom
   (ivy-yasnippet-expand-keys nil))
 
-(use-package evil-smartparens
+(use-package! evil-smartparens
   :config
   (general-unbind 'evil-smartparens-mode-map
     :with 'exchange-point-and-mark
