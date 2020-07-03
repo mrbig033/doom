@@ -72,7 +72,7 @@
    "C-,"      'ivy-next-line
    "C-."      'ivy-next-line
    "C-/"      'ivy-next-line
-   "C-j" 'ivy-immediate-done
+   "C-j"      'ivy-immediate-done
    "M-q"      'ivy-done
    "C-k"      'kill-line
    "C-d"      'delete-char
