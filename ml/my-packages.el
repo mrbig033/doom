@@ -535,7 +535,8 @@
   (:states '(normal visual insert)
    "C-s" 'counsel-grep-or-swiper
    "M-y" 'counsel-yank-pop
-   "C-," 'persp-switch-to-buffer
+   "C-," '+ivy/switch-workspace-buffer
+   "C-<" 'ivy-switch-buffer
    "C-." 'counsel-M-x
    "M-u" 'ivy-yasnippet)
 
