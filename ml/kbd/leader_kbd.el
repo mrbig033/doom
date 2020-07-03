@@ -79,7 +79,7 @@
 ;; BUFFERS
 (map! :desc "Goto Scratch"    :leader "bX"  'my-goto-scratch-buffer
       :desc "Pop-Up Scratch"  :leader "bx"  'doom/open-scratch-buffer
-      :desc "Close Popups"    :leader "bc"  '+popup/close-all
+      :desc "Close Popups"    :leader "bc"  'clone-indirect-buffer-other-window
       :desc "Kill All"        :leader "bK"  'my-doom-kill-all-buffers
       :desc "Delete Server"   :leader "bd"  'server-force-delete
       :desc "Git Timemachine" :leader "bg"  'git-timemachine
