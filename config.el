@@ -26,10 +26,10 @@
                            ?\n)))))
 
 ;;; * DOOM DASHBOARD
-((defun name ())
- ine-key! +doom-dashboard-mode-map
+(defun name ()
+ (define-key! +doom-dashboard-mode-map
   [remap forward-button]  nil
-  [remap backward-button] nil)
+  [remap backward-button] nil))
 
 (map! (:map (+doom-dashboard-mode-map)
        :nge "<escape>"    'quit-window
