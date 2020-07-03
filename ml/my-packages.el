@@ -585,6 +585,10 @@
     (interactive)
     (counsel-ag nil "~/.emacs.d/" "-G '.org'"))
 
+  (defun my-search-doom-package-config ()
+    (interactive)
+    (counsel-ag nil "~/.emacs.d/.local/straight/repos" "-G '.el'"))
+
   (defun my-search-packages ()
     (interactive)
     (my-widen-to-center-with-excursion)
@@ -761,8 +765,7 @@
            "3" 'eyebrowse-switch-to-window-config-3
            "4" 'eyebrowse-switch-to-window-config-4
            "v" 'eyebrowse-create-window-config
-           "x" 'eyebrowse-close-window-config
-           )
+           "x" 'eyebrowse-close-window-config)
 
   :config
 
