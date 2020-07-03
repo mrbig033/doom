@@ -279,23 +279,6 @@
 
 (setq frame-title-format '("%n"))
 
-(define-derived-mode scratch-fundamental-mode
-  fundamental-mode "scratch-fundamental")
-
-(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
-  :with 'evil-ex-nohighlight
-  [remap my-quiet-save-buffer]
-  [remap save-buffer])
-
-(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
-  :with 'quit-window
-  [remap kill-current-buffer])
-
-(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
-  :with 'quit-window
-  [remap my-goto-scratch-buffer]
-  [remap doom/open-scratch-buffer])
-
 (defun my-silent-winner-undo ()
   (interactive)
   (cond
