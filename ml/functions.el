@@ -477,7 +477,19 @@ is already narrowed."
   (evil-force-normal-state))
 
 (fset 'my-eval-paren-macro
-   (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
+      (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
 
 (fset 'my-eval-paragraph-macro
-   (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
+      (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
+
+(defun only-insert-self-insert ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (call-interactively 'self-insert-command)))
+
+(define-minor-mode only-insert-mode
+  "Allow only char insertion to edit buffer."
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map [remap self-insert-command] 'only-insert-self-insert)
+            map)
+  (setq buffer-read-only only-insert-mode))
