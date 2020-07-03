@@ -279,14 +279,6 @@
 
 (setq frame-title-format '("%n"))
 
-(define-derived-mode scratch-lisp-mode
-  lisp-interaction-mode "scratch-lisp")
-
-(general-unbind 'scratch-lisp-mode-map
-  :with 'evil-ex-nohighlight
-  [remap my-quiet-save-buffer]
-  [remap save-buffer])
-
 (define-derived-mode scratch-fundamental-mode
   fundamental-mode "scratch-fundamental")
 
