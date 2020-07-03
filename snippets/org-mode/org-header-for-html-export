@@ -4,4 +4,4 @@
 # key: orghtml
 # condition: t
 # --
-#+OPTIONS: toc:nil, num:nil, date:nil, html-postamble:nil
+#+OPTIONS: toc:nil, num:nil, date:nil, html-postamble:nil \n:t
