@@ -454,8 +454,8 @@
       (read-char-choice
        "
     d: doom   n : downloads  s : scripts   D: dotfiles
-    e: emacs  o : org        f: config     q: quit
-    h: home   p: python      c: documents
+    e: emacs  o : org        f: config     i: eclipse
+    h: home   p: python      c: documents  q: quit
   > "
        '(?a ?d ?D ?e ?E ?h ?i ?n ?o ?p ?s ?f ?c ?m ?q))))
     (message nil)
@@ -465,6 +465,7 @@
               ('D "~/dotfiles")
               ('e "~/.emacs.d")
               ('E "~/.backup/.emacs.back/vanilla/2020_26_05/init.el")
+              ('i "~/org/Creative/eclipse/pt")
               ('d "~/.doom.d")
               ('h "~")
               ('n "~/Downloads")
@@ -473,8 +474,7 @@
               ('s "~/scripts")
               ('f "~/.config")
               ('c "~/Documents")
-              ('q "quit")
-              ('i "quit")))
+              ('q "quit")))
            (alt-option
             (cl-case (intern c)
               ;; Subdir Handlng
