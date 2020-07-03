@@ -24,6 +24,7 @@
       "C-c o"      'my-org-force-open-other-window
       "C-c C-o"    'org-open-at-point-global
       "C-c c"      'evil-record-macro
+      :desc "Caps Lock" "C-c SPC" 'caps-lock-mode
       :i "C-2"     'evil-execute-macro
       :nvg "C-h e" 'describe-package
       :nvg "C-h N" 'my-show-server-name)
