@@ -214,6 +214,9 @@
     _c_: char  _s_: setence
     _l_: line
 "
+  ("q" nil)
+  ("gh" nil)
+  ("<escape>" nil)
 
   ("W" cool-moves-word-backwards)
   ("w" cool-moves-word-forward)
