@@ -40,7 +40,7 @@
 ;;           "pG"  'projectile-configure-project
 ;;           "fp"  '+ivy/projectile-find-file)
 
-;; MISC LEADERS
+;; OTHER LEADER KEYS
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
       :desc "Count Words"          :leader "cw"    'my-artbollocks-count-words
@@ -158,11 +158,11 @@
       :desc "Display"     :leader "TAB TAB" '+workspace/display
       :desc "Last WS"     :leader "TAB l"   '+workspace/other
       :desc "Load WS"     :leader "TAB L"   '+workspace/load
-      :desc "New WS"      :leader "TAB n"   '+workspace/save
+      :desc "New WS"      :leader "TAB n"   '+workspace/new
       :desc "Next WS"     :leader "TAB ]"   '+workspace/switch-right
       :desc "Prev WS"     :leader "TAB ["   '+workspace/switch-left
       :desc "Rename WS"   :leader "TAB r"   '+workspace/rename
-      :desc "Restore"     :leader "TAB R"   '+workspace/save
+      :desc "Restore"     :leader "TAB R"   '+workspace/restore-last-session
       :desc "Save WS"     :leader "TAB s"   '+workspace/save
       :desc "Switch"      :leader "TAB ."   '+workspace/switch-to
       :desc "WS 0"        :leader "TAB 0"   '+workspace/switch-to-0
