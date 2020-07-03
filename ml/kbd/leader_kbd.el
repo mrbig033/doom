@@ -62,6 +62,9 @@
       :desc "Free Dict Pt"         :leader "sF"    'engine/search-free-dic-pt
       :desc "Free Dict Pt AP"      :leader "sf"    'engine/free-dic-pt-ap
 
+      :desc "Aurélio"              :leader "sA"    'engine/search-aurelio
+      :desc "Aurélio AP"           :leader "sa"    'engine/search-aurelio-ap
+
       :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
