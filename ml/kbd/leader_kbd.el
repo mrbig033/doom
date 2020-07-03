@@ -95,8 +95,8 @@
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
       :desc "Reopen File"          :leader "T"  'my-reopen-killed-file
       :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
-      :desc "Search Keys"          :leader "fK" 'my-search-kbds
-      :desc "Search Pkgs"          :leader "fk" 'my-search-packages
+      :desc "Search Keys"          :leader "fk" 'my-search-kbds
+      :desc "Search Pkgs"          :leader "fp" 'my-search-packages
       :desc "Search Setts"         :leader "fs" 'my-search-settings)
 
 ;; TEXT ;;
