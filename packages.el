@@ -68,6 +68,7 @@
 (package! which-key)
 (package! engine-mode)
 (package! lorem-ipsum)
+(package! url-shortener)
 (package! fountain-mode)
 (package! evil-swap-keys)
 (package! artbollocks-mode)
