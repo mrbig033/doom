@@ -1188,7 +1188,7 @@
   :init
   (remove-hook! 'prog-mode-hook 'display-line-numbers-mode 'highlight-numbers-mode)
   (add-hook! '(prog-mode-hook)
-             #'evil-smartparens-mode
+             #'electric-pair-local-mode
              #'hl-line-mode
              #'abbrev-mode)
 
