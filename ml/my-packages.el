@@ -1323,7 +1323,7 @@
 
 (use-package! git-auto-commit-mode
   :custom
-  (gac-debounce-interval (* 5 60))
+  (gac-debounce-interval (* 30 60))
   :config
 
   (defun gac-commit (buffer)
