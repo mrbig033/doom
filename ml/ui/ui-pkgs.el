@@ -30,9 +30,8 @@
   (which-key-mode +1))
 
 (use-package! hydra
-  :general
-  (:keymaps '(doom-leader-map)
-   "j"     'hydra-org-clock/body))
+  :config
+  (load! "~/.doom.d/ml/misc/my-hydras.el"))
 
 (use-package! ivy
   :custom
