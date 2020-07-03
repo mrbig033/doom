@@ -8,7 +8,6 @@
 (defun my-quiet-save-buffer ()
   (interactive)
   (let ((inhibit-message t))
-    ;; (+popup/close-all)
     (evil-ex-nohighlight)
     (save-buffer)))
 
