@@ -61,7 +61,8 @@
       :desc "Counsel Bookmark"     :leader "sM"    'counsel-bookmark
       :desc "Counsel Marks"        :leader "sm"    'counsel-evil-marks
 
-      :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
+      :desc "Doom Package Configs"        :leader "hdpc"    'my-search-doom-package-config
+
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
       :desc "Kill Buffer"          :leader "k"     'kill-current-buffer
