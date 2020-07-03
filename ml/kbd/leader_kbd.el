@@ -1,9 +1,6 @@
 (general-unbind '(doom-leader-map)
   "SPC")
 
-(general-unbind '(doom-leader-map)
-  "SPC")
-
 (general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
   :with 'quit-window
   [remap my-goto-scratch-buffer]
@@ -65,6 +62,9 @@
       :desc "Aurélio"              :leader "sA"    'engine/search-aurelio
       :desc "Aurélio AP"           :leader "sa"    'engine/search-aurelio-ap
 
+      :desc "Counsel Bookmark"     :leader "sM"    'counsel-bookmark
+      :desc "Counsel Marks"        :leader "sm"    'counsel-evil-marks
+
       :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
       :desc "Insert Char"          :leader "-"     'insert-char
@@ -73,7 +73,6 @@
       :desc "Magit Stage & Commit" :leader "g SPC" 'my-magit-stage-modified-and-commit
       :desc "Maximize Vertically"  :leader "ww"    'doom/window-maximize-vertically
       :desc "Narrow Dwin"          :leader "nn"    'my-narrow-or-widen-dwim
-      :desc "Org Goto Last"        :leader "mgx"   'org-capture-goto-last-stored
       :desc "Widen to Center"      :leader "nw"    'my-widen-to-center
       :desc "Default Brwoser"      :leader "oB"    'browse-url-of-file
       :desc "org2blog"             :leader "ob"    'org2blog--hydra-main/body
