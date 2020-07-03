@@ -481,3 +481,6 @@ is already narrowed."
 
 (fset 'my-eval-paragraph-macro
    (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
+
+(fset 'my-evil-delete-char-macro
+   (kmacro-lambda-form [?\" ?_ ?x] 0 "%d"))
