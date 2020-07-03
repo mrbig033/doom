@@ -58,7 +58,6 @@
       :desc "Michaelis AP"         :leader "sc"    'my-engine-search-michaealis-ap
       :desc "Free Dict Pt"         :leader "sF"    'engine/search-free-dic-pt
       :desc "Free Dict Pt AP"      :leader "sf"    'engine/free-dic-pt-ap
-
       :desc "Aurélio"              :leader "sA"    'engine/search-aurelio
       :desc "Aurélio AP"           :leader "sa"    'engine/search-aurelio-ap
 
