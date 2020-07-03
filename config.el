@@ -54,6 +54,30 @@
 ;; they are implemented.
 ;;
 
+(defun doom-dashboard-widget-banner ()
+  (let ((point (point)))
+    (mapc (lambda (line)
+            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                                'face 'doom-dashboard-banner) " ")
+            (insert "\n"))
+          '("================== DOOM EMACS =================="))
+    (when (and (display-graphic-p)
+               (stringp fancy-splash-image)
+               (file-readable-p fancy-splash-image))
+      (let ((image (create-image (fancy-splash-image-file))))
+        (add-text-properties
+         point (point) `(display ,image rear-nonsticky (display)))
+        (save-excursion
+          (goto-char point)
+          (insert (make-string
+                   (truncate
+                    (max 0 (+ 1 (/ (- +doom-dashboard--width
+                                      (car (image-size image nil)))
+                                   2))))
+                   ? ))))
+      (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
+                           ?\n)))))
+
 (add-hook 'after-save-hook #'my-after-save-hooks)
 (add-hook 'after-init-hook #'toggle-frame-maximized)
 (add-hook '+doom-dashboard-mode-hook (lambda () (hl-line-mode -1)))
@@ -62,6 +86,7 @@
                                   emacs-lisp-mode))
 
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
+
 
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
