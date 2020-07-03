@@ -39,9 +39,6 @@
 ;;           "sp"  'counsel-projectile-ag
 ;;           "pG"  'projectile-configure-project
 ;;           "fp"  '+ivy/projectile-find-file)
-;; (:states '(normal visual)
-;;          "H"   'projectile-previous-project-buffer
-;;          "L"   'projectile-next-project-buffer)
 
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
