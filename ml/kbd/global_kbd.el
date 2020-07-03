@@ -42,12 +42,16 @@
  "M-j"    'windmove-down
  "M-h"    'windmove-left
  "M-l"    'windmove-right
- "M-,"    'next-buffer
- "M-."    'previous-buffer
  "C-j"    'treemacs-select-window
  "C-c b" 'org-brain-prefix-map
  "M-s"    'my-last-buffer
  "C-S-s"    'evil-switch-to-windows-last-buffer)
+
+(general-define-key
+ :keymaps 'override
+ :states '(normal visual)
+ "L"    'next-buffer
+ "H"    'previous-buffer)
 
 (general-define-key
  :keymaps 'override
