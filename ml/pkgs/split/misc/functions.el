@@ -89,45 +89,7 @@
     (comment-line 1))
   (backward-char 3)
   (evil-next-line 1))
-
-;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
-
-(defun xah-clean-empty-lines ()
-  "Replace repeated blank lines to just 1."
-  (interactive)
-  (let ($begin $end)
-    (if (region-active-p)
-        (setq $begin (region-beginning) $end (region-end))
-      (setq $begin (point-min) $end (point-max)))
-    (save-excursion
-      (save-restriction
-        (narrow-to-region $begin $end)
-        (progn
-          (goto-char (point-min))
-          (while (re-search-forward "\n\n\n+" nil "move")
-            (replace-match "\n\n")))))))
-
-(defun my-clean-all-empty-lines ()
-  "Replace repeated blank lines to just 1."
-  (interactive)
-  (let ($begin $end)
-    (if (region-active-p)
-        (setq $begin (region-beginning) $end (region-end))
-      (setq $begin (point-min) $end (point-max)))
-    (save-excursion
-      (save-restriction
-        (narrow-to-region $begin $end)
-        (progn
-          (goto-char (point-min))
-          (while (re-search-forward "\n\n+" nil "move")
-            (replace-match "\n")))))))
-
-(defun my-magit-stage-modified-and-commit ()
-  (interactive)
-  (progn
-    (let ((current-prefix-arg '(4))) (magit-stage-modified))
-    (magit-commit-create)))
-
+;;;; * EVAL
 (defun my-eval-buffer ()
   (interactive)
   (eval-buffer)
@@ -155,8 +117,7 @@
   (let ((inhibit-message t))
     (save-some-buffers t)
     (kill-current-buffer)))
-
-;;;; REOPEN KILLED FILED ;;;;
+;;;; * REOPEN KILLED FILED
 
 (defvar killed-file-list nil
   "List of recently killed files.")
@@ -175,73 +136,15 @@
   (when killed-file-list
     (find-file (pop killed-file-list))))
 
-(defun my-reload-file ()
-  "Reopen the most recently killed file, if one exists."
-  (interactive)
-  (kill-this-buffer)
-  (when killed-file-list
-    (find-file (pop killed-file-list))))
-
 (defun my-widen-to-center ()
   (interactive)
   (save-excursion
     (widen)
     (recenter)))
 
-(defun my-widen-to-center-with-excursion ()
-  (interactive)
-  (widen)
-  (recenter))
-
-(defun my-recompile-doom ()
-  (interactive)
-  (let ((current-prefix-arg 4))
-    (byte-force-recompile "~/.doom.d/ml/")))
-
 (defun my-save-some-buffers ()
   (interactive)
   (save-some-buffers t 0))
-
-(defun my-show-init-times ()
-  (interactive)
-  (message "Emacs: %s | Doom: %ss" (my-emacs-init-time) doom-init-time))
-
-(defun my-emacs-init-time ()
-  (interactive)
-  (let ((str
-         (format "%ss"
-                 (float-time
-                  (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-        (message "%s" str)
-      str)))
-
-(defun my-show-major-mode ()
-  (interactive)
-  (message "Major Mode: %s" major-mode))
-
-(defun my-show-server-name ()
-  (interactive)
-  (message "Server Name: %s" server-name))
-
-(defun my-recentf-empty ()
-  (interactive)
-  (setq recentf-list nil))
-
-(defun my-goto-markdown ()
-  (interactive)
-  (find-file "~/.doom.d/.tmp/md.md"))
-
-(defun my-goto-scratch-buffer ()
-  (interactive)
-  (switch-to-buffer "*scratch*"))
-
-(defun my-goto-python-scratch ()
-  (interactive)
-  (find-file "~/.doom.d/.tmp/py.py"))
-
-(fset 'my-dup-par
-      (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
 
 (defun my-backward-paragraph-do-indentation ()
   (interactive)
@@ -258,19 +161,9 @@
   (interactive "p")
   (kill-line (- 1 arg)))
 
-(defun my-goto-my-packages ()
-  (interactive)
-  (find-file "~/.doom.d/ml/my-packages.el")
-  (my-recenter-window)
-  (message nil))
-
 (defun my-copy-directory ()
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
-
-(defun my-last-buffer ()
-  (interactive)
-  (switch-to-buffer nil))
 
 (defun my-buffer-predicate (buffer)
   (if (string-match "\*" (buffer-name buffer)) nil t))
@@ -302,10 +195,6 @@
       (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
         (doom/restart-and-restore))))
 
-(defun my-goto-agenda ()
-  (interactive)
-  (find-file org-agenda-file))
-
 (defun my-rename-file-and-buffer ()
   "rename the current buffer and file it is visiting."
   (interactive)
@@ -330,77 +219,6 @@
 (defun my-erase-kill-ring ()
   (interactive)
   (setq kill-ring nil))
-
-(defun my-goto-messages-buffer ()
-  (interactive)
-  (switch-to-buffer "*Messages*"))
-
-;; https://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
-(defun my-narrow-or-widen-dwim (p)
-  "Widen if buffer is narrowed, narrow-dwim otherwise.
-With prefix P, don't widen, just narrow even if buffer
-is already narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((region-active-p)
-         (narrow-to-region (region-beginning)
-                           (region-end)))
-        ((derived-mode-p 'org-mode)
-         ;; `org-edit-src-code' is not a real narrowing
-         ;; command. Remove this first conditional if
-         ;; you don't want it.
-         (cond ((ignore-errors (org-edit-src-code) t)
-                (delete-other-windows))
-               ((ignore-errors (org-narrow-to-block) t))
-               (t (org-narrow-to-subtree))))
-        ((derived-mode-p 'latex-mode)
-         (LaTeX-narrow-to-environment))
-        (t (narrow-to-defun))))
-
-(defun my-goto-brain-game ()
-  (interactive)
-  (org-brain-visualize "game"))
-
-(defun my-prose-enable-br ()
-  (interactive)
-  (auto-capitalize-mode +1)
-  (electric-operator-mode +1)
-  (hl-sentence-mode +1)
-  (pabbrev-mode +1)
-  (olivetti-mode +1)
-  (typo-mode +1)
-  (writegood-mode -1)
-  (ispell-change-dictionary "brasileiro")
-  (flyspell-mode +1)
-  (flyspell-buffer)
-  (message "prose br"))
-
-(defun my-prose-enable-en ()
-  (interactive)
-  (auto-capitalize-mode +1)
-  (electric-operator-mode +1)
-  (hl-sentence-mode +1)
-  (pabbrev-mode +1)
-  (olivetti-mode +1)
-  (typo-mode +1)
-  (artbollocks-mode +1)
-  (ispell-change-dictionary "english")
-  (flyspell-mode +1)
-  (flyspell-buffer)
-  (message "prose en"))
-
-(defun my-prose-disable ()
-  (interactive)
-  (auto-capitalize-mode -1)
-  (electric-operator-mode -1)
-  (hl-sentence-mode +1)
-  (pabbrev-mode -1)
-  (olivetti-mode -1)
-  (typo-mode -1)
-  (artbollocks-mode -1)
-  (flyspell-mode -1)
-  (message "prose disabled"))
 
 (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
   (interactive
@@ -435,12 +253,6 @@ is already narrowed."
   (evil-mode +1)
   (evil-force-normal-state))
 
-(fset 'my-eval-paren-macro
-      (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
-
-(fset 'my-eval-paragraph-macro
-      (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
-
 (defun my-artbollocks-count-words (&optional start end)
   "Count the number of words between START and END."
   (interactive)
@@ -453,3 +265,12 @@ is already narrowed."
     (if (called-interactively-p 'any)
         (message "%s words" result))
     result))
+
+(fset 'my-eval-paren-macro
+      (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
+
+(fset 'my-eval-paragraph-macro
+      (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
+
+(fset 'my-dup-par
+      (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))

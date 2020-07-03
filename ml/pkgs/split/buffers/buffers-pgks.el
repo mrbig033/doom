@@ -320,6 +320,30 @@
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
 
 (after! (:or text-mode prog-mode)
+
+  ;; https://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+  (defun my-narrow-or-widen-dwim (p)
+    "Widen if buffer is narrowed, narrow-dwim otherwise.
+With prefix P, don't widen, just narrow even if buffer
+is already narrowed."
+    (interactive "P")
+    (declare (interactive-only))
+    (cond ((and (buffer-narrowed-p) (not p)) (widen))
+          ((region-active-p)
+           (narrow-to-region (region-beginning)
+                             (region-end)))
+          ((derived-mode-p 'org-mode)
+           ;; `org-edit-src-code' is not a real narrowing
+           ;; command. Remove this first conditional if
+           ;; you don't want it.
+           (cond ((ignore-errors (org-edit-src-code) t)
+                  (delete-other-windows))
+                 ((ignore-errors (org-narrow-to-block) t))
+                 (t (org-narrow-to-subtree))))
+          ((derived-mode-p 'latex-mode)
+           (LaTeX-narrow-to-environment))
+          (t (narrow-to-defun))))
+
   ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
   (defun xah-clean-empty-lines ()
     "Replace repeated blank lines to just 1."

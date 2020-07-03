@@ -1,0 +1,1 @@
+/Users/davi/.doom.d/ml/pkgs/split/prose/auto-capitalize.el

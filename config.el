@@ -3,15 +3,15 @@
 ;;; * HOOKS
 (add-hook 'after-init-hook #'toggle-frame-maximized)
 
-(add-hook '+doom-dashboard-mode-hook (lambda () (hl-line-mode -1)))
+(add-hook 'doom-after-init-modules-hook (lambda ()
+                                          (mapc 'load (file-expand-wildcards
+                                                       "/Users/davi/.doom.d/ml/kbd/init/*.el"))))
 
-(add-hook 'doom-first-buffer-hook (lambda ()
-                                    (mapc 'load (file-expand-wildcards
-                                                 "/Users/davi/.doom.d/ml/kbd/*.el"))
-                                    (mapc 'load (file-expand-wildcards
-                                                 "/Users/davi/.doom.d/ml/*.el"))))
-
-(setq-hook! 'eww-mode-hook display-buffer-alist nil)
+(add-hook 'doom-first-file-hook (lambda ()
+                                  (mapc 'load (file-expand-wildcards
+                                               "/Users/davi/.doom.d/ml/kbd/*.el"))
+                                  (mapc 'load (file-expand-wildcards
+                                               "/Users/davi/.doom.d/ml/pkgs/all/*.el"))))
 ;;; * SETTINGS
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
