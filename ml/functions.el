@@ -493,3 +493,16 @@ is already narrowed."
             (define-key map [remap self-insert-command] 'only-insert-self-insert)
             map)
   (setq buffer-read-only only-insert-mode))
+
+(defun my-artbollocks-count-words (&optional start end)
+  "Count the number of words between START and END."
+  (interactive-optional-region)
+  (let* ((s (or start (point-min)))
+         (e (or end (point-max)))
+         (result
+          (if (fboundp 'count-words)
+              (count-words s e)
+            (how-many "\\w+" s e))))
+    (if (called-interactively-p 'any)
+        (message "%s words" result))
+    result))
