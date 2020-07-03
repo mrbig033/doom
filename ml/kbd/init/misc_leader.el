@@ -44,7 +44,7 @@
       :desc "Restart Emacs"           :leader "qr"     'doom/restart
       :desc "Restart Emacs & Restore" :leader "qR"     'doom/restart-and-restore
       :desc "New Workspace"           :leader "v"     '+workspace/new
-      :desc "Close Workspace"         :leader "x"     '+workspace/close-window-or-workspace)
+      :desc "Close Workspace"         :leader "x"     '+workspace/delete)
 
 ;; DOUBLE SPACES
 (map! :desc "Beacon"              :leader "SPC tB" 'beacon-mode
