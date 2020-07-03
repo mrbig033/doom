@@ -546,7 +546,6 @@
 
   (:keymaps 'doom-leader-map
             "sg"  'counsel-ag
-            "sa"  'counsel-ag
             "sp"  'counsel-projectile-ag)
   (:keymaps 'counsel-describe-map
             "C-." 'ivy-next-line
@@ -1382,6 +1381,17 @@
 
 (use-package! engine-mode
   :config
+
+  (defun engine/search-aurelio-ap ()
+    (interactive)
+    (engine/search-aurelio (current-word)))
+
+  (defengine aurelio "https://www.dicio.com.br/%s")
+
+  (defun engine/search-wikitionary-pt-ap ()
+    (interactive)
+    (engine/search-wikitionary-pt (current-word)))
+  (defengine wikitionary-pt "https://pt.wiktionary.org/wiki/%s")
 
   (defun engine/free-dic-pt-ap ()
     (interactive)
