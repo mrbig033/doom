@@ -106,7 +106,8 @@
       :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
       :desc "Search Keys"          :leader "fk" 'my-search-kbds
       :desc "Search Pkgs"          :leader "fp" 'my-search-packages
-      :desc "Search Setts"         :leader "fs" 'my-search-settings)
+      :desc "Search Setts"         :leader "fs" 'my-search-settings
+      :desc "Doom Dashboard"       :leader "fd" '+doom-dashboard/open)
 
 ;; TEXT ;;
 (map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
