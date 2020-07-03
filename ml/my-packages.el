@@ -1276,7 +1276,10 @@
   :custom
   (pabbrev-scavenge-some-chunk-size 120)
   (pabbrev-marker-distance-before-scavenge 1000)
-  (pabbrev-idle-timer-verbose nil))
+  (pabbrev-idle-timer-verbose nil)
+  :config
+  (map! (:map pabbrev-select-mode-map
+              :i "C-l" 'pabbrev-expand-maybe)))
 
 (use-package! unkillable-scratch
   :after-call after-find-file
