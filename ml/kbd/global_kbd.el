@@ -42,8 +42,8 @@
  "M-j"    'windmove-down
  "M-h"    'windmove-left
  "M-l"    'windmove-right
- "M-,"    'bs-cycle-next
- "M-."    'bs-cycle-previous
+ "M-,"    'next-buffer
+ "M-."    'previous-buffer
  "C-j"    'treemacs-select-window
  "C-c b" 'org-brain-prefix-map
  "M-s"    'my-last-buffer
