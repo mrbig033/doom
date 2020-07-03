@@ -96,3 +96,4 @@
 
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/kbd/*.el"))
 (mapc 'load (file-expand-wildcards "/Users/davi/.doom.d/ml/*.el"))
+(yas-global-mode +1)
