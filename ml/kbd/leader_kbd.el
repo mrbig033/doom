@@ -147,3 +147,8 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro)
+
+
+;; WORKSPACE LEADER
+(map! :map doom-leader-workspace-map
+      :desc "Remove Buffer" "TAB X" 'persp-remove-buffer)
