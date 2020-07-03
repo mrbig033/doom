@@ -1,3 +1,11 @@
+(general-unbind '(doom-leader-map)
+  "SPC")
+
+(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
+  :with 'quit-window
+  [remap my-goto-scratch-buffer]
+  [remap doom/open-scratch-buffer])
+
 ;; OTHER LEADER KEYS
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
@@ -53,3 +61,68 @@
       :desc "Visible"             :leader "SPC tv" 'visible-mode
       :desc "Writegood"           :leader "SPC tw" 'writegood-mode
       :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode)
+
+;; BUFFERS
+(map! :desc "Goto Scratch"    :leader "bX"  'my-goto-scratch-buffer
+      :desc "Pop-Up Scratch"  :leader "bx"  'doom/open-scratch-buffer
+      :desc "Close Popups"    :leader "bc"  'clone-indirect-buffer-other-window
+      :desc "Kill All"        :leader "bK"  'my-doom-kill-all-buffers
+      :desc "Delete Server"   :leader "bd"  'server-force-delete
+      :desc "Git Timemachine" :leader "bg"  'git-timemachine
+      :desc "Ibuffer"         :leader "bI"  'ibuffer
+      :desc "Show Init Times" :leader "bi"  'my-show-init-times
+      :desc "Raise Popup"     :leader "br"  '+popup/raise
+      :desc "Kill Matching"   :leader "bt"  'doom/kill-matching-buffers
+      :desc "Show Major Mode" :leader "h M" 'my-show-major-mode)
+
+;; TEXT ;;
+(map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
+      :desc "Reload File"          :leader "tT" 'my-reload-file
+      :desc "Duplicate Line"       :leader "tt" 'my-dup-line
+      :desc "Google Translate"     :leader "tT" 'google-translate-smooth-translate
+      :desc "Change Dictionary"    :leader "tD" 'ispell-change-dictionary
+      :desc "Clean Lines"          :leader "tc" 'xah-clean-empty-lines
+      :desc "Clean All Lines"      :leader "tC" 'my-clean-all-empty-lines
+      :desc "Duplicate Paragraph"  :leader "ti" 'my-dup-par
+      :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
+      :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
+      :desc "Zen Mode"             :leader "tz" 'my-zen-mode
+      :desc "Langtool Done"        :leader "tL" 'langtool-check-done
+      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body)
+
+;; EVIL SUBSTITUTE ;;
+(map! :desc "Evil Substitute" :leader "su" (lambda ()
+                                             (interactive)
+                                             (evil-ex "%s/")))
+
+;; WINDOWS ;;
+(map! :desc "Split Right" :leader "wl" (lambda ()
+                                         (interactive)
+                                         (+evil-window-vsplit-a)
+                                         (other-window 1))
+      :desc "Split Down"  :leader "wj" (lambda ()
+                                         (interactive)
+                                         (+evil-window-split-a)
+                                         (other-window 1))
+      :desc "Split Up"    :leader "wk"    '+evil-window-split-a
+      :desc "Split Left"  :leader "wh"    '+evil-window-vsplit-a)
+
+;; EVAL
+(map! :desc "Eval Buffer"    :leader "ee" 'my-eval-buffer
+      :desc "Eval & Leave"   :leader "el" 'my-eval-buffer-and-leave
+      :desc "Eval & Quit"    :leader "eq" 'my-eval-buffer-quit
+      :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
+      :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
+      :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro)
+
+;; PROJECTILE
+
+;; (:keymaps '(doom-leader-map)
+;;           "pG"  'projectile-configure-project
+;;           "fp"  '+ivy/projectile-find-file)
+
+;; :general
+;; (:keymaps '(doom-leader-map)
+;;           "sp"  'counsel-projectile-ag
+;;           "pG"  'projectile-configure-project
+;;           "fp"  '+ivy/projectile-find-file)
