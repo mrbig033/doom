@@ -1,4 +1,8 @@
 ;; LOCAL KEYBINDINGS
+;; Add "after!" to "map!" blocks like so:
+;; Source: https://bit.ly/2VJWrlf
+;; (map! :after org-agenda
+;;       :map org-agenda-mode-map)
 
 (map! (:map (pabbrev-mode-map pabbrev-select-mode-map)
             :i "C-l" 'pabbrev-expand-maybe)
