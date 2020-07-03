@@ -956,6 +956,8 @@
      windmove-right
      switch-to-buffer
      delete-window
+     projectile-next-project-buffer
+     projectile-previous-project-buffer
      eyebrowse-close-window-config
      eyebrowse-create-window-config
      eyebrowse-prev-window-config))
