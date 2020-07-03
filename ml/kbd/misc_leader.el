@@ -12,6 +12,7 @@
 (map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
       :desc "Count Words"             :leader "cw"    'my-artbollocks-count-words
+      :desc "Org Clock"               :leader "j"     'hydra-org-clock/body
       :desc "Delete Window"           :leader "0"     'delete-window
       :desc "Describe Variable"       :leader "."     'counsel-describe-variable
       :desc "Dic. Info. AP"           :leader "si"    'engine/search-dic-infor-ap
