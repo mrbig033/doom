@@ -100,7 +100,7 @@
 (use-package! which-key
   :custom
   (which-key-allow-evil-operators nil)
-  (which-key-idle-delay 0.2)
+  (which-key-idle-delay 0.4)
   (which-key-idle-secondary-delay 0.1)
   :config
   (which-key-add-key-based-replacements
@@ -1462,7 +1462,6 @@
   :config
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
 
-
 (after! evil
   (evil-better-visual-line-on))
 
@@ -1475,3 +1474,4 @@
 (after! shut-up-ignore
   (when noninteractive
     (shut-up-silence-emacs)))
+
