@@ -48,3 +48,7 @@
 
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'evil-normal-state))
+
+(map! :after ranger
+      :desc "Deer"                 :leader "r"     'deer
+      :desc "Ranger"               :leader "R"     'ranger)

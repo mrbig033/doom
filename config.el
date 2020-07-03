@@ -86,7 +86,7 @@
        doom-big-font (font-spec :family "Input Mono" :size 19)
        doom-unicode-font (font-spec :family "Input Mono" :size 19)
        doom-localleader-key "m"
-       +workspaces-main 0
+       +workspaces-main "#0"
        doom-variable-pitch-font (font-spec :family "Input Mono"))
 
 
