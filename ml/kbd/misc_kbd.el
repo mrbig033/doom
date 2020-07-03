@@ -42,8 +42,12 @@
        :n "q" 'quit-window)
 
       (:map (+doom-dashboard-mode-map)
-       :n "<escape>" 'ignore
-       :n "q" 'quit-window)
+       :nvige "q" 'quit-window
+       :nge "<escape>" 'quit-window
+       :nvige "m" 'push-button
+       :nvige "l" 'push-button
+       :nvige "j" '+doom-dashboard/forward-button
+       :nvige "k" '+doom-dashboard/backward-button)
 
       (:after projectile
        :map (projectile-mode-map)
