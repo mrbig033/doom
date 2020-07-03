@@ -10,24 +10,24 @@
   [remap doom/open-scratch-buffer])
 
 ;; DOUBLE SPACES
-(map! ;; :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode
- :desc "Beacon"              :leader "SPC tB" 'beacon-mode
- :desc "Company"             :leader "SPC pc" 'company-mode
- :desc "Hide Modeline"       :leader "SPC bh" 'hide-mode-line-mode
- :desc "Hl-Line"             :leader "SPC th" 'hl-line-mode
- :desc "Hl-Sentence"         :leader "SPC ts" 'hl-sentence-mode
- :desc "Lisp Interaction"    :leader "SPC pl" 'lisp-interaction-mode
- :desc "Olivetti"            :leader "SPC to" 'olivetti-mode
- :desc "Poetry"              :leader "SPC tP" 'poetry-mode
- :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
- :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
- :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
- :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
- :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
- :desc "Typo"                :leader "SPC ty" 'typo-mode
- :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
- :desc "Visible"             :leader "SPC tv" 'visible-mode
- :desc "Writegood"           :leader "SPC tw" 'writegood-mode)
+(map! :desc "Beacon"              :leader "SPC tB" 'beacon-mode
+      :desc "Company"             :leader "SPC pc" 'company-mode
+      :desc "Hide Modeline"       :leader "SPC bh" 'hide-mode-line-mode
+      :desc "Hl-Line"             :leader "SPC th" 'hl-line-mode
+      :desc "Hl-Sentence"         :leader "SPC ts" 'hl-sentence-mode
+      :desc "Lisp Interaction"    :leader "SPC pl" 'lisp-interaction-mode
+      :desc "Olivetti"            :leader "SPC to" 'olivetti-mode
+      :desc "Poetry"              :leader "SPC tP" 'poetry-mode
+      :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
+      :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
+      :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
+      :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
+      :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
+      :desc "Typo"                :leader "SPC ty" 'typo-mode
+      :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
+      :desc "Visible"             :leader "SPC tv" 'visible-mode
+      :desc "Writegood"           :leader "SPC tw" 'writegood-mode
+      :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode)
 
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
