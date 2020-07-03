@@ -49,7 +49,7 @@
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
       :desc "Counsel Ag"           :leader "sg"    'counsel-ag
-      :desc "Count Words"          :leader "cw"    'count-words
+      :desc "Count Words"          :leader "cw"    'my-artbollocks-count-words
       :desc "Delete Window"        :leader "0"     'delete-window
       :desc "Describe Variable"    :leader "."     'counsel-describe-variable
 
@@ -59,6 +59,8 @@
       :desc "Dic. Inf. Sin."       :leader "sS"    'engine/search-dic-infor-sin
       :desc "Michaelis"            :leader "sC"    'engine/search-michaelis
       :desc "Michaelis AP"         :leader "sc"    'my-engine-search-michaealis-ap
+      :desc "Free Dict Pt"         :leader "sF"    'engine/search-free-dic-pt
+      :desc "Free Dict Pt AP"      :leader "sf"    'engine/free-dic-pt-ap
 
       :desc "Eyebrowse Close"      :leader "x"     'eyebrowse-close-window-config
       :desc "Helpful at Point"     :leader ";"     'helpful-at-point
@@ -98,7 +100,7 @@
       :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
       :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
       :desc "Goto My Packages"     :leader "fp" 'my-goto-my-packages
-      :desc "Locate"               :leader "fL" 'counsel-locate
+      :desc "Locate"               :leader "fo" 'counsel-locate
       :desc "Org Capture"          :leader "fc" 'org-capture
       :desc "Recent Files"         :leader "F"  'counsel-recentf
       :desc "Recent Files"         :leader "fr" 'counsel-recentf
