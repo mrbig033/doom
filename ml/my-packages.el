@@ -1044,14 +1044,6 @@
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 
 (use-package! projectile
-  :general
-  (:keymaps '(doom-leader-map)
-            "sp"  'counsel-projectile-ag
-            "pG"  'projectile-configure-project
-            "fp"  '+ivy/projectile-find-file)
-  (:states '(normal visual)
-           "H"   'projectile-previous-project-buffer
-           "L"   'projectile-next-project-buffer)
   :custom
   (projectile-track-known-projects-automatically nil))
 
