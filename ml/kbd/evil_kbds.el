@@ -21,13 +21,14 @@
 
 ;; INSERT STATE
 (map! :after evil
-      :desc "Del Backw"       :i "C-h" 'evil-delete-backward-char-and-join
-      :desc "Deled Char Forw" :i "C-d" 'delete-char
-      :desc "Kill Line"       :i "C-k" 'kill-line
-      :desc "Kill Word"       :i "M-d" 'kill-word
-      :desc "Next Line"       :i "C-n" 'next-line
-      :desc "Previous Line"   :i "C-p" 'previous-line
-      :desc "Yas Expand"      :i "M-e" 'yas-expand)
+      :desc "Del Backw"           :i "C-h" 'evil-delete-backward-char-and-join
+      :desc "Deled Char Forw"     :i "C-d" 'delete-char
+      :desc "Kill Line"           :i "C-k" 'kill-line
+      :desc "Kill Word"           :i "M-d" 'kill-word
+      :desc "Next Line"           :i "C-n" 'next-line
+      :desc "Previous Line"       :i "C-p" 'previous-line
+      :desc "Yas Expand"          :i "M-e" 'yas-expand
+      :desc "Kill Line Backwards" :i "C-u" 'my-backward-kill-line)
 
 ;; MULTIPLE STATES
 (map! :after evil
