@@ -1,25 +1,33 @@
 (general-unbind '(doom-leader-map)
   "SPC")
 
+(general-unbind '(doom-leader-map)
+  "SPC")
+
+(general-unbind '(scratch-fundamental-mode-map scratch-lisp-mode-map)
+  :with 'quit-window
+  [remap my-goto-scratch-buffer]
+  [remap doom/open-scratch-buffer])
+
 ;; DOUBLE SPACES
 (map! ;; :desc "Artbollocks"         :leader "SPC ta" 'artbollocks-mode
-      :desc "Beacon"              :leader "SPC tB" 'beacon-mode
-      :desc "Company"             :leader "SPC pc" 'company-mode
-      :desc "Hide Modeline"       :leader "SPC bh" 'hide-mode-line-mode
-      :desc "Hl-Line"             :leader "SPC th" 'hl-line-mode
-      :desc "Hl-Sentence"         :leader "SPC ts" 'hl-sentence-mode
-      :desc "Lisp Interaction"    :leader "SPC pl" 'lisp-interaction-mode
-      :desc "Olivetti"            :leader "SPC to" 'olivetti-mode
-      :desc "Poetry"              :leader "SPC tP" 'poetry-mode
-      :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
-      :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
-      :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
-      :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
-      :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
-      :desc "Typo"                :leader "SPC ty" 'typo-mode
-      :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
-      :desc "Visible"             :leader "SPC tv" 'visible-mode
-      :desc "Writegood"           :leader "SPC tw" 'writegood-mode)
+ :desc "Beacon"              :leader "SPC tB" 'beacon-mode
+ :desc "Company"             :leader "SPC pc" 'company-mode
+ :desc "Hide Modeline"       :leader "SPC bh" 'hide-mode-line-mode
+ :desc "Hl-Line"             :leader "SPC th" 'hl-line-mode
+ :desc "Hl-Sentence"         :leader "SPC ts" 'hl-sentence-mode
+ :desc "Lisp Interaction"    :leader "SPC pl" 'lisp-interaction-mode
+ :desc "Olivetti"            :leader "SPC to" 'olivetti-mode
+ :desc "Poetry"              :leader "SPC tP" 'poetry-mode
+ :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
+ :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
+ :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
+ :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
+ :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
+ :desc "Typo"                :leader "SPC ty" 'typo-mode
+ :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
+ :desc "Visible"             :leader "SPC tv" 'visible-mode
+ :desc "Writegood"           :leader "SPC tw" 'writegood-mode)
 
 ;; MISC
 (map! :desc "Ag Brain"             :leader "d"     'my-search-ag-brain
@@ -116,7 +124,9 @@
       :desc "Split Left"  :leader "wh"    '+evil-window-vsplit-a)
 
 ;; EVAL
-(map! :desc "Eval Buffer"  :leader "ee" 'my-eval-buffer
-      :desc "Eval & Leave" :leader "el" 'my-eval-buffer-and-leave
-      :desc "Eval & Quit"  :leader "eq" 'my-eval-buffer-quit
-      :desc "Eval & Kill"  :leader "ek" 'my-eval-buffer-kill)
+(map! :desc "Eval Buffer"    :leader "ee" 'my-eval-buffer
+      :desc "Eval & Leave"   :leader "el" 'my-eval-buffer-and-leave
+      :desc "Eval & Quit"    :leader "eq" 'my-eval-buffer-quit
+      :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
+      :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
+      :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro)
