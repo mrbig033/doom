@@ -1446,9 +1446,9 @@
   ;; Disable after init.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
-(use-package! yasnippet
-  :config
-  (yas-global-mode -1))
+;; (use-package! yasnippet
+;;   :config
+;;   (yas-global-mode -1))
 
 (use-package! subword
   :config
