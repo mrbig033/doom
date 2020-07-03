@@ -41,6 +41,13 @@
        :n "<escape>" 'ignore
        :n "q" 'quit-window)
 
+      (:after scratch-lisp-mode
+       :map (scratch-lisp-mode-map)
+       :n "<escape>" 'evil-ex-nohighlight
+       :leader "k" 'quit-window
+       :leader "bx" 'quit-window
+       :leader "bX" 'quit-window)
+
       (:after projectile
        :map (projectile-mode-map)
        :nv "H"   'projectile-previous-project-buffer
@@ -52,3 +59,5 @@
 (map! :after ranger
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
+
+
