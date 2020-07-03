@@ -580,7 +580,7 @@
 
   (defun my-search-kbds ()
     (interactive)
-    (counsel-ag "(map\\! " "~/.doom.d/ml/kbd/" "-G '.el'"))
+    (counsel-ag nil "~/.doom.d/ml/kbd/" "-G '.el'"))
 
   (defun my-search-doom-help ()
     (interactive)
@@ -1382,6 +1382,11 @@
 
 (use-package! engine-mode
   :config
+
+  (defun engine/free-dic-pt-ap ()
+    (interactive)
+    (engine/search-free-dic-pt (current-word)))
+  (defengine free-dic-pt "https://pt.thefreedictionary.com/%s")
 
   (defun engine/search-dic-infor-ap ()
     (interactive)
