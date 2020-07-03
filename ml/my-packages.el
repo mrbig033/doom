@@ -1027,68 +1027,6 @@
   (evil-respect-visual-line-mode t)
   (+evil-want-o/O-to-continue-comments nil)
 
-  :general
-
-  (:keymaps   '(evil-emacs-state-map)
-              "<escape>" 'evil-force-normal-state)
-
-  (:keymaps   '(evil-normal-state-map)
-              "C-z"      'ignore
-              "M-d"      'evil-multiedit-match-and-next
-              "C-c z"    'evil-emacs-state
-              "g3"       'evil-backward-word-end
-              "g#"       'evil-forward-word-end
-              "go"       'cool-moves-open-line-below
-              "gO"       'cool-moves-open-line-above
-              "gsP"      'cool-moves-paragraph-backward
-              "gsp"      'cool-moves-paragraph-forward
-              "C-S-p"    'cool-moves-word-backwards
-              "C-S-n"    'cool-moves-word-forward
-              "TAB"      '+fold/toggle)
-
-  (:keymaps   '(evil-normal-state-map
-                evil-insert-state-map
-                evil-visual-state-map)
-              "M-k"   'windmove-up
-              "M-j"   'windmove-down
-              "M-h"   'windmove-left
-              "M-l"   'windmove-right)
-
-  (:keymaps '(evil-insert-state-map)
-            "C-h"    'evil-delete-backward-char-and-join
-            "M-e"    'yas-expand
-            "C-k"    'kill-line
-            "C-p"    'previous-line
-            "C-n"    'next-line
-            "M-d"    'kill-word
-            "C-d"    'delete-char)
-
-  (:keymaps '(evil-visual-state-map)
-            "gt"  'capitalize-region
-            "C-c a"  'align-regexp
-            )
-
-  (:keymaps '(evil-visual-state-map evil-normal-state-map current-global-map)
-            "M-s"      'my-last-buffer
-            "M-]"      'evil-window-prev
-            "M-["      'evil-window-next
-            "C-S-j" 'cool-moves-line-forward
-            "C-S-k" 'cool-moves-line-backward
-            "ge"       'evil-end-of-visual-line
-            "0"        'evil-beginning-of-visual-line
-            "C-9"      'evilnc-comment-or-uncomment-lines)
-  (:keymaps '(evil-visual-state-map evil-normal-state-map)
-            "M-s"      'my-last-buffer
-            "M-]"      'evil-window-prev
-            "M-o"   'better-jumper-jump-backward
-            "M-i"   'better-jumper-jump-forward
-            "C-h M" 'my-show-major-mode
-            "M-["      'evil-window-next
-            "s-2"      'evil-execute-macro
-            "C-9"      'evilnc-comment-or-uncomment-lines
-            "0"        'evil-beginning-of-visual-line
-            "ge"       'evil-end-of-visual-line)
-
   :config
 
   (defun my-open-two-lines ()
