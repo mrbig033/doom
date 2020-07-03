@@ -184,3 +184,6 @@
   (eldoc-idle-delay 2)
   :config
   (global-eldoc-mode -1))
+
+(after! apheleia
+  (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
