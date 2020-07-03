@@ -1,11 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-(setq org-directory "~/org/")
-
-
-;;; * DASHBOARD WIDGET ;;;;
+;;; * DASHBOARD WIDGET
 (defun doom-dashboard-widget-banner ()
   (let ((point (point)))
     (mapc (lambda (line)
@@ -30,8 +25,9 @@
       (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
                            ?\n)))))
 
-;;; * DOOM DASHBOARD ;;;
-(define-key! +doom-dashboard-mode-map
+;;; * DOOM DASHBOARD
+((defun name ())
+ ine-key! +doom-dashboard-mode-map
   [remap forward-button]  nil
   [remap backward-button] nil)
 
@@ -50,6 +46,7 @@
        :n "h"             'doom/help
        :leader "k"        'quit-window))
 
+;;; * HOOKS
 (add-hook 'after-init-hook #'toggle-frame-maximized)
 
 (add-hook '+doom-dashboard-mode-hook (lambda () (hl-line-mode -1)))
@@ -62,6 +59,7 @@
 
 (setq-hook! 'eww-mode-hook display-buffer-alist nil)
 
+;;; * SETTINGS
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        user-full-name "mrbig"
