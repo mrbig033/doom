@@ -13,6 +13,8 @@
       :desc "Ignore"            :n "C-z"   'ignore
       :desc "Delete Frame"      :n "Q"     'my-delete-frame
       :desc "Cool Moves"        :n "gh"    'hydra-cool-moves/body
+      :desc "Evil Set Marker"   :n "gm"    'evil-set-marker
+      :desc "Evil Goto Mark"    :n "'"     'evil-goto-mark
       :desc "Delete Char"       :n "x"     'delete-char
       :desc "Delete Char Backw" :n "X"     'delete-backward-char
       :desc "Match & Next"      :n "M-d"   'evil-multiedit-match-and-next)
