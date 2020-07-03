@@ -41,6 +41,11 @@
             :n "<escape>" 'ignore
             :n "q" 'quit-window)
 
+      (:after projectile
+       :map (projectile-mode-map)
+            :nv "H"   'projectile-previous-project-buffer
+            :nv "L"   'projectile-next-project-buffer)
+
       (:map (custom-mode-map compilation-mode-map)
             :n "<escape>" 'evil-normal-state))
 
