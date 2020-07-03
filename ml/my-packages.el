@@ -796,7 +796,7 @@
   (size-indication-mode -1))
 
 (use-package! delight
-  :after-call after-init-hook
+  :after-call after-find-file
   :config
   (delight '((org-mode "[o]")
              (vimrc-mode "[vim]" "Vimrc")
