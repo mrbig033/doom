@@ -62,6 +62,7 @@
 
 (package! typo)
 (package! clipmon)
+(package! caps-lock)
 (package! wordnut)
 (package! pabbrev)
 (package! org-brain)
