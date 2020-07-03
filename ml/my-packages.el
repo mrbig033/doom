@@ -1278,8 +1278,12 @@
   (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil)
   :config
-  (map! (:map pabbrev-select-mode-map
-              :i "C-l" 'pabbrev-expand-maybe)))
+  (defun my-pabbrev-expand-maybe(uarg)
+    (interactive "p")
+    (if pabbrev-minimal-expansion-p
+        (pabbrev-expand-maybe-minimal uarg)
+      (pabbrev-expand-maybe-full uarg)
+      (insert " "))))
 
 (use-package! unkillable-scratch
   :after-call after-find-file
