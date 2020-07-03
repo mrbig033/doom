@@ -42,6 +42,8 @@
       :desc "Widen to Center"      :leader "nw"    'my-widen-to-center
       :desc "Default Brwoser"      :leader "oB"    'browse-url-of-file
       :desc "org2blog"             :leader "ob"    'org2blog--hydra-main/body
+      :desc "Def. Yank Pop"        :leader "iY"    '+default/yank-pop
+      :desc "Yasnippet Hydra"      :leader "iy"    'hydra-yasnippet/body
       :desc "Windows Hydra"        :leader "z"     'hydra-window/body)
 
 ;; BUFFERS
