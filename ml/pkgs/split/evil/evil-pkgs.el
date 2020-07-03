@@ -6,7 +6,7 @@
   (evil-visualstar/persistent t)
   (+evil-want-o/O-to-continue-comments nil)
 
-  :config
+  :config  
 
   (defun my-open-two-lines ()
     (interactive)
