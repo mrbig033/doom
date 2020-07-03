@@ -152,7 +152,7 @@
    "C-c k"   'org-metaup
    "C-j" 'treemacs-select-window)
   (:keymaps   '(doom-leader-map)
-   "aa"        'org-agenda
+   ;; "aa"        'org-agenda
    "at"        'org-today-agenda
    "a3"        'org-3-days-agenda
    "a7"        'org-7-days-agenda
@@ -652,9 +652,6 @@
     :with 'python-indent-dedent-line-backspace
     [remap evil-delete-backward-char-and-join])
 
-  ;; (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
-  ;; (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode)
-
   (defun my-quickrun-shell ()
     (interactive)
     (quickrun-shell)
@@ -1042,7 +1039,7 @@
     :move-point nil
     (interactive "<r>")
     (eval-region beg end)
-    (my-quiet-save-buffer)
+    (my-save-some-buffers)
     (message "region evaluated"))
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
@@ -1242,6 +1239,11 @@
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
 
+(use-package! flycheck
+  :custom
+  (flycheck-global-modes '(not lisp-interaction-mode
+                               emacs-lisp-mode)))
+
 (use-package! org-brain
   :after-call after-find-file
   :init
@@ -1380,7 +1382,7 @@
   :config
   (midnight-mode +1))
 
-(use-package lorem-ipsum
+(use-package! lorem-ipsum
   :custom
   (lorem-ipsum-paragraph-separator "\n\n"))
 
@@ -1443,6 +1445,10 @@
   :custom
   (bitly-access-token "3026d7e8b1a0f89da10740c69fd77b4b3293151e"))
 
+(use-package! files
+  :init
+  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
+
 (use-package! org2blog
   :custom
   (org2blog/wp-show-post-in-browser 'dont)
@@ -1476,3 +1482,6 @@
   (when noninteractive
     (shut-up-silence-emacs)))
 
+(after! undo-fu-session
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
