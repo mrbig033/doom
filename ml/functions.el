@@ -402,22 +402,6 @@ is already narrowed."
   (flyspell-mode -1)
   (message "prose disabled"))
 
-(defun my-zen-mode ()
-  (interactive)
-  (if (get 'my-zen-mode 'state)
-      (progn
-        (olivetti-mode -1)
-        (hide-mode-line-mode -1)
-        (line-number-mode -1)
-        (put 'my-zen-mode 'state nil)
-        (message "zen mode off"))
-    (progn
-      (olivetti-mode +1)
-      (hide-mode-line-mode +1)
-      (line-number-mode +1)
-      (put 'my-zen-mode 'state t)
-      (message "zen mode on"))))
-
 (defun my-doom-kill-all-buffers (&optional buffer-list interactive)
   (interactive
    (list (if current-prefix-arg
