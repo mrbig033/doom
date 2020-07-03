@@ -1,31 +1,32 @@
 ;; GLOBALS
-(map! "M-/"    'hippie-expand
-      "C-x p"  'check-parens
-      "C-;"    'helpful-at-point
-      "M-RET"  'my-indent-buffer
-      "C-c B"  'my-brain-commands
-      "<f9>"    'my-goto-brain-same-window
-      "<f8>"  'my-goto-brain
-      "C-c v"  'vlf
-      "M-9"    'delete-other-windows
-      "M-0"    'quit-window
-      "M-n"    'my-forward-paragraph-do-indentation
-      "M-p"    'my-backward-paragraph-do-indentation
-      "C-c y"  'kill-ring-save
-      "C-c m"  'define-mode-abbrev
-      "C-c M"  'define-global-abbrev
-      "C-'"    'org-cycle-agenda-files
-      "C-c u"  'redraw-display
-      "C-l"    'recenter-top-bottom
-      "M--"    'winner-undo
-      "M-="    'winner-redo
-      "C-c q"  'quick-calc
-      "C-c d"  'ispell-change-dictionary
-      "C-c o"  'my-org-force-open-other-window
-      :nvg "C-h e"  'describe-package
-      :nvg "C-h N"  'my-show-server-name
-      "C-c c"  'evil-record-macro
-      :i "C-2"  'evil-execute-macro)
+(map! "M-/"        'hippie-expand
+      "C-x p"      'check-parens
+      "C-;"        'helpful-at-point
+      "M-RET"      'my-indent-buffer
+      "C-c B"      'my-brain-commands
+      "<f9>"       'my-goto-brain-same-window
+      "<f8>"       'my-goto-brain
+      "C-c v"      'vlf
+      "M-9"        'delete-other-windows
+      "M-0"        'quit-window
+      "M-n"        'my-forward-paragraph-do-indentation
+      "M-p"        'my-backward-paragraph-do-indentation
+      "C-c y"      'kill-ring-save
+      "C-c m"      'define-mode-abbrev
+      "C-c M"      'define-global-abbrev
+      "C-'"        'org-cycle-agenda-files
+      "C-c u"      'redraw-display
+      "C-l"        'recenter-top-bottom
+      "M--"        'winner-undo
+      "M-="        'winner-redo
+      "C-c q"      'quick-calc
+      "C-c d"      'ispell-change-dictionary
+      "C-c o"      'my-org-force-open-other-window
+      "C-c C-o"    'org-open-at-point-global
+      "C-c c"      'evil-record-macro
+      :i "C-2"     'evil-execute-macro
+      :nvg "C-h e" 'describe-package
+      :nvg "C-h N" 'my-show-server-name)
 
 (general-define-key
  :keymaps 'override
