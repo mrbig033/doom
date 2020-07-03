@@ -871,6 +871,11 @@
         (when miss-list-end (setcdr miss-list-end nil))
         (when guess-list-end (setcdr guess-list-end nil)))))
 
+  ;; DON'T SPELLCHECK ORG BLOCKS
+  (pushnew! ispell-skip-region-alist
+            '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:")
+            '("#\\+BEGIN_SRC" . "#\\+END_SRC")
+            '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
   ;; Save corrections to abbrev
 
   (defun endless/simple-get-word ()
