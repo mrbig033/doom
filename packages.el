@@ -84,7 +84,6 @@
 (package! zoom :disable t)
 (package! beacon :disable t)
 (package! nswbuff :disable t)
-(package! shut-up :disable t)
 (package! org-roam :disable t)
 (package! polymode :disable t)
 (package! yafolding :disable t)
