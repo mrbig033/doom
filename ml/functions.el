@@ -325,8 +325,8 @@
   "Run 'doom upgrade' then prompt to restart Emacs."
   (interactive)
   (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-                    (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-                      (doom/restart-and-restore))))
+      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
+        (doom/restart-and-restore))))
 
 (defun my-goto-agenda ()
   (interactive)
@@ -469,3 +469,8 @@ is already narrowed."
   (xah-clean-empty-lines)
   (forward-to-indentation)
   (evil-insert-state))
+
+(defun my-force-evil-mode ()
+  (interactive)
+  (evil-mode +1)
+  (evil-force-normal-state))
