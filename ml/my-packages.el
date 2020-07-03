@@ -1429,6 +1429,7 @@
 
 (use-package! fountain-mode
   :init
+  (add-to-list 'auto-mode-alist '("\\ft\\'" . fountain-mode))
   (add-hook 'fountain-mode-hook (lambda () (+word-wrap-mode -1)))
   (add-hook! 'fountain-mode-hook
              #'auto-capitalize-mode
