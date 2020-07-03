@@ -23,6 +23,7 @@
       "C-c q"      'quick-calc
       "C-c d"      'ispell-change-dictionary
       "C-c o"      'my-org-force-open-other-window
+      "C-h M" 'my-show-major-mode
       "C-c C-o"    'org-open-at-point-global
       "C-c c"      'evil-record-macro
       "C-c e"      'my-force-evil-mode
