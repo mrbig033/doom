@@ -393,6 +393,8 @@
 
 (use-package! ranger
   :demand t
+  :init
+  (setq ranger-deer-show-details nil)
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -409,7 +411,6 @@
   (ranger-cleanup-on-disable t)
   (ranger-return-to-ranger nil)
   (ranger-max-parent-width 0.42)
-  (ranger-deer-show-details nil)
   (ranger-excluded-extensions '("mkv" "iso"
                                 "mp4" "bin"
                                 "exe" "msi"
@@ -435,13 +436,7 @@
    "x"          'dired-do-flagged-delete
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
-
-  (:keymaps 'doom-leader-map
-   "r"      'deer
-   "R"      'ranger)
-
   :config
-
   (defun my-ranger-olivetti ()
     (interactive)
     (setq-local olivetti-body-width '65)
