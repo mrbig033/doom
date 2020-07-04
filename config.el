@@ -1,49 +1,37 @@
 ;;; * EVIL
-;; (after! evil
-;;   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
-
-;; ;;; * HOOKS
-;; (add-hook 'after-init-hook #'toggle-frame-maximized)
-
-;; (add-hook 'doom-after-init-modules-hook (lambda ()
-;;                                           (load! "/Users/davi/.doom.d/ml/load-first/kbds.el")
-;;                                           (load! "/Users/davi/.doom.d/ml/load-first/functions.el")))
-
-;; (add-hook 'doom-first-file-hook (lambda ()
-;;                                   (mapc 'load (file-expand-wildcards
-;;                                                "/Users/davi/.doom.d/ml/load-latter/*.el"))
-;;                                   (eyebrowse-mode t)))
+(after! evil
+  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
 
 ;;; * SETTINGS
-;; (setq! my-lisp "~/.doom.d/ml"
-;;        org-directory "~/org/"
-;;        user-full-name "mrbig"
-;;        confirm-kill-emacs nil
-;;        persp-switch-to-added-buffer t
-;;        auto-revert-verbose nil
-;;        my-kbd "~/.doom.d/ml/kbd"
-;;        trash-directory "~/.Trash"
-;;        use-package-always-defer nil
-;;        ns-option-modifier 'meta
-;;        ns-right-option-modifier 'meta
-;;        iedit-toggle-key-default "C-x ;"
-;;        display-line-numbers-type nil
-;;        initial-major-mode 'fundamental-mode
-;;        initial-buffer-choice t
-;;        +word-wrap-extra-indent 'single
-;;        custom-file "~/.doom.d/.custom-file.el"
-;;        abbrev-file-name "~/.doom.d/etc/abbrev.el"
-;;        user-mail-address "mrbig033@protonmail.com"
-;;        langtool-language-tool-jar "~/maps/langtool/langtooljar"
-;;        doom-theme 'doom-one
-;;        doom-font (font-spec :family "Menlo" :size 19)
-;;        doom-big-font (font-spec :family "Menlo" :size 19)
-;;        doom-unicode-font (font-spec :family "Menlo" :size 19)
-;;        doom-variable-pitch-font (font-spec :family "Input Mono")
-;;        doom-localleader-key "m")
-
-;; (put 'narrow-to-region 'disabled nil)
-;; (put 'customize-group 'disabled nil)
+(setq! my-lisp "~/.doom.d/ml"
+       org-directory "~/org/"
+       user-full-name "mrbig"
+       confirm-kill-emacs nil
+       persp-switch-to-added-buffer t
+       auto-revert-verbose nil
+       my-kbd "~/.doom.d/ml/kbd"
+       trash-directory "~/.Trash"
+       use-package-always-defer nil
+       ns-option-modifier 'meta
+       ns-right-option-modifier 'meta
+       iedit-toggle-key-default "C-x ;"
+       display-line-numbers-type nil
+       initial-major-mode 'fundamental-mode
+       initial-buffer-choice t
+       +word-wrap-extra-indent 'single
+       custom-file "~/.doom.d/.custom-file.el"
+       abbrev-file-name "~/.doom.d/etc/abbrev.el"
+       user-mail-address "mrbig033@protonmail.com"
+       langtool-language-tool-jar "~/maps/langtool/langtooljar"
+       doom-theme 'doom-one
+       doom-font (font-spec :family "Menlo" :size 19)
+       doom-big-font (font-spec :family "Menlo" :size 19)
+       doom-unicode-font (font-spec :family "Menlo" :size 19)
+       doom-variable-pitch-font (font-spec :family "Input Mono")
+       doom-localleader-key "m")
+(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
+(put 'narrow-to-region 'disabled nil)
+(put 'customize-group 'disabled nil)
 
 (define-key key-translation-map (kbd "ÀÜ") (kbd "^"))
 (define-key key-translation-map (kbd "ÀÜ") (kbd "^"))
@@ -1522,6 +1510,7 @@ is already narrowed."
 
   ("S" cool-moves-sentence-backward)
   ("s" cool-moves-sentence-forward))
+
 (use-package! org
   :init
   (remove-hook 'org-mode-hook 'flyspell-mode)
@@ -1570,13 +1559,10 @@ is already narrowed."
   (org-enforce-todo-checkbox-dependencies t)
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("properties" "logbook")))
-  ;; (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
-  ;; (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
-  ;; (org-tags-column -77)
   (org-tags-column 0)
   (org-agenda-show-outline-path nil)
   (org-agenda-skip-deadline-if-done t)
@@ -1613,7 +1599,7 @@ is already narrowed."
   (org-refile-allow-creating-parent-nodes nil)
   ;; (org-refile-targets '((projectile-project-buffers :maxlevel . 3)))
   (org-refile-targets nil)
-  (org-src-fontify-natively t)
+  (org-src-fontify-natively nil)
   (org-src-tab-acts-natively nil)
   (org-src-preserve-indentation t)
   (org-src-window-setup 'current-window)
@@ -1633,214 +1619,213 @@ is already narrowed."
 
   :config
 
-  (add-hook! '(org-mode-hook org-src-mode-hook) #'my-org-key-translation)
   (advice-add 'org-edit-special :after #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  (load! "~/.doom.d/ml/extras/org_defun.el")
+  (load! "/Users/davi/.doom.d/org_defun.el")
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
 
-(use-package! org-roam
-  ;; :after org
-  :init
-  (require 'org-roam-protocol)
-  (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
-  (add-hook 'org-roam-mode-hook 'abbrev-mode)
-  :custom
+;; (use-package! org-roam
+;;   ;; :after org
+;;   :init
+;;   (require 'org-roam-protocol)
+;;   (add-hook 'org-roam-mode-hook 'hide-mode-line-mode)
+;;   (add-hook 'org-roam-mode-hook 'abbrev-mode)
+;;   :custom
 
-  (org-roam-buffer-window-parameters '((no-other-window . t)))
+;;   (org-roam-buffer-window-parameters '((no-other-window . t)))
 
-  (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
-                                      ("arrowtail" . "normal")
-                                      ("dir" . "back")))
+;;   (org-roam-graph-edge-extra-config '(("arrowhead" . "odot")
+;;                                       ("arrowtail" . "normal")
+;;                                       ("dir" . "back")))
 
-  (org-roam-graph-extra-config '(("rankdir" . "RL")))
+;;   (org-roam-graph-extra-config '(("rankdir" . "RL")))
 
-  (org-roam-graph-node-extra-config '(("shape" . "underline")
-                                      ("style" . "rounded,filled")
-                                      ("fillcolor" . "#FFFFD7")
-                                      ("color" . "#C9C9C9")
+;;   (org-roam-graph-node-extra-config '(("shape" . "underline")
+;;                                       ("style" . "rounded,filled")
+;;                                       ("fillcolor" . "#FFFFD7")
+;;                                       ("color" . "#C9C9C9")
 
-                                      ("fontcolor" . "#111111")))
+;;                                       ("fontcolor" . "#111111")))
 
-  (org-roam-capture-templates '(("d" "default" plain
-                                 #'org-roam-capture--get-point "%?"
-                                 :file-name "${slug}-%<%C%m>"
-                                 :head "#+title: ${title}"
-                                 :unnarrowed t)))
-  (org-roam-graph-exclude-matcher '("index.org"
-                                    "afc_bboba-2006.org"
-                                    "phil-2006.org"
-                                    "ethics-2006.org"
-                                    "logic_org-2006"
-                                    "animalw-2006.org"
-                                    "petitio_principii-2006.org"
-                                    "conseq-2006.org"))
+;;   (org-roam-capture-templates '(("d" "default" plain
+;;                                  #'org-roam-capture--get-point "%?"
+;;                                  :file-name "${slug}-%<%C%m>"
+;;                                  :head "#+title: ${title}"
+;;                                  :unnarrowed t)))
+;;   (org-roam-graph-exclude-matcher '("index.org"
+;;                                     "afc_bboba-2006.org"
+;;                                     "phil-2006.org"
+;;                                     "ethics-2006.org"
+;;                                     "logic_org-2006"
+;;                                     "animalw-2006.org"
+;;                                     "petitio_principii-2006.org"
+;;                                     "conseq-2006.org"))
 
-  ;; possible values: dot (default) neato fdp sfdp twopi circles circo
-  (org-roam-graph-executable "dot")
-  (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+;;   ;; possible values: dot (default) neato fdp sfdp twopi circles circo
+;;   (org-roam-graph-executable "dot")
+;;   (org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 
-  (org-roam-directory "~/org/Data/roam")
-  (org-roam-buffer-width 0.25)
-  (org-roam-index-file "~/org/Data/roam/index.org")
-  (:keymaps '(doom-leader-map)
-   "SPC rf" 'org-roam-find-file
-   "SPC rl" 'org-roam-find-file
-   "SPC rj" 'org-roam-jump-to-index
-   "SPC rb" 'org-roam-switch-to-buffer
-   "SPC rg" 'org-roam-graph
-   "SPC ri" 'org-roam-insert
-   "SPC rç" 'org-roam
-   "SPC rc" 'org-roam-db-build-cache
-   "SPC rx" 'my-roam-indexes
-   "SPC ro" 'my-roam-logic
-   "SPC ra" 'my-roam-fallacies
-   "SPC rs" 'my-show-org-roam-commands)
+;;   (org-roam-directory "~/org/Data/roam")
+;;   (org-roam-buffer-width 0.25)
+;;   (org-roam-index-file "~/org/Data/roam/index.org")
+;;   (:keymaps '(doom-leader-map)
+;;    "SPC rf" 'org-roam-find-file
+;;    "SPC rl" 'org-roam-find-file
+;;    "SPC rj" 'org-roam-jump-to-index
+;;    "SPC rb" 'org-roam-switch-to-buffer
+;;    "SPC rg" 'org-roam-graph
+;;    "SPC ri" 'org-roam-insert
+;;    "SPC rç" 'org-roam
+;;    "SPC rc" 'org-roam-db-build-cache
+;;    "SPC rx" 'my-roam-indexes
+;;    "SPC ro" 'my-roam-logic
+;;    "SPC ra" 'my-roam-fallacies
+;;    "SPC rs" 'my-show-org-roam-commands)
 
-  :config
+;;   :config
 
-  (defun my-org-roam-open-link ()
-    (interactive)
-    (my-org-force-open-other-window)
-    (delete-other-windows))
+;;   (defun my-org-roam-open-link ()
+;;     (interactive)
+;;     (my-org-force-open-other-window)
+;;     (delete-other-windows))
 
-  (defun my-show-org-roam-commands ()
-    (interactive)
-    (counsel-M-x "^org-roam- "))
+;;   (defun my-show-org-roam-commands ()
+;;     (interactive)
+;;     (counsel-M-x "^org-roam- "))
 
-  (defun my-roam-indexes ()
-    (interactive)
-    (org-roam-find-file "index "))
+;;   (defun my-roam-indexes ()
+;;     (interactive)
+;;     (org-roam-find-file "index "))
 
-  (defun my-roam-logic ()
-    (interactive)
-    (org-roam-find-file "logic "))
+;;   (defun my-roam-logic ()
+;;     (interactive)
+;;     (org-roam-find-file "logic "))
 
-  (defun my-roam-fallacies ()
-    (interactive)
-    (org-roam-find-file "fallacy ")))
+;;   (defun my-roam-fallacies ()
+;;     (interactive)
+;;     (org-roam-find-file "fallacy ")))
 
-(use-package! org-brain
-  :after-call after-find-file
-  :init
-  (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
-  (add-hook  'org-brain-visualize-mode-hook 'hide-mode-line-mode)
+;; (use-package! org-brain
+;;   :after-call after-find-file
+;;   :init
+;;   (add-hook 'org-brain-visualize-mode-hook (lambda () (+word-wrap-mode +1)))
+;;   (add-hook  'org-brain-visualize-mode-hook 'hide-mode-line-mode)
 
-  (add-hook! 'org-brain-visualize-follow-hook
-             #'my-clean-all-empty-lines
-             #'xah-clean-empty-lines
-             #'my-save-some-buffers
-             #'org-hide-drawer-all)
-  :custom
-  (org-brain-open-same-window t)
-  (org-brain-show-text nil)
-  (org-brain-path "~/org/Data/brain/boogey")
-  (org-brain-show-history nil)
-  (org-brain-headline-links-only-show-visible t)
-  (org-brain-include-file-entries t)
-  ;; (org-brain-scan-for-header-entries nil)
-  (org-brain-show-full-entry nil)
-  (org-brain-refile-max-level 5)
-  (org-brain-visualize-sort-function 'ignore)
-  (org-id-track-globally t)
-  (org-brain-title-max-length 0)
-  (org-brain-file-entries-use-title t)
-  (org-brain-mind-map-parent-level 5)
-  (org-brain-mind-map-child-level 5)
-  (org-brain-visualize-default-choices 'all)
-  (org-id-locations-file "~/org/Data/brain/.org-id-locations")
-  :config
+;;   (add-hook! 'org-brain-visualize-follow-hook
+;;              #'my-clean-all-empty-lines
+;;              #'xah-clean-empty-lines
+;;              #'my-save-some-buffers
+;;              #'org-hide-drawer-all)
+;;   :custom
+;;   (org-brain-open-same-window t)
+;;   (org-brain-show-text nil)
+;;   (org-brain-path "~/org/Data/brain/boogey")
+;;   (org-brain-show-history nil)
+;;   (org-brain-headline-links-only-show-visible t)
+;;   (org-brain-include-file-entries t)
+;;   ;; (org-brain-scan-for-header-entries nil)
+;;   (org-brain-show-full-entry nil)
+;;   (org-brain-refile-max-level 5)
+;;   (org-brain-visualize-sort-function 'ignore)
+;;   (org-id-track-globally t)
+;;   (org-brain-title-max-length 0)
+;;   (org-brain-file-entries-use-title t)
+;;   (org-brain-mind-map-parent-level 5)
+;;   (org-brain-mind-map-child-level 5)
+;;   (org-brain-visualize-default-choices 'all)
+;;   (org-id-locations-file "~/org/Data/brain/.org-id-locations")
+;;   :config
 
-  (defun my-brain-olivetti ()
-    (interactive)
-    (setq-local olivetti-body-width '65)
-    (olivetti-mode))
+;;   (defun my-brain-olivetti ()
+;;     (interactive)
+;;     (setq-local olivetti-body-width '65)
+;;     (olivetti-mode))
 
-  (defun my-brain-goto-current-maximize ()
-    (interactive)
-    (push-button)
-    (org-brain-goto-current)
-    (org-hide-drawer-all)
-    (doom/window-maximize-vertically)
-    (windmove-right))
+;;   (defun my-brain-goto-current-maximize ()
+;;     (interactive)
+;;     (push-button)
+;;     (org-brain-goto-current)
+;;     (org-hide-drawer-all)
+;;     (doom/window-maximize-vertically)
+;;     (windmove-right))
 
-  (defun my-brain-goto-current-maximize-and-go ()
-    (interactive)
-    (push-button)
-    (org-brain-goto-current)
-    (org-hide-drawer-all)
-    (doom/window-maximize-vertically))
+;;   (defun my-brain-goto-current-maximize-and-go ()
+;;     (interactive)
+;;     (push-button)
+;;     (org-brain-goto-current)
+;;     (org-hide-drawer-all)
+;;     (doom/window-maximize-vertically))
 
-  (defun my-goto-brain-main ()
-    (interactive)
-    (org-brain-visualize "boogey"))
+;;   (defun my-goto-brain-main ()
+;;     (interactive)
+;;     (org-brain-visualize "boogey"))
 
-  (defun my-goto-brain ()
-    (interactive)
-    (switch-to-buffer-other-window "*org-brain*"))
+;;   (defun my-goto-brain ()
+;;     (interactive)
+;;     (switch-to-buffer-other-window "*org-brain*"))
 
-  (defun my-goto-brain-same-window ()
-    (interactive)
-    (switch-to-buffer "*org-brain*"))
+;;   (defun my-goto-brain-same-window ()
+;;     (interactive)
+;;     (switch-to-buffer "*org-brain*"))
 
-  (defun my-brain-erase-history ()
-    (interactive)
-    (setq org-brain--vis-history nil))
+;;   (defun my-brain-erase-history ()
+;;     (interactive)
+;;     (setq org-brain--vis-history nil))
 
-  (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
+;;   (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer))
 
-(use-package! org-web-tools
-  :general
-  (:keymaps '(doom-leader-map)
-   "mwi"    'org-web-tools-insert-link-for-url
-   "mwe"    'org-web-tools-archive-view
-   "mwv"    'org-web-tools-archive-attach
-   "mwr"    'org-web-tools-read-url-as-org
-   "mwc"    'org-web-tools-convert-links-to-page-entries))
+;; (use-package! org-web-tools
+;;   :general
+;;   (:keymaps '(doom-leader-map)
+;;    "mwi"    'org-web-tools-insert-link-for-url
+;;    "mwe"    'org-web-tools-archive-view
+;;    "mwv"    'org-web-tools-archive-attach
+;;    "mwr"    'org-web-tools-read-url-as-org
+;;    "mwc"    'org-web-tools-convert-links-to-page-entries))
 
-(use-package! org-pomodoro
-  :after org
-  :config
-  (setq org-pomodoro-offset 1
-        org-pomodoro-start-sound-args t
-        org-pomodoro-length (* 25 org-pomodoro-offset)
-        org-pomodoro-short-break-length (/ org-pomodoro-length 5)
-        org-pomodoro-long-break-length (* org-pomodoro-length 0.8)
-        org-pomodoro-long-break-frequency 4
-        org-pomodoro-ask-upon-killing nil
-        org-pomodoro-manual-break t
-        org-pomodoro-keep-killed-pomodoro-time t
-        org-pomodoro-time-format "%.2m"
-        org-pomodoro-short-break-format "short: %s"
-        org-pomodoro-long-break-format "long: %s"
-        org-pomodoro-format "p: %s"))
+;; (use-package! org-pomodoro
+;;   :after org
+;;   :config
+;;   (setq org-pomodoro-offset 1
+;;         org-pomodoro-start-sound-args t
+;;         org-pomodoro-length (* 25 org-pomodoro-offset)
+;;         org-pomodoro-short-break-length (/ org-pomodoro-length 5)
+;;         org-pomodoro-long-break-length (* org-pomodoro-length 0.8)
+;;         org-pomodoro-long-break-frequency 4
+;;         org-pomodoro-ask-upon-killing nil
+;;         org-pomodoro-manual-break t
+;;         org-pomodoro-keep-killed-pomodoro-time t
+;;         org-pomodoro-time-format "%.2m"
+;;         org-pomodoro-short-break-format "short: %s"
+;;         org-pomodoro-long-break-format "long: %s"
+;;         org-pomodoro-format "p: %s"))
 
-(use-package! org2blog
-  :custom
-  (org2blog/wp-show-post-in-browser 'dont)
+;; (use-package! org2blog
+;;   :custom
+;;   (org2blog/wp-show-post-in-browser 'dont)
 
-  (org2blog/wp-blog-alist
-   '(("daviramos-en"
-      :url "http://daviramos.com/en/xmlrpc.php"
-      :username "daviramos"
-      :default-title "hello world"
-      :default-categories ("sci-fi")
-      :tags-as-categories nil)
-     ("daviramos-br"
-      :url "http://daviramos.com/br/xmlrpc.php"
-      :username "daviramos"
-      :default-title "hello world"
-      :default-categories ("sci-fi")
-      :tags-as-categories nil)))
-  :config
-  (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
-(use-package! dumb-jump
-  :custom
-  (dumb-jump-aggressive t))
+;;   (org2blog/wp-blog-alist
+;;    '(("daviramos-en"
+;;       :url "http://daviramos.com/en/xmlrpc.php"
+;;       :username "daviramos"
+;;       :default-title "hello world"
+;;       :default-categories ("sci-fi")
+;;       :tags-as-categories nil)
+;;      ("daviramos-br"
+;;       :url "http://daviramos.com/br/xmlrpc.php"
+;;       :username "daviramos"
+;;       :default-title "hello world"
+;;       :default-categories ("sci-fi")
+;;       :tags-as-categories nil)))
+;;   :config
+;;   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
+;; (use-package! dumb-jump
+;;   :custom
+;;   (dumb-jump-aggressive t))
 
 (use-package! company
   :custom
@@ -2183,7 +2168,7 @@ is already narrowed."
    "q" 'quit-window))
 
 (use-package! clipmon
-  :defer 5
+  :disabled
   :init
   (clipmon-mode-start))
 
@@ -2456,9 +2441,10 @@ is already narrowed."
 
   (which-key-mode +1))
 
-(use-package! hydra
-  :config
-  (load! "/Users/davi/.doom.d/ml/pkgs/all/my-hydras.el"))
+;; (use-package! hydra
+;;   :config
+;;   (load! "/Users/davi/.doom.d/ml/pkgs/split/ui/my-hydras.el"))
+
 
 (use-package! ivy
   :custom
@@ -2589,3 +2575,25 @@ is already narrowed."
         :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
         :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
         :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
+(use-package! nswbuff
+  :custom
+  (nswbuff-status-window-at-top t)
+  (nswbuff-recent-buffers-first t)
+  (nswbuff-start-with-current-centered t)
+  :general
+  (:keymaps 'override
+            :states '(normal visual insert)
+            "M-," 'nswbuff-switch-to-next-buffer
+            "M-." 'nswbuff-switch-to-previous-buffer)
+
+  :custom
+  (nswbuff-left "  ")
+  (nswbuff-clear-delay 2)
+  (nswbuff-delay-switch nil)
+  (nswbuff-this-frame-only 't)
+  (nswbuff-recent-buffers-first t)
+  (nswbuff-start-with-current-centered t)
+  (nswbuff-display-intermediate-buffers t)
+  (nswbuff-buffer-list-function 'nswbuff-projectile-buffer-list)
+  (nswbuff-exclude-buffer-regexps '("^ " "^#.*#$" "^\\*.*\\*"))
+  (nswbuff-exclude-mode-regexp "info-mode\\|dired-mode\\|treemacs-mode\\|pdf-view-mode"))
