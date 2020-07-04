@@ -137,7 +137,7 @@
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
 
-(map! :after evil-mode
+(map! :after evil
       :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
       :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
       :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
