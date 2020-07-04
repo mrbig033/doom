@@ -37,10 +37,6 @@
    "çm"       'treemacs-create-dir
    "zm"       'treemacs-collapse-all-projects)
 
-  (:states '(normal visual)
-   :prefix "SPC"
-   "pA" 'treemacs-add-and-display-current-project)
-
   :config
 
   (add-to-list 'treemacs-pre-file-insert-predicates
