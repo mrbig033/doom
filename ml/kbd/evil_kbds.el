@@ -35,6 +35,7 @@
       :desc "Force Normal State"   :e "<escape>" 'evil-normal-state
       :desc "Kill Line Backwards"  :e "C-u"      'my-backward-kill-line
       :desc "Kill Word Backwards"  :e "C-w"      'backward-kill-word
+      :desc "Yas Expand"           :e   "M-e"     'yas-expand
       :desc "Kill Char Backwards"  :e "C-h"      'delete-backward-char)
 
 ;; MULTIPLE STATES
