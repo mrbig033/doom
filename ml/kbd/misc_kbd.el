@@ -48,11 +48,6 @@
        :leader "bx" 'quit-window
        :leader "bX" 'quit-window)
 
-      (:after projectile
-       :map (projectile-mode-map)
-       :nv "M-,"   'projectile-previous-project-buffer
-       :nv "M-."   'projectile-next-project-buffer)
-
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'evil-normal-state))
 
