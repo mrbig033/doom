@@ -63,16 +63,12 @@
 * Keybindings
 ** Translations
 #+begin_src emacs-lisp
-(define-key key-translation-map (kbd "^") (kbd "^"))
-(define-key key-translation-map (kbd "ÀÜ") (kbd "^"))
-(define-key key-translation-map (kbd "¬∫") (kbd "-"))
-(define-key key-translation-map (kbd "s-8") (kbd "["))
-(define-key key-translation-map (kbd "s-9") (kbd "]"))
-(define-key key-translation-map (kbd "s-(") (kbd "{"))
-(define-key key-translation-map (kbd "s-)") (kbd "}"))
+(define-key key-translation-map (kbd "ˆ") (kbd "^"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
-^
-ˆ
+;; (define-key key-translation-map (kbd "s-8") (kbd "["))
+;; (define-key key-translation-map (kbd "s-9") (kbd "]"))
+;; (define-key key-translation-map (kbd "s-(") (kbd "{"))
+;; (define-key key-translation-map (kbd "s-)") (kbd "}"))
 #+end_src
 ** Local
 #+begin_src emacs-lisp
@@ -91,7 +87,7 @@
       (:map (org-mode-map evil-org-mode-map)
        :nvig "C-c C-s" 'org-emphasize
        "C-c o" 'counsel-outline
-       :v "<insert>" 'org-insert-link)
+       :nv "<insert>" 'org-insert-link)
 
       (:map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt
@@ -164,7 +160,8 @@
       :desc "Goto Agenda"          :leader "fa" 'my-goto-agenda
       :desc "Goto Brain"           :leader "fB" 'my-goto-brain
       :desc "Goto Lisp"            :leader "fl" 'my-deer-goto-my-lisp
-      :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
+      ;; :desc "Goto Main Brain"      :leader "fb" 'my-goto-brain-main
+      :desc "Goto Main Brain"      :leader "fb" 'my-goto-elisp-src-buffer
       :desc "Goto My Packages"     :leader "fp" 'my-goto-my-packages
       :desc "Locate"               :leader "fo" 'counsel-locate
       :desc "Org Capture"          :leader "fc" 'org-capture
@@ -388,7 +385,7 @@
  "gr"    'my-eval-region)
 #+end_src
 
-** Evil
+** Evil Kbds
 #+begin_src emacs-lisp
 ;; NORMAL STATE
 (map! :desc "Evil Noh"            :n "<escape>" 'evil-ex-nohighlight
@@ -482,7 +479,7 @@
 
 (defun my-search-settings ()
   (interactive)
-  (counsel-ag nil "~/.doom.d/" "-f -G '.el'"))
+  (counsel-ag nil "~/.doom.d/" "-f -G '.org'"))
 
 (defun my-search-doom-help ()
   (interactive)
@@ -500,7 +497,7 @@
 (defun my-search-packages ()
   (interactive)
   (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/" "-G '.el'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/" "-G '.org'"))
 
 (defun my-buffer-name ()
   (interactive)
@@ -537,6 +534,10 @@
 (defun my-goto-scratch-buffer ()
   (interactive)
   (switch-to-buffer "*scratch*"))
+
+(defun my-goto-elisp-src-buffer ()
+  (interactive)
+  (switch-to-buffer "*Org Src config.org[ emacs-lisp ]*"))
 
 (defun my-goto-python-scratch ()
   (interactive)
@@ -895,15 +896,15 @@
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 #+end_src
-*** Evil Smartparens
-#+begin_src emacs-lisp
+*** [[file:packages.el::package! evil-smartparens :disable t][Evil Smartparens]] :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! evil-smartparens
   :config
   (general-unbind 'evil-smartparens-mode-map
     :with 'exchange-point-and-mark
     [remap evil-sp-override]))
 #+end_src
-*** Evil Swap Keys
+*** [[file:packages.el::package! evil-swap-keys][Evil Swap Keys]]
 #+begin_src emacs-lisp
 (use-package! evil-swap-keys
   :config
@@ -912,8 +913,8 @@
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
 #+end_src
-*** Evil God State
-#+begin_src emacs-lisp
+*** [[file:packages.el::package! evil-god-state][Evil God State]] :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! evil-god-state
   :after evil
   :general
@@ -985,7 +986,7 @@
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("properties" "logbook")))
   (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
-  (org-id-link-to-org-use-id t)
+  (org-id-link-to-org-use-id nil)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
   (org-tags-column 0)
@@ -1043,13 +1044,13 @@
       "* %? %i" :prepend t)))
 
   :config
+ 
+  (advice-add 'org-edit-special :after #'my-indent-buffer)
+  (advice-add 'org-edit-special :after #'my-recenter-window)
+  (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
+  (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  ;; (advice-add 'org-edit-special :after #'my-indent-buffer)
-  ;; (advice-add 'org-edit-special :after #'my-recenter-window)
-  ;; (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
-  ;; (advice-add 'org-edit-src-exit :after #'my-recenter-window)
-
-  (load! "/Users/davi/.doom.d/org_defun.el")
+  (load "/Users/davi/.doom.d/org_defun.el")
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
 #+end_src
@@ -1072,8 +1073,8 @@
         org-pomodoro-long-break-format "long: %s"
         org-pomodoro-format "p: %s"))
 #+end_src
-*** Org2blog
-#+begin_src emacs-lisp
+*** [[file:packages.el::package! org2blog :disable t][Org2blog]] :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! org2blog
   :custom
   (org2blog/wp-show-post-in-browser 'dont)
@@ -1095,8 +1096,8 @@
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
 #+end_src
 ** Files
-*** Treemacs
-#+begin_src emacs-lisp
+*** [[file:init.el::treemacs ; a project drawer, like neotree but cooler][Treemacs]] :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! treemacs
   :after-call after-find-file
   :custom
@@ -1191,7 +1192,7 @@
 
   (treemacs-resize-icons 15))
 #+end_src
-*** Ranger
+*** [[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Ranger]]
 #+begin_src emacs-lisp
 (use-package! ranger
   :demand t
@@ -1355,7 +1356,7 @@
         :desc "Switch to scratch"       :leader "pX" nil
         :desc "Browse project"          :leader "p." nil))
 #+end_src
-*** Super Save
+*** [[file:packages.el::package! super-save][Super Save]]
 #+begin_src emacs-lisp
 (use-package! super-save
   :after-call after-find-file
@@ -1373,6 +1374,8 @@
      windmove-left
      windmove-right
      switch-to-buffer
+     org-edit-src-exit
+     org-edit-special
      delete-window
      projectile-next-project-buffer
      projectile-previous-project-buffer
@@ -1394,34 +1397,7 @@
 
   (super-save-mode t))
 #+end_src
-*** Recentf
-#+begin_src emacs-lisp
-(use-package! recentf
-  :custom
-  (recentf-auto-cleanup 'mode)
-  (recentf-max-saved-items 20)
-  :config
-  (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
-#+end_src
-*** Midnight
-#+begin_src emacs-lisp
-(use-package! midnight
-  :after-call after-find-file
-  :custom
-  (midnight-period (* 1 60 60))
-  (clean-buffer-list-delay-general 1)
-  (clean-buffer-list-delay-special 1800)
-  (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
-  :config
-  (midnight-mode +1))
-#+end_src
-*** Files
-#+begin_src emacs-lisp
-(use-package! files
-  :init
-  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
-#+end_src
-*** Git Auto Commit
+*** [[file:packages.el::package! git-auto-commit-mode][Git Auto Commit]]
 #+begin_src emacs-lisp
 (use-package! git-auto-commit-mode
   :custom
@@ -1546,7 +1522,7 @@
                      bef aft (if p "loc" "glob")))
         (user-error "no typo at or before point")))))
 #+end_src
-*** PDF View
+*** [[file:init.el::pdf ; pdf enhancements][PDF View]]
 #+begin_src emacs-lisp
 (use-package! pdf-view
   :init
@@ -1641,14 +1617,14 @@
     (flyspell-mode -1)
     (message "prose disabled")))
 #+end_src
-*** HL-Sentence
+*** [[file:packages.el::package! hl-sentence][HL-Sentence]]
 #+begin_src emacs-lisp
 (use-package! hl-sentence
   :config
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
 #+end_src
-*** Wordnut
+*** [[file:packages.el::package! wordnut][Wordnut]]
 #+begin_src emacs-lisp
 (use-package! wordnut
   :init
@@ -1675,7 +1651,7 @@
    "<escape>" 'quit-window
    "q" 'quit-window))
 #+end_src
-*** Typo
+*** [[file:packages.el::package! typo][Typo]]
 #+begin_src emacs-lisp
 (use-package! typo
   :config
@@ -1694,7 +1670,7 @@
      "‑"   ; non-breaking hyphen
      )))
 #+end_src
-*** Google Translate
+*** [[file:packages.el::package! google-translate][Google Translate]]
 #+begin_src emacs-lisp
 (use-package! google-translate
   :custom
@@ -1726,7 +1702,7 @@
    "M-n"        'my-forward-paragraph-do-indentation
    "M-p"        'my-backward-paragraph-do-indentation))
 #+end_src
-*** Pabbrev
+*** [[file:packages.el::package! pabbrev :disable t][Pabbrev]]
 #+begin_src emacs-lisp
 (use-package! pabbrev
   :custom
@@ -1734,7 +1710,7 @@
   (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
 #+end_src
-*** Fountain Mode
+*** [[file:packages.el::package! fountain-mode][Fountain Mode]]
 #+begin_src emacs-lisp
 (use-package! fountain-mode
   :init
@@ -1768,7 +1744,7 @@
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
 #+end_src
-*** Company
+*** [[id:1e8083b8-db60-4d34-b5cb-371e1727593a][Company]]
 #+begin_src emacs-lisp
 (use-package! company
   :custom
@@ -1838,25 +1814,29 @@
     (insert " ")))
 #+end_src
 ** Prog
-*** Prog Mode
-#+begin_src emacs-lisp
-(use-package! prog-mode
-  :init
-  (remove-hook! 'prog-mode-hook 'display-line-numbers-mode 'highlight-numbers-mode)
-  (add-hook! '(prog-mode-hook)
-             #'electric-pair-local-mode
-             #'hl-line-mode
-             #'abbrev-mode)
-
+*** [[file:packages.el::package! elpy][Elpy]] :tno:
+#+begin_src emacs-lisp :tangle no
+(use-package! elpy
+  :custom
+  (elpy-rpc-virtualenv-path 'current)
   :general
-  (:keymaps   '(prog-mode-map)
-   :states    '(normal)
-   "çç"        'dumb-jump-go
-   "çb"        'dumb-jump-back
-   "çl"        'dumb-jump-quick-look
-   "çe"        'dumb-jump-go-prefer-external))
+  (:keymaps '(elpy-mode-map)
+   "C-x m" 'elpy-multiedit-python-symbol-at-point
+   "C-x M" 'elpy-multiedit-stop)
+
+  :config
+
+  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
+  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
+
+  (defun my-elpy-switch-to-buffer ()
+    (interactive)
+    (elpy-shell-switch-to-buffer)
+    (quit-windows-on "*Python*"))
+
+  (elpy-enable))
 #+end_src
-*** Conf Mode
+*** Conf Mode :simp:
 #+begin_src emacs-lisp
 (use-package! conf-mode
   :config
@@ -1864,7 +1844,7 @@
   (:keymaps   '(conf-mode-map)
    :states    '(normal)))
 #+end_src
-*** Elisp Mode
+*** Elisp Mode :simp:
 #+begin_src emacs-lisp
 (use-package! elisp-mode
   :init
@@ -1874,15 +1854,15 @@
    :states    '(normal)
    "<escape>" 'evil-ex-nohighlight))
 #+end_src
-*** Flycheck
+*** Flycheck :simp:
 #+begin_src emacs-lisp
 (use-package! flycheck
   :custom
   (flycheck-global-modes '(not lisp-interaction-mode
                                emacs-lisp-mode)))
 #+end_src
-*** Python Mode
-#+begin_src emacs-lisp
+*** Python Mode :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! python
   :init
 
@@ -1959,29 +1939,7 @@
     (insert ":")
     (newline-and-indent)))
 #+end_src
-*** Elpy
-#+begin_src emacs-lisp
-(use-package! elpy
-  :custom
-  (elpy-rpc-virtualenv-path 'current)
-  :general
-  (:keymaps '(elpy-mode-map)
-   "C-x m" 'elpy-multiedit-python-symbol-at-point
-   "C-x M" 'elpy-multiedit-stop)
-
-  :config
-
-  (advice-add 'elpy-goto-definition :after #'my-recenter-window)
-  (advice-add 'elpy-goto-assignment :after #'my-recenter-window)
-
-  (defun my-elpy-switch-to-buffer ()
-    (interactive)
-    (elpy-shell-switch-to-buffer)
-    (quit-windows-on "*Python*"))
-
-  (elpy-enable))
-#+end_src
-*** Eldoc
+*** Eldoc :simp:
 #+begin_src emacs-lisp
 (use-package! eldoc
   :custom
@@ -2023,7 +1981,7 @@
   (column-number-mode -1)
   (size-indication-mode -1))
 #+end_src
-*** Delight
+*** [[file:packages.el::package! delight][Delight]]
 #+begin_src emacs-lisp
 (use-package! delight
   :after-call after-find-file
@@ -2372,7 +2330,7 @@
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 #+end_src
-*** Eyebrowse
+*** [[file:packages.el::package! eyebrowse][Eyebrowse]]
 #+begin_src emacs-lisp
 (use-package! eyebrowse
   :custom
@@ -2402,20 +2360,20 @@
   :config
   (mouse-avoidance-mode 'banish))
 #+end_src
-*** Recursive Narrow
+*** [[file:packages.el::package! recursive-narrow :disable t][Recursive Narrow]] :inst:
 #+begin_src emacs-lisp
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
 #+end_src
-*** Clipmon
-#+begin_src emacs-lisp
+*** [[file:packages.el::package! clipmon :disable t][Clipmon]]
+#+begin_src emacs-lisp :tangle no
 (use-package! clipmon
   :disabled
   :init
   (clipmon-mode-start))
 #+end_src
-*** Engine
+*** [[file:packages.el::package! engine-mode][Engine]]
 #+begin_src emacs-lisp
 (use-package! engine-mode
   :config
@@ -2462,4 +2420,50 @@
   (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
 
   (engine-mode t))
+#+end_src
+** Builtins
+*** Prog Mode
+#+begin_src emacs-lisp
+(use-package! prog-mode
+  :init
+  (remove-hook! 'prog-mode-hook 'display-line-numbers-mode 'highlight-numbers-mode)
+  (add-hook! '(prog-mode-hook)
+             #'electric-pair-local-mode
+             #'hl-line-mode
+             #'abbrev-mode)
+
+  :general
+  (:keymaps   '(prog-mode-map)
+   :states    '(normal)
+   "çç"        'dumb-jump-go
+   "çb"        'dumb-jump-back
+   "çl"        'dumb-jump-quick-look
+   "çe"        'dumb-jump-go-prefer-external))
+#+end_src
+*** Recentf
+#+begin_src emacs-lisp
+(use-package! recentf
+  :custom
+  (recentf-auto-cleanup 'mode)
+  (recentf-max-saved-items 20)
+  :config
+  (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
+#+end_src
+*** Midnight
+#+begin_src emacs-lisp
+(use-package! midnight
+  :after-call after-find-file
+  :custom
+  (midnight-period (* 1 60 60))
+  (clean-buffer-list-delay-general 1)
+  (clean-buffer-list-delay-special 1800)
+  (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
+  :config
+  (midnight-mode +1))
+#+end_src
+*** Files
+#+begin_src emacs-lisp
+(use-package! files
+  :init
+  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
 #+end_src
