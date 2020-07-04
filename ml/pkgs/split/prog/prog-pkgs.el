@@ -5,14 +5,22 @@
 (use-package! company
   :custom
   (company-ispell-available t)
-  (company-minimum-prefix-length 1)
   (company-show-numbers t)
+  (company-idle-delay 0.1)
   (company-tooltip-limit 10)
+  (company-minimum-prefix-length 1)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-auto-complete nil)
   (company-dabbrev-ignore-case 'keep-prefix)
-  (company-global-modes '(not erc-mode text-mode org-mode markdown-mode message-mode help-mode gud-mode eshell-mode))
+  (company-global-modes '(not erc-mode
+                              ;; text-mode
+                              ;; org-mode
+                              ;; markdown-mode
+                              message-mode
+                              help-mode
+                              gud-mode
+                              eshell-mode))
 
   :general
   (:keymaps                    '(company-active-map)
