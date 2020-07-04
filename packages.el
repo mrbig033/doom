@@ -72,8 +72,6 @@
 (package! org2blog :disable t)
 (package! org-brain :disable t)
 (package! vimrc-mode :disable t)
-(package! lorem-ipsum :disable t)
-(package! url-shortener :disable t)
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia") :disable t)
 
 (package! evil-lion :disable t)
@@ -83,7 +81,6 @@
 (package! evil-smartparens :disable t)
 
 (package! nswbuff :disable t)
-(package! org-roam :disable t)
 (package! polymode :disable t)
 (package! yafolding :disable t)
 (package! bug-hunter :disable t)
