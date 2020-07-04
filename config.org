@@ -212,6 +212,7 @@
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
       :desc "Count Words"             :leader "cw"    'my-artbollocks-count-words
+      :desc "Count All"               :leader "cW"    'count-words
       :desc "Delete Window"           :leader "0"     'delete-window
       :desc "Describe Variable"       :leader "."     'counsel-describe-variable
       :desc "Dic. Info. AP"           :leader "si"    'engine/search-dic-infor-ap
