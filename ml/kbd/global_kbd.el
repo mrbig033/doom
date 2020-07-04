@@ -64,9 +64,15 @@
  :states '(visual)
  "gr"    'my-eval-region)
 
-(general-define-key
- :keymaps  'override
- :states '(normal)
- "çc"       '+popup/close-all
- "zi"       '+fold/open-all
- "gr"       'my-evil-sel-to-end)
+;; (general-define-key
+;;  :keymaps  'override
+;;  :states '(normal)
+;;  "çc"       '+popup/close-all
+;;  "zi"       '+fold/open-all
+;;  "gr"       'my-evil-sel-to-end
+;;  "i"        'evil-emacs-state
+;;  "a"        'my-append-to-emacs-state
+;;  "A"        'my-append-line-to-emacs-state
+;;  "o"        'my-open-below-to-emacs-state
+;;  "O"        'my-open-above-to-emacs-state
+;;  "C-k"      'my-kill-line-to-emacs-state)
