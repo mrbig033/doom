@@ -58,8 +58,7 @@
  "C-k"    'kill-line
  "C-d"    'delete-char
  "C-h"    'delete-backward-char
- "C-w"    'backward-kill-word
- )
+ "C-w"    'backward-kill-word)
 
 (general-define-key
  :keymaps 'override
