@@ -8,11 +8,16 @@
   [remap my-goto-scratch-buffer]
   [remap doom/open-scratch-buffer])
 
+;; LOCAL LEADER
+(map! :map org-mode-map
+      :desc "Org Clock" :localleader "j" 'hydra-org-clock/body)
+
 ;; OTHER LEADER KEYS
 (map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
+      :desc "Jump to Register"        :leader "J"     'jump-to-register
+      :desc "Save Window Config"      :leader "j"     'window-configuration-to-register
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
       :desc "Count Words"             :leader "cw"    'my-artbollocks-count-words
-      :desc "Org Clock"               :leader "j"     'hydra-org-clock/body
       :desc "Delete Window"           :leader "0"     'delete-window
       :desc "Describe Variable"       :leader "."     'counsel-describe-variable
       :desc "Dic. Info. AP"           :leader "si"    'engine/search-dic-infor-ap
