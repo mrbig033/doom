@@ -16,6 +16,9 @@
 (after! org
   (setq! org-src-window-setup 'current-window))
 
+(after! prog
+  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
+
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
@@ -38,7 +41,7 @@
        auto-revert-verbose nil
        my-kbd "~/.doom.d/ml/kbd"
        trash-directory "~/.Trash"
-       use-package-always-defer nil
+       use-package-always-defer t
        ns-option-modifier 'meta
        ns-right-option-modifier 'meta
        iedit-toggle-key-default "C-x ;"
@@ -66,6 +69,7 @@
 ** Initial Modes
 #+begin_src emacs-lisp
 (define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
+(mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
 #+end_src
@@ -87,8 +91,7 @@
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
-      (:after org-mode
-       :map (org-mode-map evil-org-mode-map prog-mode-map)
+      (:map (org-mode-map evil-org-mode-map prog-mode-map)
        :nvig "C-c C-s" 'org-emphasize
        "C-c o" 'counsel-outline
        :n "<backspace>" 'org-edit-special
@@ -96,8 +99,8 @@
 
       (:after markdown-mode
        :map (markdown-mode-map)
-       "C-c ," 'my-engine-rhymit-pt
-       "C-c ." 'my-engine-dic-informal-rimas)
+       "C-c ," 'my-engine-rhymit-pt-ap
+       "C-c ." 'my-engine-dic-infor-rimas-ap)
 
       (:after flyspell-mode
        :map (flyspell-mode-map)
@@ -109,7 +112,7 @@
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:after emacs-lisp-mode
+      (:after (:or prog-mode texto mode)
        :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
@@ -198,14 +201,9 @@
   [remap org-edit-special])
 
 ;; LOCAL LEADER
-(map! :after org-mode
+(map! :after org
       :map org-mode-map
-      :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body
-      :desc "Edit Special" :localleader "m" 'org-edit-special)
-
-;; LOCAL LEADER
-(map! :map (prog-mode-map emacs-lisp-mode-map)
-      :desc "Exit Org Src" :localleader "m" 'org-edit-src-exit)
+      :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body)
 
 ;; OTHER LEADER KEYS
 (map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
@@ -759,6 +757,12 @@
   (my-quiet-save-some-buffers)
   (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
   (message " config tangled"))
+
+(defun my-tangle-restart ()
+  (interactive)
+  (my-quiet-save-some-buffers)
+  (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
+  (doom/restart-and-restore))
 
 (fset 'my-eval-paren-macro
       (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
@@ -2420,20 +2424,13 @@ is already narrowed."
         :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
 #+end_src
 ** Misc
-*** Avoid
-#+begin_src emacs-lisp
-(use-package! avoid
-  :after-call after-find-file
-  :config
-  (mouse-avoidance-mode 'banish))
-#+end_src
-*** [[file:packages.el::package! recursive-narrow :disable t][Recursive Narrow]] :inst:
+*** [[file:packages.el::package! recursive-narrow :disable t][Rec Narrow]] :inst:
 #+begin_src emacs-lisp
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
 #+end_src
-*** [[file:packages.el::package! clipmon :disable t][Clipmon]]
+*** [[file:packages.el::package! clipmon :disable t][Clipmon]] :tno:
 #+begin_src emacs-lisp :tangle no
 (use-package! clipmon
   :disabled
@@ -2507,7 +2504,7 @@ is already narrowed."
    "çl"        'dumb-jump-quick-look
    "çe"        'dumb-jump-go-prefer-external))
 #+end_src
-*** Recentf
+*** Recentf :simp:
 #+begin_src emacs-lisp
 (use-package! recentf
   :custom
@@ -2516,8 +2513,8 @@ is already narrowed."
   :config
   (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
 #+end_src
-*** Midnight
-#+begin_src emacs-lisp
+*** Midnight :tno:
+#+begin_src emacs-lisp :tangle no
 (use-package! midnight
   :after-call after-find-file
   :custom
@@ -2527,10 +2524,4 @@ is already narrowed."
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
-#+end_src
-*** Files
-#+begin_src emacs-lisp
-(use-package! files
-  :init
-  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
 #+end_src
