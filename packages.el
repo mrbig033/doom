@@ -49,7 +49,6 @@
 
 (package! typo)
 (package! wordnut)
-(package! clipmon)
 (package! delight)
 (package! olivetti)
 (package! eyebrowse)
@@ -66,6 +65,7 @@
 (package! evil-better-visual-line)
 (package! engine-mode :pin "e0910f1")
 
+(package! clipmon :disable t)
 (package! elpy :disable t)
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
