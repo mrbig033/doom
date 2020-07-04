@@ -1,5 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+;;; * EVIL
+(after! evil
+  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
+
 ;;; * HOOKS
 (add-hook 'after-init-hook #'toggle-frame-maximized)
 
