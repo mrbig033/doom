@@ -18,6 +18,7 @@
       :desc "Rename WS"         :leader "TAB r"   '+workspace/rename
       :desc "Restore"           :leader "TAB R"   '+workspace/restore-last-session
       :desc "Save WS"           :leader "TAB s"   '+workspace/save
+      :desc "Switch Temp"       :leader "TAB t"   'persp-temporarily-display-buffer
       :desc "Switch"            :leader "TAB SPC" '+workspace/switch-to
       :desc "WS 1"              :leader "TAB 1"   '+workspace/switch-to-0
       :desc "WS 2"              :leader "TAB 2"   '+workspace/switch-to-1
