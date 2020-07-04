@@ -48,7 +48,6 @@
 ;(unpin! t)
 
 (package! typo)
-(package! pabbrev)
 (package! wordnut)
 (package! clipmon)
 (package! delight)
@@ -69,6 +68,7 @@
 
 (package! elpy :disable t)
 (package! elmacro :disable t)
+(package! pabbrev :disable t)
 (package! org2blog :disable t)
 (package! org-brain :disable t)
 (package! vimrc-mode :disable t)
