@@ -81,6 +81,15 @@
 #+end_src
 ** Local
 #+begin_src emacs-lisp
+(map! :after evil-org-mode
+      :map (org-mode-map evil-org-mode-map)
+      :nvig "C-c C-s"  'org-emphasize
+      :n "C-o"         'counsel-outline
+      :n "zi"          'org-show-all
+      :n "zm"          'my-org-hide-all-function
+      :n "<backspace>" 'org-edit-special
+      :nv "<insert>"   'org-insert-link)
+
 (map! (:after helpful-mode
        :map helpful-mode-map
        :nvig "C-r" 'helpful-update
@@ -88,14 +97,6 @@
 
       (:map (prog-mode-map)
        :n "<backspace>" 'org-edit-special)
-
-      (:map (org-mode-map evil-org-mode-map)
-       :nvig "C-c C-s"  'org-emphasize
-       :n "C-o"         'counsel-outline
-       :n "zi"          'org-show-all
-       :n "zm"          'my-org-hide-all-function
-       :n "<backspace>" 'org-edit-special
-       :nv "<insert>"   'org-insert-link)
 
       (:after markdown-mode
        :map (markdown-mode-map)
@@ -1309,8 +1310,6 @@ is already narrowed."
 [[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Link]]
 #+begin_src emacs-lisp
 (use-package! ranger
-  :init
-  (setq ranger-deer-show-details nil)
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
