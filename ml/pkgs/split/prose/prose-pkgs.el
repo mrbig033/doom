@@ -355,6 +355,5 @@
   (flyspell-delay 0.2))
 
 (use-package! yasnippet
-  :disabled
   :config
   (yas-global-mode -1))
