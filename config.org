@@ -6,7 +6,8 @@
 #+begin_src emacs-lisp
 (after! evil
   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)
-         (evil-better-visual-line-on)))
+         ;; (evil-better-visual-line-on)
+         ))
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
@@ -170,7 +171,6 @@
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
       :desc "Reopen File"          :leader "T"  'my-reopen-killed-file
       :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
-      :desc "Search Keys"          :leader "fk" 'my-search-kbds
       :desc "Search Pkgs"          :leader "fp" 'my-search-packages
       :desc "Search Setts"         :leader "fs" 'my-search-settings
       :desc "Doom Dashboard"       :leader "fd" '+doom-dashboard/open)
