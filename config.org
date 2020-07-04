@@ -54,8 +54,8 @@
        ns-right-option-modifier 'meta
        iedit-toggle-key-default "C-x ;"
        display-line-numbers-type nil
-       initial-major-mode 'fundamental-mode
-       initial-buffer-choice t
+       ;; initial-major-mode 'fundamental-mode
+       ;; initial-buffer-choice t
        +word-wrap-extra-indent 'single
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
