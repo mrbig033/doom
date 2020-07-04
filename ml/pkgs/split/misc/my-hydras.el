@@ -192,8 +192,8 @@
 ^
     ^Yasnippet^
     ^^^^--------------------
-    _n_: new    _l_: load
-    _v_: visit  _c_: commit
+    _n_: new     _l_: load
+    _v_: visit   _c_: commit
     _r_: reload
 
 "
