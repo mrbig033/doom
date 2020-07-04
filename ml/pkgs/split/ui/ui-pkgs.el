@@ -55,14 +55,13 @@
   (:states '(normal visual insert)
    "C-s" 'counsel-grep-or-swiper
    "M-y" 'counsel-yank-pop
-   "C-," '+ivy/switch-workspace-buffer
+   "C-," 'counsel-projectile-switch-to-buffer
    "C-<" 'ivy-switch-buffer
    "C-." 'counsel-M-x
    "M-u" 'ivy-yasnippet)
 
   (:keymaps 'doom-leader-map
-   "sg"  'counsel-ag
-   "sp"  'counsel-projectile-ag)
+   "sg"  'counsel-ag)
   (:keymaps 'counsel-describe-map
    "C-." 'ivy-next-line
    "C-," 'counsel-find-symbol)
@@ -143,3 +142,14 @@
              (python-mode "[py]" " python")
              (emacs-lisp-mode "[el]" "emacs-lisp")
              (lisp-interaction-mode "[lin]" "lisp interaction"))))
+(use-package! eyebrowse
+  :custom
+  (eyebrowse-wrap-around t)
+  (eyebrowse-new-workspace t)
+  (eyebrowse-mode-line-style 'smart)
+  (eyebrowse-switch-back-and-forth t)
+  (eyebrowse-mode-line-left-delimiter " [ ")
+  (eyebrowse-mode-line-right-delimiter " ]  ")
+  (eyebrowse-mode-line-separator " | ")
+  :config
+  (eyebrowse-mode +1))
