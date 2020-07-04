@@ -6,9 +6,9 @@
   :custom
   (company-ispell-available t)
   (company-show-numbers t)
-  (company-idle-delay 0.1)
+  (company-idle-delay 0.3)
   (company-tooltip-limit 10)
-  (company-minimum-prefix-length 1)
+  (company-minimum-prefix-length 2)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-auto-complete nil)
