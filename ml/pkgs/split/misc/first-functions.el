@@ -113,3 +113,24 @@
 (defun my-last-buffer ()
   (interactive)
   (switch-to-buffer nil))
+
+(defun my-append-to-emacs-state ()
+  (interactive)
+  (evil-append 1)
+  (evil-emacs-state))
+
+(defun my-open-below-to-emacs-state ()
+  (interactive)
+  (evil-open-below 1)
+  (evil-emacs-state))
+
+(defun my-open-above-to-emacs-state ()
+  (interactive)
+  (evil-open-above 1)
+  (evil-emacs-state))
+
+(defun my-append-line-to-emacs-state ()
+  (interactive)
+  (evil-last-non-blank)
+  (evil-emacs-state)
+  (forward-char))
