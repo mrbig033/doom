@@ -14,7 +14,14 @@
   (load "~/.doom.d/custom-lisp/only-insert.el"))
 
 (after! org
-  (setq! org-src-window-setup 'current-window))
+  (setq! org-src-window-setup 'current-window)
+  (map! :map (org-mode-map evil-org-mode-map)
+        :nvig "C-c C-s"  'org-emphasize
+        :n "C-o"         'counsel-outline
+        :n "zi"          'org-show-all
+        :n "zm"          'my-org-hide-all-function
+        :n "<backspace>" 'org-edit-special
+        :nv "<insert>"   'org-insert-link))
 
 (after! prog
   (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
@@ -34,6 +41,7 @@
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        dumb-jump-aggressive t
+       warning-minimum-level :emergency
        user-full-name "mrbig"
        confirm-kill-emacs nil
        windmove-wrap-around t
@@ -81,16 +89,7 @@
 #+end_src
 ** Local
 #+begin_src emacs-lisp
-(map! :after evil-org-mode
-      :map (org-mode-map evil-org-mode-map)
-      :nvig "C-c C-s"  'org-emphasize
-      :n "C-o"         'counsel-outline
-      :n "zi"          'org-show-all
-      :n "zm"          'my-org-hide-all-function
-      :n "<backspace>" 'org-edit-special
-      :nv "<insert>"   'org-insert-link)
-
-(map! (:after helpful-mode
+(map! (:after helpful
        :map helpful-mode-map
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
@@ -98,7 +97,7 @@
       (:map (prog-mode-map)
        :n "<backspace>" 'org-edit-special)
 
-      (:after markdown-mode
+      (:after markdown
        :map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt-ap
        "C-c ." 'my-engine-dic-infor-rimas-ap)
@@ -235,7 +234,7 @@
       :desc "Kill Both"               :leader "K"     'kill-buffer-and-window
       :desc "Magit Stage & Commit"    :leader "g SPC" 'my-magit-stage-modified-and-commit
       :desc "Maximize Vertically"     :leader "ww"    'doom/window-maximize-vertically
-      :desc "Narrow Dwin"             :leader "nn"    'my-narrow-or-widen-dwim
+      :desc "Narrow Dwin"             :leader "nn"    'recursive-narrow-or-widen-dwim
       :desc "Widen to Center"         :leader "nw"    'my-widen-to-center
       :desc "Default Brwoser"         :leader "oB"    'browse-url-of-file
       :desc "org2blog"                :leader "ob"    'org2blog--hydra-main/body
@@ -295,7 +294,7 @@
       :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
       :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
       :desc "Langtool Done"        :leader "tL" 'langtool-check-done
-      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body)
+      :desc "Org Hydra"            :leader "ç"   'hydra-org-mode/body)
 
 ;; EVIL SUBSTITUTE ;;
 (map! :desc "Evil Substitute" :leader "su" (lambda ()
@@ -1437,7 +1436,9 @@ is already narrowed."
   :custom
   (projectile-track-known-projects-automatically nil)
   :config
-  (map! :desc "Projectile Ag"         :n ".g" #'counsel-projectile-ag
+  (general-unbind '(evil-normal-state-map)
+    ".")
+  (map! :desc "Projectile Ag"           :n ".g" #'counsel-projectile-ag
         :desc "Config project"          :n ".G" #'projectile-configure-project
         :desc "Add project"             :n ".a" #'projectile-add-known-project
         :desc "Switch to buffer"        :n ".b" #'projectile-switch-to-buffer
@@ -2425,7 +2426,6 @@ is already narrowed."
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
    "M-y"      'ivy-next-line
    "M-r"      'ivy-next-line
-   "C-o"      'ivy-next-line
    "C-,"      'ivy-next-line
    "C-."      'ivy-next-line
    "C-/"      'ivy-next-line
