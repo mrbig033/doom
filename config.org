@@ -102,8 +102,7 @@
        "C-c ," 'my-engine-rhymit-pt-ap
        "C-c ." 'my-engine-dic-infor-rimas-ap)
 
-      (:after flyspell-mode
-       :map (flyspell-mode-map)
+      (:map (text-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev
        :n "z-" 'flyspell-correct-word)
 
