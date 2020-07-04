@@ -58,7 +58,7 @@
    "C-," 'counsel-projectile-switch-to-buffer
    "C-<" 'ivy-switch-buffer
    "C-." 'counsel-M-x
-   "M-u" 'ivy-yasnippet)
+   "M-u" 'yas-insert-snippet)
 
   (:keymaps 'doom-leader-map
    "sg"  'counsel-ag)
