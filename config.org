@@ -81,21 +81,21 @@
 #+end_src
 ** Local
 #+begin_src emacs-lisp
-;; MISC LOCAL KEYBINDINGS
-;; Add "after!" to "map!" blocks like so:
-;; Source: https://bit.ly/2VJWrlf
-;; (map! :after org-agenda
-;;       :map org-agenda-mode-map)
 (map! (:after helpful-mode
        :map helpful-mode-map
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
-      (:map (org-mode-map evil-org-mode-map prog-mode-map)
-       :nvig "C-c C-s" 'org-emphasize
-       "C-c o" 'counsel-outline
+      (:map (prog-mode-map)
+       :n "<backspace>" 'org-edit-special)
+
+      (:map (org-mode-map evil-org-mode-map)
+       :nvig "C-c C-s"  'org-emphasize
+       :n "C-o"         'counsel-outline
+       :n "zi"          'org-show-all
+       :n "zm"          'my-org-hide-all-function
        :n "<backspace>" 'org-edit-special
-       :nv "<insert>" 'org-insert-link)
+       :nv "<insert>"   'org-insert-link)
 
       (:after markdown-mode
        :map (markdown-mode-map)
@@ -112,7 +112,7 @@
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:after (:or prog-mode texto-mode)
+      (:after (:or prog-mode text-mode)
        :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
@@ -206,7 +206,7 @@
       :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body)
 
 ;; OTHER LEADER KEYS
-(map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
+(map! :desc "Goto Dashboard"          :leader "d"     '+doom-dashboard/open
       :desc "Jump to Register"        :leader "J"     'jump-to-register
       :desc "Save Window Config"      :leader "j"     'window-configuration-to-register
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
@@ -223,8 +223,8 @@
       :desc "Michaelis AP"            :leader "sc"    'my-engine-search-michaealis-ap
       :desc "Free Dict Pt"            :leader "sF"    'engine/search-free-dic-pt
       :desc "Free Dict Pt AP"         :leader "sf"    'engine/free-dic-pt-ap
-      :desc "Aur√©lio"                 :leader "sA"    'engine/search-aurelio
-      :desc "Aur√©lio AP"              :leader "sa"    'engine/search-aurelio-ap
+      :desc "Aur√©lio"                :leader "sA"    'engine/search-aurelio
+      :desc "Aur√©lio AP"             :leader "sa"    'engine/search-aurelio-ap
       :desc "Counsel Bookmark"        :leader "sM"    'counsel-bookmark
       :desc "Counsel Marks"           :leader "sm"    'counsel-evil-marks
       :desc "Doom Package Configs"    :leader "hdpc"  'my-search-doom-package-config
@@ -242,6 +242,7 @@
       :desc "Yasnippet Hydra"         :leader "y"     'hydra-yasnippet/body
       :desc "Windows Hydra"           :leader "z"     'hydra-window/body
       :desc "Restart Emacs"           :leader "qr"    'doom/restart
+      :desc "Goto config.org"         :leader "hdc"   'my-doom-goto-config-org-file
       :desc "Restart Emacs & Restore" :leader "qR"    'doom/restart-and-restore)
 
 ;; DOUBLE SPACES
@@ -392,8 +393,8 @@
  :states '(visual)
  "gr"    'my-eval-region)
 
-(map! :map (+doom-dashboard-mode-map)
-      :e "q"        'quit-window)
+;; (map! :map (+doom-dashboard-mode-map)
+;;       :e "q"        'quit-window)
 
 (general-unbind '+doom-dashboard-mode-map
   :with 'quit-window
@@ -598,6 +599,11 @@
 (defun my-last-buffer ()
   (interactive)
   (switch-to-buffer nil))
+
+(defun my-doom-goto-config-org-file()
+  "Open your private config.org file."
+  (interactive)
+  (find-file (expand-file-name "config.org" doom-private-dir)))
 #+end_src
 ** Editing Functions
 #+begin_src emacs-lisp
@@ -747,6 +753,12 @@
 
 (fset 'my-dup-inner-par
       (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
+
+(defun my-org-hide-all-function ()
+  (interactive)
+  (let ((inhibit-message t))
+    (let ((current-prefix-arg 1))
+      (call-interactively 'org-shifttab))))
 #+end_src
 ** Eval Functions
 #+begin_src emacs-lisp
@@ -996,7 +1008,8 @@ is already narrowed."
 
   (add-hook 'evil-jumps-post-jump-hook 'my-recenter-window))
 #+end_src
-*** [[file:packages.el::package! evil-smartparens :disable t][Evil Smartparens]] :tno:
+*** Evil Smartparens :tno:
+[[file:packages.el::package! evil-smartparens :disable t][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! evil-smartparens
   :config
@@ -1004,7 +1017,8 @@ is already narrowed."
     :with 'exchange-point-and-mark
     [remap evil-sp-override]))
 #+end_src
-*** [[file:packages.el::package! evil-swap-keys][Evil Swap Keys]]
+*** Evil Swap Keys
+[[file:packages.el::package! evil-swap-keys][Link]]
 #+begin_src emacs-lisp
 (use-package! evil-swap-keys
   :config
@@ -1013,7 +1027,8 @@ is already narrowed."
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
 #+end_src
-*** [[file:packages.el::package! evil-god-state][Evil God State]] :tno:
+*** Evil God State :tno:
+[[file:packages.el::package! evil-god-state][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! evil-god-state
   :after evil
@@ -1169,7 +1184,8 @@ is already narrowed."
         org-pomodoro-long-break-format "long: %s"
         org-pomodoro-format "p: %s"))
 #+end_src
-*** [[file:packages.el::package! org2blog :disable t][Org2blog]] :tno:
+*** Org2blog :tno:
+[[file:packages.el::package! org2blog :disable t][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! org2blog
   :custom
@@ -1192,7 +1208,8 @@ is already narrowed."
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
 #+end_src
 ** Files
-*** [[file:init.el::treemacs ; a project drawer, like neotree but cooler][Treemacs]] :tno:
+*** Treemacs :tno:
+[[file:init.el::treemacs ; a project drawer, like neotree but cooler][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! treemacs
   :after-call after-find-file
@@ -1288,7 +1305,8 @@ is already narrowed."
 
   (treemacs-resize-icons 15))
 #+end_src
-*** [[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Ranger]]
+*** Ranger
+[[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Link]]
 #+begin_src emacs-lisp
 (use-package! ranger
   :init
@@ -1422,7 +1440,7 @@ is already narrowed."
   :config
   ;; PROJECTILE LEADER
   (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
-        :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
+        :desc "Config project"          :leader "pG" #'projectile-configure-project
         :desc "Add project"             :leader "pa" #'projectile-add-known-project
         :desc "Switch to buffer"        :leader "pb" #'projectile-switch-to-buffer
         :desc "Compile"                 :leader "pc" #'projectile-compile-project
@@ -1434,7 +1452,7 @@ is already narrowed."
         :desc "Find file in other"      :leader "pF" #'doom/find-file-in-other-project
         :desc "Find file dwim"          :leader "pw" #'projectile-find-file-dwim
         :desc "Find file in dir"        :leader "py" #'projectile-find-file-in-directory
-        :desc "Config project"          :leader "pg" #'projectile-configure-project
+        :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
         :desc "Invalidate cache"        :leader "pi" #'projectile-invalidate-cache
         :desc "Kill buffers"            :leader "pk" #'projectile-kill-buffers
         :desc "Find other file"         :leader "po" #'projectile-find-other-file
@@ -1451,7 +1469,8 @@ is already narrowed."
         :desc "Switch to scratch"       :leader "pX" nil
         :desc "Browse project"          :leader "p." nil))
 #+end_src
-*** [[file:packages.el::package! super-save][Super Save]]
+*** Super Save
+[[file:packages.el::package! super-save][Link]]
 #+begin_src emacs-lisp
 (use-package! super-save
   :after-call after-find-file
@@ -1492,7 +1511,8 @@ is already narrowed."
 
   (super-save-mode t))
 #+end_src
-*** [[file:packages.el::package! git-auto-commit-mode][Git Auto Commit]]
+*** Git Auto Commit
+[[file:packages.el::package! git-auto-commit-mode][Link]]
 #+begin_src emacs-lisp
 (use-package! git-auto-commit-mode
   :custom
@@ -1617,7 +1637,8 @@ is already narrowed."
                      bef aft (if p "loc" "glob")))
         (user-error "no typo at or before point")))))
 #+end_src
-*** [[file:init.el::pdf ; pdf enhancements][PDF View]]
+*** PDF View
+[[file:init.el::pdf ; pdf enhancements][Link]]
 #+begin_src emacs-lisp
 (use-package! pdf-view
   :init
@@ -1711,14 +1732,16 @@ is already narrowed."
     (flyspell-mode -1)
     (message "prose disabled")))
 #+end_src
-*** [[file:packages.el::package! hl-sentence][HL-Sentence]]
+*** HL-Sentence
+[[file:packages.el::package! hl-sentence][Link]]
 #+begin_src emacs-lisp
 (use-package! hl-sentence
   :config
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
 #+end_src
-*** [[file:packages.el::package! wordnut][Wordnut]]
+*** Wordnut
+[[file:packages.el::package! wordnut][Link]]
 #+begin_src emacs-lisp
 (use-package! wordnut
   :init
@@ -1745,7 +1768,8 @@ is already narrowed."
    "<escape>" 'quit-window
    "q" 'quit-window))
 #+end_src
-*** [[file:packages.el::package! typo][Typo]]
+*** Typo
+[[file:packages.el::package! typo][Link]]
 #+begin_src emacs-lisp
 (use-package! typo
   :config
@@ -1764,7 +1788,8 @@ is already narrowed."
      "‑"   ; non-breaking hyphen
      )))
 #+end_src
-*** [[file:packages.el::package! google-translate][Google Translate]]
+*** Google Translate
+[[file:packages.el::package! google-translate][Link]]
 #+begin_src emacs-lisp
 (use-package! google-translate
   :custom
@@ -1796,7 +1821,8 @@ is already narrowed."
    "M-n"        'my-forward-paragraph-do-indentation
    "M-p"        'my-backward-paragraph-do-indentation))
 #+end_src
-*** [[file:packages.el::package! pabbrev :disable t][Pabbrev]]
+*** Pabbrev
+[[file:packages.el::package! pabbrev :disable t][Link]]
 #+begin_src emacs-lisp
 (use-package! pabbrev
   :custom
@@ -1804,7 +1830,8 @@ is already narrowed."
   (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
 #+end_src
-*** [[file:packages.el::package! fountain-mode][Fountain Mode]]
+*** Fountain Mode
+[[file:packages.el::package! fountain-mode][Link]]
 #+begin_src emacs-lisp
 (use-package! fountain-mode
   :init
@@ -1838,7 +1865,8 @@ is already narrowed."
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
 #+end_src
-*** [[id:1e8083b8-db60-4d34-b5cb-371e1727593a][Company]]
+*** Company
+[[id:1e8083b8-db60-4d34-b5cb-371e1727593a][Link]]
 #+begin_src emacs-lisp
 (use-package! company
   :custom
@@ -1908,7 +1936,8 @@ is already narrowed."
     (insert " ")))
 #+end_src
 ** Prog
-*** [[file:packages.el::package! elpy][Elpy]] :tno:
+*** Elpy :tno:
+[[file:packages.el::package! elpy][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! elpy
   :custom
@@ -2074,7 +2103,8 @@ is already narrowed."
   (column-number-mode -1)
   (size-indication-mode -1))
 #+end_src
-*** [[file:packages.el::package! delight][Delight]]
+*** Delight
+[[file:packages.el::package! delight][Link]]
 #+begin_src emacs-lisp
 (use-package! delight
   :after-call after-find-file
@@ -2403,6 +2433,7 @@ is already narrowed."
   (:keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
    "M-y"      'ivy-next-line
    "M-r"      'ivy-next-line
+   "C-o"      'ivy-next-line
    "C-,"      'ivy-next-line
    "C-."      'ivy-next-line
    "C-/"      'ivy-next-line
@@ -2423,7 +2454,8 @@ is already narrowed."
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
 #+end_src
-*** [[file:packages.el::package! eyebrowse][Eyebrowse]]
+*** Eyebrowse
+[[file:packages.el::package! eyebrowse][Link]]
 #+begin_src emacs-lisp
 (use-package! eyebrowse
   :custom
@@ -2446,20 +2478,23 @@ is already narrowed."
         :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
 #+end_src
 ** Misc
-*** [[file:packages.el::package! recursive-narrow :disable t][Rec Narrow]] :inst:
+*** Rec Narrow :inst:
+[[file:packages.el::package! recursive-narrow :disable t][Link]]
 #+begin_src emacs-lisp
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
 #+end_src
-*** [[file:packages.el::package! clipmon :disable t][Clipmon]] :tno:
+*** Clipmon :tno:
+[[file:packages.el::package! clipmon :disable t][Link]]
 #+begin_src emacs-lisp :tangle no
 (use-package! clipmon
   :disabled
   :init
   (clipmon-mode-start))
 #+end_src
-*** [[file:packages.el::package! engine-mode][Engine]]
+*** Engine
+[[file:packages.el::package! engine-mode][Link]]
 #+begin_src emacs-lisp
 (use-package! engine-mode
   :config
@@ -2547,6 +2582,7 @@ is already narrowed."
   (midnight-mode +1))
 #+end_src
 * Final Cmd
+[[https://github.com/hlissner/doom-emacs/issues/3399#issuecomment-645478905][Source]]
 #+begin_src emacs-lisp
 (run-hooks 'doom-first-input-hook)
 #+end_src
