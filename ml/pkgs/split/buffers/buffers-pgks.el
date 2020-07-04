@@ -256,7 +256,38 @@
 
 (use-package! projectile
   :custom
-  (projectile-track-known-projects-automatically nil))
+  (projectile-track-known-projects-automatically nil)
+  :config
+  ;; PROJECTILE LEADER
+  (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
+        :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
+        :desc "Add project"             :leader "pa" #'projectile-add-known-project
+        :desc "Switch to buffer"        :leader "pb" #'projectile-switch-to-buffer
+        :desc "Compile"                 :leader "pc" #'projectile-compile-project
+        :desc "Repeat command"          :leader "pC" #'projectile-repeat-last-command
+        :desc "Remove project"          :leader "pd" #'projectile-remove-known-project
+        :desc "Discover"                :leader "pD" #'+default/discover-projects
+        :desc "Edit .dir-locals"        :leader "pe" #'projectile-edit-dir-locals
+        :desc "Find file"               :leader "pf" #'projectile-find-file
+        :desc "Find file in other"      :leader "pF" #'doom/find-file-in-other-project
+        :desc "Find file dwim"          :leader "pw" #'projectile-find-file-dwim
+        :desc "Find file in dir"        :leader "py" #'projectile-find-file-in-directory
+        :desc "Config project"          :leader "pg" #'projectile-configure-project
+        :desc "Invalidate cache"        :leader "pi" #'projectile-invalidate-cache
+        :desc "Kill buffers"            :leader "pk" #'projectile-kill-buffers
+        :desc "Find other file"         :leader "po" #'projectile-find-other-file
+        :desc "Switch project"          :leader "pp" #'projectile-switch-project
+        :desc "Recent Files"            :leader "pr" #'projectile-recentf
+        :desc "Replace"                 :leader "pR" #'projectile-replace
+        :desc "Run project"             :leader "pu" #'projectile-run-project
+        :desc "Save buffers"            :leader "ps" #'projectile-save-project-buffers
+        :desc "Browse project"          :leader "pB" #'+default/browse-project
+        :desc "Test project"            :leader "pT" nil
+        :desc "Browse other"            :leader "p>" nil
+        :desc "Run cmd in root"         :leader "p!" nil
+        :desc "Scratch buffer"          :leader "px" nil
+        :desc "Switch to scratch"       :leader "pX" nil
+        :desc "Browse project"          :leader "p." nil))
 
 (use-package! windmove
   :custom
