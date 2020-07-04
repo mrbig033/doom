@@ -38,8 +38,7 @@
        doom-big-font (font-spec :family "Menlo" :size 19)
        doom-unicode-font (font-spec :family "Menlo" :size 19)
        doom-variable-pitch-font (font-spec :family "Input Mono")
-       doom-localleader-key "m"
-       +workspaces-main "#0")
+       doom-localleader-key "m")
 
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)

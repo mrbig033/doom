@@ -41,10 +41,8 @@
       :desc "Def. Yank Pop"           :leader "iY"    '+default/yank-pop
       :desc "Yasnippet Hydra"         :leader "iy"    'hydra-yasnippet/body
       :desc "Windows Hydra"           :leader "z"     'hydra-window/body
-      :desc "Restart Emacs"           :leader "qr"     'doom/restart
-      :desc "Restart Emacs & Restore" :leader "qR"     'doom/restart-and-restore
-      :desc "New Workspace"           :leader "v"     '+workspace/new
-      :desc "Close Workspace"         :leader "x"     '+workspace/delete)
+      :desc "Restart Emacs"           :leader "qr"    'doom/restart
+      :desc "Restart Emacs & Restore" :leader "qR"    'doom/restart-and-restore)
 
 ;; DOUBLE SPACES
 (map! :desc "Beacon"              :leader "SPC tB" 'beacon-mode

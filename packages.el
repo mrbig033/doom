@@ -53,6 +53,7 @@
 (package! clipmon)
 (package! delight)
 (package! olivetti)
+(package! eyebrowse)
 (package! super-save)
 (package! hl-sentence)
 (package! fountain-mode)

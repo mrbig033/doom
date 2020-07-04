@@ -27,8 +27,8 @@
       "C-c C-o"                   'org-open-at-point-global
       "C-c c"                     'evil-record-macro
       "C-c e"                     'my-force-evil-mode
-      "M-q"                       '+workspace:switch-previous
-      "M-w"                       '+workspace:switch-next
+      "M-q" 'eyebrowse-prev-window-config
+      "M-w" 'eyebrowse-next-window-config
       :desc "Caps Lock" "C-c SPC" 'caps-lock-mode
       :nvig "M-2"                 'evil-execute-macro
       :nvig "C-2"                 'evil-record-macro
