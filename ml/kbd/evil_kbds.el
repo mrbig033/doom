@@ -11,7 +11,6 @@
       :desc "Emacs State"       :n "C-c z"    'evil-emacs-state
       :desc "Fold Toggle"       :n "TAB"      '+fold/toggle
       :desc "Forw Word End"     :n "g#"       'evil-forward-word-end
-      :desc "Ignore"            :n "C-z"      'ignore
       :desc "Delete Frame"      :n "Q"        'my-delete-frame
       :desc "Cool Moves"        :n "gh"       'hydra-cool-moves/body
       :desc "Evil Set Marker"   :n "gm"       'evil-set-marker
@@ -31,9 +30,16 @@
       :desc "Yas Expand"          :i "M-e" 'yas-expand
       :desc "Kill Line Backwards" :i "C-u" 'my-backward-kill-line)
 
+;; EMACS STATE
+(map! :after evil
+      :desc "Force Normal State"   :e "<escape>" 'evil-normal-state
+      :desc "Kill Line Backwards"  :e "C-u"      'my-backward-kill-line
+      :desc "Kill Word Backwards"  :e "C-w"      'backward-kill-word
+      :desc "Kill Char Backwards"  :e "C-h"      'delete-backward-char)
+
 ;; MULTIPLE STATES
 (map! :after evil
-      :desc "Force Normal State"   :e "<escape>" 'evil-force-normal-state
+
       :desc "Align Regexp"         :v "C-c a"    'align-regexp
       :desc "Capitalize Region"    :v "gt"       'capitalize-region
       :desc "End of Visual Line"   :nv "ge"      'evil-end-of-visual-line

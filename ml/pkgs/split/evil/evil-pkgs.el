@@ -1,13 +1,14 @@
 (use-package! evil
   :init
-  (add-hook 'evil-insert-state-exit-hook 'expand-abbrev)
+  (add-hook! 'evil-insert-state-entry-hook #'evil-emacs-state)
+  (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
   :custom
+  (evil-move-cursor-back nil)
   (evil-jumps-cross-buffers t)
   (evil-visualstar/persistent t)
   (+evil-want-o/O-to-continue-comments nil)
-
-  :config  
-
+  (evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
+  :config
   (defun my-open-two-lines ()
     (interactive)
     (end-of-line)

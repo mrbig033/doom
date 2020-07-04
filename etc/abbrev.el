@@ -2,7 +2,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("chao" "chão" nil :count 6)
-    ("nao" "não" nil :count 18)
+    ("nao" "não" nil :count 19)
    ))
 
 (define-abbrev-table 'markdown-mode-abbrev-table
@@ -70,8 +70,9 @@
     ("dao" "dão" nil :count 0)
     ("descricao" "descrição" nil :count 2)
     ("dialogos" "diálogos" nil :count 1)
+    ("dinamica" "dinâmica" nil :count 0)
     ("direcionalo" "direcioná-lo" nil :count 0)
-    ("eh" "é" nil :count 18)
+    ("eh" "é" nil :count 20)
     ("espacosa" "espaciosa" nil :count 0)
     ("espreguica" "espreguiça" nil :count 0)
     ("esqualido" "esquálido" nil :count 0)
@@ -80,6 +81,7 @@
     ("exl" "* External Links" nil :count 1)
     ("exoticos" "exóticos" nil :count 0)
     ("funcionalides" "funcionalidades" nil :count 0)
+    ("garantindolhe" "garantindo-lhe" nil :count 0)
     ("havera" "haverá" nil :count 0)
     ("indetectaveis" "indetectáveis" nil :count 0)
     ("inl" "* Internal Links" nil :count 1)
@@ -90,7 +92,7 @@
     ("mae" "mãe" nil :count 0)
     ("mansao" "mansão" nil :count 0)
     ("mao" "mão" nil :count 1)
-    ("mariana" "Mariana" nil :count 16)
+    ("mariana" "Mariana" nil :count 22)
     ("metodo" "método" nil :count 0)
     ("oculos" "óculos" nil :count 0)
     ("opcao" "opção" nil :count 0)
@@ -117,8 +119,10 @@
     ("sanitario" "sanitário" nil :count 0)
     ("sao" "são" nil :count 3)
     ("satisfatorio" "satisfatório" nil :count 0)
+    ("seguranca" "segurança" nil :count 0)
     ("serah" "será" nil :count 0)
-    ("situacao" "situação" nil :count 0)
+    ("sergio" "sérgio" nil :count 3)
+    ("situacao" "situação" nil :count 1)
     ("so" "só" nil :count 1)
     ("sofas" "sofás" nil :count 0)
     ("tambem" "também" nil :count 1)
