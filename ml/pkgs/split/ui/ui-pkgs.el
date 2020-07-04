@@ -134,6 +134,7 @@
              (org-brain-visualize-mode "[brain]" "Org-brain Visualize")
              (messages-buffer-mode "[msg]" "Messages")
              (scratch-lisp-mode "[scl]" "scratch-lisp")
+             (fountain-mode "[foun]" "Fountain")
              (markdown-mode "[md]" "markdown")
              (sh-mode "" "Shell-script [bash]")
              (special-mode "[spe]" "special")
