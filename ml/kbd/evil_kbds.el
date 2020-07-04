@@ -8,8 +8,12 @@
       :desc "Cool Par Forw"     :n "gsp"      'cool-moves-paragraph-forward
       :desc "Cool Word Backw"   :n "C-S-p"    'cool-moves-word-backwards
       :desc "Cool Word Forw"    :n "C-S-n"    'cool-moves-word-forward
-      :desc "Emacs State"       :n "C-c z"    'evil-emacs-state
       :desc "Fold Toggle"       :n "TAB"      '+fold/toggle
+      :desc "Insert to Emacs"   :n "i"        'evil-emacs-state
+      :desc "Append to Emacs"   :n "a"        'my-append-to-emacs-state
+      :desc "Append Line Emacs" :n "A"       'my-append-line-to-emacs-state
+      :desc "Open Below to Emacs" :n "o"       'my-open-below-to-emacs-state
+      :desc "Open Abov to Emacs" :n "O"       'my-open-above-to-emacs-state
       :desc "Forw Word End"     :n "g#"       'evil-forward-word-end
       :desc "Delete Frame"      :n "Q"        'my-delete-frame
       :desc "Cool Moves"        :n "gh"       'hydra-cool-moves/body
@@ -28,6 +32,10 @@
       :desc "Next Line"           :i "C-n" 'next-line
       :desc "Previous Line"       :i "C-p" 'previous-line
       :desc "Yas Expand"          :i "M-e" 'yas-expand
+      "M-u" 'yas-insert-snippet
+      "M-y" 'counsel-yank-pop
+      "C-s" 'counsel-grep-or-swiper
+      "C-." 'counsel-M-x
       :desc "Kill Line Backwards" :i "C-u" 'my-backward-kill-line)
 
 ;; EMACS STATE
@@ -35,7 +43,7 @@
       :desc "Force Normal State"   :e "<escape>" 'evil-normal-state
       :desc "Kill Line Backwards"  :e "C-u"      'my-backward-kill-line
       :desc "Kill Word Backwards"  :e "C-w"      'backward-kill-word
-      :desc "Yas Expand"           :e   "M-e"     'yas-expand
+      :desc "Yas Expand"           :e   "M-e"    'yas-expand
       :desc "Kill Char Backwards"  :e "C-h"      'delete-backward-char)
 
 ;; MULTIPLE STATES
