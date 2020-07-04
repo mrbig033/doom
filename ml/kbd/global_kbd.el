@@ -43,8 +43,7 @@
  "C-c b"  'org-brain-prefix-map
  "M-s"    'my-last-buffer
  "M-,"    'previous-buffer
- "M-."    'next-buffer
- "C-S-s"  'evil-switch-to-windows-last-buffer)
+ "M-."    'next-buffer)
 
 (general-define-key
  :keymaps 'override
@@ -70,5 +69,4 @@
  :states '(normal)
  "çc"       '+popup/close-all
  "zi"       '+fold/open-all
- "C-k"      'kill-line
  "gr"       'my-evil-sel-to-end)
