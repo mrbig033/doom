@@ -5,7 +5,8 @@
 
 (add-hook 'doom-after-init-modules-hook (lambda ()
                                           (mapc 'load (file-expand-wildcards
-                                                       "/Users/davi/.doom.d/ml/kbd/init/*.el"))))
+                                                       "/Users/davi/.doom.d/ml/kbd/init/*.el"))
+                                          (eyebrowse-mode t)))
 
 (add-hook 'doom-first-file-hook (lambda ()
                                   (mapc 'load (file-expand-wildcards

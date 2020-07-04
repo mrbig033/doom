@@ -1,13 +1,12 @@
-(map! :after eyebrowse
-      :desc "1"               :leader "1"     'eyebrowse-switch-to-window-config-1
-      :desc "2"               :leader "2"     'eyebrowse-switch-to-window-config-2
-      :desc "3"               :leader "3"     'eyebrowse-switch-to-window-config-3
-      :desc "4"               :leader "4"     'eyebrowse-switch-to-window-config-4
-      :desc "New Workspace"   :leader "v"     'eyebrowse-create-window-config
-      :desc "Close Workspace" :leader "x"     'eyebrowse-close-window-config)
-
-
-
+(map! "M-q" 'eyebrowse-prev-window-config
+      "M-w" 'eyebrowse-next-window-config
+      :desc "1"                :leader "1"     'eyebrowse-switch-to-window-config-1
+      :desc "2"                :leader "2"     'eyebrowse-switch-to-window-config-2
+      :desc "3"                :leader "3"     'eyebrowse-switch-to-window-config-3
+      :desc "4"                :leader "4"     'eyebrowse-switch-to-window-config-4
+      :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
+      :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
+      :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config)
 
 ;; PROJECTILE LEADER
 (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
