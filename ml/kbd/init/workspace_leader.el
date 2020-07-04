@@ -10,10 +10,7 @@
 
 ;; PROJECTILE LEADER
 (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
-      :desc "Add to Treemacs"         :leader "pA" #'treemacs-add-and-display-current-project
-      :desc "Browse project"          :leader "p." #'+default/browse-project
-      :desc "Browse other"            :leader "p>" #'doom/browse-in-other-project
-      :desc "Run cmd in root"         :leader "p!" #'projectile-run-shell-command-in-root
+      :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
       :desc "Add project"             :leader "pa" #'projectile-add-known-project
       :desc "Switch to buffer"        :leader "pb" #'projectile-switch-to-buffer
       :desc "Compile"                 :leader "pc" #'projectile-compile-project
@@ -23,15 +20,26 @@
       :desc "Edit .dir-locals"        :leader "pe" #'projectile-edit-dir-locals
       :desc "Find file"               :leader "pf" #'projectile-find-file
       :desc "Find file in other"      :leader "pF" #'doom/find-file-in-other-project
+      :desc "Find file dwim"          :leader "pw" #'projectile-find-file-dwim
+      :desc "Find file in dir"        :leader "py" #'projectile-find-file-in-directory
       :desc "Config project"          :leader "pg" #'projectile-configure-project
       :desc "Invalidate cache"        :leader "pi" #'projectile-invalidate-cache
       :desc "Kill buffers"            :leader "pk" #'projectile-kill-buffers
       :desc "Find other file"         :leader "po" #'projectile-find-other-file
       :desc "Switch project"          :leader "pp" #'projectile-switch-project
       :desc "Recent Files"            :leader "pr" #'projectile-recentf
-      :desc "Run project"             :leader "pR" #'projectile-run-project
+      :desc "Replace"                 :leader "pR" #'projectile-replace
+      :desc "Run project"             :leader "pu" #'projectile-run-project
       :desc "Save buffers"            :leader "ps" #'projectile-save-project-buffers
-      :desc "List todos"              :leader "pt" #'magit-todos-list
-      :desc "Test project"            :leader "pT" #'projectile-test-project
-      :desc "Scratch buffer"          :leader "px" #'doom/open-project-scratch-buffer
-      :desc "Switch to scratch"       :leader "pX" #'doom/switch-to-project-scratch-buffer)
+      :desc "Test project"            :leader "pT" nil
+      ;; :desc "Browse other"            :leader "p>" #'doom/browse-in-other-project
+      ;; :desc "Run cmd in root"         :leader "p!" #'projectile-run-shell-command-in-root
+      ;; :desc "Scratch buffer"          :leader "px" #'doom/open-project-scratch-buffer
+      ;; :desc "Switch to scratch"       :leader "pX" #'doom/switch-to-project-scratch-buffer
+      :desc "Browse other"            :leader "p>" nil
+      :desc "Run cmd in root"         :leader "p!" nil
+      :desc "Scratch buffer"          :leader "px" nil
+      :desc "Switch to scratch"       :leader "pX" nil
+      :desc "Browse project"          :leader "p." nil
+      :desc "Browse project"          :leader "pB" #'+default/browse-project
+      )
