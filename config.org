@@ -1437,36 +1437,29 @@ is already narrowed."
   :custom
   (projectile-track-known-projects-automatically nil)
   :config
-  ;; PROJECTILE LEADER
-  (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
-        :desc "Config project"          :leader "pG" #'projectile-configure-project
-        :desc "Add project"             :leader "pa" #'projectile-add-known-project
-        :desc "Switch to buffer"        :leader "pb" #'projectile-switch-to-buffer
-        :desc "Compile"                 :leader "pc" #'projectile-compile-project
-        :desc "Repeat command"          :leader "pC" #'projectile-repeat-last-command
-        :desc "Remove project"          :leader "pd" #'projectile-remove-known-project
-        :desc "Discover"                :leader "pD" #'+default/discover-projects
-        :desc "Edit .dir-locals"        :leader "pe" #'projectile-edit-dir-locals
-        :desc "Find file"               :leader "pf" #'projectile-find-file
-        :desc "Find file in other"      :leader "pF" #'doom/find-file-in-other-project
-        :desc "Find file dwim"          :leader "pw" #'projectile-find-file-dwim
-        :desc "Find file in dir"        :leader "py" #'projectile-find-file-in-directory
-        :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
-        :desc "Invalidate cache"        :leader "pi" #'projectile-invalidate-cache
-        :desc "Kill buffers"            :leader "pk" #'projectile-kill-buffers
-        :desc "Find other file"         :leader "po" #'projectile-find-other-file
-        :desc "Switch project"          :leader "pp" #'projectile-switch-project
-        :desc "Recent Files"            :leader "pr" #'projectile-recentf
-        :desc "Replace"                 :leader "pR" #'projectile-replace
-        :desc "Run project"             :leader "pu" #'projectile-run-project
-        :desc "Save buffers"            :leader "ps" #'projectile-save-project-buffers
-        :desc "Browse project"          :leader "pB" #'+default/browse-project
-        :desc "Test project"            :leader "pT" nil
-        :desc "Browse other"            :leader "p>" nil
-        :desc "Run cmd in root"         :leader "p!" nil
-        :desc "Scratch buffer"          :leader "px" nil
-        :desc "Switch to scratch"       :leader "pX" nil
-        :desc "Browse project"          :leader "p." nil))
+  (map! :desc "Projectile Ag"         :n ".g" #'counsel-projectile-ag
+        :desc "Config project"          :n ".G" #'projectile-configure-project
+        :desc "Add project"             :n ".a" #'projectile-add-known-project
+        :desc "Switch to buffer"        :n ".b" #'projectile-switch-to-buffer
+        :desc "Compile"                 :n ".c" #'projectile-compile-project
+        :desc "Repeat command"          :n ".C" #'projectile-repeat-last-command
+        :desc "Remove project"          :n ".d" #'projectile-remove-known-project
+        :desc "Discover"                :n ".D" #'+default/discover-projects
+        :desc "Edit .dir-locals"        :n ".e" #'projectile-edit-dir-locals
+        :desc "Find file"               :n ".f" #'projectile-find-file
+        :desc "Find file in other"      :n ".F" #'doom/find-file-in-other-project
+        :desc "Find file dwim"          :n ".w" #'projectile-find-file-dwim
+        :desc "Find file in dir"        :n ".y" #'projectile-find-file-in-directory
+        :desc "Add to Treemacs"         :n ".t" #'treemacs-add-and-display-current-project
+        :desc "Invalidate cache"        :n ".i" #'projectile-invalidate-cache
+        :desc "Kill buffers"            :n ".k" #'projectile-kill-buffers
+        :desc "Find other file"         :n ".o" #'projectile-find-other-file
+        :desc "Switch project"          :n ".p" #'projectile-switch-project
+        :desc "Recent Files"            :n ".r" #'projectile-recentf
+        :desc "Replace"                 :n ".R" #'projectile-replace
+        :desc "Run project"             :n ".u" #'projectile-run-project
+        :desc "Save buffers"            :n ".s" #'projectile-save-project-buffers
+        :desc "Browse project"          :n ".B" #'+default/browse-project))
 #+end_src
 *** Super Save
 [[file:packages.el::package! super-save][Link]]
