@@ -37,29 +37,31 @@
 
 (general-define-key
  :keymaps 'override
- :states '(normal visual insert emacs)
+ :states  '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
  "M-h"    'windmove-left
  "M-l"    'windmove-right
  "C-j"    'treemacs-select-window
- "C-c b" 'org-brain-prefix-map
+ "C-c b"  'org-brain-prefix-map
  "M-s"    'my-last-buffer
- "C-S-s"    'evil-switch-to-windows-last-buffer)
+ "M-,"    'previous-buffer
+ "M-."    'next-buffer
+ "C-S-s"  'evil-switch-to-windows-last-buffer)
 
 (general-define-key
  :keymaps 'override
- :states '(normal visual)
- "L"    'next-buffer
- "H"    'previous-buffer)
+ :states  '(normal visual)
+ "L"      'projectile-next-project-buffer
+ "H"      'projectile-previous-project-buffer)
 
 (general-define-key
  :keymaps 'override
- :states '(insert)
- "C-k"      'kill-line
- "C-d"      'delete-char
- "C-h"      'delete-backward-char
- "C-w"      'backward-kill-word)
+ :states  '(insert)
+ "C-k"    'kill-line
+ "C-d"    'delete-char
+ "C-h"    'delete-backward-char
+ "C-w"    'backward-kill-word)
 
 (general-define-key
  :keymaps 'override
