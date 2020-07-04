@@ -55,4 +55,11 @@
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
 
-
+(map! :after evil-org
+      :map (evil-org-mode-map)
+            :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
+            :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
+            :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
+            :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
+            :desc "Open Above to Emacs" :n "O"        'my-open-above-to-emacs-state
+            :desc "Kill Line to Emacs"  :n "C-k"      'my-kill-line-to-emacs-state)
