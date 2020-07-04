@@ -273,4 +273,7 @@
       (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
 
 (fset 'my-dup-par
+      (kmacro-lambda-form [?y ?a ?p ?\} escape ?p] 0 "%d"))
+
+(fset 'my-dup-inner-par
       (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
