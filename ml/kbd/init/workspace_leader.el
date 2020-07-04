@@ -5,12 +5,14 @@
       :desc "Del Session"       :leader "TAB x"   '+workspace/kill-session
       :desc "Del WS"            :leader "TAB d"   '+workspace/delete
       :desc "Display"           :leader "TAB TAB" '+workspace/display
-      :desc "Last WS"           :leader "TAB l"   '+workspace/other
+      :desc "Last WS"           :leader "TAB o"   '+workspace/other
+      :desc "Load State"        :leader "TAB l"   'persp-load-state-from-file
       :desc "Load WS"           :leader "TAB L"   '+workspace/load
       :desc "+WS"               :leader "TAB n"   '+workspace/new
       :desc "+Named WS"         :leader "TAB N"   'persp-add-new
       :desc "Add Buffer"        :leader "TAB a"   'persp-add-buffer
       :desc "Add Buffer Regex"  :leader "TAB A"   'persp-add-buffers-by-regexp
+      :desc "Persp Mode"        :leader "TAB m"   'persp-mode
       :desc "Next WS"           :leader "TAB ]"   '+workspace/switch-right
       :desc "Prev WS"           :leader "TAB ["   '+workspace/switch-left
       :desc "Rename WS"         :leader "TAB r"   '+workspace/rename
