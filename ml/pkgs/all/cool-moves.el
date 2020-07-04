@@ -1,1 +1,0 @@
-/Users/davi/.doom.d/ml/pkgs/split/misc/cool-moves.el

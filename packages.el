@@ -57,7 +57,6 @@
 (package! hl-sentence)
 (package! fountain-mode)
 (package! evil-swap-keys)
-(package! evil-god-state)
 (package! artbollocks-mode)
 (package! google-translate)
 (package! electric-operator)
@@ -72,6 +71,7 @@
 (package! org2blog :disable t)
 (package! org-brain :disable t)
 (package! vimrc-mode :disable t)
+(package! evil-god-state :disable t)
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia") :disable t)
 
 (package! evil-lion :disable t)

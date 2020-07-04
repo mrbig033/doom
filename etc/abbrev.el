@@ -1,4 +1,10 @@
 ;;-*-coding: utf-8;-*-
+(define-abbrev-table 'emacs-lisp-mode-abbrev-table
+  '(
+    ("cot" ";;;; ;;;;" nil :count 1)
+    ("head" ";;;; * " nil :count 1)
+   ))
+
 (define-abbrev-table 'global-abbrev-table
   '(
     ("chao" "chão" nil :count 6)

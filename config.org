@@ -2,12 +2,19 @@
 #+STARTUP: overview
 
 * Init
-** after! Commands
+** after! and hooks
 #+begin_src emacs-lisp
 (after! evil
-  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)
-         ;; (evil-better-visual-line-on)
-         ))
+  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
+  (evil-better-visual-line-on))
+
+(after! text-mode
+  (load "~/.doom.d/custom-lisp/auto-capitalize.el")
+  (load "~/.doom.d/custom-lisp/cool-moves.el")
+  (load "~/.doom.d/custom-lisp/only-insert.el"))
+
+(after! org
+  (setq! org-src-window-setup 'current-window))
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
@@ -18,7 +25,6 @@
 (after! undo-fu-session
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
-
 #+end_src
 ** Initial Settings
 #+begin_src emacs-lisp
@@ -55,14 +61,13 @@
 #+end_src
 ** Initial Loading
 #+begin_src emacs-lisp
-;; (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
+(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 #+end_src
-** Initia Modes
+** Initial Modes
 #+begin_src emacs-lisp
-(define-derived-mode scratch-lisp-mode
-  lisp-interaction-mode "scratch-lisp")
+(define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
 (global-subword-mode +1)
-(yas-global-mode -1)
+(toggle-frame-maximized)
 #+end_src
 * Keybindings
 ** Translations
@@ -313,7 +318,7 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
-      :desc "Org Babel Tagle":leader "et" 'org-babel-tangle)
+      :desc "Tangle Config"  :leader "et" 'my-tangle-config)
 #+end_src
 ** Global
 #+begin_src emacs-lisp
@@ -482,7 +487,7 @@
 
 (defun my-search-settings ()
   (interactive)
-  (counsel-ag nil "~/.doom.d/" "-f -G '.org'"))
+  (counsel-ag nil "~/.doom.d/.searches/" "-f -G '.org'"))
 
 (defun my-search-doom-help ()
   (interactive)
@@ -500,7 +505,7 @@
 (defun my-search-packages ()
   (interactive)
   (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/" "-G '.org'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'"))
 
 (defun my-buffer-name ()
   (interactive)
@@ -747,6 +752,12 @@
     (save-some-buffers t)
     (kill-current-buffer)))
 
+(defun my-tangle-config ()
+  (interactive)
+  (my-quiet-save-some-buffers)
+  (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
+  (message " config tangled"))
+
 (fset 'my-eval-paren-macro
       (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
 
@@ -923,6 +934,7 @@ is already narrowed."
           (while (re-search-forward "\n\n+" nil "move")
             (replace-match "\n")))))))
 #+end_src
+#+end_src
 * Packages
 ** Evil
 *** Evil Main
@@ -995,15 +1007,11 @@ is already narrowed."
 *** Org Main
 #+begin_src emacs-lisp
 (use-package! org
-  :after-call after-find-file
   :init
-  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  ;; (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
-  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
-  (add-hook 'org-mode-hook (lambda ()
-                             (org-indent-mode t)
-                             (flyspell-mode -1)
-                             (writegood-mode -1)))
+  (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
+  (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
+  (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
 
   (add-hook! 'org-cycle-hook
              #'org-cycle-hide-archived-subtrees
@@ -1088,7 +1096,6 @@ is already narrowed."
   (org-src-fontify-natively nil)
   (org-src-tab-acts-natively nil)
   (org-src-preserve-indentation t)
-  (org-src-window-setup 'current-window)
   (org-src-ask-before-returning-to-edit-buffer nil)
 
   (org-capture-templates
@@ -1113,7 +1120,7 @@ is already narrowed."
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
 #+end_src
-  *** Org Pomodoro
+*** Org Pomodoro
 #+begin_src emacs-lisp
 (use-package! org-pomodoro
   :after org
@@ -1631,8 +1638,7 @@ is already narrowed."
 (use-package! text-mode
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
-  (remove-hook 'text-mode-hook 'hl-line-mode)
-
+  (remove-hook! 'text-mode-hook #'writegood-mode #'flyspell-mode #'hl-line-mode)
   :config
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)

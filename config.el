@@ -2,6 +2,13 @@
   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
   (evil-better-visual-line-on))
 
+(after! text-mode
+  (load "~/.doom.d/custom-lisp/auto-capitalize.el")
+  (load "~/.doom.d/custom-lisp/cool-moves.el")
+  (load "~/.doom.d/custom-lisp/only-insert.el"))
+;; (after! (:or text-mode prog-mode)
+(after! org
+  (setq! org-src-window-setup 'current-window))
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
@@ -27,7 +34,6 @@
        ns-right-option-modifier 'meta
        iedit-toggle-key-default "C-x ;"
        display-line-numbers-type nil
-       org-src-window-setup 'current-window
        initial-major-mode 'fundamental-mode
        initial-buffer-choice t
        +word-wrap-extra-indent 'single
@@ -46,10 +52,9 @@
 
 (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 
-(define-derived-mode scratch-lisp-mode
-  lisp-interaction-mode "scratch-lisp")
+(define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
 (global-subword-mode +1)
-(yas-global-mode -1)
+(toggle-frame-maximized)
 
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
@@ -446,7 +451,7 @@
 
 (defun my-search-settings ()
   (interactive)
-  (counsel-ag nil "~/.doom.d/" "-f -G '.org'"))
+  (counsel-ag nil "~/.doom.d/.searches/" "-f -G '.org'"))
 
 (defun my-search-doom-help ()
   (interactive)
@@ -464,7 +469,7 @@
 (defun my-search-packages ()
   (interactive)
   (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/" "-G '.org'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'"))
 
 (defun my-buffer-name ()
   (interactive)
@@ -920,7 +925,7 @@ is already narrowed."
 
 (use-package! org
   :init
-  (remove-hook! 'org-mode-hook 'flyspell-mode 'writegood-mode)
+  (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
   (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
@@ -1412,8 +1417,7 @@ is already narrowed."
 (use-package! text-mode
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
-  (remove-hook 'text-mode-hook 'hl-line-mode)
-
+  (remove-hook! 'text-mode-hook #'writegood-mode #'flyspell-mode #'hl-line-mode)
   :config
   (defun my-text-mode-hooks ()
     (electric-operator-mode +1)

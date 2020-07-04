@@ -117,7 +117,6 @@
 
 (require 'cl)				; find, minusp
 
-
 ;; User options:
 
 (defvar auto-capitalize nil

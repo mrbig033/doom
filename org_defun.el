@@ -8,11 +8,6 @@
                                 (wl . wl)))))
     (org-open-at-point)))
 
-;; MAKES SOURCE BUFFER NAMES NICER
-;; NOT WORKING ON DOOM FOR SOME REASOM
-;; (defun org-src--construct-edit-buffer-name (org-buffer-name)
-;;   (concat "[S] "org-buffer-name""))
-
 (defun my-org-key-translation ()
   "Custom `org-mode' behaviours."
   ;; Buffer-local key translation from "`" to "~".
