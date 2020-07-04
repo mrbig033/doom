@@ -46,7 +46,7 @@
 (define-derived-mode scratch-lisp-mode
   lisp-interaction-mode "scratch-lisp")
 (global-subword-mode +1)
-(yas-global-mode -1)
+;; (yas-global-mode -1)
 
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
