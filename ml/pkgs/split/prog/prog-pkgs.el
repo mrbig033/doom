@@ -26,7 +26,7 @@
   (:keymaps                    '(company-active-map)
    "M-e"                       'my-company-yasnippet
    "C-y"                       'company-yasnippet
-   "<return>"                  'company-complete-selection
+   "<return>"                  nil
    "C-m"                       'company-complete-selection
    "M-q"                       'company-complete-selection
    "M-w"                       'my-company-comp-with-paren
