@@ -82,42 +82,42 @@
 ;; Source: https://bit.ly/2VJWrlf
 ;; (map! :after org-agenda
 ;;       :map org-agenda-mode-map)
-(map! (:map (pabbrev-mode-map pabbrev-select-mode-map)
-       :i "C-l" 'pabbrev-expand-maybe)
-
-      (:map helpful-mode-map
+(map! (:after helpful-mode
+       :map helpful-mode-map
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
-      (:map (org-mode-map evil-org-mode-map prog-mode-map)
+      (:after org-mode
+       :map (org-mode-map evil-org-mode-map prog-mode-map)
        :nvig "C-c C-s" 'org-emphasize
        "C-c o" 'counsel-outline
        :n "<backspace>" 'org-edit-special
        :nv "<insert>" 'org-insert-link)
 
-      (:map (markdown-mode-map)
+      (:after markdown-mode
+       :map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt
        "C-c ." 'my-engine-dic-informal-rimas)
 
-      (:map (org-brain-prefix-map)
-       "D" 'org-brain-add-entry
-       "E" 'my-brain-erase-history)
-
-      (:map (flyspell-mode-map)
+      (:after flyspell-mode
+       :map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev
        :n "z-" 'flyspell-correct-word)
 
-      (:map (messages-buffer-mode-map)
+      (:after messages-buffer-mode
+       :map (messages-buffer-mode-map)
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:map (emacs-lisp-mode-map
+      (:after emacs-lisp-mode
+       :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
              conf-mode-map)
        :n "<escape>" 'my-quiet-save-buffer)
 
-      (:map (snippet-mode-map)
+      (:after snippet-mode
+       :map (snippet-mode-map)
        :n "<escape>" 'ignore
        :n "q" 'quit-window)
 
@@ -135,7 +135,8 @@
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
 
-(map! :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
+(map! :after evil-mode
+      :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
       :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
       :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
       :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
@@ -197,7 +198,8 @@
   [remap org-edit-special])
 
 ;; LOCAL LEADER
-(map! :map org-mode-map
+(map! :after org-mode
+      :map org-mode-map
       :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body
       :desc "Edit Special" :localleader "m" 'org-edit-special)
 
@@ -212,7 +214,7 @@
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
       :desc "Count Words"             :leader "cw"    'my-artbollocks-count-words
-      :desc "Count All"               :leader "cW"    'count-words
+      :desc "Count All Words"         :leader "cW"    'count-words
       :desc "Delete Window"           :leader "0"     'delete-window
       :desc "Describe Variable"       :leader "."     'counsel-describe-variable
       :desc "Dic. Info. AP"           :leader "si"    'engine/search-dic-infor-ap
@@ -358,7 +360,6 @@
 #+begin_src emacs-lisp
 (general-define-key
  :keymaps 'override
-
  :states  '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
