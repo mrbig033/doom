@@ -97,9 +97,6 @@
        :n "<backspace>" 'org-edit-special
        :nv "<insert>" 'org-insert-link)
 
-      (:map (+doom-dashboard-mode-map)
-       :e "q" 'quit-window)
-
       (:after markdown-mode
        :map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt-ap
@@ -394,6 +391,32 @@
  :keymaps 'override
  :states '(visual)
  "gr"    'my-eval-region)
+
+(map! :map (+doom-dashboard-mode-map)
+      :e "q"        'quit-window)
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'quit-window
+  [remap evil-ex-nohighlight])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'push-button
+  [remap evil-forward-char])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'ignore
+  [remap evil-backward-char])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'backward-button
+  [remap my-goto-scratch-buffer]
+  [remap evil-better-visual-line-previous-line]
+  [remap +doom-dashboard/backward-button])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'forward-button
+  [remap evil-better-visual-line-next-line]
+  [remap +doom-dashboard/forward-button])
 #+end_src
 
 ** Evil Kbds

@@ -6,9 +6,13 @@
   (load "~/.doom.d/custom-lisp/auto-capitalize.el")
   (load "~/.doom.d/custom-lisp/cool-moves.el")
   (load "~/.doom.d/custom-lisp/only-insert.el"))
-;; (after! (:or text-mode prog-mode)
+
 (after! org
   (setq! org-src-window-setup 'current-window))
+
+(after! prog
+  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
+
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
@@ -29,7 +33,7 @@
        auto-revert-verbose nil
        my-kbd "~/.doom.d/ml/kbd"
        trash-directory "~/.Trash"
-       use-package-always-defer nil
+       use-package-always-defer t
        ns-option-modifier 'meta
        ns-right-option-modifier 'meta
        iedit-toggle-key-default "C-x ;"
@@ -53,6 +57,7 @@
 (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 
 (define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
+(mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
 
@@ -64,10 +69,8 @@
 ;; Source: https://bit.ly/2VJWrlf
 ;; (map! :after org-agenda
 ;;       :map org-agenda-mode-map)
-(map! (:map (pabbrev-mode-map pabbrev-select-mode-map)
-       :i "C-l" 'pabbrev-expand-maybe)
-
-      (:map helpful-mode-map
+(map! (:after helpful-mode
+       :map helpful-mode-map
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
@@ -77,29 +80,30 @@
        :n "<backspace>" 'org-edit-special
        :nv "<insert>" 'org-insert-link)
 
-      (:map (markdown-mode-map)
-       "C-c ," 'my-engine-rhymit-pt
-       "C-c ." 'my-engine-dic-informal-rimas)
+      (:after markdown-mode
+       :map (markdown-mode-map)
+       "C-c ," 'my-engine-rhymit-pt-ap
+       "C-c ." 'my-engine-dic-infor-rimas-ap)
 
-      (:map (org-brain-prefix-map)
-       "D" 'org-brain-add-entry
-       "E" 'my-brain-erase-history)
-
-      (:map (flyspell-mode-map)
+      (:after flyspell-mode
+       :map (flyspell-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev
        :n "z-" 'flyspell-correct-word)
 
-      (:map (messages-buffer-mode-map)
+      (:after messages-buffer-mode
+       :map (messages-buffer-mode-map)
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:map (emacs-lisp-mode-map
+      (:after (:or prog-mode texto-mode)
+       :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
              conf-mode-map)
        :n "<escape>" 'my-quiet-save-buffer)
 
-      (:map (snippet-mode-map)
+      (:after snippet-mode
+       :map (snippet-mode-map)
        :n "<escape>" 'ignore
        :n "q" 'quit-window)
 
@@ -117,7 +121,8 @@
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
 
-(map! :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
+(map! :after evil-mode
+      :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
       :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
       :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
       :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
@@ -174,13 +179,9 @@
   [remap org-edit-special])
 
 ;; LOCAL LEADER
-(map! :map org-mode-map
-      :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body
-      :desc "Edit Special" :localleader "m" 'org-edit-special)
-
-;; LOCAL LEADER
-(map! :map (prog-mode-map emacs-lisp-mode-map)
-      :desc "Exit Org Src" :localleader "m" 'org-edit-src-exit)
+(map! :after org
+      :map org-mode-map
+      :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body)
 
 ;; OTHER LEADER KEYS
 (map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
@@ -189,6 +190,7 @@
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
       :desc "Count Words"             :leader "cw"    'my-artbollocks-count-words
+      :desc "Count All Words"         :leader "cW"    'count-words
       :desc "Delete Window"           :leader "0"     'delete-window
       :desc "Describe Variable"       :leader "."     'counsel-describe-variable
       :desc "Dic. Info. AP"           :leader "si"    'engine/search-dic-infor-ap
@@ -330,7 +332,6 @@
 
 (general-define-key
  :keymaps 'override
-
  :states  '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
@@ -364,6 +365,32 @@
  :keymaps 'override
  :states '(visual)
  "gr"    'my-eval-region)
+
+(map! :map (+doom-dashboard-mode-map)
+      :e "q"        'quit-window)
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'quit-window
+  [remap evil-ex-nohighlight])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'push-button
+  [remap evil-forward-char])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'ignore
+  [remap evil-backward-char])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'backward-button
+  [remap my-goto-scratch-buffer]
+  [remap evil-better-visual-line-previous-line]
+  [remap +doom-dashboard/backward-button])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'forward-button
+  [remap evil-better-visual-line-next-line]
+  [remap +doom-dashboard/forward-button])
 
 ;; NORMAL STATE
 (map! :desc "Evil Noh"            :n "<escape>" 'evil-ex-nohighlight
@@ -716,6 +743,12 @@
   (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
   (message " config tangled"))
 
+(defun my-tangle-restart ()
+  (interactive)
+  (my-quiet-save-some-buffers)
+  (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
+  (doom/restart-and-restore))
+
 (fset 'my-eval-paren-macro
       (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
 
@@ -891,7 +924,6 @@ is already narrowed."
             (replace-match "\n")))))))
 
 (use-package! evil
-  :demand t
   :init
   (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
   :custom
@@ -1038,7 +1070,6 @@ is already narrowed."
   (ox-extras-activate '(ignore-headlines)))
 
 (use-package! org-pomodoro
-  :after org
   :config
   (setq org-pomodoro-offset 1
         org-pomodoro-start-sound-args t
@@ -1055,7 +1086,6 @@ is already narrowed."
         org-pomodoro-format "p: %s"))
 
 (use-package! ranger
-  :demand t
   :init
   (setq ranger-deer-show-details nil)
   :custom
@@ -1673,7 +1703,6 @@ is already narrowed."
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-state-icon nil)
   (doom-modeline-buffer-encoding nil)
-  (doom-modeline-enable-word-count nil)
   (doom-modeline-env-enable-ruby nil)
   (doom-modeline-env-enable-perl nil)
   (doom-modeline-env-enable-rust nil)
@@ -2054,11 +2083,6 @@ is already narrowed."
         :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
         :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
 
-(use-package! avoid
-  :after-call after-find-file
-  :config
-  (mouse-avoidance-mode 'banish))
-
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
@@ -2132,16 +2156,4 @@ is already narrowed."
   :config
   (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
 
-(use-package! midnight
-  :after-call after-find-file
-  :custom
-  (midnight-period (* 1 60 60))
-  (clean-buffer-list-delay-general 1)
-  (clean-buffer-list-delay-special 1800)
-  (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
-  :config
-  (midnight-mode +1))
-
-(use-package! files
-  :init
-  (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
+(run-hooks 'doom-first-input-hook)
