@@ -5,16 +5,19 @@
 ** after! Commands
 #+begin_src emacs-lisp
 (after! evil
-  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
-
-(after! evil
-  (evil-better-visual-line-on))
+  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)
+         (evil-better-visual-line-on)))
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
 (after! apheleia
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
+
+(after! undo-fu-session
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
+  (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
+
 #+end_src
 ** Initial Settings
 #+begin_src emacs-lisp
@@ -51,7 +54,7 @@
 #+end_src
 ** Initial Loading
 #+begin_src emacs-lisp
-(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
+;; (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 #+end_src
 ** Initia Modes
 #+begin_src emacs-lisp
@@ -65,10 +68,6 @@
 #+begin_src emacs-lisp
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
-;; (define-key key-translation-map (kbd "s-8") (kbd "["))
-;; (define-key key-translation-map (kbd "s-9") (kbd "]"))
-;; (define-key key-translation-map (kbd "s-(") (kbd "{"))
-;; (define-key key-translation-map (kbd "s-)") (kbd "}"))
 #+end_src
 ** Local
 #+begin_src emacs-lisp
@@ -84,9 +83,10 @@
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
-      (:map (org-mode-map evil-org-mode-map)
+      (:map (org-mode-map evil-org-mode-map prog-mode-map)
        :nvig "C-c C-s" 'org-emphasize
        "C-c o" 'counsel-outline
+       :n "<backspace>" 'org-edit-special
        :nv "<insert>" 'org-insert-link)
 
       (:map (markdown-mode-map)
@@ -270,7 +270,9 @@
       :desc "Show Init Times" :leader "bi"  'my-show-init-times
       :desc "Raise Popup"     :leader "br"  '+popup/raise
       :desc "Kill Matching"   :leader "bt"  'doom/kill-matching-buffers
-      :desc "Show Major Mode" :leader "h M" 'my-show-major-mode)
+      :desc "Show Major Mode" :leader "h M" 'my-show-major-mode
+      :desc "Doom Newsr"      :leader "h N" 'doom/help-news
+      )
 
 ;; TEXT ;;
 (map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
@@ -344,12 +346,13 @@
       :nvig "M-2"                 'evil-execute-macro
       :nvig "C-2"                 'evil-record-macro
       :nvg "C-h e"                'describe-package
-      :nvg "C-h N"                'my-show-server-name)
+      :nvg "C-h n"                'my-show-server-name)
 #+end_src
 ** General
 #+begin_src emacs-lisp
 (general-define-key
  :keymaps 'override
+
  :states  '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
@@ -865,6 +868,60 @@
     (if (called-interactively-p 'any)
         (message "%s words" result))
     result))
+
+;; https://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+(defun my-narrow-or-widen-dwim (p)
+  "Widen if buffer is narrowed, narrow-dwim otherwise.
+With prefix P, don't widen, just narrow even if buffer
+is already narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((region-active-p)
+         (narrow-to-region (region-beginning)
+                           (region-end)))
+        ((derived-mode-p 'org-mode)
+         ;; `org-edit-src-code' is not a real narrowing
+         ;; command. Remove this first conditional if
+         ;; you don't want it.
+         (cond ((ignore-errors (org-edit-src-code) t)
+                (delete-other-windows))
+               ((ignore-errors (org-narrow-to-block) t))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'latex-mode)
+         (LaTeX-narrow-to-environment))
+        (t (narrow-to-defun))))
+
+;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
+(defun xah-clean-empty-lines ()
+  "Replace repeated blank lines to just 1."
+  (interactive)
+  (let ($begin $end)
+    (if (region-active-p)
+        (setq $begin (region-beginning) $end (region-end))
+      (setq $begin (point-min) $end (point-max)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (progn
+          (goto-char (point-min))
+          (while (re-search-forward "\n\n\n+" nil "move")
+            (replace-match "\n\n")))))))
+
+(defun my-clean-all-empty-lines ()
+  "Replace repeated blank lines to just 1."
+  (interactive)
+  (let ($begin $end)
+    (if (region-active-p)
+        (setq $begin (region-beginning) $end (region-end))
+      (setq $begin (point-min) $end (point-max)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (progn
+          (goto-char (point-min))
+          (while (re-search-forward "\n\n+" nil "move")
+            (replace-match "\n")))))))
 #+end_src
 * Packages
 ** Evil
@@ -938,12 +995,15 @@
 *** Org Main
 #+begin_src emacs-lisp
 (use-package! org
+  :after-call after-find-file
   :init
-  (remove-hook 'org-mode-hook 'flyspell-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   ;; (add-hook 'org-cycle-hook 'org-cycle-hide-drawers)
   (add-hook 'org-agenda-mode-hook 'hl-line-mode)
-  (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
+  (add-hook 'org-mode-hook (lambda ()
+                             (org-indent-mode t)
+                             (flyspell-mode -1)
+                             (writegood-mode -1)))
 
   (add-hook! 'org-cycle-hook
              #'org-cycle-hide-archived-subtrees
@@ -1044,7 +1104,6 @@
       "* %? %i" :prepend t)))
 
   :config
- 
   (advice-add 'org-edit-special :after #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
