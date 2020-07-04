@@ -17,6 +17,7 @@
        org-directory "~/org/"
        user-full-name "mrbig"
        confirm-kill-emacs nil
+       persp-switch-to-added-buffer t
        auto-revert-verbose nil
        my-kbd "~/.doom.d/ml/kbd"
        trash-directory "~/.Trash"
