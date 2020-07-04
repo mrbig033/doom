@@ -61,6 +61,7 @@
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
+(package! recursive-narrow)
 (package! evil-better-visual-line)
 (package! engine-mode :pin "e0910f1")
 
@@ -81,7 +82,6 @@
 (package! ivy-yasnippet :disable t)
 (package! evil-god-state :disable t)
 (package! evil-easymotion :disable t)
-(package! recursive-narrow :disable t)
 (package! evil-smartparens :disable t)
 (package! evil-vimish-fold :disable t)
 (package! unkillable-scratch :disable t)
