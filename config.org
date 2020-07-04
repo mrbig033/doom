@@ -97,6 +97,9 @@
        :n "<backspace>" 'org-edit-special
        :nv "<insert>" 'org-insert-link)
 
+      (:map (+doom-dashboard-mode-map)
+       :e "q" 'quit-window)
+
       (:after markdown-mode
        :map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt-ap
@@ -112,7 +115,7 @@
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:after (:or prog-mode texto mode)
+      (:after (:or prog-mode texto-mode)
        :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
@@ -946,7 +949,6 @@ is already narrowed."
 *** Evil Main
 #+begin_src emacs-lisp
 (use-package! evil
-  :demand t
   :init
   (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
   :custom
@@ -1129,7 +1131,6 @@ is already narrowed."
 *** Org Pomodoro
 #+begin_src emacs-lisp
 (use-package! org-pomodoro
-  :after org
   :config
   (setq org-pomodoro-offset 1
         org-pomodoro-start-sound-args t
@@ -1267,7 +1268,6 @@ is already narrowed."
 *** [[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Ranger]]
 #+begin_src emacs-lisp
 (use-package! ranger
-  :demand t
   :init
   (setq ranger-deer-show-details nil)
   :custom
@@ -2032,7 +2032,6 @@ is already narrowed."
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-state-icon nil)
   (doom-modeline-buffer-encoding nil)
-  (doom-modeline-enable-word-count nil)
   (doom-modeline-env-enable-ruby nil)
   (doom-modeline-env-enable-perl nil)
   (doom-modeline-env-enable-rust nil)
@@ -2516,7 +2515,6 @@ is already narrowed."
 *** Midnight :tno:
 #+begin_src emacs-lisp :tangle no
 (use-package! midnight
-  :after-call after-find-file
   :custom
   (midnight-period (* 1 60 60))
   (clean-buffer-list-delay-general 1)
@@ -2524,4 +2522,8 @@ is already narrowed."
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
+#+end_src
+* Final Cmd
+#+begin_src emacs-lisp
+(run-hooks 'doom-first-input-hook)
 #+end_src
