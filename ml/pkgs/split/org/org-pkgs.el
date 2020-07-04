@@ -48,7 +48,7 @@
   (org-drawers (quote ("properties" "logbook")))
   ;; (org-todo-keywords '((sequence "TODO(t)" "STRT(s!)" "|" "DONE(d!)")))
   (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
-  (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
+  ;; (org-babel-temporary-directory (concat user-emacs-directory "babel-temp"))
   (org-id-link-to-org-use-id t)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
