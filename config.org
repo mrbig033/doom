@@ -235,7 +235,8 @@
       :desc "Magit Stage & Commit"    :leader "g SPC" 'my-magit-stage-modified-and-commit
       :desc "Maximize Vertically"     :leader "ww"    'doom/window-maximize-vertically
       :desc "Narrow Dwin"             :leader "nn"    'recursive-narrow-or-widen-dwim
-      :desc "Widen to Center"         :leader "nw"    'my-widen-to-center
+      :desc "Widen to Center"         :leader "nw"    'recursive-widen
+      :desc "Widen to Center"         :leader "nW"    'my-widen-to-center
       :desc "Default Brwoser"         :leader "oB"    'browse-url-of-file
       :desc "org2blog"                :leader "ob"    'org2blog--hydra-main/body
       :desc "Def. Yank Pop"           :leader "iY"    '+default/yank-pop
