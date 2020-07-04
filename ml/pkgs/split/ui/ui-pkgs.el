@@ -142,6 +142,7 @@
              (python-mode "[py]" " python")
              (emacs-lisp-mode "[el]" "emacs-lisp")
              (lisp-interaction-mode "[lin]" "lisp interaction"))))
+
 (use-package! eyebrowse
   :custom
   (eyebrowse-wrap-around t)
@@ -150,6 +151,4 @@
   (eyebrowse-switch-back-and-forth t)
   (eyebrowse-mode-line-left-delimiter " [ ")
   (eyebrowse-mode-line-right-delimiter " ]  ")
-  (eyebrowse-mode-line-separator " | ")
-  :config
-  (eyebrowse-mode +1))
+  (eyebrowse-mode-line-separator " | "))
