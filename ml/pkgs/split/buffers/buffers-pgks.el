@@ -141,6 +141,9 @@
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
   :config
+
+  (advice-add 'dired-do-find-marked-files :after 'delete-other-windows)
+
   (defun my-ranger-olivetti ()
     (interactive)
     (setq-local olivetti-body-width '65)
