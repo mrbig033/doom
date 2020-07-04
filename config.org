@@ -2,8 +2,8 @@
 #+STARTUP: overview
 
 * Init
+** after! Commands
 #+begin_src emacs-lisp
-;;; * AFTER
 (after! evil
   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
 
@@ -15,8 +15,9 @@
 
 (after! apheleia
   (setf (alist-get 'black apheleia-formatters) '("black" "-l" "57" "-")))
-
-;;; * SETTINGS
+#+end_src
+** Initial Settings
+#+begin_src emacs-lisp
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        dumb-jump-aggressive t
@@ -45,14 +46,24 @@
        doom-unicode-font (font-spec :family "Menlo" :size 19)
        doom-variable-pitch-font (font-spec :family "Input Mono")
        doom-localleader-key "m")
-(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+#+end_src
+** Initial Loading
+#+begin_src emacs-lisp
+(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
+#+end_src
+** Initia Modes
+#+begin_src emacs-lisp
+(define-derived-mode scratch-lisp-mode
+  lisp-interaction-mode "scratch-lisp")
+(global-subword-mode +1)
+(yas-global-mode -1)
 #+end_src
 * Keybindings
 ** Translations
 #+begin_src emacs-lisp
-(define-key key-translation-map (kbd "ÀÜ") (kbd "^"))
+(define-key key-translation-map (kbd "^") (kbd "^"))
 (define-key key-translation-map (kbd "ÀÜ") (kbd "^"))
 (define-key key-translation-map (kbd "¬∫") (kbd "-"))
 (define-key key-translation-map (kbd "s-8") (kbd "["))
@@ -60,6 +71,8 @@
 (define-key key-translation-map (kbd "s-(") (kbd "{"))
 (define-key key-translation-map (kbd "s-)") (kbd "}"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
+^
+ˆ
 #+end_src
 ** Local
 #+begin_src emacs-lisp
@@ -353,10 +366,14 @@
 
 (general-define-key
  :keymaps 'override
+ :states  '(normal)
+ "gr"      'my-evil-sel-to-end)
+
+(general-define-key
+ :keymaps 'override
  :states  '(normal visual)
  "L"      'projectile-next-project-buffer
  "H"      'projectile-previous-project-buffer)
-
 (general-define-key
  :keymaps 'override
  :states  '(insert)
@@ -417,7 +434,6 @@
 (map! :desc "Align Regexp"         :v "C-c a"    'align-regexp
       :desc "Capitalize Region"    :v "gt"       'capitalize-region
       :desc "End of Visual Line"   :nv "ge"      'evil-end-of-visual-line
-      :desc "Sel to Line End"   :nv "gr"      'my-evil-sel-to-end
       :desc "Jump Backward"        :nv "M-o"     'better-jumper-jump-backward
       :desc "Jump Forward"         :nv "M-i"     'better-jumper-jump-forward
       :desc "Start of Visual Line" :nv "0"       'evil-beginning-of-visual-line
@@ -434,9 +450,8 @@
 #+end_src
 
 * Functions
+** Basic Functions
 #+begin_src emacs-lisp
-;;;; BASIC FUNCTIONS ;;;;
-
 (defun my-emacs-init-time ()
   (interactive)
   (let ((str
@@ -458,20 +473,16 @@
 (defun my-show-init-times ()
   (interactive)
   (message "Emacs: %s | Doom: %ss" (my-emacs-init-time) doom-init-time))
-
-;;;; IVY FUNCTIONS ;;;;
-
+#+end_src
+** Ivy Functions
+#+begin_src emacs-lisp
 (defun my-search-ag-brain ()
   (interactive)
   (counsel-ag nil org-brain-path "--heading --filename --follow --smart-case --org"))
 
 (defun my-search-settings ()
   (interactive)
-  (counsel-ag nil "~/.doom.d/ml/" "-f -G '.el'"))
-
-;; (defun my-search-kbds ()
-;;   (interactive)
-;;   (counsel-ag nil "~/.doom.d/ml/kbd/" "-G '.el'"))
+  (counsel-ag nil "~/.doom.d/" "-f -G '.el'"))
 
 (defun my-search-doom-help ()
   (interactive)
@@ -489,7 +500,11 @@
 (defun my-search-packages ()
   (interactive)
   (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/ml/" "-G '.el'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/" "-G '.el'"))
+
+(defun my-buffer-name ()
+  (interactive)
+  (message (buffer-name)))
 
 (defun my-swiper-python-classes ()
   (interactive)
@@ -512,9 +527,9 @@
          (list
           (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
-
-;;; GOTO PLACES ;;;;
-
+#+end_src
+** Goto Functions
+#+begin_src emacs-lisp
 (defun my-goto-markdown ()
   (interactive)
   (find-file "~/.doom.d/.tmp/md.md"))
@@ -548,7 +563,9 @@
 (defun my-last-buffer ()
   (interactive)
   (switch-to-buffer nil))
-
+#+end_src
+** Editing Functions
+#+begin_src emacs-lisp
 (defun my-append-to-emacs-state ()
   (interactive)
   (evil-append 1)
@@ -664,7 +681,40 @@
     (comment-line 1))
   (backward-char 3)
   (evil-next-line 1))
-;;;; * EVAL
+
+(defun my-backward-paragraph-do-indentation ()
+  (interactive)
+  (evil-backward-paragraph 2)
+  (forward-to-indentation 1))
+
+(defun my-forward-paragraph-do-indentation ()
+  (interactive)
+  (evil-forward-paragraph 1)
+  (forward-to-indentation 1))
+
+(defun my-backward-kill-line (arg)
+  "kill arg lines backward."
+  (interactive "p")
+  (kill-line (- 1 arg)))
+
+(defun my-bash-shebang ()
+  (interactive)
+  (erase-buffer)
+  (insert "#!/usr/bin/env bash\n\n")
+  (sh-mode)
+  (sh-set-shell "bash")
+  (xah-clean-empty-lines)
+  (forward-to-indentation)
+  (evil-insert-state))
+
+(fset 'my-dup-par
+      (kmacro-lambda-form [?y ?a ?p ?\} escape ?p] 0 "%d"))
+
+(fset 'my-dup-inner-par
+      (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
+#+end_src
+** Eval Functions
+#+begin_src emacs-lisp
 (defun my-eval-buffer ()
   (interactive)
   (eval-buffer)
@@ -692,8 +742,15 @@
   (let ((inhibit-message t))
     (save-some-buffers t)
     (kill-current-buffer)))
-;;;; * REOPEN KILLED FILED
 
+(fset 'my-eval-paren-macro
+      (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
+
+(fset 'my-eval-paragraph-macro
+      (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
+#+end_src
+** Other Functions
+#+begin_src emacs-lisp
 (defvar killed-file-list nil
   "List of recently killed files.")
 
@@ -720,22 +777,6 @@
 (defun my-save-some-buffers ()
   (interactive)
   (save-some-buffers t 0))
-
-(defun my-backward-paragraph-do-indentation ()
-  (interactive)
-  (evil-backward-paragraph 2)
-  (forward-to-indentation 1))
-
-(defun my-forward-paragraph-do-indentation ()
-  (interactive)
-  (evil-forward-paragraph 1)
-  (forward-to-indentation 1))
-
-(defun my-backward-kill-line (arg)
-  "kill arg lines backward."
-  (interactive "p")
-  (kill-line (- 1 arg)))
-
 (defun my-copy-directory ()
   (interactive)
   (message (kill-new (abbreviate-file-name default-directory))))
@@ -762,13 +803,6 @@
       (cl-incf winner-undo-counter)	; starting at 1
       (when (and (winner-undo-this)
                  (not (window-minibuffer-p)))))))
-
-(defun my-doom/upgrade ()
-  "Run 'doom upgrade' then prompt to restart Emacs."
-  (interactive)
-  (doom--if-compile (format "%s -y -f upgrade" doom-bin)
-      (when (y-or-n-p "You must restart Emacs for the upgrade to take effect.\n\nRestart Emacs?")
-        (doom/restart-and-restore))))
 
 (defun my-rename-file-and-buffer ()
   "rename the current buffer and file it is visiting."
@@ -813,16 +847,6 @@
      (- (length buffer-list)
         (length (cl-remove-if-not #'buffer-live-p buffer-list))))))
 
-(defun my-bash-shebang ()
-  (interactive)
-  (erase-buffer)
-  (insert "#!/usr/bin/env bash\n\n")
-  (sh-mode)
-  (sh-set-shell "bash")
-  (xah-clean-empty-lines)
-  (forward-to-indentation)
-  (evil-insert-state))
-
 (defun my-force-evil-mode ()
   (interactive)
   (evil-mode +1)
@@ -840,18 +864,6 @@
     (if (called-interactively-p 'any)
         (message "%s words" result))
     result))
-
-(fset 'my-eval-paren-macro
-      (kmacro-lambda-form [?v ?a ?\( ?g ?r] 0 "%d"))
-
-(fset 'my-eval-paragraph-macro
-      (kmacro-lambda-form [?v ?i ?p ?g ?r] 0 "%d"))
-
-(fset 'my-dup-par
-      (kmacro-lambda-form [?y ?a ?p ?\} escape ?p] 0 "%d"))
-
-(fset 'my-dup-inner-par
-      (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
 #+end_src
 * Packages
 ** Evil
@@ -1083,7 +1095,7 @@
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
 #+end_src
 ** Files
-
+*** Treemacs
 #+begin_src emacs-lisp
 (use-package! treemacs
   :after-call after-find-file
@@ -1178,7 +1190,9 @@
     (treemacs))
 
   (treemacs-resize-icons 15))
-
+#+end_src
+*** Ranger
+#+begin_src emacs-lisp
 (use-package! ranger
   :demand t
   :init
@@ -1303,7 +1317,9 @@
     (interactive)
     (ranger-toggle-mark)
     (ranger-next-file 1)))
-
+#+end_src
+*** Projectile
+#+begin_src emacs-lisp
 (use-package! projectile
   :custom
   (projectile-track-known-projects-automatically nil)
@@ -1338,7 +1354,9 @@
         :desc "Scratch buffer"          :leader "px" nil
         :desc "Switch to scratch"       :leader "pX" nil
         :desc "Browse project"          :leader "p." nil))
-
+#+end_src
+*** Super Save
+#+begin_src emacs-lisp
 (use-package! super-save
   :after-call after-find-file
   :custom
@@ -1375,14 +1393,18 @@
         (save-buffer))))
 
   (super-save-mode t))
-
+#+end_src
+*** Recentf
+#+begin_src emacs-lisp
 (use-package! recentf
   :custom
   (recentf-auto-cleanup 'mode)
   (recentf-max-saved-items 20)
   :config
   (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
-
+#+end_src
+*** Midnight
+#+begin_src emacs-lisp
 (use-package! midnight
   :after-call after-find-file
   :custom
@@ -1392,11 +1414,15 @@
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
-
+#+end_src
+*** Files
+#+begin_src emacs-lisp
 (use-package! files
   :init
   (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
-
+#+end_src
+*** Git Auto Commit
+#+begin_src emacs-lisp
 (use-package! git-auto-commit-mode
   :custom
   (gac-debounce-interval (* 30 60))
@@ -1416,6 +1442,7 @@
                  "git commit -m " (shell-quote-argument commit-msg)))))))
 #+end_src
 ** Text
+*** Avy
 #+begin_src emacs-lisp
 (use-package! avy
 
@@ -1450,7 +1477,9 @@
       (avy-jump ")+")))
   (setq! avy-keys (nconc (number-sequence ?a ?z)
                          (number-sequence ?0 ?9))))
-
+#+end_src
+*** Ispell
+#+begin_src emacs-lisp
 (use-package! ispell
   :custom
   (ispell-quietly t)
@@ -1516,7 +1545,9 @@
             (message "\"%s\" now expands to \"%s\" %sally"
                      bef aft (if p "loc" "glob")))
         (user-error "no typo at or before point")))))
-
+#+end_src
+*** PDF View
+#+begin_src emacs-lisp
 (use-package! pdf-view
   :init
 
@@ -1559,7 +1590,9 @@
   (defun my-show-pdf-view-commands ()
     (interactive)
     (counsel-M-x "^pdf-view- ")))
-
+#+end_src
+*** Text Mode
+#+begin_src emacs-lisp
 (use-package! text-mode
   :init
   (add-hook! 'text-mode-hook 'my-text-mode-hooks)
@@ -1607,12 +1640,16 @@
     (artbollocks-mode -1)
     (flyspell-mode -1)
     (message "prose disabled")))
-
+#+end_src
+*** HL-Sentence
+#+begin_src emacs-lisp
 (use-package! hl-sentence
   :config
   (custom-set-faces
    '(hl-sentence ((t (:inherit hl-line))))))
-
+#+end_src
+*** Wordnut
+#+begin_src emacs-lisp
 (use-package! wordnut
   :init
   (add-hook! 'wordnut-mode-hook 'hide-mode-line-mode)
@@ -1626,7 +1663,9 @@
    "Q" 'kill-this-buffer
    :states '(normal)
    "<escape>" 'quit-window))
-
+#+end_src
+*** Osx Dictionatry
+#+begin_src emacs-lisp
 (use-package! osx-dictionary
   :init
   (add-hook! 'osx-dictionary-mode-hook 'hide-mode-line-mode)
@@ -1635,7 +1674,9 @@
    :states  '(normal)
    "<escape>" 'quit-window
    "q" 'quit-window))
-
+#+end_src
+*** Typo
+#+begin_src emacs-lisp
 (use-package! typo
   :config
 
@@ -1652,14 +1693,18 @@
      "–"   ; en dash
      "‑"   ; non-breaking hyphen
      )))
-
+#+end_src
+*** Google Translate
+#+begin_src emacs-lisp
 (use-package! google-translate
   :custom
   (google-translate-pop-up-buffer-set-focus t)
   (google-translate-default-source-language "pt")
   (google-translate-default-target-language "en")
   (google-translate-translation-directions-alist '(("pt" . "en") ("en" . "pt"))))
-
+#+end_src
+*** Markdown Mode
+#+begin_src emacs-lisp
 (use-package! markdown-mode
   :init
   (add-hook! 'markdown-mode-hook #'abbrev-mode #'typo-mode)
@@ -1680,13 +1725,17 @@
    "<C-return>" 'my-open-two-lines
    "M-n"        'my-forward-paragraph-do-indentation
    "M-p"        'my-backward-paragraph-do-indentation))
-
+#+end_src
+*** Pabbrev
+#+begin_src emacs-lisp
 (use-package! pabbrev
   :custom
   (pabbrev-scavenge-some-chunk-size 120)
   (pabbrev-marker-distance-before-scavenge 1000)
   (pabbrev-idle-timer-verbose nil))
-
+#+end_src
+*** Fountain Mode
+#+begin_src emacs-lisp
 (use-package! fountain-mode
   :init
   (add-to-list 'auto-mode-alist '("\\ft\\'" . fountain-mode))
@@ -1710,13 +1759,17 @@
         :nv "m-p"  'fountain-backward-scene
         :nv "zi"   'fountain-outline-show-all
         :nv "zm"   'fountain-outline-cycle-global))
-
+#+end_src
+*** Flyspell
+#+begin_src emacs-lisp
 (use-package! flyspell
   :custom
   (flyspell-delayed-commands nil)
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
-
+#+end_src
+*** Company
+#+begin_src emacs-lisp
 (use-package! company
   :custom
   (company-ispell-available t)
@@ -1783,16 +1836,9 @@
     (interactive)
     (company-complete-selection)
     (insert " ")))
-
-(use-package! subword
-  :config
-  (global-subword-mode +1))
-
-(use-package! yasnippet
-  :config
-  (yas-global-mode -1))
 #+end_src
 ** Prog
+*** Prog Mode
 #+begin_src emacs-lisp
 (use-package! prog-mode
   :init
@@ -1809,13 +1855,17 @@
    "çb"        'dumb-jump-back
    "çl"        'dumb-jump-quick-look
    "çe"        'dumb-jump-go-prefer-external))
-
+#+end_src
+*** Conf Mode
+#+begin_src emacs-lisp
 (use-package! conf-mode
   :config
   :general
   (:keymaps   '(conf-mode-map)
    :states    '(normal)))
-
+#+end_src
+*** Elisp Mode
+#+begin_src emacs-lisp
 (use-package! elisp-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
@@ -1823,12 +1873,16 @@
   (:keymaps   '(lisp-interaction-mode-map)
    :states    '(normal)
    "<escape>" 'evil-ex-nohighlight))
-
+#+end_src
+*** Flycheck
+#+begin_src emacs-lisp
 (use-package! flycheck
   :custom
   (flycheck-global-modes '(not lisp-interaction-mode
                                emacs-lisp-mode)))
-
+#+end_src
+*** Python Mode
+#+begin_src emacs-lisp
 (use-package! python
   :init
 
@@ -1904,7 +1958,9 @@
     (end-of-line)
     (insert ":")
     (newline-and-indent)))
-
+#+end_src
+*** Elpy
+#+begin_src emacs-lisp
 (use-package! elpy
   :custom
   (elpy-rpc-virtualenv-path 'current)
@@ -1924,15 +1980,17 @@
     (quit-windows-on "*Python*"))
 
   (elpy-enable))
-
+#+end_src
+*** Eldoc
+#+begin_src emacs-lisp
 (use-package! eldoc
   :custom
   (eldoc-idle-delay 2)
   :config
   (global-eldoc-mode -1))
-
 #+end_src
 ** UI
+*** Doom Modeline
 #+begin_src emacs-lisp
 (use-package! doom-modeline
   :custom
@@ -1964,7 +2022,9 @@
   :config
   (column-number-mode -1)
   (size-indication-mode -1))
-
+#+end_src
+*** Delight
+#+begin_src emacs-lisp
 (use-package! delight
   :after-call after-find-file
   :config
@@ -1983,7 +2043,9 @@
              (python-mode "[py]" " python")
              (emacs-lisp-mode "[el]" "emacs-lisp")
              (lisp-interaction-mode "[lin]" "lisp interaction"))))
-
+#+end_src
+*** Which Key
+#+begin_src emacs-lisp
 (use-package! which-key
   :custom
   (which-key-allow-evil-operators nil)
@@ -2014,7 +2076,9 @@
     "SPC SPC x"  "Org Capture")
 
   (which-key-mode +1))
-
+#+end_src
+*** Hydra
+#+begin_src emacs-lisp
 (use-package! hydra
   :config
 
@@ -2250,7 +2314,9 @@
 
     ("S" cool-moves-sentence-backward)
     ("s" cool-moves-sentence-forward)))
-
+#+end_src
+*** Ivy
+#+begin_src emacs-lisp
 (use-package! ivy
   :custom
   (ivy-height 15)
@@ -2305,7 +2371,9 @@
   (defun counsel-ag-thing-at-point ()
     (interactive)
     (ivy-with-thing-at-point 'counsel-ag)))
-
+#+end_src
+*** Eyebrowse
+#+begin_src emacs-lisp
 (use-package! eyebrowse
   :custom
   (eyebrowse-wrap-around t)
@@ -2327,24 +2395,28 @@
         :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
 #+end_src
 ** Misc
+*** Avoid
 #+begin_src emacs-lisp
 (use-package! avoid
   :after-call after-find-file
   :config
   (mouse-avoidance-mode 'banish))
-
-(define-derived-mode scratch-lisp-mode
-  lisp-interaction-mode "scratch-lisp")
-
+#+end_src
+*** Recursive Narrow
+#+begin_src emacs-lisp
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
-
+#+end_src
+*** Clipmon
+#+begin_src emacs-lisp
 (use-package! clipmon
   :disabled
   :init
   (clipmon-mode-start))
-
+#+end_src
+*** Engine
+#+begin_src emacs-lisp
 (use-package! engine-mode
   :config
 
@@ -2390,5 +2462,4 @@
   (defengine rhymit-pt "https://www.rhymit.com/pt/palavras-que-rimam-com-%s?")
 
   (engine-mode t))
-
 #+end_src
