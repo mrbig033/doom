@@ -986,6 +986,7 @@ is already narrowed."
 (use-package! evil
   :init
   (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
+  (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
   :custom
   (evil-move-cursor-back nil)
   (evil-jumps-cross-buffers t)
