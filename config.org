@@ -1768,8 +1768,8 @@ is already narrowed."
 
   (define-typo-cycle typo-cycle-dashes
     "Cycle through various dashes."
-    ("-"   ; hyphen-minus
-     "—"   ; em dash
+    ("—"   ; em dash
+     "-"   ; hyphen-minus
      "−"   ; minus sign
      "‐"   ; hyphen
      "–"   ; en dash
