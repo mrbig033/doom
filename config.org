@@ -1903,7 +1903,7 @@ is already narrowed."
    "C-h"    'backward-delete-char
    "M-e"    'my-company-yasnippet
    "M-q"    'company-complete-selection
-   "M-d"    'counsel-company
+   "C-d"    'counsel-company
    "M-w"    'my-company-comp-with-paren
    "M-."    'my-company-comp-with-dot
    "M-j"    'my-company-comp-space
