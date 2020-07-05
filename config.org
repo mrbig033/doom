@@ -86,6 +86,8 @@
 ** Translations
 #+begin_src emacs-lisp
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
+(define-key key-translation-map (kbd "s-w") (kbd "?"))
+(define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 #+end_src
 ** Local
