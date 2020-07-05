@@ -138,7 +138,6 @@
       :desc "Ranger"               :leader "R"     'ranger)
 
 (map! :after evil
-      :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
       :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
       :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
       :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
@@ -986,7 +985,7 @@ is already narrowed."
 (use-package! evil
   :init
   (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
-  (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
+  (add-hook! 'evil-insert-state-entry-hook #'evil-emacs-state)
   :custom
   (evil-move-cursor-back nil)
   (evil-jumps-cross-buffers t)
@@ -1536,8 +1535,6 @@ is already narrowed."
 
   :general
   (:states '(normal)
-   "g9"      'my-avy-goto-open-paren
-   "g0"      'my-avy-goto-close-paren
    ","       'avy-goto-subword-1
    "F"       'evil-avy-goto-char-2-above
    "f"       'evil-avy-goto-char-2-below)
