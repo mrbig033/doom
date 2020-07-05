@@ -1487,9 +1487,9 @@ is already narrowed."
         :desc "Save buffers"            :n ".s" #'projectile-save-project-buffers
         :desc "Browse project"          :n ".B" #'+default/browse-project))
 #+end_src
-*** Super Save
+*** Super Save :tno:
 [[file:packages.el::package! super-save][Link]]
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package! super-save
   :after-call after-find-file
   :custom
