@@ -1714,7 +1714,9 @@ is already narrowed."
     (interactive)
     (auto-capitalize-mode +1)
     (electric-operator-mode +1)
-    (setq-local company-tooltip-limit 5)
+    (setq-local company-tooltip-limit 5
+                company-minimum-prefix-length 2
+                company-idle-delay 0.3)
     (writegood-mode -1)
     (ispell-change-dictionary "brasileiro")
     (flyspell-mode +1)
@@ -1725,7 +1727,9 @@ is already narrowed."
     (interactive)
     (auto-capitalize-mode +1)
     (electric-operator-mode +1)
-    (setq-local company-tooltip-limit 5)
+    (setq-local company-tooltip-limit 5
+                company-minimum-prefix-length 2
+                company-idle-delay 0.3)
     (artbollocks-mode +1)
     (ispell-change-dictionary "english")
     (flyspell-mode +1)
