@@ -1858,9 +1858,9 @@ is already narrowed."
   (flyspell-correct-auto-delay 0.2)
   (flyspell-delay 0.2))
 #+end_src
-*** Company
+*** Company :tno:
 [[id:1e8083b8-db60-4d34-b5cb-371e1727593a][Link]]
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package! company
   :custom
   (company-ispell-available t)
