@@ -115,6 +115,7 @@
 
       (:map (text-mode-map)
        :n "-" 'endless/ispell-word-then-abbrev
+       :n "C-ç" 'endless/ispell-word-then-abbrev
        :n "z-" 'flyspell-correct-word)
 
       (:after messages-buffer-mode
