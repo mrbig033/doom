@@ -88,6 +88,7 @@
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
+(eyebrowse-mode +1)
 #+end_src
 * Keybindings
 ** Translations
@@ -330,6 +331,16 @@
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
       :desc "Tangle Config"  :leader "et" 'my-tangle-config)
+
+(map!   "M-q" 'eyebrowse-prev-window-config
+        "M-w" 'eyebrowse-next-window-config
+        :desc "1"                :leader "1"     'eyebrowse-switch-to-window-config-1
+        :desc "2"                :leader "2"     'eyebrowse-switch-to-window-config-2
+        :desc "3"                :leader "3"     'eyebrowse-switch-to-window-config-3
+        :desc "4"                :leader "4"     'eyebrowse-switch-to-window-config-4
+        :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
+        :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
+        :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config)
 #+end_src
 ** Global
 #+begin_src emacs-lisp
@@ -2459,17 +2470,7 @@ is already narrowed."
   (eyebrowse-switch-back-and-forth t)
   (eyebrowse-mode-line-left-delimiter " [ ")
   (eyebrowse-mode-line-right-delimiter " ]  ")
-  (eyebrowse-mode-line-separator " | ")
-  :config
-  (map! "M-q" 'eyebrowse-prev-window-config
-        "M-w" 'eyebrowse-next-window-config
-        :desc "1"                :leader "1"     'eyebrowse-switch-to-window-config-1
-        :desc "2"                :leader "2"     'eyebrowse-switch-to-window-config-2
-        :desc "3"                :leader "3"     'eyebrowse-switch-to-window-config-3
-        :desc "4"                :leader "4"     'eyebrowse-switch-to-window-config-4
-        :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
-        :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
-        :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
+  (eyebrowse-mode-line-separator " | "))
 #+end_src
 ** Misc
 *** Rec Narrow :inst:
