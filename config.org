@@ -1053,6 +1053,7 @@ is already narrowed."
 *** Org Main
 #+begin_src emacs-lisp
 (use-package! org
+  :after-call after-find-file
   :init
   (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
