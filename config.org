@@ -1887,25 +1887,27 @@ is already narrowed."
                               eshell-mode))
 
   :general
-  (:keymaps                    '(company-active-map)
-   "M-e"                       'my-company-yasnippet
-   "C-y"                       'company-yasnippet
-   "C-m"                       'company-complete-selection
-   "M-q"                       'company-complete-selection
-   "M-w"                       'my-company-comp-with-paren
-   "M-."                       'my-company-comp-with-dot
-   "M-j"                       'my-company-comp-space
-   "C-u"                       'my-backward-kill-line
-   "M-0"                       'company-complete-number
-   "M-1"                       'company-complete-number
-   "M-2"                       'company-complete-number
-   "M-3"                       'company-complete-number
-   "M-4"                       'company-complete-number
-   "M-5"                       'company-complete-number
-   "M-6"                       'company-complete-number
-   "M-7"                       'company-complete-number
-   "M-8"                       'company-complete-number
-   "M-9"                       'company-complete-number)
+  (:keymaps '(company-active-map)
+   "<return>" nil
+   "C-h"    'backward-delete-char
+   "M-e"    'my-company-yasnippet
+   "C-y"    'company-yasnippet
+   "C-m"    'company-complete-selection
+   "M-q"    'company-complete-selection
+   "M-w"    'my-company-comp-with-paren
+   "M-."    'my-company-comp-with-dot
+   "M-j"    'my-company-comp-space
+   "C-u"    'my-backward-kill-line
+   "M-0"    'company-complete-number
+   "M-1"    'company-complete-number
+   "M-2"    'company-complete-number
+   "M-3"    'company-complete-number
+   "M-4"    'company-complete-number
+   "M-5"    'company-complete-number
+   "M-6"    'company-complete-number
+   "M-7"    'company-complete-number
+   "M-8"    'company-complete-number
+   "M-9"    'company-complete-number)
 
   :config
 
