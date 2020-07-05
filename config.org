@@ -1436,6 +1436,8 @@ is already narrowed."
   :custom
   (projectile-track-known-projects-automatically nil)
   :config
+
+  (add-to-list 'projectile-globally-ignored-buffers "*doom*")
   (general-unbind '(evil-normal-state-map)
     ".")
   (map! :desc "Projectile Ag"           :n ".g" #'counsel-projectile-ag
