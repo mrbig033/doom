@@ -535,8 +535,8 @@
 
 (defun my-search-packages ()
   (interactive)
-  (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'")
+  (my-widen-to-center-with-excursion))
 
 (defun my-buffer-name ()
   (interactive)
