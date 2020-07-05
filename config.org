@@ -36,6 +36,13 @@
 (after! undo-fu-session
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
+
+(defun my-first-file-functions ()
+  (interactive)
+  (column-number-mode -1)
+  (size-indication-mode -1))
+
+(add-hook 'doom-first-file-hook #'my-first-file-functions)
 #+end_src
 ** Initial Settings
 #+begin_src emacs-lisp
@@ -81,8 +88,6 @@
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
-(column-number-mode -1)
-(size-indication-mode -1)
 #+end_src
 * Keybindings
 ** Translations
