@@ -1885,14 +1885,12 @@ is already narrowed."
   (:keymaps                    '(company-active-map)
    "M-e"                       'my-company-yasnippet
    "C-y"                       'company-yasnippet
-   "<return>"                  nil
    "C-m"                       'company-complete-selection
    "M-q"                       'company-complete-selection
    "M-w"                       'my-company-comp-with-paren
    "M-."                       'my-company-comp-with-dot
    "M-j"                       'my-company-comp-space
    "C-u"                       'my-backward-kill-line
-   "C-h"                       'delete-backward-char
    "M-0"                       'company-complete-number
    "M-1"                       'company-complete-number
    "M-2"                       'company-complete-number
