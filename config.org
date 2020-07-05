@@ -1902,9 +1902,8 @@ is already narrowed."
    "<return>" nil
    "C-h"    'backward-delete-char
    "M-e"    'my-company-yasnippet
-   "C-y"    'company-yasnippet
-   "C-m"    'company-complete-selection
    "M-q"    'company-complete-selection
+   "M-s"    'counsel-company
    "M-w"    'my-company-comp-with-paren
    "M-."    'my-company-comp-with-dot
    "M-j"    'my-company-comp-space
