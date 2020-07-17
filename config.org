@@ -1086,6 +1086,7 @@ is already narrowed."
 (use-package! org
   :after-call after-find-file
   :init
+  (setq! org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
@@ -1131,7 +1132,6 @@ is already narrowed."
   (org-enforce-todo-checkbox-dependencies t)
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("properties" "logbook")))
-  (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (org-id-link-to-org-use-id nil)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
