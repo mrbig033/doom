@@ -414,7 +414,6 @@
 ;; MULTIPLE STATES
 (map! :desc "Align Regexp"         :v "C-c a"    'align-regexp
       :desc "Capitalize Region"    :v "gt"       'capitalize-region
-      :desc "End of Visual Line"   :nv "ge"      'evil-end-of-visual-line
       :desc "Jump Backward"        :nv "M-o"     'better-jumper-jump-backward
       :desc "Jump Forward"         :nv "M-i"     'better-jumper-jump-forward
       :desc "Start of Visual Line" :nv "0"       'evil-beginning-of-visual-line
@@ -1037,6 +1036,7 @@ is already narrowed."
         :n    "zi"          'org-show-all
         :n    "zm"          'my-org-hide-all-function
         :n    "gr"          'my-evil-sel-to-end
+      :nv "ge"      'evil-end-of-visual-line
         :nvieg "C-c C-s"    'org-emphasize
         :nvieg "M-k"        'windmove-up
         :nvieg "M-j"        'windmove-down
