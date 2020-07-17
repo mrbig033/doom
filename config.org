@@ -276,6 +276,8 @@
       :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
       :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
       :desc "Typo"                :leader "SPC ty" 'typo-mode
+      :desc "Flyspell Buffer"     :leader "SPC tf" 'flyspell-mode
+      :desc "Flyspell Buffer"     :leader "SPC tF" 'flycheck-buffer
       :desc "Insert Only"         :leader "SPC ti" 'only-insert-mode
       :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
       :desc "Visible"             :leader "SPC tv" 'visible-mode
@@ -298,8 +300,7 @@
       )
 
 ;; TEXT ;;
-(map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
-      :desc "Reload File"          :leader "tT" 'my-reload-file
+(map! :desc "Reload File"          :leader "tT" 'my-reload-file
       :desc "Duplicate Line"       :leader "tt" 'my-dup-line
       :desc "Google Translate"     :leader "tT" 'google-translate-smooth-translate
       :desc "Change Dictionary"    :leader "tD" 'ispell-change-dictionary
@@ -334,7 +335,10 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
-      :desc "Tangle Config"  :leader "et" 'my-tangle-config)
+      :desc "Tangle Config"  :leader "et" 'my-tangle-configm
+      :desc "Tangle Babtle Tangel"  :leader "eT" 'my-org-babe-tangle
+
+      )
 
 (map!   "M-q" 'eyebrowse-prev-window-config
         "M-w" 'eyebrowse-next-window-config
@@ -792,6 +796,10 @@
 #+end_src
 ** Eval Functions
 #+begin_src emacs-lisp
+(defun my-org-babe-tangle ()
+  (interactive)
+  (org-babel-tangle-file "~/.doom.d/config.org"))
+
 (defun my-eval-buffer ()
   (interactive)
   (eval-buffer)
@@ -2083,6 +2091,8 @@ is already narrowed."
 *** Flycheck :simp:
 #+begin_src emacs-lisp
 (use-package! flycheck
+  :init
+  (add-hook 'flycheck-mode-hook 'flycheck-buffer)
   :custom
   (flycheck-global-modes '(not lisp-interaction-mode
                                emacs-lisp-mode)))
