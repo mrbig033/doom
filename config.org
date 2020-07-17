@@ -67,10 +67,6 @@
        doom-variable-pitch-font (font-spec :family "Input Mono")
        doom-localleader-key "m"))
 
-
-
-
-
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
 (put 'evil-invert-char 'disabled t)
@@ -2400,11 +2396,7 @@ is already narrowed."
   ;; Original:
   ;; (setq counsel-ag-base-command "ag --vimgrep %s")
 
-
-
-
   (counsel-ag nil "~/.emacs.d/" "-G '.org'")
-
 
   (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.elc' %s")
 
