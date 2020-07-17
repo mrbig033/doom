@@ -96,11 +96,12 @@
 ** Translations
 #+begin_src emacs-lisp
 (define-key key-translation-map (kbd "§") (kbd "'"))
+(define-key key-translation-map (kbd "-") (kbd "'"))
+(define-key key-translation-map (kbd "'") (kbd "-"))
 (define-key key-translation-map (kbd "±") (kbd "\""))
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
 (define-key key-translation-map (kbd "") (kbd "^"))
 (define-key key-translation-map (kbd "s-w") (kbd "?"))
-(define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 #+end_src
 ** Local
@@ -982,8 +983,8 @@ is already narrowed."
   (evil-window-move-far-right))
 #+end_src
 #+end_src
-* Packages
-** Evil
+* Pkgs
+** Evil Pkgs
 *** Evil Main
 #+begin_src emacs-lisp
 (use-package! evil
@@ -1058,7 +1059,7 @@ is already narrowed."
 (use-package! evil-better-visual-line
              :after evil)
 #+end_src
-** Org
+** Org Pkgs
 *** Org Main
 #+begin_src emacs-lisp
 (use-package! org
@@ -1136,7 +1137,7 @@ is already narrowed."
   (org-clock-report-include-clocking-task t)
   (org-edit-src-content-indentation 1)
   (org-edit-src-persistent-message nil)
-  (org-edit-src-auto-save-idle-delay 0)
+  (org-edit-src-auto-save-idle-delay 1)
   (org-export-with-toc nil)
   (org-export-with-tags nil)
   (org-export-preserve-breaks t)
@@ -1298,7 +1299,7 @@ is already narrowed."
   :config
   (advice-add 'org2blog-buffer-post-publish :after #'my-silent-winner-undo))
 #+end_src
-** Files
+** Files Pkgs
 *** Treemacs :tno:
 [[file:init.el::treemacs ; a project drawer, like neotree but cooler][Link]]
 #+begin_src emacs-lisp :tangle no
@@ -1394,9 +1395,11 @@ is already narrowed."
 [[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Link]]
 #+begin_src emacs-lisp
 (use-package! ranger
+  :demand t
   :custom
+  (ranger-minimal t)
   (ranger-max-tabs 0)
-  (ranger-minimal nil)
+  (ranger-deer-show-details nil)
   (ranger-parent-depth 1)
   (ranger-footer-delay nil)
   (ranger-preview-file nil)
@@ -1613,7 +1616,7 @@ is already narrowed."
                  gac-shell-and
                  "git commit -m " (shell-quote-argument commit-msg)))))))
 #+end_src
-** Text
+** Text Pakcages
 *** Avy
 #+begin_src emacs-lisp
 (use-package! avy
@@ -2011,7 +2014,7 @@ is already narrowed."
     (company-complete-selection)
     (insert " ")))
 #+end_src
-** Prog
+** Prog Pkgs
 *** Elpy :tno:
 [[file:packages.el::package! elpy][Link]]
 #+begin_src emacs-lisp :tangle no
@@ -2148,7 +2151,7 @@ is already narrowed."
   :config
   (global-eldoc-mode -1))
 #+end_src
-** UI
+** UI Pkgs
 *** Doom Modeline
 #+begin_src emacs-lisp
 (use-package! doom-modeline
@@ -2541,7 +2544,7 @@ is already narrowed."
   (eyebrowse-mode-line-right-delimiter " ]  ")
   (eyebrowse-mode-line-separator " | "))
 #+end_src
-** Misc
+** Misc Pkgs
 *** Unikillable
 #+begin_src emacs-lisp
 (use-package unkillable-scratch
@@ -2550,18 +2553,18 @@ is already narrowed."
         unkillable-buffers '("^\\*scratch\\*$"))
   (unkillable-scratch))
 #+end_src
-*** Rec Narrow :inst:
+*** Rec Narrow
 [[file:packages.el::package! recursive-narrow :disable t][Link]]
 #+begin_src emacs-lisp
 (use-package! recursive-narrow
   :init
   (require 'recursive-narrow))
 #+end_src
-*** Clipmon :tno:
+*** Clipmon
 [[file:packages.el::package! clipmon :disable t][Link]]
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 (use-package! clipmon
-  :disabled
+  :defer 5
   :init
   (clipmon-mode-start))
 #+end_src
@@ -2614,7 +2617,7 @@ is already narrowed."
 
   (engine-mode t))
 #+end_src
-** Builtins
+** Builtins Pkgs
 *** Prog Mode
 #+begin_src emacs-lisp
 (use-package! prog-mode
@@ -2666,15 +2669,11 @@ is already narrowed."
    "M-h" windmove-left
    "M-l" windmove-right))
 #+end_src
-** Doom
-*** Autoload
+* Dashboard
 #+begin_src emacs-lisp
-(use-package! dooom-dashboard
-  :after-call after-find-file
-  :init
-  (map! (:map +doom-dashboard-mode-map
-         :nvieg "q"        'quit-window
-         :nvieg "<escape>" 'quit-window)))
+(map! (:map +doom-dashboard-mode-map
+       "q"        'quit-window
+       "<escape>" 'quit-window))
 #+end_src
 * Final Cmd
 [[https://github.com/hlissner/doom-emacs/issues/3399#issuecomment-645478905][Source]]
