@@ -2567,6 +2567,14 @@ is already narrowed."
   (eyebrowse-mode-line-separator " | "))
 #+end_src
 ** Misc
+*** Unikillable
+#+begin_src emacs-lisp
+(use-package unkillable-scratch
+  :config
+  (setq unkillable-scratch-behavior 'bury
+        unkillable-buffers '("^\\*scratch\\*$"))
+  (unkillable-scratch))
+#+end_src
 *** Rec Narrow :inst:
 [[file:packages.el::package! recursive-narrow :disable t][Link]]
 #+begin_src emacs-lisp
