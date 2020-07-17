@@ -383,31 +383,31 @@
 #+end_src
 ** General
 #+begin_src emacs-lisp
-(general-define-key
- :keymaps '+doom-dashboard-mode-map
- :states  'override-state
- "M-k"    'windmove-up
- "M-j"    'windmove-down
- "M-h"    'windmove-left
- "M-l"    'windmove-right
- "C-j"    'treemacs-select-window
- "C-c b"  'org-brain-prefix-map
- "L"      'projectile-next-project-buffer
- "H"      'projectile-previous-project-buffer
- "C-k"    'kill-line
- "C-d"    'delete-char
- "C-h"    'delete-backward-char
- "C-w"    'backward-kill-word
- "gr"     'my-eval-region
- "M-s"    'my-last-buffer
- "gr"     'my-evil-sel-to-end
- "M-,"    'previous-buffer
- "q"      'quit-window
- "l"      'push-button
- "h"      'push-button
- "j"      'backward-button
- "k"      'forward-button
- "M-."    'next-buffer)
+;; (general-define-key
+;;  :keymaps '+doom-dashboard-mode-map
+;;  :states  'override-state
+;;  "M-k"    'windmove-up
+;;  "M-j"    'windmove-down
+;;  "M-h"    'windmove-left
+;;  "M-l"    'windmove-right
+;;  "C-j"    'treemacs-select-window
+;;  "C-c b"  'org-brain-prefix-map
+;;  "L"      'projectile-next-project-buffer
+;;  "H"      'projectile-previous-project-buffer
+;;  "C-k"    'kill-line
+;;  "C-d"    'delete-char
+;;  "C-h"    'delete-backward-char
+;;  "C-w"    'backward-kill-word
+;;  "gr"     'my-eval-region
+;;  "M-s"    'my-last-buffer
+;;  "gr"     'my-evil-sel-to-end
+;;  "M-,"    'previous-buffer
+;;  "q"      'quit-window
+;;  "l"      'push-button
+;;  "h"      'push-button
+;;  "j"      'backward-button
+;;  "k"      'forward-button
+;;  "M-."    'next-buffer)
 #+end_src
 
 ** Evil Kbds
