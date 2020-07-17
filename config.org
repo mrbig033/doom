@@ -15,15 +15,7 @@
   (load "~/.doom.d/custom-lisp/only-insert.el"))
 
 (after! org
-  (setq! org-src-window-setup 'current-window)
-  (map! :map (org-mode-map evil-org-mode-map)
-        :nvig "C-c C-s"  'org-emphasize
-        :n "C-o"         'counsel-outline
-        :n "zi"          'org-show-all
-        :n "zm"          'my-org-hide-all-function
-        :n "C-k"      'evil-change-line
-        :n "<backspace>" 'org-edit-special
-        :nv "<insert>"   'org-insert-link))
+  (setq! org-src-window-setup 'current-window))
 
 (after! prog
   (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
@@ -90,7 +82,6 @@
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
-(eyebrowse-mode +1)
 #+end_src
 * Keybindings
 ** Translations
@@ -103,6 +94,8 @@
 (define-key key-translation-map (kbd "") (kbd "^"))
 (define-key key-translation-map (kbd "s-w") (kbd "?"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
+(define-key key-translation-map (kbd "s-8") (kbd "["))
+(define-key key-translation-map (kbd "s-9") (kbd "]"))
 #+end_src
 ** Local
 #+begin_src emacs-lisp
@@ -381,10 +374,6 @@
       :nvg "C-h e"                'describe-package
       :nvg "C-h n"                'my-show-server-name)
 #+end_src
-** map!
-#+begin_src emacs-lisp
-#+end_src
-
 ** Evil Kbds
 #+begin_src emacs-lisp
 ;; NORMAL STATE
@@ -1041,37 +1030,47 @@ is already narrowed."
 (use-package! org
   :after-call after-find-file
   :init
-  (setq! org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
+  (map! :map (org-mode-map
+              evil-org-mode-map
+              prog-mode-map
+              text-mode-map
+              special-mode-map)
+        :n    "<backspace>" 'org-edit-special
+        :nv   "<insert>"    'org-insert-link
+        :n    "C-k"         'evil-change-line
+        :n    "C-o"         'counsel-outline
+        :n    "zi"          'org-show-all
+        :n    "zm"          'my-org-hide-all-function
+        :nvieg "C-c C-s"    'org-emphasize
+        :nvieg "M-k"        'windmove-up
+        :nvieg "M-j"        'windmove-down
+        :nvieg "M-h"        'windmove-left
+        :nvieg "M-l"        'windmove-right
+        :nvieg "C-c j"      'org-metadown
+        :nvieg "C-c k"      'org-metaup)
+
+  (map! :map (evil-org-mode-map org-mode-map)
+        :localleader "gt" 'org-today-agenda
+        :localleader "g3" 'org-3-days-agenda
+        :localleader "g7" 'org-7-days-agenda
+        :localleader "g0" 'org-30-days-agenda)
+
   (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
   (add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
-
   (add-hook! 'org-cycle-hook
              #'org-cycle-hide-archived-subtrees
              #'org-cycle-hide-drawers
              #'org-cycle-show-empty-lines)
-
-  :general
-  (:keymaps   '(evil-org-mode-map org-mode-map)
-   "C-c j"   'org-metadown
-   "C-c k"   'org-metaup
-   "C-j" 'treemacs-select-window)
-  (:keymaps   '(doom-leader-map)
-   ;; "aa"        'org-agenda
-   "at"        'org-today-agenda
-   "a3"        'org-3-days-agenda
-   "a7"        'org-7-days-agenda
-   "a0"        'org-30-days-agenda)
-
   :custom
+  (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (+org-capture-todo-file "Agenda/todo.org")
   (+org-capture-notes-file "Agenda/notes.org")
   (+org-capture-journal-file "Agenda/journal.org")
   (+org-capture-projects-file "Agenda/projects.org")
   (org-ellipsis ".")
   (org-log-into-drawer t)
-  ;; (org-tab-follows-link 't)
   (org-timer-format "%s ")
   (org-return-follows-link t)
   (org-hide-emphasis-markers t)
@@ -1152,87 +1151,7 @@ is already narrowed."
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  (defun my-org-force-open-other-window ()
-    (interactive)
-    (let ((org-link-frame-setup (quote
-                                 ((vm . vm-visit-folder)
-                                  (vm-imap . vm-visit-imap-folder)
-                                  (gnus . gnus)
-                                  (file . find-file-other-window)
-                                  (wl . wl)))))
-      (org-open-at-point)))
-
-  (defun my-org-key-translation ()
-    "Custom `org-mode' behaviours."
-    ;; Buffer-local key translation from "`" to "~".
-    (let ((keymap (make-sparse-keymap)))
-
-      (set-keymap-parent keymap key-translation-map)
-      (setq-local key-translation-map keymap)
-      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
-
-  (defun my-eval-buffer-and-leave-org-source ()
-    (interactive)
-    (eval-buffer)
-    (org-edit-src-exit))
-
-  (defun my-org-started-with-clock ()
-    (interactive)
-    (org-todo "STRT")
-    (org-clock-in))
-
-  (defun my-org-started-with-pomodoro ()
-    (interactive)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-goto-clock-and-start-pomodoro ()
-    (interactive)
-    (org-clock-goto)
-    (org-todo "STRT")
-    (org-pomodoro))
-
-  (defun my-org-started-no-clock ()
-    (interactive)
-    (org-todo "STRT"))
-
-  (defun my-org-todo-done ()
-    (interactive)
-    (org-todo "DONE"))
-
-  (defun my-org-todo-done-pomodoro ()
-    (interactive)
-    (org-todo "DONE")
-    (org-pomodoro))
-
-  (defun my-org-todo ()
-    (interactive)
-    (org-todo "TODO")
-    (org-clock-out))
-
-  (defun org-today-agenda ()
-    (interactive)
-    (let ((current-prefix-arg 1)
-          (org-deadline-warning-days 0))
-      (org-agenda t "a")))
-
-  (defun org-3-days-agenda ()
-    (interactive)
-    (let ((current-prefix-arg 3)
-          (org-deadline-warning-days 0))
-      (org-agenda t "a")))
-
-  (defun org-7-days-agenda ()
-    (interactive)
-    (let ((current-prefix-arg 7)
-          (org-deadline-warning-days 0))
-      (org-agenda t "a")))
-
-  (defun org-30-days-agenda ()
-    (interactive)
-    (let ((current-prefix-arg 30)
-          (org-deadline-warning-days 0))
-      (org-agenda t "a"))))
+  (load-file "~/.doom.d/org_func.el")))
 #+end_src
 *** Org Pomodoro
 #+begin_src emacs-lisp
@@ -1371,28 +1290,30 @@ is already narrowed."
 #+begin_src emacs-lisp
 ;;;;; RANGER MAIN PKGS ;;;;
 (use-package! ranger
-  ;; :custom
-  ;; (ranger-minimal t)
-  ;; (ranger-max-tabs 0)
-  ;; (ranger-deer-show-details nil)
-  ;; (ranger-parent-depth 1)
-  ;; (ranger-footer-delay nil)
-  ;; (ranger-preview-file nil)
-  ;; (ranger-override-dired t)
-  ;; (ranger-persistent-sort t)
-  ;; (ranger-cleanup-eagerly t)
-  ;; (ranger-dont-show-binary t)
-  ;; (ranger-width-preview 0.65)
-  ;; (ranger-width-parents 0.12)
-  ;; (ranger-max-preview-size 0.5)
-  ;; (ranger-cleanup-on-disable t)
-  ;; (ranger-return-to-ranger nil)
-  ;; (ranger-max-parent-width 0.42)
-  ;; (ranger-excluded-extensions '("mkv" "iso"
-  ;;                               "mp4" "bin"
-  ;;                               "exe" "msi"
-  ;;                               "pdf" "doc"
-  ;;                               "docx"))
+  :init
+  (map! :leader "r" 'deer)
+  :custom
+  (ranger-minimal t)
+  (ranger-max-tabs 0)
+  (ranger-deer-show-details nil)
+  (ranger-parent-depth 1)
+  (ranger-footer-delay nil)
+  (ranger-preview-file nil)
+  (ranger-override-dired t)
+  (ranger-persistent-sort t)
+  (ranger-cleanup-eagerly t)
+  (ranger-dont-show-binary t)
+  (ranger-width-preview 0.65)
+  (ranger-width-parents 0.12)
+  (ranger-max-preview-size 0.5)
+  (ranger-cleanup-on-disable t)
+  (ranger-return-to-ranger nil)
+  (ranger-max-parent-width 0.42)
+  (ranger-excluded-extensions '("mkv" "iso"
+                                "mp4" "bin"
+                                "exe" "msi"
+                                "pdf" "doc"
+                                "docx"))
 
   ;;;;; RANGER KBDS ;;;;;
   :general
@@ -2644,18 +2565,6 @@ is already narrowed."
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
-#+end_src
-*** Windmove
-#+begin_src emacs-lisp
-(use-package! widmove
-  :init
-  (general-define-key
-   :keymaps 'override
-   :states  '(override-state evil-org-mode-map)
-   "M-k" windmove-up
-   "M-j" windmove-down
-   "M-h" windmove-left
-   "M-l" windmove-right))
 #+end_src
 * Dashboard :tno:
 #+begin_src emacs-lisp :tangle no
