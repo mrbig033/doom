@@ -7,7 +7,7 @@
 (package! delight)
 (package! org2blog)
 (package! olivetti)
-(package! which-key)
+(package! ehich-key)
 (package! org-brain)
 (package! caps-lock)
 (package! eyebrowse)
