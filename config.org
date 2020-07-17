@@ -70,10 +70,6 @@
          (put 'customize-group 'disabled nil)
          (put 'evil-invert-char 'disabled t)))
 
-#+end_src
-**
-**
-**
 ** Initial Loading
 #+begin_src emacs-lisp
 (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
