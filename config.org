@@ -414,12 +414,14 @@
  :states '(visual)
  "gr"    'my-eval-region)
 
-;; (map! :map (+doom-dashboard-mode-map)
-;;       :e "q"        'quit-window)
-
 (general-unbind '+doom-dashboard-mode-map
   :with 'quit-window
   [remap evil-ex-nohighlight])
+
+(general-unbind '+doom-dashboard-mode-map
+  :with 'quit-window
+  [remap evil-ex-nohighlight]
+  [remap evil-record-macro])
 
 (general-unbind '+doom-dashboard-mode-map
   :with 'push-button
