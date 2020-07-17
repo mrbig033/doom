@@ -1036,6 +1036,7 @@ is already narrowed."
         :n    "C-o"         'counsel-outline
         :n    "zi"          'org-show-all
         :n    "zm"          'my-org-hide-all-function
+        :n    "gr"          'my-org-hide-all-function
         :nvieg "C-c C-s"    'org-emphasize
         :nvieg "M-k"        'windmove-up
         :nvieg "M-j"        'windmove-down
