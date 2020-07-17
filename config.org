@@ -74,7 +74,7 @@
 #+end_src
 ** Initial Modes
 #+begin_src emacs-lisp
-(define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
+;; (define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
