@@ -152,15 +152,7 @@
       (:map (custom-mode-map compilation-mode-map)
        :n "<escape>" 'evil-normal-state))
 
-(map! :after ranger
-      :desc "Deer"                 :leader "r"     'deer
-      :desc "Ranger"               :leader "R"     'ranger)
-
 (map! :after evil
-      ;; :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
-      ;; :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
-      ;; :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
-      ;; :desc "Open Above to Emacs" :n "O"        'my-open-above-to-emacs-state
       :desc "Kill Line to Emacs"  :n "C-k"      'evil-change-line)
 
 (map! :map (minibuffer-local-map
@@ -389,24 +381,8 @@
       :nvg "C-h e"                'describe-package
       :nvg "C-h n"                'my-show-server-name)
 #+end_src
-** General
+** map!
 #+begin_src emacs-lisp
-(general-define-key
- :states  'override-state
- "C-j"    'treemacs-select-window
- "C-c b"  'org-brain-prefix-map
- "L"      'projectile-next-project-buffer
- "H"      'projectile-previous-project-buffer
- "C-k"    'kill-line
- "C-d"    'delete-char
- "C-h"    'delete-backward-char
- "C-w"    'backward-kill-word
- "gr"     'my-eval-region
- "M-s"    'my-last-buffer
- "gr"     'my-evil-sel-to-end
- "M-,"    'previous-buffer
- "q"      'quit-window
- "M-."    'next-buffer)
 #+end_src
 
 ** Evil Kbds
@@ -1391,34 +1367,34 @@ is already narrowed."
 
   (treemacs-resize-icons 15))
 #+end_src
-*** Ranger
-[[file:init.el::(dired +ranger) ; making dired pretty \[functional\]][Link]]
+*** Ranger Pkgs
 #+begin_src emacs-lisp
+;;;;; RANGER MAIN PKGS ;;;;
 (use-package! ranger
-  :demand t
-  :custom
-  (ranger-minimal t)
-  (ranger-max-tabs 0)
-  (ranger-deer-show-details nil)
-  (ranger-parent-depth 1)
-  (ranger-footer-delay nil)
-  (ranger-preview-file nil)
-  (ranger-override-dired t)
-  (ranger-persistent-sort t)
-  (ranger-cleanup-eagerly t)
-  (ranger-dont-show-binary t)
-  (ranger-width-preview 0.65)
-  (ranger-width-parents 0.12)
-  (ranger-max-preview-size 0.5)
-  (ranger-cleanup-on-disable t)
-  (ranger-return-to-ranger nil)
-  (ranger-max-parent-width 0.42)
-  (ranger-excluded-extensions '("mkv" "iso"
-                                "mp4" "bin"
-                                "exe" "msi"
-                                "pdf" "doc"
-                                "docx"))
+  ;; :custom
+  ;; (ranger-minimal t)
+  ;; (ranger-max-tabs 0)
+  ;; (ranger-deer-show-details nil)
+  ;; (ranger-parent-depth 1)
+  ;; (ranger-footer-delay nil)
+  ;; (ranger-preview-file nil)
+  ;; (ranger-override-dired t)
+  ;; (ranger-persistent-sort t)
+  ;; (ranger-cleanup-eagerly t)
+  ;; (ranger-dont-show-binary t)
+  ;; (ranger-width-preview 0.65)
+  ;; (ranger-width-parents 0.12)
+  ;; (ranger-max-preview-size 0.5)
+  ;; (ranger-cleanup-on-disable t)
+  ;; (ranger-return-to-ranger nil)
+  ;; (ranger-max-parent-width 0.42)
+  ;; (ranger-excluded-extensions '("mkv" "iso"
+  ;;                               "mp4" "bin"
+  ;;                               "exe" "msi"
+  ;;                               "pdf" "doc"
+  ;;                               "docx"))
 
+  ;;;;; RANGER KBDS ;;;;;
   :general
   (:keymaps     'ranger-mode-map
    "çm"         'dired-create-directory
@@ -1438,6 +1414,8 @@ is already narrowed."
    "x"          'dired-do-flagged-delete
    "d"          'dired-flag-file-deletion
    "<c-return>" 'dired-do-find-marked-files)
+
+  ;;;; RANGER CONFIG ;;;;;
   :config
 
   (advice-add 'dired-do-find-marked-files :after 'delete-other-windows)
@@ -1446,6 +1424,8 @@ is already narrowed."
     (interactive)
     (setq-local olivetti-body-width '65)
     (olivetti-mode +1))
+
+  ;;;; RANGER GO ;;;;;
 
   (defun my-ranger-go (path)
     "Go subroutine"
@@ -2663,19 +2643,19 @@ is already narrowed."
   :init
   (general-define-key
    :keymaps 'override
-   :states  'override-state
+   :states  '(override-state evil-org-mode-map)
    "M-k" windmove-up
    "M-j" windmove-down
    "M-h" windmove-left
    "M-l" windmove-right))
 #+end_src
-* Dashboard
-#+begin_src emacs-lisp
+* Dashboard :tno:
+#+begin_src emacs-lisp :tangle no
 (map! (:map +doom-dashboard-mode-map
        "q"        'quit-window
        "<escape>" 'quit-window))
 #+end_src
-* Final Cmd
+* Final Cmg,
 [[https://github.com/hlissner/doom-emacs/issues/3399#issuecomment-645478905][Source]]
 #+begin_src emacs-lisp
 (run-hooks 'doom-first-input-hook)
