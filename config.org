@@ -39,38 +39,40 @@
   (interactive)
   (column-number-mode -1)
   (size-indication-mode -1)
-(setq! my-lisp "~/.doom.d/ml"
-       org-directory "~/org/"
-       dumb-jump-aggressive t
-       warning-minimum-level :emergency
-       user-full-name "mrbig"
-       confirm-kill-emacs nil
-       windmove-wrap-around t
-       persp-switch-to-added-buffer t
-       auto-revert-verbose nil
-       my-kbd "~/.doom.d/ml/kbd"
-       trash-directory "~/.Trash"
-       use-package-always-defer t
-       ns-option-modifier 'meta
-       ns-right-option-modifier 'meta
-       iedit-toggle-key-default "C-x ;"
-       display-line-numbers-type nil
-       +word-wrap-extra-indent 'single
-       custom-file "~/.doom.d/.custom-file.el"
-       abbrev-file-name "~/.doom.d/etc/abbrev.el"
-       user-mail-address "mrbig033@protonmail.com"
-       langtool-language-tool-jar "~/maps/langtool/langtooljar"
-       doom-theme 'doom-one
-       doom-font (font-spec :family "Menlo" :size 19)
-       doom-big-font (font-spec :family "Menlo" :size 19)
-       doom-unicode-font (font-spec :family "Menlo" :size 19)
-       doom-variable-pitch-font (font-spec :family "Input Mono")
-       doom-localleader-key "m"))
+  (setq! my-lisp "~/.doom.d/ml"
+         org-directory "~/org/"
+         dumb-jump-aggressive t
+         warning-minimum-level :emergency
+         user-full-name "mrbig"
+         confirm-kill-emacs nil
+         windmove-wrap-around t
+         persp-switch-to-added-buffer t
+         auto-revert-verbose nil
+         my-kbd "~/.doom.d/ml/kbd"
+         trash-directory "~/.Trash"
+         use-package-always-defer t
+         ns-option-modifier 'meta
+         ns-right-option-modifier 'meta
+         iedit-toggle-key-default "C-x ;"
+         display-line-numbers-type nil
+         +word-wrap-extra-indent 'single
+         custom-file "~/.doom.d/.custom-file.el"
+         abbrev-file-name "~/.doom.d/etc/abbrev.el"
+         user-mail-address "mrbig033@protonmail.com"
+         langtool-language-tool-jar "~/maps/langtool/langtooljar"
+         doom-theme 'doom-one
+         doom-font (font-spec :family "Menlo" :size 19)
+         doom-big-font (font-spec :family "Menlo" :size 19)
+         doom-unicode-font (font-spec :family "Menlo" :size 19)
+         doom-variable-pitch-font (font-spec :family "Input Mono")
+         doom-localleader-key "m"
+         (put 'narrow-to-region 'disabled nil)
+         (put 'customize-group 'disabled nil)
+         (put 'evil-invert-char 'disabled t)))
 
-(put 'narrow-to-region 'disabled nil)
-(put 'customize-group 'disabled nil)
-(put 'evil-invert-char 'disabled t)
 #+end_src
+**
+**
 **
 ** Initial Loading
 #+begin_src emacs-lisp
