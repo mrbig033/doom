@@ -1,0 +1,8 @@
+# key: usep
+# name: use-package
+# --
+#+begin_src emacs-lisp
+(use-package! $1
+  :$2
+  $0
+#+end_src

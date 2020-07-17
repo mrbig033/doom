@@ -1,0 +1,5 @@
+# key: mapg
+# name: map leader goto
+# --
+(map! :leader "$1" 'goto-$2)
+$0

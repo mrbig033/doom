@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: end a being elisp block
-# key: ebel
-# --
-#+end_src
-$0
-#+begin_src emacs-lisp

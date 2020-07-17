@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: my def
-# key: dd
-# uuid: def
-# group: definitions
-# --
-def ${1:func_name}($2):
-    ${3:`(or % "pass")`}$0

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: config
-# key: conf
-# --
-:config
-$0

@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: horizontal rule
-# uuid: hr
-# key: hr
-# condition: t
-# --
----
-
-$0

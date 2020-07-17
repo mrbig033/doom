@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: map!_with_description
-# key: mapp                            
-# --
-(map! ${1:map $2
-}:desc "$3" :${4:state } "${5:kbd}" '${6:command})

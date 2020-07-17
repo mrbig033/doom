@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: my comment line
-# uuid: my comment line
-# key: cot
-# condition: t
-;; ${1:$$(upcase yas-text)} ;;
-$0

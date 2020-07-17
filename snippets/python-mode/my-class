@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: class
-# key: cc
-# group: object oriented
-# --
-class ${1:Name}${2:($3)}:
-    ${4:"""$5."""}
-    $0
-

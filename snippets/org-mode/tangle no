@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: tangle no
-# key: tno
-# --
-#+begin_src emacs-lisp :tangle no

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: new abbrev
-# uuid:
-# key: ab
-# condition: t
-# --
-"$1"         0    "$1"

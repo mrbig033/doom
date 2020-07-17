@@ -1,4 +1,0 @@
-# key: vi
-# name: variable with input
-# --
-${1:variable} = input("$2")

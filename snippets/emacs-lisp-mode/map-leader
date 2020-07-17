@@ -1,0 +1,4 @@
+# key: mapl
+# name: map-leader
+# --
+(map! :leader "$1" '$2))

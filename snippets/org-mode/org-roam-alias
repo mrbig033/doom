@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: roam alias
-# uuid:
-# key: ralias
-# condition: t
-# --
-#+roam_alias: $0

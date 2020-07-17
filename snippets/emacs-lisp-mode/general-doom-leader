@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: general-doom-leader
-# uuid: general-doom-leader
-# key: gul
-# condition: t            
-# --
-:general
-(:keymaps '(doom-leader-map)
- "$1"     '$0)
