@@ -335,10 +335,7 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
-      :desc "Tangle Config"  :leader "et" 'my-tangle-configm
-      :desc "Tangle Babtle Tangel"  :leader "eT" 'my-org-babe-tangle
-
-      )
+      :desc "Tangle Config"  :leader "et" 'my-tangle-config)
 
 (map!   "M-q" 'eyebrowse-prev-window-config
         "M-w" 'eyebrowse-next-window-config
