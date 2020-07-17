@@ -342,6 +342,7 @@
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
       :desc "Tangle Config"  :leader "et" 'my-tangle-config
+      :desc "Tangle Restart" :leader "er" 'my-tangle-restart
       :desc "Tangle Config"  :leader "eT" 'my-org-babe-tangle)
 
 (map!   "M-q" 'eyebrowse-prev-window-config
@@ -391,10 +392,6 @@
 #+begin_src emacs-lisp
 (general-define-key
  :states  'override-state
- "M-k"    'windmove-up
- "M-j"    'windmove-down
- "M-h"    'windmove-left
- "M-l"    'windmove-right
  "C-j"    'treemacs-select-window
  "C-c b"  'org-brain-prefix-map
  "L"      'projectile-next-project-buffer
@@ -460,10 +457,6 @@
       :desc "Jump Backward"        :nv "M-o"     'better-jumper-jump-backward
       :desc "Jump Forward"         :nv "M-i"     'better-jumper-jump-forward
       :desc "Start of Visual Line" :nv "0"       'evil-beginning-of-visual-line
-      :desc "Windmove Down"        :niv "M-j"    'windmove-down
-      :desc "Windmove Left"        :niv "M-h"    'windmove-left
-      :desc "Windmove Right"       :niv "M-l"    'windmove-right
-      :desc "Windmove Up"          :niv "M-k"    'windmove-up
       :desc "Comment Line"         :nvg "C-9"    'evilnc-comment-or-uncomment-lines
       :desc "Cool Line Back"       :nvg "C-S-k"  'cool-moves-line-backward
       :desc "Cool Line Forw"       :nvg "C-S-j"  'cool-moves-line-forward
@@ -788,6 +781,12 @@
   (let ((inhibit-message t))
     (save-some-buffers t)
     (kill-current-buffer)))
+
+(defun my-tangle-config ()
+  (interactive)
+  (my-quiet-save-some-buffers)
+  (start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
+  (message " config tangled"))
 
 (defun my-tangle-config ()
   (interactive)
@@ -1326,10 +1325,6 @@ is already narrowed."
    "C-j"      'treemacs-select-window)
 
   (:keymaps   '(treemacs-mode-map evil-treemacs-state-map)
-   "M-k"    'windmove-up
-   "M-j"    'windmove-down
-   "M-h"    'windmove-left
-   "M-l"    'windmove-right
    "C-j"      'my-treemacs-visit-node-and-hide
    "C-p"      'treemacs-previous-project
    "C-n"      'treemacs-next-project
@@ -1373,12 +1368,10 @@ is already narrowed."
 
   (general-unbind
     :keymaps 'treemacs-mode-map
-    :with 'windmove-down
     [remap treemacs-next-neighbour])
 
   (general-unbind
     :keymaps 'treemacs-mode-map
-    :with 'windmove-up
     [remap treemacs-previous-neighbour])
 
   (general-unbind
@@ -2660,10 +2653,24 @@ is already narrowed."
   :config
   (midnight-mode +1))
 #+end_src
+*** Windmove
+#+begin_src emacs-lisp
+(use-package! widmove
+  :ensure nil
+  :init
+  (general-define-key
+   :keymaps 'override
+   :states  'override-state
+   "M-k" windmove-up
+   "M-j" windmove-down
+   "M-h" windmove-left
+   "M-l" windmove-right))
+#+end_src
 ** Doom
 *** Autoload
 #+begin_src emacs-lisp
 (use-package! dooom-dashboard
+  :after-call after-find-file
   :init
   (map! (:map +doom-dashboard-mode-map
          :nvieg "q"        'quit-window
