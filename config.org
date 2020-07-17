@@ -1147,7 +1147,7 @@ is already narrowed."
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  (load-file "~/.doom.d/org_func.el")))
+  (load-file "~/.doom.d/org_func.el"))
 #+end_src
 *** Org Pomodoro
 #+begin_src emacs-lisp
