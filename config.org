@@ -77,7 +77,7 @@
 ;; (define-derived-mode scratch-lisp-mode lisp-interaction-mode "scratch-lisp")
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
-(toggle-frame-maximized)
+;; (toggle-frame-maximized)
 #+end_src
 * Keybindings
 ** Translations
