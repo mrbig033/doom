@@ -43,7 +43,6 @@
        org-directory "~/org/"
        dumb-jump-aggressive t
        warning-minimum-level :emergency
-       warning-minimum-log-level: emergency
        user-full-name "mrbig"
        confirm-kill-emacs nil
        windmove-wrap-around t
