@@ -271,6 +271,8 @@
       :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
       :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
       :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
+      :desc "Langtool Buffer"     :leader "SPC tl" 'langtool-check-buffer
+      :desc "Langtool Done"       :leader "SPC tL" 'langtool-check-done
       :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
       :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
       :desc "Typo"                :leader "SPC ty" 'typo-mode
@@ -306,8 +308,6 @@
       :desc "Dup Paragraph"        :leader "tp" 'my-dup-par
       :desc "Dup Inner Paragraph"  :leader "ti" 'my-dup-inner-par
       :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
-      :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
-      :desc "Langtool Done"        :leader "tL" 'langtool-check-done
       :desc "Org Hydra"            :leader "ç"   'hydra-org-mode/body)
 
 ;; EVIL SUBSTITUTE ;;
