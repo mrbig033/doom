@@ -430,7 +430,7 @@
 #+begin_src emacs-lisp
   (general-define-key
    :keymaps  'override
-   :states   '(normal visual)
+   :states   '(normal)
    "c-spc" 'fix-word-upcase
    "x" 'whack-whitespace)
 
