@@ -1,6 +1,7 @@
 (after! evil
   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
-  (evil-better-visual-line-on))
+  ;; (gvil-better-visual-line-on)
+  )
 
 (after! text-mode
   (load "~/.doom.d/custom-lisp/auto-capitalize.el")
@@ -8,7 +9,15 @@
   (load "~/.doom.d/custom-lisp/only-insert.el"))
 
 (after! org
-  (setq! org-src-window-setup 'current-window))
+  (setq! org-src-window-setup 'current-window)
+  (map! :map (org-mode-map evil-org-mode-map)
+        :nvig "C-c C-s"  'org-emphasize
+        :n "C-o"         'counsel-outline
+        :n "zi"          'org-show-all
+        :n "zm"          'my-org-hide-all-function
+        :n "C-k"      'evil-change-line
+        :n "<backspace>" 'org-edit-special
+        :nv "<insert>"   'org-insert-link))
 
 (after! prog
   (add-hook 'after-save-hook (lambda () (executable-make-buffer-file-executable-if-script-p))))
@@ -23,9 +32,17 @@
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
 
+(defun my-first-file-functions ()
+  (interactive)
+  (column-number-mode -1)
+  (size-indication-mode -1))
+
+(add-hook 'doom-first-file-hook #'my-first-file-functions)
+
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        dumb-jump-aggressive t
+       warning-minimum-level :emergency
        user-full-name "mrbig"
        confirm-kill-emacs nil
        windmove-wrap-around t
@@ -38,8 +55,8 @@
        ns-right-option-modifier 'meta
        iedit-toggle-key-default "C-x ;"
        display-line-numbers-type nil
-       initial-major-mode 'fundamental-mode
-       initial-buffer-choice t
+       ;; initial-major-mode 'fundamental-mode
+       ;; initial-buffer-choice t
        +word-wrap-extra-indent 'single
        custom-file "~/.doom.d/.custom-file.el"
        abbrev-file-name "~/.doom.d/etc/abbrev.el"
@@ -53,6 +70,7 @@
        doom-localleader-key "m")
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+(put 'evil-invert-char 'disabled t)
 
 (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 
@@ -60,34 +78,33 @@
 (mouse-avoidance-mode 'banish)
 (global-subword-mode +1)
 (toggle-frame-maximized)
+(eyebrowse-mode +1)
 
+(define-key key-translation-map (kbd "§") (kbd "'"))
+(define-key key-translation-map (kbd "±") (kbd "\""))
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
+(define-key key-translation-map (kbd "") (kbd "^"))
+(define-key key-translation-map (kbd "s-w") (kbd "?"))
+(define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 
-;; MISC LOCAL KEYBINDINGS
-;; Add "after!" to "map!" blocks like so:
-;; Source: https://bit.ly/2VJWrlf
-;; (map! :after org-agenda
-;;       :map org-agenda-mode-map)
-(map! (:after helpful-mode
+(map! (:after helpful
        :map helpful-mode-map
        :nvig "C-r" 'helpful-update
        :n "<escape>" 'quit-window)
 
-      (:map (org-mode-map evil-org-mode-map prog-mode-map)
-       :nvig "C-c C-s" 'org-emphasize
-       "C-c o" 'counsel-outline
-       :n "<backspace>" 'org-edit-special
-       :nv "<insert>" 'org-insert-link)
+      (:map (prog-mode-map)
+       :n "<backspace>" 'org-edit-special)
 
-      (:after markdown-mode
+      (:after markdown
        :map (markdown-mode-map)
        "C-c ," 'my-engine-rhymit-pt-ap
        "C-c ." 'my-engine-dic-infor-rimas-ap)
 
-      (:after flyspell-mode
-       :map (flyspell-mode-map)
+      (:map (text-mode-map)
+       :n "+" 'endless/ispell-word-then-abbrev
        :n "-" 'endless/ispell-word-then-abbrev
+       :n "C-ç" 'endless/ispell-word-then-abbrev
        :n "z-" 'flyspell-correct-word)
 
       (:after messages-buffer-mode
@@ -95,7 +112,7 @@
        :ng "<escape>" 'ignore
        :nveg "q"      'quit-window)
 
-      (:after (:or prog-mode texto-mode)
+      (:after (:or prog-mode text-mode)
        :map (emacs-lisp-mode-map
              prog-mode-map
              text-mode-map
@@ -121,13 +138,12 @@
       :desc "Deer"                 :leader "r"     'deer
       :desc "Ranger"               :leader "R"     'ranger)
 
-(map! :after evil-mode
-      :desc "Insert to Emacs"     :n "i"        'evil-emacs-state
-      :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
-      :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
-      :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
-      :desc "Open Above to Emacs" :n "O"        'my-open-above-to-emacs-state
-      :desc "Kill Line to Emacs"  :n "C-k"      'my-kill-line-to-emacs-state)
+(map! :after evil
+      ;; :desc "Append to Emacs"     :n "a"        'my-append-to-emacs-state
+      ;; :desc "Append Line Emacs"   :n "A"        'my-append-line-to-emacs-state
+      ;; :desc "Open Below to Emacs" :n "o"        'my-open-below-to-emacs-state
+      ;; :desc "Open Above to Emacs" :n "O"        'my-open-above-to-emacs-state
+      :desc "Kill Line to Emacs"  :n "C-k"      'evil-change-line)
 
 (map! :map (minibuffer-local-map
             minibuffer-local-ns-map
@@ -160,6 +176,8 @@
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
       :desc "Reopen File"          :leader "T"  'my-reopen-killed-file
       :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
+      :desc "Scratch Markdown"     :leader "fo" 'my-goto-org
+      :desc "Scratch Markdown"     :leader "fO" 'counsel-locate
       :desc "Search Pkgs"          :leader "fp" 'my-search-packages
       :desc "Search Setts"         :leader "fs" 'my-search-settings
       :desc "Doom Dashboard"       :leader "fd" '+doom-dashboard/open)
@@ -184,7 +202,7 @@
       :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body)
 
 ;; OTHER LEADER KEYS
-(map! :desc "Ag Brain"                :leader "d"     'my-search-ag-brain
+(map! :desc "Goto dashboard"          :leader "d"     '+doom-dashboard/open
       :desc "Jump to Register"        :leader "J"     'jump-to-register
       :desc "Save Window Config"      :leader "j"     'window-configuration-to-register
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
@@ -201,8 +219,8 @@
       :desc "Michaelis AP"            :leader "sc"    'my-engine-search-michaealis-ap
       :desc "Free Dict Pt"            :leader "sF"    'engine/search-free-dic-pt
       :desc "Free Dict Pt AP"         :leader "sf"    'engine/free-dic-pt-ap
-      :desc "Aur√©lio"                 :leader "sA"    'engine/search-aurelio
-      :desc "Aur√©lio AP"              :leader "sa"    'engine/search-aurelio-ap
+      :desc "Aur√©lio"                :leader "sA"    'engine/search-aurelio
+      :desc "Aur√©lio AP"             :leader "sa"    'engine/search-aurelio-ap
       :desc "Counsel Bookmark"        :leader "sM"    'counsel-bookmark
       :desc "Counsel Marks"           :leader "sm"    'counsel-evil-marks
       :desc "Doom Package Configs"    :leader "hdpc"  'my-search-doom-package-config
@@ -212,14 +230,16 @@
       :desc "Kill Both"               :leader "K"     'kill-buffer-and-window
       :desc "Magit Stage & Commit"    :leader "g SPC" 'my-magit-stage-modified-and-commit
       :desc "Maximize Vertically"     :leader "ww"    'doom/window-maximize-vertically
-      :desc "Narrow Dwin"             :leader "nn"    'my-narrow-or-widen-dwim
-      :desc "Widen to Center"         :leader "nw"    'my-widen-to-center
+      :desc "Narrow Dwin"             :leader "nn"    'recursive-narrow-or-widen-dwim
+      :desc "Widen to Center"         :leader "nw"    'recursive-widen
+      :desc "Widen to Center"         :leader "nW"    'my-widen-to-center
       :desc "Default Brwoser"         :leader "oB"    'browse-url-of-file
       :desc "org2blog"                :leader "ob"    'org2blog--hydra-main/body
       :desc "Def. Yank Pop"           :leader "iY"    '+default/yank-pop
       :desc "Yasnippet Hydra"         :leader "y"     'hydra-yasnippet/body
       :desc "Windows Hydra"           :leader "z"     'hydra-window/body
       :desc "Restart Emacs"           :leader "qr"    'doom/restart
+      :desc "Goto config.org"         :leader "hdc"   'my-doom-goto-config-org-file
       :desc "Restart Emacs & Restore" :leader "qR"    'doom/restart-and-restore)
 
 ;; DOUBLE SPACES
@@ -234,9 +254,13 @@
       :desc "Prose Brasil"        :leader "SPC tb" 'my-prose-enable-br
       :desc "Prose Disable"       :leader "SPC td" 'my-prose-disable
       :desc "Prose English"       :leader "SPC te" 'my-prose-enable-en
+      :desc "Langtool Buffer"     :leader "SPC tl" 'langtool-check-buffer
+      :desc "Langtool Done"       :leader "SPC tL" 'langtool-check-done
       :desc "Scratch Fundamental" :leader "SPC sf" 'scratch-fundamental-mode
       :desc "Scratch Lisp"        :leader "SPC sl" 'scratch-lisp-mode
       :desc "Typo"                :leader "SPC ty" 'typo-mode
+      :desc "Flyspell Buffer"     :leader "SPC tf" 'flyspell-mode
+      :desc "Flyspell Buffer"     :leader "SPC tF" 'flycheck-buffer
       :desc "Insert Only"         :leader "SPC ti" 'only-insert-mode
       :desc "Unkillable Scratch"  :leader "SPC su" 'unkillable-scratch
       :desc "Visible"             :leader "SPC tv" 'visible-mode
@@ -259,8 +283,7 @@
       )
 
 ;; TEXT ;;
-(map! :desc "Flyspell Buffer"      :leader "tB" 'flyspell-buffer
-      :desc "Reload File"          :leader "tT" 'my-reload-file
+(map! :desc "Reload File"          :leader "tT" 'my-reload-file
       :desc "Duplicate Line"       :leader "tt" 'my-dup-line
       :desc "Google Translate"     :leader "tT" 'google-translate-smooth-translate
       :desc "Change Dictionary"    :leader "tD" 'ispell-change-dictionary
@@ -269,9 +292,7 @@
       :desc "Dup Paragraph"        :leader "tp" 'my-dup-par
       :desc "Dup Inner Paragraph"  :leader "ti" 'my-dup-inner-par
       :desc "Sort Lines by Length" :leader "tS" 'my-sort-lines-by-length
-      :desc "Langtool Buffer"      :leader "tl" 'langtool-check-buffer
-      :desc "Langtool Done"        :leader "tL" 'langtool-check-done
-      :desc "Org Hydra"            :leader "oo" 'hydra-org-mode/body)
+      :desc "Org Hydra"            :leader "ç"   'hydra-org-mode/body)
 
 ;; EVIL SUBSTITUTE ;;
 (map! :desc "Evil Substitute" :leader "su" (lambda ()
@@ -297,7 +318,18 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
-      :desc "Tangle Config"  :leader "et" 'my-tangle-config)
+      :desc "Tangle Config"  :leader "et" 'my-tangle-config
+      :desc "Tangle Config"  :leader "eT" 'my-org-babe-tangle)
+
+(map!   "M-q" 'eyebrowse-prev-window-config
+        "M-w" 'eyebrowse-next-window-config
+        :desc "1"                :leader "1"     'eyebrowse-switch-to-window-config-1
+        :desc "2"                :leader "2"     'eyebrowse-switch-to-window-config-2
+        :desc "3"                :leader "3"     'eyebrowse-switch-to-window-config-3
+        :desc "4"                :leader "4"     'eyebrowse-switch-to-window-config-4
+        :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
+        :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
+        :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config)
 
 (map! "C-'"                       'org-cycle-agenda-files
       "M-/"                       'hippie-expand
@@ -330,67 +362,31 @@
       :nvg "C-h e"                'describe-package
       :nvg "C-h n"                'my-show-server-name)
 
-(general-define-key
- :keymaps 'override
- :states  '(normal visual insert emacs)
- "M-k"    'windmove-up
- "M-j"    'windmove-down
- "M-h"    'windmove-left
- "M-l"    'windmove-right
- "C-j"    'treemacs-select-window
- "C-c b"  'org-brain-prefix-map
- "M-s"    'my-last-buffer
- "M-,"    'previous-buffer
- "M-."    'next-buffer)
-
-(general-define-key
- :keymaps 'override
- :states  '(normal)
- "gr"      'my-evil-sel-to-end)
-
-(general-define-key
- :keymaps 'override
- :states  '(normal visual)
- "L"      'projectile-next-project-buffer
- "H"      'projectile-previous-project-buffer)
-(general-define-key
- :keymaps 'override
- :states  '(insert)
- "C-k"    'kill-line
- "C-d"    'delete-char
- "C-h"    'delete-backward-char
- "C-w"    'backward-kill-word)
-
-(general-define-key
- :keymaps 'override
- :states '(visual)
- "gr"    'my-eval-region)
-
-(map! :map (+doom-dashboard-mode-map)
-      :e "q"        'quit-window)
-
-(general-unbind '+doom-dashboard-mode-map
-  :with 'quit-window
-  [remap evil-ex-nohighlight])
-
-(general-unbind '+doom-dashboard-mode-map
-  :with 'push-button
-  [remap evil-forward-char])
-
-(general-unbind '+doom-dashboard-mode-map
-  :with 'ignore
-  [remap evil-backward-char])
-
-(general-unbind '+doom-dashboard-mode-map
-  :with 'backward-button
-  [remap my-goto-scratch-buffer]
-  [remap evil-better-visual-line-previous-line]
-  [remap +doom-dashboard/backward-button])
-
-(general-unbind '+doom-dashboard-mode-map
-  :with 'forward-button
-  [remap evil-better-visual-line-next-line]
-  [remap +doom-dashboard/forward-button])
+;; (general-define-key
+;;  :keymaps '+doom-dashboard-mode-map
+;;  :states  'override-state
+;;  "M-k"    'windmove-up
+;;  "M-j"    'windmove-down
+;;  "M-h"    'windmove-left
+;;  "M-l"    'windmove-right
+;;  "C-j"    'treemacs-select-window
+;;  "C-c b"  'org-brain-prefix-map
+;;  "L"      'projectile-next-project-buffer
+;;  "H"      'projectile-previous-project-buffer
+;;  "C-k"    'kill-line
+;;  "C-d"    'delete-char
+;;  "C-h"    'delete-backward-char
+;;  "C-w"    'backward-kill-word
+;;  "gr"     'my-eval-region
+;;  "M-s"    'my-last-buffer
+;;  "gr"     'my-evil-sel-to-end
+;;  "M-,"    'previous-buffer
+;;  "q"      'quit-window
+;;  "l"      'push-button
+;;  "h"      'push-button
+;;  "j"      'backward-button
+;;  "k"      'forward-button
+;;  "M-."    'next-buffer)
 
 ;; NORMAL STATE
 (map! :desc "Evil Noh"            :n "<escape>" 'evil-ex-nohighlight
@@ -495,8 +491,8 @@
 
 (defun my-search-packages ()
   (interactive)
-  (my-widen-to-center-with-excursion)
-  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'"))
+  (counsel-ag  "(use-package\\! "  "~/.doom.d/.searches/" "-f -G '.org'")
+  (my-widen-to-center-with-excursion))
 
 (defun my-buffer-name ()
   (interactive)
@@ -550,6 +546,10 @@
   (interactive)
   (find-file org-agenda-file))
 
+(defun my-goto-org ()
+  (interactive)
+  (find-file "~/.doom.d/.tmp/org.org"))
+
 (defun my-goto-messages-buffer ()
   (interactive)
   (switch-to-buffer "*Messages*"))
@@ -561,6 +561,11 @@
 (defun my-last-buffer ()
   (interactive)
   (switch-to-buffer nil))
+
+(defun my-doom-goto-config-org-file()
+  "Open your private config.org file."
+  (interactive)
+  (find-file (expand-file-name "config.org" doom-private-dir)))
 
 (defun my-append-to-emacs-state ()
   (interactive)
@@ -708,6 +713,16 @@
 
 (fset 'my-dup-inner-par
       (kmacro-lambda-form [?y ?i ?p ?\} escape ?p] 0 "%d"))
+
+(defun my-org-hide-all-function ()
+  (interactive)
+  (let ((inhibit-message t))
+    (let ((current-prefix-arg 1))
+      (call-interactively 'org-shifttab))))
+
+(defun my-org-babe-tangle ()
+  (interactive)
+  (org-babel-tangle-file "~/.doom.d/config.org"))
 
 (defun my-eval-buffer ()
   (interactive)
@@ -926,6 +941,7 @@ is already narrowed."
 (use-package! evil
   :init
   (add-hook! 'evil-insert-state-exit-hook #'expand-abbrev)
+  ;; (add-hook! 'evil-insert-state-entry-hook #'evil-emacs-state)
   :custom
   (evil-move-cursor-back nil)
   (evil-jumps-cross-buffers t)
@@ -955,8 +971,13 @@ is already narrowed."
     (interactive)
     (evil-swap-keys-add-pair "-" "_")))
 
+(use-package! evil-better-visual-line
+             :after evil)
+
 (use-package! org
+  :after-call after-find-file
   :init
+  (setq! org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
@@ -1002,7 +1023,6 @@ is already narrowed."
   (org-enforce-todo-checkbox-dependencies t)
   (org-allow-promoting-top-level-subtree nil)
   (org-drawers (quote ("properties" "logbook")))
-  (org-todo-keywords '((sequence "TODO(t)" "WORK(s!)" "REVW(r!)" "|" "DONE(d!)")))
   (org-id-link-to-org-use-id nil)
   (org-agenda-show-all-dates nil)
   (org-agenda-hide-tags-regexp ".")
@@ -1060,14 +1080,95 @@ is already narrowed."
       "* %? %i" :prepend t)))
 
   :config
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines))
+
   (advice-add 'org-edit-special :after #'my-indent-buffer)
   (advice-add 'org-edit-special :after #'my-recenter-window)
   (advice-add 'org-edit-src-exit :before #'my-indent-buffer)
   (advice-add 'org-edit-src-exit :after #'my-recenter-window)
 
-  (load "/Users/davi/.doom.d/org_defun.el")
-  (require 'ox-extra)
-  (ox-extras-activate '(ignore-headlines)))
+  (defun my-org-force-open-other-window ()
+    (interactive)
+    (let ((org-link-frame-setup (quote
+                                 ((vm . vm-visit-folder)
+                                  (vm-imap . vm-visit-imap-folder)
+                                  (gnus . gnus)
+                                  (file . find-file-other-window)
+                                  (wl . wl)))))
+      (org-open-at-point)))
+
+  (defun my-org-key-translation ()
+    "Custom `org-mode' behaviours."
+    ;; Buffer-local key translation from "`" to "~".
+    (let ((keymap (make-sparse-keymap)))
+
+      (set-keymap-parent keymap key-translation-map)
+      (setq-local key-translation-map keymap)
+      (define-key key-translation-map (kbd "s-s") (kbd "C-c '"))))
+
+  (defun my-eval-buffer-and-leave-org-source ()
+    (interactive)
+    (eval-buffer)
+    (org-edit-src-exit))
+
+  (defun my-org-started-with-clock ()
+    (interactive)
+    (org-todo "STRT")
+    (org-clock-in))
+
+  (defun my-org-started-with-pomodoro ()
+    (interactive)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-goto-clock-and-start-pomodoro ()
+    (interactive)
+    (org-clock-goto)
+    (org-todo "STRT")
+    (org-pomodoro))
+
+  (defun my-org-started-no-clock ()
+    (interactive)
+    (org-todo "STRT"))
+
+  (defun my-org-todo-done ()
+    (interactive)
+    (org-todo "DONE"))
+
+  (defun my-org-todo-done-pomodoro ()
+    (interactive)
+    (org-todo "DONE")
+    (org-pomodoro))
+
+  (defun my-org-todo ()
+    (interactive)
+    (org-todo "TODO")
+    (org-clock-out))
+
+  (defun org-today-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 1)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-3-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 3)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-7-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 7)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a")))
+
+  (defun org-30-days-agenda ()
+    (interactive)
+    (let ((current-prefix-arg 30)
+          (org-deadline-warning-days 0))
+      (org-agenda t "a"))))
 
 (use-package! org-pomodoro
   :config
@@ -1086,8 +1187,6 @@ is already narrowed."
         org-pomodoro-format "p: %s"))
 
 (use-package! ranger
-  :init
-  (setq ranger-deer-show-details nil)
   :custom
   (ranger-max-tabs 0)
   (ranger-minimal nil)
@@ -1213,75 +1312,34 @@ is already narrowed."
   :custom
   (projectile-track-known-projects-automatically nil)
   :config
-  ;; PROJECTILE LEADER
-  (map! :desc "Projectile Ag"           :leader "pg" #'counsel-projectile-ag
-        :desc "Add to Treemacs"         :leader "pt" #'treemacs-add-and-display-current-project
-        :desc "Add project"             :leader "pa" #'projectile-add-known-project
-        :desc "Switch to buffer"        :leader "pb" #'projectile-switch-to-buffer
-        :desc "Compile"                 :leader "pc" #'projectile-compile-project
-        :desc "Repeat command"          :leader "pC" #'projectile-repeat-last-command
-        :desc "Remove project"          :leader "pd" #'projectile-remove-known-project
-        :desc "Discover"                :leader "pD" #'+default/discover-projects
-        :desc "Edit .dir-locals"        :leader "pe" #'projectile-edit-dir-locals
-        :desc "Find file"               :leader "pf" #'projectile-find-file
-        :desc "Find file in other"      :leader "pF" #'doom/find-file-in-other-project
-        :desc "Find file dwim"          :leader "pw" #'projectile-find-file-dwim
-        :desc "Find file in dir"        :leader "py" #'projectile-find-file-in-directory
-        :desc "Config project"          :leader "pg" #'projectile-configure-project
-        :desc "Invalidate cache"        :leader "pi" #'projectile-invalidate-cache
-        :desc "Kill buffers"            :leader "pk" #'projectile-kill-buffers
-        :desc "Find other file"         :leader "po" #'projectile-find-other-file
-        :desc "Switch project"          :leader "pp" #'projectile-switch-project
-        :desc "Recent Files"            :leader "pr" #'projectile-recentf
-        :desc "Replace"                 :leader "pR" #'projectile-replace
-        :desc "Run project"             :leader "pu" #'projectile-run-project
-        :desc "Save buffers"            :leader "ps" #'projectile-save-project-buffers
-        :desc "Browse project"          :leader "pB" #'+default/browse-project
-        :desc "Test project"            :leader "pT" nil
-        :desc "Browse other"            :leader "p>" nil
-        :desc "Run cmd in root"         :leader "p!" nil
-        :desc "Scratch buffer"          :leader "px" nil
-        :desc "Switch to scratch"       :leader "pX" nil
-        :desc "Browse project"          :leader "p." nil))
 
-(use-package! super-save
-  :after-call after-find-file
-  :custom
-  (auto-save-default nil)
-  (super-save-idle-duration 5)
-  (super-save-auto-save-when-idle nil)
-  (super-save-triggers
-   '(quickrun
-     quit-window
-     eval-buffer
-     my-last-buffer
-     windmove-up
-     windmove-down
-     windmove-left
-     windmove-right
-     switch-to-buffer
-     org-edit-src-exit
-     org-edit-special
-     delete-window
-     projectile-next-project-buffer
-     projectile-previous-project-buffer
-     eyebrowse-close-window-config
-     eyebrowse-create-window-config
-     eyebrowse-prev-window-config))
-
-  :config
-
-  (defun super-save-command ()
-    "Save the current buffer if needed."
-    (when (and buffer-file-name
-               (buffer-modified-p (current-buffer))
-               (file-writable-p buffer-file-name)
-               (if (file-remote-p buffer-file-name) super-save-remote-files t)
-               (super-save-include-p buffer-file-name))
-      (let ((inhibit-message t))
-        (save-buffer))))
-
-  (super-save-mode t))
+  (add-to-list 'projectile-globally-ignored-buffers "*doom*")
+  (general-unbind '(evil-normal-state-map)
+                  "~"
+                  ".")
+  (map! :desc "Projectile Ag"           :n ".g" #'counsel-projectile-ag
+        :desc "Config project"          :n ".G" #'projectile-configure-project
+        :desc "Add project"             :n ".a" #'projectile-add-known-project
+        :desc "Switch to buffer"        :n ".b" #'projectile-switch-to-buffer
+        :desc "Compile"                 :n ".c" #'projectile-compile-project
+        :desc "Repeat command"          :n ".C" #'projectile-repeat-last-command
+        :desc "Remove project"          :n ".d" #'projectile-remove-known-project
+        :desc "Discover"                :n ".D" #'+default/discover-projects
+        :desc "Edit .dir-locals"        :n ".e" #'projectile-edit-dir-locals
+        :desc "Find file"               :n ".f" #'projectile-find-file
+        :desc "Find file in other"      :n ".F" #'doom/find-file-in-other-project
+        :desc "Find file dwim"          :n ".w" #'projectile-find-file-dwim
+        :desc "Find file in dir"        :n ".y" #'projectile-find-file-in-directory
+        :desc "Add to Treemacs"         :n ".t" #'treemacs-add-and-display-current-project
+        :desc "Invalidate cache"        :n ".i" #'projectile-invalidate-cache
+        :desc "Kill buffers"            :n ".k" #'projectile-kill-buffers
+        :desc "Find other file"         :n ".o" #'projectile-find-other-file
+        :desc "Switch project"          :n ".p" #'projectile-switch-project
+        :desc "Recent Files"            :n ".r" #'projectile-recentf
+        :desc "Replace"                 :n ".R" #'projectile-replace
+        :desc "Run project"             :n ".u" #'projectile-run-project
+        :desc "Save buffers"            :n ".s" #'projectile-save-project-buffers
+        :desc "Browse project"          :n ".B" #'+default/browse-project))
 
 (use-package! git-auto-commit-mode
   :custom
@@ -1305,8 +1363,6 @@ is already narrowed."
 
   :general
   (:states '(normal)
-   "g9"      'my-avy-goto-open-paren
-   "g0"      'my-avy-goto-close-paren
    ","       'avy-goto-subword-1
    "F"       'evil-avy-goto-char-2-above
    "f"       'evil-avy-goto-char-2-below)
@@ -1458,9 +1514,9 @@ is already narrowed."
     (interactive)
     (auto-capitalize-mode +1)
     (electric-operator-mode +1)
-    (hl-sentence-mode +1)
-    (olivetti-mode +1)
-    (typo-mode +1)
+    (setq-local company-tooltip-limit 5
+                company-minimum-prefix-length 2
+                company-idle-delay 0.3)
     (writegood-mode -1)
     (ispell-change-dictionary "brasileiro")
     (flyspell-mode +1)
@@ -1471,9 +1527,9 @@ is already narrowed."
     (interactive)
     (auto-capitalize-mode +1)
     (electric-operator-mode +1)
-    (hl-sentence-mode +1)
-    (olivetti-mode +1)
-    (typo-mode +1)
+    (setq-local company-tooltip-limit 5
+                company-minimum-prefix-length 2
+                company-idle-delay 0.3)
     (artbollocks-mode +1)
     (ispell-change-dictionary "english")
     (flyspell-mode +1)
@@ -1484,8 +1540,6 @@ is already narrowed."
     (interactive)
     (auto-capitalize-mode -1)
     (electric-operator-mode -1)
-    (hl-sentence-mode +1)
-    (olivetti-mode -1)
     (typo-mode -1)
     (artbollocks-mode -1)
     (flyspell-mode -1)
@@ -1528,8 +1582,8 @@ is already narrowed."
 
   (define-typo-cycle typo-cycle-dashes
     "Cycle through various dashes."
-    ("-"   ; hyphen-minus
-     "—"   ; em dash
+    ("—"   ; em dash
+     "-"   ; hyphen-minus
      "−"   ; minus sign
      "‐"   ; hyphen
      "–"   ; en dash
@@ -1604,9 +1658,9 @@ is already narrowed."
   :custom
   (company-ispell-available t)
   (company-show-numbers t)
-  (company-idle-delay 0.3)
+  (company-idle-delay 0.2)
   (company-tooltip-limit 10)
-  (company-minimum-prefix-length 2)
+  (company-minimum-prefix-length 1)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-auto-complete nil)
@@ -1621,27 +1675,26 @@ is already narrowed."
                               eshell-mode))
 
   :general
-  (:keymaps                    '(company-active-map)
-   "M-e"                       'my-company-yasnippet
-   "C-y"                       'company-yasnippet
-   "<return>"                  nil
-   "C-m"                       'company-complete-selection
-   "M-q"                       'company-complete-selection
-   "M-w"                       'my-company-comp-with-paren
-   "M-."                       'my-company-comp-with-dot
-   "M-j"                       'my-company-comp-space
-   "C-u"                       'my-backward-kill-line
-   "C-h"                       'delete-backward-char
-   "M-0"                       'company-complete-number
-   "M-1"                       'company-complete-number
-   "M-2"                       'company-complete-number
-   "M-3"                       'company-complete-number
-   "M-4"                       'company-complete-number
-   "M-5"                       'company-complete-number
-   "M-6"                       'company-complete-number
-   "M-7"                       'company-complete-number
-   "M-8"                       'company-complete-number
-   "M-9"                       'company-complete-number)
+  (:keymaps '(company-active-map)
+   "<return>" nil
+   "C-h"    'backward-delete-char
+   "M-e"    'my-company-yasnippet
+   "M-q"    'company-complete-selection
+   "C-d"    'counsel-company
+   "M-w"    'my-company-comp-with-paren
+   "M-."    'my-company-comp-with-dot
+   "M-j"    'my-company-comp-space
+   "C-u"    'my-backward-kill-line
+   "M-0"    'company-complete-number
+   "M-1"    'company-complete-number
+   "M-2"    'company-complete-number
+   "M-3"    'company-complete-number
+   "M-4"    'company-complete-number
+   "M-5"    'company-complete-number
+   "M-6"    'company-complete-number
+   "M-7"    'company-complete-number
+   "M-8"    'company-complete-number
+   "M-9"    'company-complete-number)
 
   :config
 
@@ -1682,6 +1735,8 @@ is already narrowed."
    "<escape>" 'evil-ex-nohighlight))
 
 (use-package! flycheck
+  :init
+  (add-hook 'flycheck-mode-hook 'flycheck-buffer)
   :custom
   (flycheck-global-modes '(not lisp-interaction-mode
                                emacs-lisp-mode)))
@@ -1716,11 +1771,8 @@ is already narrowed."
   (doom-modeline-checker-simple-format t)
   (doom-modeline-bar-width 2)
   (doom-modeline-percent-position '(-3 "%p"))
-  (doom-modeline-enable-word-count t)
-  (doom-modeline-buffer-file-name-style 'buffer-name)
-  :config
-  (column-number-mode -1)
-  (size-indication-mode -1))
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-buffer-file-name-style 'buffer-name))
 
 (use-package! delight
   :after-call after-find-file
@@ -2071,17 +2123,13 @@ is already narrowed."
   (eyebrowse-switch-back-and-forth t)
   (eyebrowse-mode-line-left-delimiter " [ ")
   (eyebrowse-mode-line-right-delimiter " ]  ")
-  (eyebrowse-mode-line-separator " | ")
+  (eyebrowse-mode-line-separator " | "))
+
+(use-package unkillable-scratch
   :config
-  (map! "M-q" 'eyebrowse-prev-window-config
-        "M-w" 'eyebrowse-next-window-config
-        :desc "1"                :leader "1"     'eyebrowse-switch-to-window-config-1
-        :desc "2"                :leader "2"     'eyebrowse-switch-to-window-config-2
-        :desc "3"                :leader "3"     'eyebrowse-switch-to-window-config-3
-        :desc "4"                :leader "4"     'eyebrowse-switch-to-window-config-4
-        :desc "New Workspace"    :leader "v"     'eyebrowse-create-window-config
-        :desc "Rename Workspace" :leader "cr"    'eyebrowse-rename-window-config
-        :desc "Close Workspace"  :leader "x"     'eyebrowse-close-window-config))
+  (setq unkillable-scratch-behavior 'bury
+        unkillable-buffers '("^\\*scratch\\*$"))
+  (unkillable-scratch))
 
 (use-package! recursive-narrow
   :init
@@ -2155,5 +2203,8 @@ is already narrowed."
   (recentf-max-saved-items 20)
   :config
   (add-to-list 'recentf-exclude "/\\.emacs\\.d/.local/straight/"))
+
+(use-package! autoload
+  )
 
 (run-hooks 'doom-first-input-hook)
