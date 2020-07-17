@@ -426,6 +426,7 @@
       :desc "Previous Window"      :nvg "M-]"    'evil-window-prev)
 #+end_src
 
+** Overrides
 * Functions
 ** Basic Functions
 #+begin_src emacs-lisp
