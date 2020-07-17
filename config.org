@@ -5,9 +5,7 @@
 ** after! and hooks
 #+begin_src emacs-lisp
 (after! evil
-  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
-  ;; (gvil-better-visual-line-on)
-  )
+  (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
 
 (after! text-mode
   (load "~/.doom.d/custom-lisp/auto-capitalize.el")
@@ -69,9 +67,10 @@
          (put 'narrow-to-region 'disabled nil)
          (put 'customize-group 'disabled nil)
          (put 'evil-invert-char 'disabled t)))
-
+#+end_src
 ** Initial Loading
 #+begin_src emacs-lisp
+(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 #+end_src
 ** Initial Modes
 #+begin_src emacs-lisp
