@@ -30,7 +30,7 @@
 
 (add-hook 'doom-first-file-hook #'my-first-file-functions)
 #+end_src
-** Initial Settings
+** First File Functions
 #+begin_src emacs-lisp
 
 (defun my-first-file-functions ()
