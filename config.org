@@ -1036,7 +1036,7 @@ is already narrowed."
         :n    "zi"          'org-show-all
         :n    "zm"          'my-org-hide-all-function
         :n    "gr"          'my-evil-sel-to-end
-        :nv   "ge"            'my-evil-of-visual-line
+        :nv   "ge"          'my-evil-of-visual-line
         :nvieg "C-c C-s"    'org-emphasize
         :nvieg "M-k"        'windmove-up
         :nvieg "M-j"        'windmove-down
