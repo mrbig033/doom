@@ -48,6 +48,7 @@
 ;(unpin! t)
 
 (package! typo)
+(package! clipmon)
 (package! wordnut)
 (package! delight)
 (package! olivetti)
@@ -60,12 +61,12 @@
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
+(package! unkillable-scratch)
 (package! recursive-narrow)
 (package! evil-better-visual-line)
 (package! engine-mode :pin "e0910f1")
 
 (package! elpy :disable t)
-(package! clipmon :disable t)
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
 (package! nswbuff :disable t)
@@ -84,5 +85,4 @@
 (package! evil-easymotion :disable t)
 (package! evil-vimish-fold :disable t)
 (package! evil-smartparens :disable t)
-(package! unkillable-scratch :disable t)
 (package! apheleia :recipe (:host github :repo "raxod502/apheleia") :disable t)
