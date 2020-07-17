@@ -66,13 +66,17 @@
          doom-unicode-font (font-spec :family "Menlo" :size 19)
          doom-variable-pitch-font (font-spec :family "Input Mono")
          doom-localleader-key "m"
+
+(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
          (put 'narrow-to-region 'disabled nil)
          (put 'customize-group 'disabled nil)
-         (put 'evil-invert-char 'disabled t)))
+         (put 'evil-invert-char 'disabled t)
+
+
+))
 
 ** Initial Loading
 #+begin_src emacs-lisp
-(load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
 #+end_src
 ** Initial Modes
 #+begin_src emacs-lisp
