@@ -32,7 +32,6 @@
 #+end_src
 ** First File Functions
 #+begin_src emacs-lisp
-
 (defun my-first-file-functions ()
   (interactive)
   (column-number-mode -1)
