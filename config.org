@@ -6,7 +6,8 @@
 #+begin_src emacs-lisp
 (after! evil
   (setq! evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn))
-  (evil-better-visual-line-on))
+  ;; (gvil-better-visual-line-on)
+  )
 
 (after! text-mode
   (load "~/.doom.d/custom-lisp/auto-capitalize.el")
@@ -77,6 +78,7 @@
        doom-localleader-key "m")
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+(put 'evil-invert-char 'disabled t)
 #+end_src
 ** Initial Loading
 #+begin_src emacs-lisp
@@ -93,7 +95,10 @@
 * Keybindings
 ** Translations
 #+begin_src emacs-lisp
+(define-key key-translation-map (kbd "§") (kbd "'"))
+(define-key key-translation-map (kbd "±") (kbd "\""))
 (define-key key-translation-map (kbd "ˆ") (kbd "^"))
+(define-key key-translation-map (kbd "") (kbd "^"))
 (define-key key-translation-map (kbd "s-w") (kbd "?"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
 (define-key key-translation-map (kbd "<help>") (kbd "<insert>"))
@@ -195,7 +200,8 @@
       :desc "Scratch Markdown"     :leader "fO" 'counsel-locate
       :desc "Search Pkgs"          :leader "fp" 'my-search-packages
       :desc "Search Setts"         :leader "fs" 'my-search-settings
-      :desc "Doom Dashboard"       :leader "fd" '+doom-dashboard/open)
+
+      )
 #+end_src
 *** Misc Leader
 #+begin_src emacs-lisp
@@ -219,8 +225,7 @@
       :desc "Org Clock"   :localleader  "j" 'hydra-org-clock/body)
 
 ;; OTHER LEADER KEYS
-(map! :desc "Goto Dashboard"          :leader "d"     '+doom-dashboard/open
-      :desc "Jump to Register"        :leader "J"     'jump-to-register
+(map! :desc "Jump to Register"        :leader "J"     'jump-to-register
       :desc "Save Window Config"      :leader "j"     'window-configuration-to-register
       :desc "Narrow to Defun"         :leader "nd"    'narrow-to-defun
       :desc "Counsel Ag"              :leader "sg"    'counsel-ag
@@ -384,7 +389,6 @@
 ** General
 #+begin_src emacs-lisp
 ;; (general-define-key
-;;  :keymaps '+doom-dashboard-mode-map
 ;;  :states  'override-state
 ;;  "M-k"    'windmove-up
 ;;  "M-j"    'windmove-down
@@ -1051,7 +1055,7 @@ is already narrowed."
 *** Evil Visual Line
 #+begin_src emacs-lisp
 (use-package! evil-better-visual-line
-             after evil)
+             :after evil)
 #+end_src
 ** Org
 *** Org Main
@@ -1525,7 +1529,8 @@ is already narrowed."
 
   (add-to-list 'projectile-globally-ignored-buffers "*doom*")
   (general-unbind '(evil-normal-state-map)
-    ".")
+                  "~"
+                  ".")
   (map! :desc "Projectile Ag"           :n ".g" #'counsel-projectile-ag
         :desc "Config project"          :n ".G" #'projectile-configure-project
         :desc "Add project"             :n ".a" #'projectile-add-known-project
@@ -2652,6 +2657,12 @@ is already narrowed."
   (clean-buffer-list-kill-regexps '("\\`\\*Man " "^#.*#$" "^\\*.*\\*"))
   :config
   (midnight-mode +1))
+#+end_src
+** Doom
+*** Autoload
+#+begin_src emacs-lisp
+(use-package! autoload
+  )
 #+end_src
 * Final Cmd
 [[https://github.com/hlissner/doom-emacs/issues/3399#issuecomment-645478905][Source]]
