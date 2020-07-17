@@ -427,6 +427,18 @@
 #+end_src
 
 ** Overrides
+#+begin_src emacs-lisp
+  (general-define-key
+   :keymaps  'override
+   :states   '(normal visual)
+   "c-spc" 'fix-word-upcase
+   "x" 'whack-whitespace)
+
+
+(general-unbind 'evil-smartparens-mode-map
+  :with 'exchange-point-and-mark
+  [remap evil-sp-override]))
+#+end_src
 * Functions
 ** Basic Functions
 #+begin_src emacs-lisp
