@@ -1,88 +1,45 @@
-;; -*- no-byte-compile: t; -*-
-;;; $DOOMDIR/packages.el
-
-;; To install a package with Doom you must declare them here and run 'doom sync'
-;; on the command line, then restart Emacs for the changes to take effect -- or
-;; use 'M-x doom/reload'.
-
-;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
-
-;; To install a package directly from a remote git repo, you must specify a
-;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
-;; https://github.com/raxod502/straight.el#the-recipe-format
-;(package! another-package
-;  :recipe (:host github :repo "username/repo"))
-
-;; If the package you are trying to install does not contain a PACKAGENAME.el
-;; file, or is located in a subdirectory of the repo, you'll need to specify
-;; `:files' in the `:recipe':
-;(package! this-package
-;  :recipe (:host github :repo "username/repo"
-;           :files ("some-file.el" "src/lisp/*.el")))
-
-;; If you'd like to disable a package included with Doom, you can do so here
-;; with the `:disable' property:
-;(package! builtin-package :disable t)
-
-;; You can override the recipe of a built in package without having to specify
-;; all the properties for `:recipe'. These will inherit the rest of its recipe
-;; from Doom or MELPA/ELPA/Emacsmirror:
-;(package! builtin-package :recipe (:nonrecursive t))
-;(package! builtin-package-2 :recipe (:repo "myfork/package"))
-
-;; Specify a `:branch' to install a package from a particular branch or tag.
-;; This is required for some packages whose default branch isn't 'master' (which
-;; our package manager can't deal with; see raxod502/straight.el#279)
-;(package! builtin-package :recipe (:branch "develop"))
-
-;; Use `:pin' to specify a particular commit to install.
-;(package! builtin-package :pin "1a2b3c4d5e")
-
-;; Doom's packages are pinned to a specific commit and updated from release to
-;; release. The `unpin!' macro allows you to unpin single packages...
-;(unpin! pinned-package)
-;; ...or multiple packages
-;(unpin! pinned-package another-pinned-package)
-;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
-;(unpin! t)
-
+(package! elpy)
 (package! typo)
+(package! delight)
 (package! clipmon)
 (package! wordnut)
-(package! delight)
+(package! pabbrev)
+(package! elmacro)
 (package! olivetti)
 (package! eyebrowse)
+(package! org2blog)
 (package! caps-lock)
+(package! org-brain)
+(package! which-key)
+(package! super-save)
+(package! vimrc-mode)
 (package! hl-sentence)
+(package! lorem-ipsum)
+(package! url-shortener)
 (package! fountain-mode)
+(package! evil-god-state)
 (package! evil-swap-keys)
-(package! artbollocks-mode)
 (package! google-translate)
+(package! artbollocks-mode)
+(package! evil-smartparens)
 (package! electric-operator)
 (package! git-auto-commit-mode)
-(package! unkillable-scratch)
-(package! recursive-narrow)
-(package! evil-better-visual-line)
 (package! engine-mode :pin "e0910f1")
+(package! apheleia :recipe (:host github :repo "raxod502/apheleia"))
 
-(package! elpy :disable t)
-(package! elmacro :disable t)
-(package! pabbrev :disable t)
+(package! zoom :disable t)
+(package! beacon :disable t)
 (package! nswbuff :disable t)
-(package! org2blog :disable t)
+(package! shut-up :disable t)
+(package! org-roam :disable t)
 (package! polymode :disable t)
-(package! org-brain :disable t)
-(package! evil-lion :disable t)
 (package! yafolding :disable t)
-(package! vimrc-mode :disable t)
-(package! evil-snipe :disable t)
+(package! evil-lion :disable t)
 (package! bug-hunter :disable t)
-(package! super-save :disable t)
+(package! evil-snipe :disable t)
 (package! ivy-yasnippet :disable t)
 (package! org-web-tools :disable t)
-(package! evil-god-state :disable t)
-(package! evil-easymotion :disable t)
-(package! evil-vimish-fold :disable t)
-(package! evil-smartparens :disable t)
-(package! apheleia :recipe (:host github :repo "raxod502/apheleia") :disable t)
+(package! benchmark-init :disable t)
+(package! recursive-narrow :disable t)
+(package! unkillable-scratch :disable t)
+(package! evil-better-visual-line :disable t)
