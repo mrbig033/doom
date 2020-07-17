@@ -190,6 +190,8 @@
       :desc "Rename File"          :leader "fR" 'my-rename-file-and-buffer
       :desc "Reopen File"          :leader "T"  'my-reopen-killed-file
       :desc "Scratch Markdown"     :leader "fm" 'my-goto-markdown
+      :desc "Scratch Markdown"     :leader "fo" 'my-goto-org
+      :desc "Scratch Markdown"     :leader "fO" 'counsel-locate
       :desc "Search Pkgs"          :leader "fp" 'my-search-packages
       :desc "Search Setts"         :leader "fs" 'my-search-settings
       :desc "Doom Dashboard"       :leader "fd" '+doom-dashboard/open)
@@ -610,6 +612,10 @@
 (defun my-goto-agenda ()
   (interactive)
   (find-file org-agenda-file))
+
+(defun my-goto-org ()
+  (interactive)
+  (find-file "~/.doom.d/.tmp/org.org"))
 
 (defun my-goto-messages-buffer ()
   (interactive)
