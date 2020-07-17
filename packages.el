@@ -1,7 +1,7 @@
 (package! typo)
 (package! elpy)
 (package! elmacro)
-(package! pabbrev)
+(package! abbrev)
 (package! wordnut)
 (package! clipmon)
 (package! delight)
