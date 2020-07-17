@@ -164,11 +164,11 @@
             evil-ex-completion-map
             evil-ex-search-keymap)
       "C-y" 'kill-ring-save
-      :nig "<insert>" 'yank
-      :nig "C-k"      'kill-line
-      :nig "C-d"      'delete-char
-      :nig "C-h"      'delete-backward-char
-      :nig "C-w"      'backward-kill-word)
+      :i "<insert>" nil
+      :i "C-k"     nil
+      :i "C-d"     nil
+      :i "C-h"     nil
+      :i "C-w"     nil)
 #+end_src
 ** Leader
 *** File Leader
@@ -1032,7 +1032,7 @@ is already narrowed."
 #+end_src
 *** Evil Visual Line
 #+begin_src emacs-lisp
-(use-package! evil-better-visual-line
+(use-package evil-better-visual-line
              :after evil)
 #+end_src
 ** Org Pkgs
@@ -2472,7 +2472,16 @@ is already narrowed."
                         "magit"
                         "*org-src-fontification.\\*"))
 
-  ;; (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.elc' %s")
+  ;; Original:
+  ;; (setq counsel-ag-base-command "ag --vimgrep %s")
+
+
+
+
+  (counsel-ag nil "~/.emacs.d/" "-G '.org'")
+
+
+  (counsel-ag-base-command "ag --filename --nocolor --nogroup --smart-case --skip-vcs-ignores --silent --ignore '*.elc' %s")
 
   :general
   (:states '(normal visual insert)
@@ -2639,7 +2648,6 @@ is already narrowed."
 *** Windmove
 #+begin_src emacs-lisp
 (use-package! widmove
-  :ensure nil
   :init
   (general-define-key
    :keymaps 'override
@@ -2655,7 +2663,7 @@ is already narrowed."
        "q"        'quit-window
        "<escape>" 'quit-window))
 #+end_src
-* Final Cmg,
+* Final Cmd
 [[https://github.com/hlissner/doom-emacs/issues/3399#issuecomment-645478905][Source]]
 #+begin_src emacs-lisp
 (run-hooks 'doom-first-input-hook)
