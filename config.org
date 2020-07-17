@@ -30,15 +30,15 @@
   (add-to-list 'undo-fu-session-incompatible-major-modes #'python-mode)
   (add-to-list 'undo-fu-session-incompatible-major-modes #'org-brain-visualize-mode))
 
-(defun my-first-file-functions ()
-  (interactive)
-  (column-number-mode -1)
-  (size-indication-mode -1))
-
 (add-hook 'doom-first-file-hook #'my-first-file-functions)
 #+end_src
 ** Initial Settings
 #+begin_src emacs-lisp
+
+(defun my-first-file-functions ()
+  (interactive)
+  (column-number-mode -1)
+  (size-indication-mode -1)
 (setq! my-lisp "~/.doom.d/ml"
        org-directory "~/org/"
        dumb-jump-aggressive t
@@ -65,11 +65,17 @@
        doom-big-font (font-spec :family "Menlo" :size 19)
        doom-unicode-font (font-spec :family "Menlo" :size 19)
        doom-variable-pitch-font (font-spec :family "Input Mono")
-       doom-localleader-key "m")
+       doom-localleader-key "m"))
+
+
+
+
+
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
 (put 'evil-invert-char 'disabled t)
 #+end_src
+**
 ** Initial Loading
 #+begin_src emacs-lisp
 (load! "/Users/davi/.doom.d/custom-lisp/auto-capitalize.el")
