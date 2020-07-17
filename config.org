@@ -335,7 +335,8 @@
       :desc "Eval & Kill"    :leader "ek" 'my-eval-buffer-kill
       :desc "Eval Paren"     :leader "ep" 'my-eval-paren-macro
       :desc "Eval Paragraph" :leader "eP" 'my-eval-paragraph-macro
-      :desc "Tangle Config"  :leader "et" 'my-tangle-config)
+      :desc "Tangle Config"  :leader "et" 'my-tangle-config
+      :desc "Tangle Config"  :leader "eT" 'my-org-babe-tangle)
 
 (map!   "M-q" 'eyebrowse-prev-window-config
         "M-w" 'eyebrowse-next-window-config
@@ -383,7 +384,7 @@
 ** General
 #+begin_src emacs-lisp
 (general-define-key
- :keymaps 'override
+ :keymaps '+doom-dashboard-mode-map
  :states  '(normal visual insert emacs)
  "M-k"    'windmove-up
  "M-j"    'windmove-down
