@@ -9,7 +9,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "mrblack"
@@ -83,6 +82,30 @@
 (map! :desc "Last Buffer" :nvg "M-s" 'my-last-buffer)
 #+end_src
 * Movements
+** Avy
+#+begin_src emacs-lisp
+(use-package avy
+  :init
+  (map! :n "f" 'avy-goto-word-1-below
+        :n "F" 'avy-goto-word-1-above
+        :n "," 'avy-goto-char-2)
+  :config
+  (setq avy-case-fold-search 't
+        avy-style 'at-full
+        avy-timeout-seconds 0.5
+        avy-highlight-first t
+        avy-single-candidate-jump t
+        avy-background t
+        avy-styles-alist '((avy-goto-line . at))
+        avy-keys (nconc (number-sequence ?a ?z)
+                        ;; (number-sequence ?0 ?9)
+                        ))
+
+  (setq avy-all-windows nil)
+
+  (custom-set-faces
+   '(avy-background-face ((t (:foreground "skyblue"))))))
+#+end_src
 ** Ivy
 #+begin_src emacs-lisp
 (use-package! ivy
@@ -105,7 +128,6 @@
 
   ;; Original:
   ;; (setq counsel-ag-base-command "ag --vimgrep %s")
-
 
   ;; (counsel-ag-base-command "ag
   ;; --filename
@@ -131,7 +153,6 @@
         :nvi "C-," 'counsel-find-symbol
         :desc "Counsel Ag" :leader "sg"  'counsel-ag)
 
-
   (map! :map (ivy-minibuffer-map ivy-switch-buffer-map)
         "M-y"      'ivy-next-line
         "M-r"      'ivy-next-line
@@ -156,23 +177,19 @@
 
 ** Goto
 #+begin_src emacs-lisp
-(map! :n "'"       'evil-goto-mark
-      :n "
-      :leader "fO" 'counsel-locate
+(map! :leader "fO" 'counsel-locate
       :leader "fp" 'search-packages
       :leader "fs" 'search-settings)
 #+end_src
 ** Helpful
 #+begin_src emacs-lisp
 (use-package! helpful
-  :demad t
   :config
-  (map! (:map helpful-mode-map
+  (map! (:nvig "C-;" 'helpful-at-point
+         :map helpful-mode-map
          :nvig "C-r" 'helpful-update
-         :nvig "C-;" 'helpful-at-point
          :n "<escape>" 'quit-window)))
   #+end_src
-
 * Builtin
 ** Prog
 #+begin_src emacs-lisp
@@ -184,16 +201,10 @@
          (:map (prog-mode-map
                    emacs-lisp-mode-map
                    lisp-mode-map))
-  (defun my-evil-sel-to-end ()
-    (interactive)
-    (evil-visual-char)
-    (evil-last-non-blank))
-
-
-  (defun my-recenter-window ()
-    (interactive)
-    (recenter-top-bottom
-     `(4)))
+  # (defun my-evil-sel-to-end ()
+  #   (interactive)
+  #   (evil-visual-char)
+  #   (evil-last-non-blank))
 
   (defun my-indent-buffer ()
     (interactive)
@@ -201,6 +212,12 @@
       (evil-indent
        (point-min)
        (point-max))))))
+#+end_src
+** Menu
+#+begin_src emacs-lisp
+(use-package! menu-bar
+  :config
+  (map! :leader "k" 'kill-this-buffer))
 #+end_src
 ** Files
 #+begin_src emacs-lisp
@@ -215,17 +232,30 @@
       (evil-ex-nohighlight)
       (save-buffer)))
 
+(defun my-sel-to-end ()
+  (interactive)
+  (evil-visual-char)
+  (evil-last-non-blank))
+
   (map! (:map prog-mode-map tex-main-file)
-        :n "<escape>" 'my-quiet-save-buffer)
+        :n "<escape>" 'quiet-save-buffer)
 
   (defun goto-python-scratch ()
     (interactive)
     (find-file "~/.doom.d/.tmp/py.py"))
 
-  (defun my-search-settings ()
+  (defun goto-markdown ()
+    (interactive)
+    (find-file "~/.doom.d/.tmp/md.md"))
+
+  (defun search-settings ()
     (interactive)
     (counsel-ag nil "~/.doom.d/.searches/" "-f -G '.org'"))
 
+  (defun my-recenter-window ()
+    (interactive)
+    (recenter-top-bottom
+     `(4)))
 
   (defun goto-packages ()
     (interactive)
@@ -252,6 +282,15 @@
   )
   #+end_src
 * Functions
+** Eval
+#+begin_src emacs-lisp
+(defun my-tangle-config ()
+(interactive)
+(my-quiet-save-some-buffers)
+(start-process-shell-command "tangle config.org" nil "~/dotfiles/scripts/emacs_scripts/nt-config")
+(message " config tangled"))
+#+end_src
+** Misc
 #+begin_src emacs-lisp
 (defun my-sort-lines-by-length (reverse beg end)
   "sort lines by length."
@@ -268,18 +307,39 @@
                                         (list l1 l2)))))
         (reverse-region beg end)))))
 #+end_src
-
-* Kbds
+* Macros
+#+begin_src emacs-lisp
+(fset 'my-dup-par
+(kmacro-lambda-form [?y ?a ?p ?\} escape ?p] 0 "%d"))
+(map! :leader "tp" 'my-dup-par)
+#+end_src
+* General
 #+begin_src emacs-lisp
 (general-define-key
 :states  '(global normal visual insert)
 :keymaps 'override
-"M-9" 'quit-window
+"M-0" 'quit-window
+"M-9" 'delete-window
 "M-s" 'my-last-buffer)
 
-(map! :i      "M-e" 'yas-expand
-      :leader "0"   'delete-window
-      :leader "k"   'kill-this-buffer)
+(general-define-key
+:states  '(normal)
+:keymaps 'override
+"ge" 'evil-end-of-visual-line)
+
+;;;; EMACS LIKE ON INSERT ;;;;
+(general-define-key
+:states  '(insert)
+:keymaps 'override
+"C-p" 'previous-line
+"C-n" 'next-line
+"C-h" 'backward-delete-char-untabify
+"C-d" 'delete-char
+"C-b" 'backward-char
+"C-f" 'forward-char
+"M-f" 'forward-word
+"M-b" 'backward-word
+"C-k" 'kill-line)
 #+end_src
 * Prose
 ** Org
@@ -287,6 +347,7 @@
 (use-package! org
   :after-call after-find-file
   :init
+  (setq org-src-window-setup 'current-window)
   (remove-hook! 'org-mode-hook 'writegood-mode 'flyspell-mode)
   (remove-hook! 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (add-hook! 'org-agenda-mode-hook 'hl-line-mode)
@@ -342,6 +403,7 @@
           (goto-char (point-min))
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
+(map! :desc "Clean Lines" :leader "tc" 'xah-clean-empty-lines)
 #+end_src
 * Prog
 ** Company

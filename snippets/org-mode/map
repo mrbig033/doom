@@ -1,0 +1,4 @@
+# key: mapp
+# name: mappp
+# --
+(map! :$1 '$2))
