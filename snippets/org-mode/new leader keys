@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: new leader keys
+# key: nl
+# --
+:desc "$1" :leader "$2" '$3

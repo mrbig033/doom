@@ -1,9 +1,14 @@
 (setq user-full-name "John Doe"
       user-mail-address "john@doe.com")
 
-(setq use-package-always-defer t)
+(setq use-package-always-defer t
+      confirm-kill-emacs nil)
+
 (after! lsp-python-ms
   (set-lsp-priority! 'mspyls 1))
+
+(set-popup-rule! "^\\*Org Src" :ignore t)
+(after! org (setq org-src-window-setup 'current-window))
 
 (setq display-line-numbers-type nil
       doom-font (font-spec :family "Menlo" :size 19)
@@ -52,13 +57,47 @@
 
 (use-package! org
   :init
-  (set-popup-rule! "^\\*Org Src" :ignore t)
+  (add-hook 'org-src-mode-hook 'my-indent-buffer)
   :custom
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-ellipsis ".")
   (org-directory "~/org/")
   :config
-  (setq org-src-window-setup 'current-window))
+
+  (map! :map (evil-org-mode-map org-mode-map)
+        :n "<backspace>" 'org-edit-special
+        :n "zi" 'org-show-all)
+
+  (general-unbind
+    :keymaps '(org-src-mode-map prog-mode-map)
+    :states 'normal
+    :with 'org-edit-src-exit
+    "<backspace>"))
+
+(use-package! super-save
+  :custom
+  (auto-save-default nil)
+  (super-save-exclude '(".py"))
+  (super-save-remote-files nil)
+  (super-save-auto-save-when-idle nil)
+  :config
+  (add-to-list 'super-save-triggers 'evil-switch-to-windows-last-buffer)
+  (add-to-list 'super-save-hook-triggers 'find-file-hook)
+  (super-save-mode +1))
+
+(use-package! python
+  :config
+  (map! :map python-mode-map
+        :n "<C-return>" 'quickrun))
+
+(use-package! ranger
+  :init
+  (setq ranger-deer-show-details nil)
+  :config
+  (map! :map ranger-mode-map
+        "q" 'ranger-close
+        "<escape>" 'ranger-close
+        :desc "Deer" :leader "r" 'deer))
 
 (use-package! ivy
   :custom
@@ -101,16 +140,93 @@
         "C-w"      'backward-kill-word
         "<insert>" 'yank))
 
+(use-package! company
+  :custom
+  (company-ispell-available t)
+  (company-show-numbers t)
+  (company-idle-delay 0.2)
+  (company-tooltip-limit 10)
+  (company-minimum-prefix-length 1)
+  (company-dabbrev-other-buffers t)
+  (company-selection-wrap-around t)
+  (company-auto-complete nil)
+  (company-dabbrev-ignore-case 'keep-prefix)
+  (company-global-modes '(not erc-mode
+                              ;; text-mode
+                              ;; org-mode
+                              ;; markdown-mode
+                              message-mode
+                              help-mode
+                              gud-mode
+                              eshell-mode))
+
+  :general
+  (:keymaps '(company-active-map)
+   "<return>" nil
+   "TAB"      nil
+   "C-h"    'backward-delete-char
+   "M-e"    'my-company-yasnippet
+   "M-q"    'company-complete-selection
+   "C-d"    'counsel-company
+   "M-w"    'my-company-comp-with-paren
+   "M-."    'my-company-comp-with-dot
+   "M-j"    'my-company-comp-space
+   "C-u"    'my-backward-kill-line
+   "M-0"    'company-complete-number
+   "M-1"    'company-complete-number
+   "M-2"    'company-complete-number
+   "M-3"    'company-complete-number
+   "M-4"    'company-complete-number
+   "M-5"    'company-complete-number
+   "M-6"    'company-complete-number
+   "M-7"    'company-complete-number
+   "M-8"    'company-complete-number
+   "M-9"    'company-complete-number)
+
+  :config
+
+  (defun my-company-yasnippet ()
+    (interactive)
+    (company-abort)
+    (yas-expand))
+
+  (defun my-company-comp-with-paren ()
+    (interactive)
+    (company-complete-selection)
+    (insert "()")
+    (backward-char))
+
+  (defun my-company-comp-with-dot ()
+    (interactive)
+    (company-complete-selection)
+    (insert ".")
+    (company-complete))
+
+  (defun my-company-comp-space ()
+    (interactive)
+    (company-complete-selection)
+    (insert " ")))
+
+(use-package! which-key
+  :custom
+  (which-key-idle-delay 0.5))
+
+(define-key key-translation-map (kbd "s-(") (kbd "{"))
+(define-key key-translation-map (kbd "s-)") (kbd "}"))
 (define-key key-translation-map (kbd "<f19>") (kbd "C-c"))
 (define-key key-translation-map (kbd "<f18>") (kbd "C-x"))
 
-
 (map! :map override
+      "C-0"            'insert-char
+      "M-0"            'quit-window
+      "M-9"            'delete-other-windows
       :i "C-u"         'my-backward-kill-line
       :n "ge"          'evil-end-of-visual-line
       :n "gr"          'my-sel-to-end
       :v "gr"          'eval-region
       :nv "C-s"        'counsel-grep-or-swiper
+      :n "'"           'evil-goto-mark
+      :n "`"           'evil-goto-mark-line
       :n "0"           'evil-beginning-of-visual-line
       :n "g0"          'evil-digit-argument-or-evil-beginning-of-line
       :n "M-k"         'windmove-up
@@ -125,28 +241,29 @@
       "M-s"            'evil-switch-to-windows-last-buffer)
 
 (map! :n "<escape>"    'my-save-buffer
-      :map (evil-org-mode-map org-mode-map)
-      :n "C-o"         'my-counsel-outline
-      :n "<backspace>" 'org-edit-special
-      :map (prog-mode-map)
+      :n "C-o"         'my-counsel-outline)
+
+(map! :map (prog-mode-map)
+      :i "M-e"         'yas-expand
       :n "M-RET"       'my-indent-buffer)
 
-(general-unbind
-  :keymaps '(evil-org--mode-map org-src-mode-map prog-mode-map)
-  :states 'normal
-  :with 'org-edit-src-exit
-  "<backspace>")
-
-(map! :leader "k" 'kill-this-buffer
-      :leader "hn" 'my-show-server
-      :leader "tt" 'my-tangle-config
-      :leader "hM" 'my-show-major-mode
-      :leader "fa" 'goto-agenda
-      :leader "fl" 'deer-goto-lisp
-      :leader "fp" 'goto-packages
-      :leader "fm" 'goto-markdown
-      :leader "fc" 'my-doom-goto-private-config-org-file
-      :leader "fo" 'goto-org)
+(map! :desc "Kill Buffer"    :leader "k"   'kill-this-buffer
+      :desc "Show Server"    :leader "hn"  'my-show-server
+      :desc "Show Mode"      :leader "hM"  'my-show-major-mode
+      :desc "Goto Agenda"    :leader "fa"  'goto-agenda
+      :desc "Goto List"      :leader "fl"  'deer-goto-lisp
+      :desc "Goto Pkgs"      :leader "fp"  'goto-packages
+      :desc "Goto Setqs"     :leader "fs"  'goto-settings
+      :desc "Goto MD"        :leader "fm"  'goto-markdown
+      :desc "Goto Config"    :leader "fc"  'my-doom-goto-private-config-org-file
+      :desc "Goto Org"       :leader "fo"  'goto-org
+      :desc "Tangle"         :leader "tt"  'my-tangle-config
+      :desc "Sort by Length" :leader "tC"  'my-sort-lines-by-length
+      :desc "Change Dict"    :leader "td"  'ispell-change-dictionary
+      :desc "Yes New"        :leader "tyn" 'yas-new-snippet
+      :desc "Yes Visit"      :leader "tyv" 'yas-visit-snippet-file
+      :desc "Yes Reload"     :leader "tyr" 'yas-reload-all
+      :desc "Flyspell"       :leader "tF"  'flyspell-mode)
 
 (setq doom-localleader-key "m")
 
@@ -181,6 +298,11 @@
   (interactive)
   (counsel-ag nil "~/.doom.d/" "-f -G '.org'"))
 
+(defun goto-functions ()
+  (interactive)
+  (counsel-ag "(defun " "~/.doom.d" "-f -G '.org'")
+  (my-recenter-window))
+
 (defun my-recenter-window ()
   (interactive)
   (recenter-top-bottom
@@ -189,11 +311,6 @@
 (defun goto-packages ()
   (interactive)
   (counsel-ag "(use-package! " "~/.doom.d" "-f -G '.org'")
-  (my-recenter-window))
-
-(defun goto-functions ()
-  (interactive)
-  (counsel-ag "(defun " "~/.doom.d" "-f -G '.org'")
   (my-recenter-window))
 
 (defun my-tangle-config ()
@@ -259,3 +376,18 @@
   "Open your private config.org file."
   (interactive)
   (find-file (expand-file-name "config.org" doom-private-dir)))
+
+(defun xah-clean-empty-lines ()
+  "replace repeated blank lines to just 1."
+  (interactive)
+  (let ($begin $end)
+    (if (region-active-p)
+        (setq $begin (region-beginning) $end (region-end))
+      (setq $begin (point-min) $end (point-max)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (progn
+          (goto-char (point-min))
+          (while (re-search-forward "\n\n\n+" nil "move")
+            (replace-match "\n\n")))))))

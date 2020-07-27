@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: interactive function
+# key: defi
+# --
+(defun $1 ()
+  (interactive)
+  ($0))
