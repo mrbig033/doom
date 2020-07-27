@@ -2,7 +2,8 @@
       user-mail-address "john@doe.com")
 
 (setq use-package-always-defer t
-      confirm-kill-emacs nil)
+      confirm-kill-emacs nil
+      deft-directory "~/Documents/deft")
 
 (after! lsp-python-ms
   (set-lsp-priority! 'mspyls 1))
@@ -22,6 +23,9 @@
   :config
   (map! :map override "M-w" 'eyebrowse-next-window-config
         :map override "M-q" 'eyebrowse-prev-window-config
+        :map override "M-q" 'eyebrowse-prev-window-config
+
+        :leader "s-t" 'eyebrowse-create-window-config
         :leader "v" 'eyebrowse-create-window-config
         :leader "x" 'eyebrowse-close-window-config)
   (eyebrowse-mode +1))
@@ -44,9 +48,7 @@
   (global-eldoc-mode -1)
   (help-window-select +1)
   :config
-  (map! ("C-h e" 'describe-package
-         :nvig "C-," 'helpful-at-point
-         :map (helpful-mode-map help-mode-map)
+  (map! (:map (helpful-mode-map help-mode-map)
          :nvig "C-r" 'helpful-update
          :n "<escape>" 'quit-window)))
 
@@ -57,16 +59,15 @@
 
 (use-package! org
   :init
+  (map! :map (evil-org-mode-map org-mode-map)
+        :n "<backspace>" 'org-edit-special
+        :n "zi" 'org-show-all)
   (add-hook 'org-src-mode-hook 'my-indent-buffer)
   :custom
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-ellipsis ".")
   (org-directory "~/org/")
   :config
-
-  (map! :map (evil-org-mode-map org-mode-map)
-        :n "<backspace>" 'org-edit-special
-        :n "zi" 'org-show-all)
 
   (general-unbind
     :keymaps '(org-src-mode-map prog-mode-map)
@@ -85,14 +86,10 @@
   (add-to-list 'super-save-hook-triggers 'find-file-hook)
   (super-save-mode +1))
 
-(use-package! python
-  :config
-  (map! :map python-mode-map
-        :n "<C-return>" 'quickrun))
-
 (use-package! ranger
-  :init
-  (setq ranger-deer-show-details nil)
+  :demand t
+  :custom
+  (ranger-deer-show-details nil)
   :config
   (map! :map ranger-mode-map
         "q" 'ranger-close
@@ -207,9 +204,62 @@
     (company-complete-selection)
     (insert " ")))
 
+(use-package! elpy
+  :after python
+  :init
+  (map! :map python-mode-map
+        "<return>" 'hydra-python-mode/body)
+  :custom
+  (python-indent-guess-indent-offset nil)
+  (elpy-rpc-virtualenv-path 'current)
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (defhydra hydra-python-mode (:color blue :hint nil :foreign-keys run)
+    "
+
+    _d_: goto def    _s_: quickshell     _c_: classes ag
+    _a_: go at point _l_: clear errors   _f_: functions ager
+    _g_: goto dumb   _C_: classes swiper
+    _b_: go back     _F_: functions swip
+"
+
+    ("<escape>" nil)
+    ("q" nil)
+
+    ("d" elpy-goto-definition)
+    ("<return>" elpy-goto-definition)
+    ("a" counsel-ag-thing-at-point)
+
+    ("g" dumb-jump-go)
+    ("b" better-jumper-jump-backward)
+    ("<C-return>" better-jumper-jump-backward)
+    ("s" quickrun-shell)
+    ("l" flycheck-clear)
+
+    ("C" my-swiper-python-classes)
+    ("F" my-swiper-python-functions)
+
+    ("c" my-search-python-classes)
+    ("f" my-search-python-function))
+  (elpy-enable))
+
 (use-package! which-key
   :custom
   (which-key-idle-delay 0.5))
+
+(use-package! git-auto-commit-mode
+  :custom
+  (gac-debounce-interval 600))
+
+(use-package! deft
+  :init
+  (map! :map deft-mode-map
+        :i "C-h"      'deft-filter-decrement
+        :i "C-u"      'my-backward-kill-line
+        :i "C-w"      'deft-filter-decrement-word
+        :n "q"        'quit-window
+        :n "<escape>" 'quit-window))
 
 (define-key key-translation-map (kbd "s-(") (kbd "{"))
 (define-key key-translation-map (kbd "s-)") (kbd "}"))
@@ -217,9 +267,15 @@
 (define-key key-translation-map (kbd "<f18>") (kbd "C-x"))
 
 (map! :map override
+      "C-h e"          'describe-package
       "C-0"            'insert-char
       "M-0"            'quit-window
       "M-9"            'delete-other-windows
+      "M-p"            'backward-paragraph
+      "M-n"            'forward-paragraph
+      "C-,"            'projectile-switch-to-buffer
+      "C-;"            '+ivy/switch-buffer
+      "C-:"            'helpful-at-point
       :i "C-u"         'my-backward-kill-line
       :n "ge"          'evil-end-of-visual-line
       :n "gr"          'my-sel-to-end
@@ -237,8 +293,12 @@
       :n "M-o"         'better-jumper-jump-backward
       :n "M-i"         'better-jumper-jump-forward
       :v "K"           'ignore
-      :i "C-h"         'delete-backward-char
       "M-s"            'evil-switch-to-windows-last-buffer)
+
+
+
+(map! :i "C-h"         'delete-backward-char)
+
 
 (map! :n "<escape>"    'my-save-buffer
       :n "C-o"         'my-counsel-outline)
@@ -247,23 +307,27 @@
       :i "M-e"         'yas-expand
       :n "M-RET"       'my-indent-buffer)
 
-(map! :desc "Kill Buffer"    :leader "k"   'kill-this-buffer
-      :desc "Show Server"    :leader "hn"  'my-show-server
-      :desc "Show Mode"      :leader "hM"  'my-show-major-mode
-      :desc "Goto Agenda"    :leader "fa"  'goto-agenda
-      :desc "Goto List"      :leader "fl"  'deer-goto-lisp
-      :desc "Goto Pkgs"      :leader "fp"  'goto-packages
-      :desc "Goto Setqs"     :leader "fs"  'goto-settings
-      :desc "Goto MD"        :leader "fm"  'goto-markdown
-      :desc "Goto Config"    :leader "fc"  'my-doom-goto-private-config-org-file
-      :desc "Goto Org"       :leader "fo"  'goto-org
-      :desc "Tangle"         :leader "tt"  'my-tangle-config
-      :desc "Sort by Length" :leader "tC"  'my-sort-lines-by-length
-      :desc "Change Dict"    :leader "td"  'ispell-change-dictionary
-      :desc "Yes New"        :leader "tyn" 'yas-new-snippet
-      :desc "Yes Visit"      :leader "tyv" 'yas-visit-snippet-file
-      :desc "Yes Reload"     :leader "tyr" 'yas-reload-all
-      :desc "Flyspell"       :leader "tF"  'flyspell-mode)
+(map! :map (snippet-mode-map)
+      :n "<escape>"      'evil-ex-nohighlight)
+
+(map! :desc "Kill Buffer"     :leader "k"   'kill-this-buffer
+      :desc "Show Server"     :leader "hn"  'my-show-server
+      :desc "Show Mode"       :leader "hM"  'my-show-major-mode
+      :desc "Goto Agenda"     :leader "fa"  'goto-agenda
+      :desc "Goto List"       :leader "fl"  'deer-goto-lisp
+      :desc "Goto Pkgs"       :leader "fp"  'goto-packages
+      :desc "Goto Setqs"      :leader "fs"  'goto-settings
+      :desc "Goto MD"         :leader "fm"  'goto-markdown
+      :desc "Goto Config"     :leader "fc"  'my-doom-goto-private-config-org-file
+      :desc "Goto Org"        :leader "fo"  'goto-org
+      :desc "Tangle"          :leader "tt"  'my-tangle-config
+      :desc "Sort by Length"  :leader "tS"  'my-sort-lines-by-length
+      :desc "Change Dict"     :leader "td"  'ispell-change-dictionary
+      :desc "New Snippet"     :leader "tyn" 'yas-new-snippet
+      :desc "Visit Snippet"   :leader "tyv" 'yas-visit-snippet-file
+      :desc "Reload Snippets" :leader "tyr" 'yas-reload-all
+      :desc "Flyspell"        :leader "tF"  'flyspell-mode
+      :desc "Reopen"          :leader "T"   'recentf-open-most-recent-file)
 
 (setq doom-localleader-key "m")
 
@@ -310,7 +374,7 @@
 
 (defun goto-packages ()
   (interactive)
-  (counsel-ag "(use-package! " "~/.doom.d" "-f -G '.org'")
+  (counsel-ag "(use-package! " "~/.doom.d" "--ignore 'snippets' -f -G '.org'")
   (my-recenter-window))
 
 (defun my-tangle-config ()
@@ -331,7 +395,9 @@
   (start-process-shell-command "tangle restart" nil "emacs --debug-init &")
   (message " tangle debug"))
 
-(map! :desc "Tangle Init" :leader "att" 'my-tangle-config)
+(map! :desc "Tangle Init"    :leader "att" 'my-tangle-config
+      :desc "Tangle Degug"   :leader "att" 'my-tangle-debug
+      :desc "Tangle Restart" :leader "att" 'my-tangle-restart)
 
 (defun my-sort-lines-by-length (reverse beg end)
   "sort lines by length."
@@ -391,3 +457,7 @@
           (goto-char (point-min))
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
+
+(fset 'my-dup-par
+      (kmacro-lambda-form [?y ?a ?p ?\} escape ?p] 0 "%d"))
+(map! :leader "tp" 'my-dup-par)
