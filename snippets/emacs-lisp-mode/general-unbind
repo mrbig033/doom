@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: general-unbind
+# key: gunb
+# --
+(general-unbind
+  :keymaps '$1-mode-map
+  :with '$2
+  [remap $0])
